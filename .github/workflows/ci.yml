@@ -1,0 +1,23 @@
+name: docs-check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  markdown-structure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check required files
+        run: |
+          test -f README.md
+          test -f PORTFOLIO.md
+          test -f docs/evidence_index.md
+          test -f docs/public_safety_rules.md
+          test -f bloc_1_data_infrastructure/README.md
+          test -f bloc_2_eda_statistics/README.md
+          test -f bloc_3_machine_learning/README.md
+          test -f bloc_4_nlp_deep_learning/README.md
+          test -f bloc_5_mlops_deployment/README.md
+          test -f bloc_6_project_governance/README.md

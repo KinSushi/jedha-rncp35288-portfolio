@@ -1,0 +1,50 @@
+# Python / notebooks
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Private school/admin material
+private/
+school_documents/
+certificates_private/
+grades/
+exam_subjects/
+exam_answers/
+cpf/
+contracts/
+invoices/
+*.pdf
+*.docx
+*.xlsx
+*.pptx
+
+# Applications
+cv/
+cvs/
+resume/
+resumes/
+cover-letters/
+applications/
+job-tracker/
+recruiters/
+interviews/
+salary/
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+credentials.json
+token.json
+secrets/
+
+# Outputs
+outputs/
+*.log
+.DS_Store
+Thumbs.db

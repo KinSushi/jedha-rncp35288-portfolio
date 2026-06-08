@@ -1,0 +1,39 @@
+<svg width="1280" height="320" viewBox="0 0 1280 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Jedha certification portfolio banner">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="320" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#07111F"/>
+      <stop offset="0.55" stop-color="#0B1F3A"/>
+      <stop offset="1" stop-color="#24143D"/>
+    </linearGradient>
+    <style>
+      .title{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:42px;font-weight:750;fill:#fff}
+      .sub{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:21px;fill:#D8E2F0}
+      .chip{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:14px;font-weight:650;fill:#fff}
+      .node{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:13px;fill:#D8E2F0}
+    </style>
+  </defs>
+  <rect width="1280" height="320" rx="26" fill="url(#bg)"/>
+  <g opacity=".42">
+    <rect x="790" y="70" width="90" height="50" rx="12" fill="#0D419D" stroke="#58A6FF"/>
+    <text x="816" y="101" class="node">B1</text>
+    <rect x="900" y="70" width="90" height="50" rx="12" fill="#0D419D" stroke="#58A6FF"/>
+    <text x="926" y="101" class="node">B2</text>
+    <rect x="1010" y="70" width="90" height="50" rx="12" fill="#0F2F24" stroke="#2EA043"/>
+    <text x="1036" y="101" class="node">B3</text>
+    <rect x="1120" y="70" width="90" height="50" rx="12" fill="#24143D" stroke="#A371F7"/>
+    <text x="1146" y="101" class="node">B4</text>
+    <rect x="900" y="180" width="90" height="50" rx="12" fill="#0F2F24" stroke="#2EA043"/>
+    <text x="926" y="211" class="node">B5</text>
+    <rect x="1010" y="180" width="90" height="50" rx="12" fill="#24143D" stroke="#A371F7"/>
+    <text x="1036" y="211" class="node">B6</text>
+  </g>
+  <text x="74" y="104" class="title">jedha-rncp35288-portfolio</text>
+  <text x="74" y="150" class="sub">Six-block public evidence map · Data Science · MLOps · Governance</text>
+  <text x="74" y="188" class="sub">Sanitized technical artifacts only — no private school or application documents</text>
+  <rect x="74" y="232" width="136" height="36" rx="18" fill="#0D419D"/>
+  <text x="102" y="255" class="chip">RNCP L6</text>
+  <rect x="226" y="232" width="146" height="36" rx="18" fill="#1A7F37"/>
+  <text x="254" y="255" class="chip">Six Blocks</text>
+  <rect x="388" y="232" width="152" height="36" rx="18" fill="#6E40C9"/>
+  <text x="416" y="255" class="chip">Governance</text>
+</svg>
