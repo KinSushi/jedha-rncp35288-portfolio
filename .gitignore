@@ -1,11 +1,13 @@
 # Python / notebooks
 __pycache__/
 *.py[cod]
+*.pyc
 .ipynb_checkpoints/
 .venv/
 venv/
 .pytest_cache/
 .ruff_cache/
+*.egg-info/
 
 # Private school/admin material
 private/
@@ -42,6 +44,9 @@ salary/
 credentials.json
 token.json
 secrets/
+
+# Archives / transfer artifacts
+*.zip
 
 # Outputs
 outputs/
