@@ -163,9 +163,9 @@ Public sanitized evidence repository mapping the Jedha Data Science & AI RNCP Le
 
 | Role family | Why it matters |
 |---|---|
-| Junior Data Engineer | data infrastructure, SQL, ingestion |
-| Junior Data Scientist | EDA, statistics, ML evaluation |
-| Junior MLOps Engineer | API, Docker, MLflow, monitoring |
+| Data Engineer | data infrastructure, SQL, ingestion |
+| Data Scientist | EDA, statistics, ML evaluation |
+| MLOps Engineer | API, Docker, MLflow, monitoring |
 | DataOps / Application Support | runbooks, controls, data quality |
 | AI governance / risk analytics | model/data cards, risk register, limitations |
 
