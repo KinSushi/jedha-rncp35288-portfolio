@@ -21,3 +21,7 @@ jobs:
           test -f bloc_4_nlp_deep_learning/README.md
           test -f bloc_5_mlops_deployment/README.md
           test -f bloc_6_project_governance/README.md
+          test -f aia_bloc_1_data_ai_governance/README.md
+          test -f aia_bloc_2_ai_data_architecture/README.md
+          test -f aia_bloc_3_data_pipelines_for_ai/README.md
+          test -f aia_bloc_4_ai_solutions_deployment/README.md

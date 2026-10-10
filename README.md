@@ -8,7 +8,7 @@
 
 **Public, sanitized technical evidence portfolio for the Jedha Data Science & AI certification track**
 
-RNCP Level 6 / Six-block evidence / Data Infrastructure / EDA / ML / NLP / MLOps / Project Governance
+RNCP35288 (Level 6, six blocks) + RNCP38777 AI Architect (Level 7, four blocks) / Data Infrastructure / EDA / ML / NLP / MLOps / Governance / AI Architecture
 
 ![RNCP Level 6](https://img.shields.io/badge/RNCP-Level%206-2EA043?style=flat)
 ![Jedha](https://img.shields.io/badge/Jedha-Data%20Science%20%26%20AI-1F6FEB?style=flat)
@@ -23,14 +23,15 @@ RNCP Level 6 / Six-block evidence / Data Infrastructure / EDA / ML / NLP / MLOps
 
 ## Executive summary
 
-This repository is a public sanitized evidence portfolio for the Jedha Data Science & AI RNCP Level 6 six-block track.
+This repository is a public sanitized evidence portfolio for two Jedha certification tracks: the RNCP35288 Data Science track (Level 6, six blocks) and the RNCP38777 AI Architect track (Level 7, four blocks; renewed as RNCP41993).
 
 It is designed to organize technical evidence without publishing private school documents, exam materials, grades, certificates with personal identifiers, CPF documents, contracts, invoices or application material.
 
-The portfolio maps technical artifacts to six competency blocks:
+The portfolio maps technical artifacts to ten competency blocks:
 
 ```text
-data infrastructure -> EDA/statistics -> machine learning -> NLP/deep learning -> MLOps deployment -> project governance
+RNCP35288 : data infrastructure -> EDA/statistics -> machine learning -> NLP/deep learning -> MLOps deployment -> project governance
+RNCP38777 : data & AI governance -> AI data architecture -> data pipelines for AI -> AI solutions deployment
 ```
 
 ---
@@ -77,7 +78,7 @@ Allowed:
 
 ---
 
-## Six-block evidence map
+## Six-block evidence map — Data Science (RNCP35288)
 
 | Block | Public evidence folder | Technical signal |
 |---|---|---|
@@ -87,6 +88,15 @@ Allowed:
 | Bloc 4 - NLP / deep learning | `bloc_4_nlp_deep_learning/` | text processing, document classification, GenAI foundations |
 | Bloc 5 - Industrialization / MLOps | `bloc_5_mlops_deployment/` | API, Docker, MLflow, tests, monitoring |
 | Bloc 6 - Project governance | `bloc_6_project_governance/` | project charter, risk register, model/data governance |
+
+## Four-block evidence map — AI Architect (RNCP38777)
+
+| Block | Public evidence folder | Technical signal |
+|---|---|---|
+| AIA Bloc 1 - Data & AI governance | `aia_bloc_1_data_ai_governance/` | asset and risk mapping, RACI, data contracts, RBAC/ABAC, GDPR and EU AI Act |
+| AIA Bloc 2 - AI data architecture | `aia_bloc_2_ai_data_architecture/` | OLTP/OLAP/NoSQL design, sizing, Infrastructure as Code, resilience, FinOps |
+| AIA Bloc 3 - Data pipelines for AI | `aia_bloc_3_data_pipelines_for_ai/` | batch/streaming flows, orchestration, data quality, privacy by design, observability |
+| AIA Bloc 4 - AI solutions deployment | `aia_bloc_4_ai_solutions_deployment/` | CI/CD/CT, model registry, inference API, drift monitoring, retraining, model card |
 
 ---
 
@@ -119,7 +129,11 @@ jedha-rncp35288-portfolio/
 |-- bloc_3_machine_learning/
 |-- bloc_4_nlp_deep_learning/
 |-- bloc_5_mlops_deployment/
-`-- bloc_6_project_governance/
+|-- bloc_6_project_governance/
+|-- aia_bloc_1_data_ai_governance/
+|-- aia_bloc_2_ai_data_architecture/
+|-- aia_bloc_3_data_pipelines_for_ai/
+`-- aia_bloc_4_ai_solutions_deployment/
 ```
 
 ---
@@ -159,6 +173,10 @@ This repository is part of the KinSushi public technical portfolio.
 
 | Layer | Evidence |
 |---|---|
-| Certification evidence | public sanitized six-block evidence map for RNCP Level 6 track |
+| Certification evidence | public sanitized ten-block evidence map: RNCP35288 (six blocks) and RNCP38777 (four blocks) |
 
 Detailed cross-repository context: [docs/PORTFOLIO_LAYER.md](docs/PORTFOLIO_LAYER.md)
+
+---
+
+*Copyright © 2026 · Auteur — KinSushi · Enzo · Sovralys LLC*

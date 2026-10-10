@@ -58,6 +58,10 @@ jobs:
               "bloc_4_nlp_deep_learning/README.md",
               "bloc_5_mlops_deployment/README.md",
               "bloc_6_project_governance/README.md",
+              "aia_bloc_1_data_ai_governance/README.md",
+              "aia_bloc_2_ai_data_architecture/README.md",
+              "aia_bloc_3_data_pipelines_for_ai/README.md",
+              "aia_bloc_4_ai_solutions_deployment/README.md",
           ]
           missing = [path for path in required_files if not (root / path).exists()]
           add_result(
@@ -74,13 +78,17 @@ jobs:
               "bloc_4_nlp_deep_learning",
               "bloc_5_mlops_deployment",
               "bloc_6_project_governance",
+              "aia_bloc_1_data_ai_governance",
+              "aia_bloc_2_ai_data_architecture",
+              "aia_bloc_3_data_pipelines_for_ai",
+              "aia_bloc_4_ai_solutions_deployment",
               "docs/templates",
           ]
           missing_dirs = [path for path in required_dirs if not (root / path).is_dir()]
           add_result(
-              "six-block-folder-checks",
+              "ten-block-folder-checks",
               "PASS" if not missing_dirs else "FAIL",
-              "All six block folders exist." if not missing_dirs else "Missing directories:\n" + "\n".join(missing_dirs),
+              "All ten block folders exist (6 CDSD + 4 AIA)." if not missing_dirs else "Missing directories:\n" + "\n".join(missing_dirs),
               0 if not missing_dirs else 1,
           )
 
