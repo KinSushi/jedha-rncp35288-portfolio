@@ -143,7 +143,7 @@ Dans le modèle linéaire, les signaux de spam les plus forts sont les jetons `<
 
 | Mesure | Résultat | Source |
 |---|---|---|
-| Tests (20 octobre 2026, sur la version publiée) | 259 réussis avec `spam.csv` en place (section 2), dépréciations traitées comme des erreurs, sans le test marqué `notebook` ; ce dernier exécute le notebook entier et compare toutes ses sorties, durées et SMS du corpus exceptés, à des sorties de référence | commande de la section 5 ; [`tests/`](att_spam_detector/tests/) |
+| Tests (20 octobre 2026, sur la version publiée) | 260 réussis avec `spam.csv` en place (section 2), dépréciations traitées comme des erreurs ; l'un d'eux, marqué `notebook`, exécute le notebook entier (1 h 22 sur processeur) et compare toutes ses sorties, durées et SMS du corpus exceptés, à des sorties de référence | commande de la section 5 ; [`tests/`](att_spam_detector/tests/) |
 | Style | `ruff`, règles E, F, I, B, SLF, UP et W, lignes de 100 caractères au plus : 0 constat | commande de la section 5 |
 | Types | `mypy --strict` sur le paquet : 0 erreur | commande de la section 5 |
 | Tests de mutation (`mutmut`, cinq modules du paquet) | 1 657 mutants : 1 646 tués à la première mesure, dix de plus par des tests ajoutés ensuite ; le dernier (`bias=None` au lieu de `bias=False`) ne change pas le comportement, preuve exécutée à l'appui | [`MUTANTS_EQUIVALENTS.md`](att_spam_detector/MUTANTS_EQUIVALENTS.md) |
