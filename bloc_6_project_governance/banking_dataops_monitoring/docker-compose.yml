@@ -4,7 +4,7 @@
 # dashboard (port 8501) from that same container.
 # Driven by the Makefile (stack-up, stack-reset, ...) and by run.ps1 on Windows.
 # The host ports can be moved with POSTGRES_PORT, API_PORT and DASHBOARD_PORT, which Compose reads
-# from the environment or from a .env file (.env.example, run.ps1 setup).
+# from the environment or from a local .env file (written by run.ps1 setup).
 
 version: '3.9'
 

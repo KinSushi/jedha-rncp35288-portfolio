@@ -154,7 +154,7 @@ vw_publication_verdict
 Puis poser les relations et les mesures DAX : [`powerbi/connexion-cloud-neon-supabase.md`](powerbi/connexion-cloud-neon-supabase.md)
 (sections « Relations du modèle » et suivantes).
 
-**Brancher le rapport livré** (`docs/powerbi/banking_dataops_monitoring.pbix`) **sur une autre base** :
+**Brancher le rapport livré** (`docs/powerbi/banking_dataops_monitoring.pbix`, non publié dans ce dépôt) **sur une autre base** :
 le fichier est configuré sur une base PostgreSQL managée (Neon). Dans Power BI Desktop : **Transformer les
 données → Paramètres de la source de données → Changer la source**, puis saisir le serveur (`localhost:5432`
 pour la pile Docker, ou le port défini par `POSTGRES_PORT`) et la base (`banking_dataops`), identifiants

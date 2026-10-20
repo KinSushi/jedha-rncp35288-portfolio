@@ -132,7 +132,7 @@ Pour la certification, un fichier local suffit. Pour publier sur le service Powe
 
 ## 8. Brancher le rapport livré sur la pile locale
 
-Le fichier `banking_dataops_monitoring.pbix` livré est configuré sur **une base PostgreSQL managée (Neon)**, et non sur `localhost` : ses huit requêtes pointent vers un hôte `ep-…neon.tech`, port 5432, base `neondb`, schéma `public`. Pour qu'il affiche l'état de la pile Docker lancée en local :
+Le fichier `banking_dataops_monitoring.pbix` livré pour la certification (non publié dans ce dépôt) est configuré sur **une base PostgreSQL managée (Neon)**, et non sur `localhost` : ses huit requêtes pointent vers un hôte `ep-…neon.tech`, port 5432, base `neondb`, schéma `public`. Pour qu'il affiche l'état de la pile Docker lancée en local :
 
 1. démarrer la pile (`docker compose up --build`) ; les huit vues sont créées par le pipeline (`evidence/powerbi_views.txt`) ;
 2. travailler sur une **copie** du fichier, hors de l'arborescence du dépôt ;

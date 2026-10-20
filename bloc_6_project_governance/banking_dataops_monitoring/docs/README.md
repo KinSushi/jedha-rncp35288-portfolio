@@ -33,7 +33,7 @@ documentation remain in English.
 | Document | Purpose |
 |---|---|
 | [project/](project/) | Requirements, technology watch, schedule, budget, risk register, GDPR, project indicators |
-| Dossier de projet, matrice des compétences | Deposited as PDF (`01-Dossier-de-projet.pdf`, `03-Annexes/`); their Markdown sources are not part of this archive |
+| Dossier de projet, matrice des compétences | Submitted separately for the certification; not part of this repository |
 
 ## Boundary
 

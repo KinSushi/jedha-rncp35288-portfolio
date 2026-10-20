@@ -63,7 +63,7 @@ Motif déterminant : la démonstration doit fonctionner **sans dépendance rése
 | **Classifieur supervisé qui ordonne la file d'investigation** : régression logistique | Lisible (coefficients), ne bloque rien | Cible issue d'une règle du générateur sur données synthétiques ; dérive non mesurée | **Retenue** (ADR-0008, 21 juillet 2026) |
 | Forêt aléatoire optimisée par recherche sur grille | Peut capter des interactions | Opacité ; n'a pas gagné la marge de 0,01 d'AUC exigée | Comparée, non retenue |
 
-La chronologie complète de cet arbitrage figure au § 2.3 du dossier de projet.
+La chronologie complète de cet arbitrage figure au § 2.3 du dossier de projet, qui n'est pas publié dans ce dépôt.
 
 ### Validation
 

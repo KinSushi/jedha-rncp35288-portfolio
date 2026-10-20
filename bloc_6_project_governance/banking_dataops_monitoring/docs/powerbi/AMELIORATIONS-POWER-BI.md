@@ -1,6 +1,6 @@
 # Power BI : état du fichier livré et améliorations prévues
 
-## État actuel du fichier `banking_dataops_monitoring.pbix` (relevé par lecture du fichier)
+## État actuel du fichier `banking_dataops_monitoring.pbix` (relevé par lecture du fichier, non publié dans ce dépôt)
 
 Une page, quatre visuels :
 

@@ -14,14 +14,14 @@ venv/
 # Secrets — ne doit JAMAIS partir sur un dépôt public
 #
 # NOTE : le motif ".env" ci-dessous ne correspond QU'AU fichier nommé
-# exactement ".env". Il n'exclut pas ".env.example", et c'est voulu :
-#   .env          = vos vraies valeurs (hôte Neon, mot de passe) -> JAMAIS poussé
-#   .env.example  = le gabarit, sans aucun secret                -> POUSSÉ, il
-#                   documente les variables attendues et rend le projet
-#                   reproductible pour quelqu'un qui clone le dépôt.
+# exactement ".env" (vos vraies valeurs : hôte, mot de passe). Il n'exclut pas
+# un gabarit ".env.example" sans secret, qui pourrait être suivi pour
+# documenter les variables attendues. Ce gabarit n'est pas publié dans cette
+# version : ".\run.ps1 setup" écrit le fichier ".env" local, et les variables
+# sont décrites dans src/banking_dataops/config.py.
 # Vérifiable :
 #   git check-ignore -v .env          -> doit renvoyer une ligne (ignoré)
-#   git check-ignore -v .env.example  -> ne doit rien renvoyer (suivi)
+#   git check-ignore -v .env.example  -> ne doit rien renvoyer (non ignoré)
 # ---------------------------------------------------------------------------
 .env
 .env.local

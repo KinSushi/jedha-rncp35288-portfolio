@@ -184,5 +184,7 @@ banking_dataops_monitoring/
 **Fichiers cités mais non publiés dans cette version.** Plusieurs documents et scripts du projet renvoient à des fichiers qui ne figurent pas dans ce dépôt :
 
 - `CHANGELOG.md`, le journal des versions du projet ;
+- l'historique Git d'origine, dont les ADR citent des commits (par exemple `09c4f2d`) : cette version est publiée sans lui ;
+- le dossier de projet, cité par quelques documents de gestion de projet ;
 - le rapport Power BI (`.pbix`) et les captures d'écran du tableau de bord : le dossier [`docs/powerbi/`](banking_dataops_monitoring/docs/powerbi/) en donne la spécification, les mesures DAX et le thème ;
 - `.env.example`, le modèle de configuration locale : la commande `.\run.ps1 setup` écrit un fichier `.env` avec des ports libres, et les variables `BANKING_DATAOPS_*` sont décrites dans [`src/banking_dataops/config.py`](banking_dataops_monitoring/src/banking_dataops/config.py).

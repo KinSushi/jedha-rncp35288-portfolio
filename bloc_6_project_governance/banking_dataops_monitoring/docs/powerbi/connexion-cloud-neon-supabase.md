@@ -195,7 +195,7 @@ Puis, dans Power BI : **Actualiser**.
 
 - La chaîne de connexion contient un mot de passe : elle vit dans une variable
   d'environnement, **jamais** dans un fichier versionné. `.env` est dans
-  `.gitignore`, seul `.env.example` est publié.
+  `.gitignore` ; le gabarit `.env.example` n'est pas publié dans cette version.
 - Les données publiées sont **entièrement synthétiques** (`generate_synthetic_data`,
   `seed=42`). Aucune donnée personnelle réelle ne quitte le poste — c'est ce qui
   rend cette publication cloud acceptable dans un contexte bancaire.

@@ -81,7 +81,7 @@ Respect de la règle : voir § 6. Le code n'a pas changé après le 27 juillet 2
 
 ## 6. Bilan réalisé contre prévu (arrêté au 11 octobre 2026)
 
-Ce bilan ne retient que ce que les pièces du dépôt datent (CHANGELOG, historique Git, ADR, preuves). Quand aucune pièce ne date un fait, la case le dit : le projet n'écrit ni date ni heure qu'il ne peut pas prouver.
+Ce bilan ne retient que ce que les pièces du dépôt datent (CHANGELOG, historique Git, ADR, preuves). Quand aucune pièce ne date un fait, la case le dit : le projet n'écrit ni date ni heure qu'il ne peut pas prouver. Le CHANGELOG, l'historique Git d'origine et le dossier de projet ne sont pas publiés dans ce dépôt : les dates qui en viennent sont reprises telles quelles.
 
 ### 6.1 Jalons
 

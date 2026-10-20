@@ -39,7 +39,7 @@ Get-ChildItem -Recurse -File |
 
 Expected review notes:
 
-- `.env.example` may contain local placeholder names.
+- A local `.env.example` template, if one is added, may contain placeholder names.
 - `.gitignore` and documentation may contain safety words such as `secret` or `password`.
 - Real credentials must never appear.
 

@@ -4,7 +4,7 @@
 
 ## Contexte
 
-Une relecture indépendante du dossier de projet (11 octobre 2026) a rejoué le code à
+Une relecture indépendante du projet (11 octobre 2026) a rejoué le code à
 l'ancre du 27 juillet 2026 (`evidence/rejeu_modele_2026-07-27.md`) et mis trois défauts
 en évidence. L'ADR-0008 les avait décrits sans les corriger. Ils sont corrigés ici.
 
@@ -160,5 +160,6 @@ par rapport à l'ancre serait un changement de contrôle, qui n'est pas pris ici
 déterministes ; aucun score n'y entre (ADR-0002). La cible reste une règle du générateur.
 
 **Documents alignés** : ADR-0008, ADR-0003, `docs/KPI_DEFINITIONS.md`,
-`docs/data_dictionary.md`, dossier de projet § 6.4, registre des risques, `CHANGELOG.md`,
+`docs/data_dictionary.md`, registre des risques, dossier de projet § 6.4 et `CHANGELOG.md` (ces
+deux derniers ne sont pas publiés dans ce dépôt),
 `evidence/README.md`. Les preuves de `evidence/` ont été régénérées avec la pile Docker.

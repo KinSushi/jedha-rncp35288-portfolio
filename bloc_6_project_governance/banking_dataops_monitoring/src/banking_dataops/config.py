@@ -31,7 +31,7 @@ OÙ
 Role: configuration layer, imported by the modules that touch the database. Callers:
 ``banking_dataops.db`` (connection), ``banking_dataops.audit``, ``run_pipeline.py``
 (validation at start-up) and every module that takes a ``settings`` argument. The variables
-are set by ``docker-compose.yml`` (service ``app``), by ``.env.example`` for local use, and by
+are set by ``docker-compose.yml`` (service ``app``), by the local ``.env`` (``run.ps1 setup``), and by
 the cloud connection guide (docs/powerbi/connexion-cloud-neon-supabase.md). Depends on
 ``pydantic`` and ``pydantic-settings``.
 
