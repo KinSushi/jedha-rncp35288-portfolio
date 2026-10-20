@@ -1,0 +1,19 @@
+{
+  "conversion_rate_train": 0.03225806451612903,
+  "best_model": "Logistic Regression C=10",
+  "best_threshold": 0.45,
+  "validation_f1": 0.7767962308598351,
+  "validation_precision": 0.8455128205128205,
+  "validation_recall": 0.7184095860566448,
+  "validation_roc_auc": 0.9868995463916219,
+  "validation_pr_auc": 0.8481409404859587,
+  "kfold_f1_mean_seuil_0_5": 0.7620881356324166,
+  "kfold_f1_mean_seuil_optimise": 0.767127167746317,
+  "kfold_f1_std_seuil_optimise": 0.005962159074638128,
+  "kfold_seuil_optimise": 0.45,
+  "k_clusters": 4,
+  "k_best_silhouette": 2,
+  "k_best_davies_bouldin": 4,
+  "test_positive_rate_predicted": 0.027450980392156862,
+  "submission_file": "conversion_data_test_predictions_CDSD_Bloc3_LogReg_commente.csv"
+}

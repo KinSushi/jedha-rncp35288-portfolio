@@ -1,0 +1,7 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+#
+# Outils de test et de contrôle : s'ajoutent aux dépendances d'exécution de requirements.txt.
+# Installation : python -m pip install -r requirements-dev.txt
+# Version de pytest épinglée : celle avec laquelle les tests ont été exécutés (Python 3.12.14).
+-r requirements.txt
+pytest==9.1.1

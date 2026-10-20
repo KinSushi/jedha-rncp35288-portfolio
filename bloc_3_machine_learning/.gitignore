@@ -1,0 +1,18 @@
+# Données des projets : jamais versionnées (voir DONNEES.md)
+Walmart_Store_sales.csv
+conversion_data_*.csv
+uber-trip-data/
+uber-trip-data*.zip
+uber-raw-data-*.csv
+
+# Exports recréés par les notebooks et non publiés : lignes des jeux de données, soumission
+# du challenge, agrégats en attente de décision, tableau d'angles morts
+1_Walmart/walmart_bloc3_exam_outputs/clean_modeling_dataset.csv
+1_Walmart/walmart_bloc3_exam_outputs/test_predictions_best_model.csv
+1_Walmart/walmart_bloc3_exam_outputs/store_cluster_profile.csv
+2_Conversion/outputs_bloc3_conversion_commente/matrice_angles_morts_reponses_jury.csv
+3_Uber/uber_outputs/
+
+# Caches d'outils
+.mypy_cache/
+code_du_notebook.py

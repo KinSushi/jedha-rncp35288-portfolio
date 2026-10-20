@@ -1,0 +1,5 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+#
+# Configuration ruff du projet : seule la largeur de ligne diffère de la configuration par
+# défaut (99 colonnes au lieu de 88). Les règles de contrôle restent celles par défaut.
+line-length = 99

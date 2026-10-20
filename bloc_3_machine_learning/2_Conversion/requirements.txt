@@ -1,0 +1,13 @@
+# Environnement utilisé pour exécuter le notebook (Python 3.12.14).
+# Installation : python -m pip install -r requirements.txt
+# Le notebook affiche ces versions dans sa première cellule.
+numpy==2.5.4
+pandas==3.0.6
+scikit-learn==1.9.1
+matplotlib==3.11.2
+ipython==9.17.1
+# Exécution du notebook sans interface (nbclient) ; pour l'ouvrir dans un navigateur,
+# installer en plus JupyterLab ou Jupyter Notebook (non épinglés ici : ils ne calculent rien).
+ipykernel==7.4.0
+nbclient==0.11.0
+nbformat==5.11.1
