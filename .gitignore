@@ -44,6 +44,64 @@ salary/
 credentials.json
 token.json
 secrets/
+# Module Terraform « secrets » du bloc AIA 2 : du code d'infrastructure, sans aucune valeur
+# secrète (les valeurs sont tirées au hasard au déploiement et rangées dans le gestionnaire de
+# secrets du nuage). Sans cette réinclusion, la configuration Terraform publiée serait incomplète.
+!aia_bloc_2_ai_data_architecture/stripe/terraform/modules/secrets/
+
+# Caches et environnements locaux (complément de la section Python ci-dessus)
+.mypy_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+mutants/
+node_modules/
+.terraform/
+spark-warehouse/
+metastore_db/
+derby.log
+
+# Données : jamais versionnées. Voir DONNEES.md pour les obtenir.
+# Fichiers d'entrée attendus par les blocs
+Speed+Dating+Data.csv
+steam_game_output.json
+Walmart_Store_sales.csv
+conversion_data_train.csv
+conversion_data_test.csv
+uber-raw-data-*.csv
+uber-trip-data/
+spam.csv
+fraudTest.csv
+# Formats de données, de bases et de modèles
+*.csv
+*.parquet
+*.feather
+*.db
+*.sqlite
+*.sqlite3
+*.pt
+*.pth
+*.joblib
+*.pkl
+*.pickle
+*.h5
+*.pbix
+# Résultats agrégés publiés volontairement (aucune ligne des jeux d'origine)
+!bloc_3_machine_learning/1_Walmart/walmart_bloc3_exam_outputs/*.csv
+!bloc_4_nlp_deep_learning/att_spam_detector/modeles/resultats_test.csv
+# Dossiers de données produits localement
+datalake/
+mlruns/
+mlartifacts/
+**/data/*
+!**/data/README.md
+!**/data/.gitkeep
+# États et variables Terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
+backend.hcl
 
 # Archives / transfer artifacts
 *.zip
