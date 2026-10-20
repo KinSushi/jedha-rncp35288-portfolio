@@ -1,0 +1,38 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Fichiers à ne jamais versionner : jeu de données volumineux, données générées, secrets.
+
+# Jeu de données public (150 Mo) : à télécharger avec `python -m detection_fraude.telechargement`
+fraude/data/*.csv
+fraude/data/*.zip
+*.csv.gz
+
+# Données produites à l'exécution (files, entrepôt, modèles, rapports, journaux, suivi MLflow)
+fraude/donnees/
+fraude/mlruns/
+fraude/mlartifacts/
+fraude/sorties/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+
+# Secrets et variables d'environnement locales
+fraude/secrets/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python et outils
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+build/
+dist/

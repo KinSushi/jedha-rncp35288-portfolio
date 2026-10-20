@@ -1,0 +1,14 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Dépendances d'exécution du mode local (sans Docker). Tests : voir requirements-dev.txt.
+pandas>=2.1
+numpy>=1.26
+scikit-learn>=1.4
+joblib>=1.3
+pyyaml>=6.0
+requests>=2.31
+# < 2.1 : SQLAlchemy 2.1 déprécie la stratégie de chargement « noload », que MLflow emploie encore.
+sqlalchemy>=1.4.50,<2.1
+mlflow-skinny>=2.14
+# Magasin de suivi local (SQLite) : mlflow-skinny n'embarque pas ces deux dépendances.
+alembic>=1.13
+sqlparse>=0.5

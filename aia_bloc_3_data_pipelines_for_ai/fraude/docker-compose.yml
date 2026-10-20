@@ -1,0 +1,339 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Production locale : Redpanda (compatible Kafka), PostgreSQL, MLflow, Airflow, producteur,
+# consommateur. Démarrage :
+#     python scripts/initialiser_secrets.py     # une fois : crée secrets/ (jamais versionné)
+#     docker compose up -d --build
+# Documentation : README.md (section « Production locale ») et livrables/aia3/04_exploitation.md.
+#
+# Principes : aucun secret dans ce fichier (fichiers montés sous /run/secrets), ports publiés sur
+# 127.0.0.1 uniquement, un réseau interne, un utilisateur non privilégié, des ressources bornées,
+# des contrôles de santé et des redémarrages automatiques.
+
+name: fraude
+
+x-journalisation: &journalisation
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+# Environnement commun aux services applicatifs (producteur, consommateur, entraînement, Airflow).
+x-fraude-env: &fraude-env
+  FRAUDE_ENV: prod
+  FRAUDE_DONNEES: /donnees
+  FRAUDE_JEU_CHEMIN: /donnees/jeu/fraudTest.csv
+  FRAUDE_KAFKA_SERVEURS: redpanda:9092
+  MLFLOW_TRACKING_URI: http://mlflow:5000
+  FRAUDE_DSN_ENTREPOT_FICHIER: /run/secrets/dsn_entrepot
+  FRAUDE_SEL_HACHAGE_FICHIER: /run/secrets/sel_hachage
+  FRAUDE_SMTP_HOTE: ${FRAUDE_SMTP_HOTE:-}
+  FRAUDE_SMTP_PORT: ${FRAUDE_SMTP_PORT:-587}
+  FRAUDE_SMTP_EXPEDITEUR: ${FRAUDE_SMTP_EXPEDITEUR:-}
+  FRAUDE_SMTP_DESTINATAIRES: ${FRAUDE_SMTP_DESTINATAIRES:-}
+  FRAUDE_SMTP_UTILISATEUR_FICHIER: /run/secrets/smtp_utilisateur
+  FRAUDE_SMTP_MOT_DE_PASSE_FICHIER: /run/secrets/smtp_mot_de_passe
+  FRAUDE_WEBHOOK_URL_FICHIER: /run/secrets/webhook_url
+  FRAUDE_NIVEAU_JOURNAL: ${FRAUDE_NIVEAU_JOURNAL:-INFO}
+
+x-secrets-applicatifs: &secrets-applicatifs
+  - dsn_entrepot
+  - sel_hachage
+  - smtp_utilisateur
+  - smtp_mot_de_passe
+  - webhook_url
+
+x-airflow: &airflow-commun
+  build:
+    context: .
+    dockerfile: docker/Dockerfile.airflow
+  image: fraude-airflow:1.0.0
+  environment:
+    <<: *fraude-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "false"  # planifiés dès le départ : aucun lancement manuel
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN_CMD: cat /run/secrets/airflow_sql_conn
+    AIRFLOW__CORE__FERNET_KEY_CMD: cat /run/secrets/airflow_fernet_key
+    AIRFLOW__WEBSERVER__SECRET_KEY_CMD: cat /run/secrets/airflow_secret_key
+    AIRFLOW__WEBSERVER__WORKERS: "2"  # 4 par défaut : deux suffisent pour une console d'équipe
+  secrets:
+    - airflow_sql_conn
+    - airflow_fernet_key
+    - airflow_secret_key
+    - airflow_admin_motdepasse
+    - dsn_entrepot
+    - sel_hachage
+    - smtp_utilisateur
+    - smtp_mot_de_passe
+    - webhook_url
+  volumes:
+    - donnees:/donnees
+  networks: [interne]
+  logging: *journalisation
+  restart: unless-stopped
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  # ------------------------------------------------------------------ Bus de messages
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.3.1
+    command:
+      - redpanda
+      - start
+      - --mode=dev-container
+      - --smp=1
+      - --memory=1G
+      - --kafka-addr=internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr=internal://redpanda:9092,external://localhost:${PORT_KAFKA:-19092}
+    ports:
+      - "127.0.0.1:${PORT_KAFKA:-19092}:19092"
+    volumes:
+      - redpanda:/var/lib/redpanda/data
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -q 'Healthy:.*true'"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    cpus: 1.0
+    mem_limit: 1536m
+    networks: [interne]
+    logging: *journalisation
+    restart: unless-stopped
+
+  # ------------------------------------------------------------------ Entrepôt (PostgreSQL)
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/pg_superuser_motdepasse
+    secrets:
+      - pg_superuser_motdepasse
+      - pg_airflow_motdepasse
+      - pg_mlflow_motdepasse
+      - pg_fraude_motdepasse
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/creer-bases.sh:/docker-entrypoint-initdb.d/10-creer-bases.sh:ro
+    ports:
+      - "127.0.0.1:${PORT_POSTGRES:-15432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    cpus: 1.0
+    mem_limit: 1024m
+    networks: [interne]
+    logging: *journalisation
+    restart: unless-stopped
+
+  # ------------------------------------------------------------------ Suivi des modèles
+  mlflow:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.mlflow
+    image: fraude-mlflow:1.0.0
+    command:
+      - sh
+      - -c
+      - >-
+        exec mlflow server --host 0.0.0.0 --port 5000 --workers 1
+        --backend-store-uri "$$(cat /run/secrets/mlflow_backend_uri)"
+        --artifacts-destination /mlartifacts --serve-artifacts
+        --allowed-hosts "mlflow:5000,localhost:*,127.0.0.1:*"
+    secrets:
+      - mlflow_backend_uri
+    volumes:
+      - mlartifacts:/mlartifacts
+    ports:
+      - "127.0.0.1:${PORT_MLFLOW:-15000}:5000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://localhost:5000/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # Le serveur MLflow 3.x occupe environ 1,5 Go résidents même au repos (mesuré) : marge à 2 Go.
+    cpus: 1.0
+    mem_limit: 2048m
+    networks: [interne]
+    logging: *journalisation
+    restart: unless-stopped
+
+  # ------------------------------------------------------------------ Orchestration (Airflow)
+  airflow-init:
+    <<: *airflow-commun
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        airflow db migrate &&
+        airflow users create --role Admin --username admin --firstname Equipe --lastname Donnees \
+          --email admin@exemple.invalid --password "$$(cat /run/secrets/airflow_admin_motdepasse)" \
+          || true
+    restart: "no"
+    cpus: 1.0
+    mem_limit: 1024m
+
+  airflow-scheduler:
+    <<: *airflow-commun
+    command: scheduler
+    depends_on:
+      postgres:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "airflow jobs check --job-type SchedulerJob --hostname \"$${HOSTNAME}\""]
+      interval: 30s
+      timeout: 20s
+      retries: 5
+      start_period: 60s
+    # Avec LocalExecutor, les tâches (dont l'entraînement hebdomadaire, qui culmine entre 0,75 et
+    # 1 Go) s'exécutent dans ce conteneur : d'où une marge. Une exploitation réelle les confie à
+    # un travailleur ou à un pod dédié.
+    cpus: 2.0
+    mem_limit: 3072m
+
+  airflow-webserver:
+    <<: *airflow-commun
+    command: webserver
+    ports:
+      - "127.0.0.1:${PORT_AIRFLOW:-18080}:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      airflow-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    cpus: 1.0
+    mem_limit: 2048m
+
+  # ------------------------------------------------------------------ Amorçage du modèle
+  # Télécharge le jeu public (150 Mo, empreinte vérifiée) et entraîne le premier modèle.
+  # Terminé avec succès = le consommateur peut démarrer. Ensuite, c'est le DAG hebdomadaire.
+  entrainement-initial:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: fraude-app:1.0.0
+    command:
+      - sh
+      - -c
+      - python -m detection_fraude.telechargement && python -m detection_fraude.entrainement --promouvoir
+    environment: *fraude-env
+    secrets: *secrets-applicatifs
+    volumes:
+      - donnees:/donnees
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mlflow:
+        condition: service_healthy
+    cpus: 2.0
+    mem_limit: 3072m
+    networks: [interne]
+    logging: *journalisation
+    restart: "no"
+
+  # ------------------------------------------------------------------ Flux temps réel
+  producteur:
+    image: fraude-app:1.0.0
+    command: ["python", "-m", "detection_fraude.producteur", "--source", "api"]
+    environment: *fraude-env
+    secrets: *secrets-applicatifs
+    volumes:
+      - donnees:/donnees
+    depends_on:
+      redpanda:
+        condition: service_healthy
+      entrainement-initial:
+        condition: service_completed_successfully
+    healthcheck:
+      # En bonne santé = un cycle (réussi ou non) écrit son état au moins toutes les 5 minutes.
+      test: ["CMD", "python", "-c", "import os,sys,time; p='/donnees/etat/producteur.json'; sys.exit(0 if os.path.exists(p) and time.time()-os.path.getmtime(p) < 300 else 1)"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 180s
+    cpus: 0.25
+    mem_limit: 256m
+    networks: [interne]
+    logging: *journalisation
+    restart: unless-stopped
+
+  consommateur:
+    image: fraude-app:1.0.0
+    command: ["python", "-m", "detection_fraude.consommateur"]
+    environment: *fraude-env
+    secrets: *secrets-applicatifs
+    volumes:
+      - donnees:/donnees
+    depends_on:
+      redpanda:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      entrainement-initial:
+        condition: service_completed_successfully
+    healthcheck:
+      # La boucle écrit son état toutes les secondes environ, même sans message.
+      test: ["CMD", "python", "-c", "import os,sys,time; p='/donnees/etat/consommateur.json'; sys.exit(0 if os.path.exists(p) and time.time()-os.path.getmtime(p) < 120 else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+    cpus: 1.0
+    mem_limit: 1024m
+    networks: [interne]
+    logging: *journalisation
+    restart: unless-stopped
+
+networks:
+  interne:
+    driver: bridge
+
+volumes:
+  donnees:
+  pgdata:
+  redpanda:
+  mlartifacts:
+
+secrets:
+  pg_superuser_motdepasse:
+    file: ./secrets/pg_superuser_motdepasse.txt
+  pg_airflow_motdepasse:
+    file: ./secrets/pg_airflow_motdepasse.txt
+  pg_mlflow_motdepasse:
+    file: ./secrets/pg_mlflow_motdepasse.txt
+  pg_fraude_motdepasse:
+    file: ./secrets/pg_fraude_motdepasse.txt
+  dsn_entrepot:
+    file: ./secrets/dsn_entrepot.txt
+  airflow_sql_conn:
+    file: ./secrets/airflow_sql_conn.txt
+  mlflow_backend_uri:
+    file: ./secrets/mlflow_backend_uri.txt
+  sel_hachage:
+    file: ./secrets/sel_hachage.txt
+  airflow_fernet_key:
+    file: ./secrets/airflow_fernet_key.txt
+  airflow_secret_key:
+    file: ./secrets/airflow_secret_key.txt
+  airflow_admin_motdepasse:
+    file: ./secrets/airflow_admin_motdepasse.txt
+  smtp_utilisateur:
+    file: ./secrets/smtp_utilisateur.txt
+  smtp_mot_de_passe:
+    file: ./secrets/smtp_mot_de_passe.txt
+  webhook_url:
+    file: ./secrets/webhook_url.txt

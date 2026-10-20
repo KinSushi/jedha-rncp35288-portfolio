@@ -1,0 +1,33 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Environnement de développement : tout tourne sans Docker, dans le dossier donnees/.
+# File : SQLite. Entrepôt : SQLite. Suivi MLflow : base SQLite locale.
+
+environnement: dev
+
+file:
+  type: sqlite
+  chemin_sqlite: "{donnees}/file_messages.db"
+
+entrepot:
+  dsn: "sqlite:///{donnees}/entrepot.db"
+
+mlflow:
+  tracking_uri: "sqlite:///{donnees}/mlflow.db"
+  enregistrer_modele: false
+
+notification:
+  canaux: ["journal", "fichier"]      # SMTP et webhook s'activent par variables d'environnement
+  fichier_alertes: "{donnees}/alertes.jsonl"
+  exiger_tls: false
+
+rapport:
+  dossier: "{donnees}/rapports"
+  sla_minutes: 60            # planifié à 07:00, livré avant 08:00
+
+modele:
+  dossier: "{donnees}/modeles"
+
+journal:
+  niveau: INFO
+  console: lisible
+  fichier: "{donnees}/journaux/audit.jsonl"

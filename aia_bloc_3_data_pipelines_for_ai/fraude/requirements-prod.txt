@@ -1,0 +1,5 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Dépendances de la production locale (Docker) : socle + Kafka + PostgreSQL.
+-r requirements.txt
+confluent-kafka>=2.4
+psycopg2-binary>=2.9

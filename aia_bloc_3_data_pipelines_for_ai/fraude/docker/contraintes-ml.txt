@@ -1,0 +1,8 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Versions exactes des bibliothèques qui ne figurent pas dans les contraintes d'Airflow et dont
+# dépendent le modèle exporté (scikit-learn) et le suivi (MLflow). Elles sont identiques dans les
+# images application et Airflow : un modèle entraîné dans l'une est chargé dans l'autre avec les
+# mêmes versions. numpy, pandas, SQLAlchemy, PyYAML, psycopg2 et confluent-kafka sont fixés, eux,
+# par les contraintes officielles d'Airflow 2.10.5, appliquées aux deux images.
+scikit-learn==1.9.1
+mlflow-skinny==3.17.0

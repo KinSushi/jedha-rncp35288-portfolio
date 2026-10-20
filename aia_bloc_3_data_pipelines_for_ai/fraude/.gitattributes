@@ -1,0 +1,4 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Fins de ligne LF partout : les conteneurs Linux (scripts, YAML) ne tolèrent pas CRLF.
+* text=auto eol=lf
+*.csv -text

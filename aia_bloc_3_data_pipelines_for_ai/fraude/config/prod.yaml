@@ -1,0 +1,35 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Environnement de production (locale, via docker-compose.yml) : Kafka-compatible (Redpanda),
+# PostgreSQL, MLflow serveur. Aucun secret ici : la chaîne de connexion à la base
+# (FRAUDE_DSN_ENTREPOT), le sel de hachage (FRAUDE_SEL_HACHAGE), les accès SMTP et l'URL du
+# webhook sont fournis par l'environnement du conteneur.
+
+environnement: prod
+
+file:
+  type: kafka
+  kafka_serveurs: "redpanda:9092"       # remplaçable par FRAUDE_KAFKA_SERVEURS
+
+# entrepot.dsn volontairement absent : voir FRAUDE_DSN_ENTREPOT.
+
+mlflow:
+  tracking_uri: "http://mlflow:5000"    # remplaçable par MLFLOW_TRACKING_URI
+  enregistrer_modele: true
+
+notification:
+  canaux: ["journal", "fichier", "smtp", "webhook"]
+  fichier_alertes: "{donnees}/alertes.jsonl"
+  exiger_tls: true
+  smtp_port: 587
+
+rapport:
+  dossier: "{donnees}/rapports"
+  sla_minutes: 60            # planifié à 07:00, livré avant 08:00
+
+modele:
+  dossier: "{donnees}/modeles"
+
+journal:
+  niveau: INFO
+  console: json
+  fichier: "{donnees}/journaux/audit.jsonl"

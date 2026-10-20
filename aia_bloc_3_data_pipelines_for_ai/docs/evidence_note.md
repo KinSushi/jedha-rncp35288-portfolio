@@ -1,28 +1,21 @@
-# Evidence Note — AIA Bloc 3 — Data Pipelines for AI
+# Note de preuve — AIA bloc 3 — Pipelines de données pour l'IA
 
-## Block
+## Statut
 
-AIA Bloc 3 — Design and implement data pipelines for AI.
+Publié : le pipeline de détection de fraude en temps réel, présenté dans le [README du bloc](../README.md).
 
-## Artifact
+## Ce que le bloc démontre
 
-Planned: a pipeline plan (diagram), the pipeline code hosted on GitHub, and a video of the pipeline running. Case study: real-time fraud detection with an alert on each detected fraud and a daily morning report. Links will be added here once the personal deliverables are finalized.
+Construction d'un pipeline de données automatisé, observable et conforme, dont le pipeline lui-même est le livrable principal : collecte et stockage, file de messages, notation, notification, entrepôt en couches, contrôles de qualité, orchestration, réentraînement et supervision.
 
-## What this proves
+## Preuves
 
-Ability to build an automated, observable and compliant data pipeline in which the pipeline — not the model — is the core deliverable: collection and storage, consumption and scoring, ETL, quality gates, orchestration and alerting.
+| Preuve | Chemin |
+|---|---|
+| Documents de conception | [`livrables/aia3/`](../livrables/aia3/) |
+| Code du pipeline | [`fraude/detection_fraude/`](../fraude/detection_fraude/) |
+| Orchestration (DAG Airflow) | [`fraude/dags/`](../fraude/dags/) |
+| Tests | [`fraude/tests/`](../fraude/tests/) |
+| Obtention des données | [`README.md`](../README.md), section « Données », et [`fraude/data/README.md`](../fraude/data/README.md) |
 
-## How to review
-
-Once published: diagram first, then the orchestration code (DAG), then the quality checks, then the video.
-
-## Public-safety review
-
-- [ ] synthetic/open data only;
-- [ ] no private school material;
-- [ ] no employer/client data;
-- [ ] no secrets.
-
----
-
-*Copyright © 2026 · Auteur — KinSushi · Enzo · Sovralys LLC*
+Le script de la vidéo de démonstration n'est pas publié dans cette version.

@@ -1,0 +1,16 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Le contexte de construction n'embarque ni données, ni secrets, ni caches.
+data/
+donnees/
+secrets/
+.env
+.env.*
+!.env.example
+tests/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+mlruns/
+mlartifacts/
+*.db

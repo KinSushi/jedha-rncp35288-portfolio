@@ -1,0 +1,27 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Image Airflow : l'image officielle + le paquet detection_fraude + les DAG.
+# Les dépendances sont installées AVEC le fichier de contraintes d'Airflow, pour ne jamais
+# remplacer une version dont Airflow dépend.
+
+FROM apache/airflow:2.10.5-python3.12
+
+ENV GIT_PYTHON_REFRESH=quiet \
+    PYTHONPATH=/opt/airflow/app \
+    FRAUDE_ENV=prod \
+    FRAUDE_DONNEES=/donnees \
+    FRAUDE_CONFIG_DIR=/opt/airflow/app/config
+
+USER airflow
+COPY --chown=airflow:root requirements.txt requirements-prod.txt docker/contraintes-ml.txt /opt/airflow/app/
+RUN pip install --no-cache-dir \
+    --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.5/constraints-3.12.txt" \
+    --constraint /opt/airflow/app/contraintes-ml.txt \
+    -r /opt/airflow/app/requirements-prod.txt
+
+COPY --chown=airflow:root detection_fraude /opt/airflow/app/detection_fraude
+COPY --chown=airflow:root config /opt/airflow/app/config
+COPY --chown=airflow:root dags /opt/airflow/dags
+
+USER root
+RUN mkdir -p /donnees && chown -R 50000:0 /donnees && chmod -R g=u /donnees
+USER airflow

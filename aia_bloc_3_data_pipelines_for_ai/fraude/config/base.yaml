@@ -1,0 +1,52 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Réglages communs à tous les environnements. Ne jamais y écrire de secret :
+# mots de passe, jetons, sel de hachage et chaîne de connexion à la base viennent de
+# l'environnement (voir .env.example et detection_fraude/configuration.py).
+
+masquage:
+  longueur_hash: 32          # caractères hexadécimaux conservés de l'empreinte HMAC-SHA256 de la carte
+
+source:
+  # API de l'énoncé (5 appels par minute au maximum, une transaction par appel) : adresse non publiée, à renseigner ici ou par FRAUDE_API_URL.
+  api_url: "https://exemple.invalid/current-transactions"
+  intervalle_s: 60           # un appel par minute : la source est mise à jour chaque minute
+  delai_attente_s: 30        # délai maximal d'une réponse (mesuré : 6 à 11 s par appel)
+  relances:
+    max_tentatives: 5
+    attente_initiale_s: 1.0
+    facteur: 2.0             # 1 s, 2 s, 4 s, 8 s ... (attente exponentielle)
+    attente_max_s: 60.0
+    gigue: 0.1
+  jeu_chemin: "{racine}/data/fraudTest.csv"
+  jeu_url: "https://exemple.invalid/fraudTest.csv"  # adresse non publiée, à renseigner : voir data/README.md
+  jeu_taille_octets: 150354339
+  jeu_sha256: "12d553ab19440c752d2531ee1af44bb64f12cc3d3839f1649f19e81c230545f0"
+
+file:
+  sujet_valides: "transactions.valides"
+  sujet_rejets: "transactions.rejets"        # file des rejets (Dead Letter Queue)
+  groupe_consommateur: "consommateur-fraude"
+  groupe_rejets: "archiveur-rejets"
+  taille_lot: 500
+  attente_lecture_s: 1.0
+
+modele:
+  precision_cible: 0.90      # on fixe la précision, on mesure le rappel
+  graine: 42
+  fraction_entrainement: 0.70   # découpage chronologique : 70 % entraînement,
+  fraction_validation: 0.15     # 15 % validation (choix du seuil), 15 % test
+  candidats: ["regression_logistique", "gradient_boosting"]
+  pr_auc_minimum: 0.30       # plancher de la barrière de qualité avant promotion
+  tolerance_regression: 0.02 # baisse de PR-AUC tolérée par rapport au modèle en service
+
+mlflow:
+  experience: "detection-fraude"
+
+entrepot:
+  retention_bronze_jours: 90 # limitation de conservation (RGPD, article 5, paragraphe 1, point e)
+
+sla:
+  latence_notification_s: 60        # fraude détectée -> notification envoyée
+  fraicheur_max_min: 15             # aucune transaction reçue depuis plus de 15 min : alerte
+  taux_rejets_max: 0.02             # plus de 2 % de rejets sur une heure : alerte
+  alertes_en_attente_max_min: 10    # notification non partie depuis plus de 10 min : alerte

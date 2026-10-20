@@ -1,0 +1,15 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Dépendances de développement : production (socle + Kafka + PostgreSQL) + tests + qualité du code.
+# Kafka est installé aussi en développement pour que mypy résolve « confluent_kafka » : les tests
+# n'ouvrent aucune connexion (le client est simulé).
+-r requirements-prod.txt
+pytest>=8.0
+ruff>=0.5
+# Typage (mypy --strict) : les paquets de stubs donnent les types de pandas et de PyYAML.
+mypy>=1.10
+pandas-stubs
+types-PyYAML
+# pendulum : importé par les DAG (typé, installable sous Windows) ; dill : test d'indépendance
+# du modèle exporté vis-à-vis de dill (que charge Airflow).
+pendulum>=3.0
+dill>=0.3.8
