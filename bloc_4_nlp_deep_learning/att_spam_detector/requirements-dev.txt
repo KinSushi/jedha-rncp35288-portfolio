@@ -1,0 +1,12 @@
+# Outils de test et de contrôle (porte de qualité) en plus de requirements.txt.
+-r requirements.txt
+pytest==9.1.1        # tests ; lancés avec -W error::DeprecationWarning -W error::PendingDeprecationWarning
+nbclient==0.11.0     # exécution du notebook par tests/test_notebook.py
+nbformat==5.11.1
+ipykernel==7.4.0     # noyau Python du notebook
+ruff==0.17.0         # règles E, F, I, B, SLF, UP, W
+mypy==2.4.0          # mypy --strict
+pandas-stubs==3.0.5.260914   # types de pandas : sans eux, import-untyped en mypy --strict
+scipy-stubs==1.18.1.1        # types de scipy
+optype==0.19.0               # dépendance de scipy-stubs
+numpy-typing-compat==20260602.2.5   # dépendance de scipy-stubs

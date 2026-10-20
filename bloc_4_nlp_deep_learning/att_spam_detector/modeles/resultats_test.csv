@@ -1,0 +1,6 @@
+modèle,seuil (validation),F1 validation,précision test,rappel test,F1 test,F1 test IC 95 %,erreurs test,ROC-AUC test,PR-AUC test
+TF-IDF + régression logistique (référence),0.44,0.958,0.957,0.968,0.963,[0.931 ; 0.988],7,0.9895,0.9815
+TextCNN,0.46,0.926,0.9,0.968,0.933,[0.892 ; 0.966],13,0.9836,0.9744
+BiGRU,0.73,0.952,0.989,0.946,0.967,[0.938 ; 0.990],6,0.9921,0.9824
+TextCNN + SMS générés (GAN),0.74,0.924,0.957,0.946,0.951,[0.914 ; 0.980],9,0.9848,0.9753
+DistilBERT (transfer learning),0.91,0.989,0.989,0.989,0.989,[0.971 ; 1.000],2,0.9996,0.9978

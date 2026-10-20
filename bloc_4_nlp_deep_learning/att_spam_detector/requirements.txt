@@ -1,0 +1,34 @@
+# Environnement d'exécution du notebook ATT_Spam_Bloc4_CDSD.ipynb
+# Python 3.12 (métadonnées du notebook : 3.12.14), calcul sur processeur seul.
+#
+# Toutes les versions sont épinglées : ce sont celles de l'environnement qui a produit les
+# sorties enregistrées du notebook (exécutions du 11/10 et du 19/10/2026). Deux d'entre elles
+# sont aussi visibles dans les sorties : PyTorch 2.14.1+cpu (sortie de la cellule 1) et transformers
+# 5.19.0 (champ « transformers_version » du fichier config.json écrit par la sauvegarde de
+# DistilBERT, cellule 41). J'épingle tout, parce que les chiffres du notebook (F1, p-valeurs,
+# SMS générés) dépendent de l'algèbre linéaire de PyTorch, de scikit-learn et de NumPy : une
+# autre version peut les déplacer.
+#
+# Installation : pip install -r requirements.txt
+# Sous Linux, la roue PyTorch de PyPI embarque CUDA (plusieurs Go). Installer d'abord la
+# version processeur depuis l'index de PyTorch :
+#   pip install torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu
+# puis le reste de ce fichier.
+#
+# TÉLÉCHARGEMENT AU PREMIER LANCEMENT : la cellule 23 charge le modèle pré-entraîné
+# « distilbert/distilbert-base-uncased » depuis le dépôt public Hugging Face (sans compte,
+# puis mis en cache localement). Sans accès réseau ni copie en cache, cette
+# cellule et les suivantes qui utilisent DistilBERT échouent. Les poids ajustés
+# (modeles/distilbert_ajuste/) ne sont pas joints, à cause de leur taille : le notebook les
+# recalcule (sortie de la cellule 23 : 463 s d'ajustement sur processeur le 19/10, 526 s à la
+# première exécution ; la durée suit la charge de la machine).
+torch==2.14.1
+transformers==5.19.0
+huggingface-hub==2.2.0
+tokenizers==0.23.3
+safetensors==0.8.0
+numpy==2.5.4
+pandas==3.0.6
+scipy==1.18.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
