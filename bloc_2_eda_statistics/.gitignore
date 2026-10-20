@@ -1,0 +1,17 @@
+# Données des études de cas : jamais versionnées (voir README.md, § 2).
+*.csv
+*.doc
+*.docx
+2_Steam/donnees/*.json
+
+# Caches, environnements et sorties locales.
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+.mypy_cache/
+.ruff_cache/
+.venv/
+mutants/
+spark-warehouse/
+metastore_db/
+derby.log

@@ -1,0 +1,33 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Bibliothèques du notebook Steam_Bloc2_CDSD_PySpark.ipynb (imports de la cellule 2).
+# Versions épinglées : celles de l'environnement Python 3.12.14 (version inscrite dans les
+# métadonnées du notebook) qui a produit les sorties enregistrées ; Spark 3.5.9 est affiché par la
+# cellule 2. Réexécuté le 17/10/2026 dans cet environnement, en local : 45 cellules, 0 erreur,
+# sorties texte identiques à celles du notebook livré, sauf les durées mesurées (cellules 3, 41,
+# 42), qui dépendent de la charge de la machine, et un identifiant interne du plan (cellule 43).
+#
+# Installation : python -m pip install -r requirements.txt
+# Le notebook s'ouvre depuis ce dossier : il lit donnees/steam_game_output.json par un chemin
+# relatif. Aucune installation de Java n'est nécessaire : jdk4py fournit un Java portable.
+# Sur Databricks, Spark est déjà fourni : ces lignes ne servent qu'à l'exécution locale.
+pyspark==3.5.9
+jdk4py==17.0.9.2
+pandas==3.0.6
+numpy==2.5.4
+matplotlib==3.11.2
+# Noyau Python utilisé par Jupyter pour exécuter le notebook.
+ipykernel==7.4.0
+# toPandas() de pyspark 3.5 importe distutils, retiré de Python 3.12 : seul setuptools le fournit
+# encore (module de compatibilité). Sans lui, le notebook échoue à sa première conversion
+# (mesuré le 17/10 : « No module named 'distutils' »). Version retenue : celle qui accompagne
+# déjà pyspark 3.5.9 et pandas 3.0.6 dans l'environnement de base de la machine.
+setuptools==78.1.0
+# Module et tests (mise en conformité du 17/10/2026) : le notebook importe steam_analyse.py
+# (même dossier) ; tests/ éprouve le module et exécute le notebook entier par nbclient.
+# Commande : python -m pytest -W error::DeprecationWarning -W error::PendingDeprecationWarning
+nbclient==0.11.0
+nbformat==5.11.1
+pytest==9.1.1
+# Types de pandas, sans lesquels mypy --strict ne peut pas vérifier le module ni le notebook
+# (pyspark publie ses propres types).
+pandas-stubs==3.0.5.260914

@@ -1,27 +1,19 @@
-# Evidence Note — Bloc 2 — EDA and Statistics
+# Note de preuve — Bloc 2 — Analyse exploratoire, descriptive et inférentielle de données
 
-## Status
+## Statut
 
-Planned.
+Publié : deux études de cas complètes, présentées dans le [README du bloc](../README.md).
 
-## What this block should prove
+## Ce que le bloc démontre
 
-Exploratory analysis, statistical reasoning, distributions, anomalies and reports.
+Analyse exploratoire d'une base non massive avec pandas et d'une base massive avec Spark : nettoyage, statistiques descriptives, tests d'hypothèses, visualisations destinées à un public non spécialiste, et prise en compte du RGPD dans le choix des variables.
 
-## Candidate external evidence
+## Preuves
 
-- banking-dataops-monitoring;
-- fraud-mlops-control-tower;
-- database-migration-quality-lab;
-- secure-wealth-rag-assistant;
-- sovralys-infra-lab;
-- pty-flights-pricing.
-
-## Public-safety checklist
-
-- [ ] no private course material;
-- [ ] no exam material;
-- [ ] no grades;
-- [ ] no certificates with identifiers;
-- [ ] no real client/employer data;
-- [ ] no secrets.
+| Preuve | Chemin |
+|---|---|
+| Étude Speed dating (pandas) | [`1_Tinder/Speed_Dating_Bloc2_CDSD.ipynb`](../1_Tinder/Speed_Dating_Bloc2_CDSD.ipynb) |
+| Étude Steam (PySpark) | [`2_Steam/Steam_Bloc2_CDSD_PySpark.ipynb`](../2_Steam/Steam_Bloc2_CDSD_PySpark.ipynb) |
+| Modules de calcul et tests | `1_Tinder/speed_dating.py`, `2_Steam/steam_analyse.py`, et le dossier `tests/` de chaque étude |
+| Figures de l'étude Steam | [`2_Steam/captures/`](../2_Steam/captures/) |
+| Obtention des données | [`README.md`](../README.md), section « Données », et [`2_Steam/donnees/LIRE_DONNEES.md`](../2_Steam/donnees/LIRE_DONNEES.md) |

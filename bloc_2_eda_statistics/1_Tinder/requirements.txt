@@ -1,0 +1,29 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Bibliothèques du notebook Speed_Dating_Bloc2_CDSD.ipynb (imports de la cellule 2).
+# Versions épinglées : celles de l'environnement Python 3.12.14 (version inscrite dans les
+# métadonnées du notebook) qui a produit les sorties enregistrées. Réexécuté le 17/10/2026 dans
+# cet environnement : 68 cellules, 0 erreur, sorties texte identiques à celles du notebook livré.
+#
+# Installation : python -m pip install -r requirements.txt
+# Le notebook s'ouvre dans Jupyter (ou tout éditeur de notebooks) depuis ce dossier : il lit
+# ./Speed+Dating+Data.csv par un chemin relatif.
+pandas==3.0.6
+numpy==2.5.4
+scipy==1.18.1
+statsmodels==0.15.0
+matplotlib==3.11.2
+seaborn==0.13.2
+# Noyau Python utilisé par Jupyter pour exécuter le notebook.
+ipykernel==7.4.0
+# Module et tests (mise en conformité du 17/10/2026) : le notebook importe speed_dating.py
+# (même dossier) ; tests/ éprouve le module et exécute le notebook entier par nbclient.
+# Commande : python -m pytest -W error::DeprecationWarning -W error::PendingDeprecationWarning
+nbclient==0.11.0
+nbformat==5.11.1
+pytest==9.1.1
+# Types des bibliothèques sans annotations propres : sans eux, mypy --strict ne peut pas vérifier
+# le module ni le notebook, qui importent pandas, scipy et seaborn. statsmodels n'a pas de
+# paquet de types : son import porte un « type: ignore[import-untyped] » justifié dans le module.
+pandas-stubs==3.0.5.260914
+scipy-stubs==1.18.1.1
+types-seaborn==0.13.2.20261006
