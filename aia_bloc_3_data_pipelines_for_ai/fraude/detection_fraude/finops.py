@@ -52,9 +52,9 @@ POURQUOI
   livrables/aia3/04_exploitation.md:135-180.
 - Constantes de prix : PRIX_HYPOTHETIQUES (detection_fraude/finops.py:78-82) (hypothèses
   déclarées).
-- Épreuve du 11/10/2026 (trafic x100, prix du vCPU à 0,05 €) : compte rendu des épreuves, source
-  à joindre.
-- Indicateur 6.2 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Épreuve du 11/10/2026 (trafic x100, prix du vCPU à 0,05 €) : compte rendu des épreuves non
+  publié.
+- Indicateur 6.2 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

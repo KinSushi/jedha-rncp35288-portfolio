@@ -49,8 +49,8 @@ POURQUOI
 - Nettoyage automatique des champs sensibles : livrables/aia3/03_securite_conformite.md:21-73
   (section « Preuves exécutables », puce sur ``journal.py``).
 - Exigence 10.2 de PCI DSS 4.0.1 (journaux d'audit sans PAN), transposée :
-  livrables/aia3/03_securite_conformite.md:92-111 ; texte de la norme : source à joindre.
-- Critère 6.3 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+  livrables/aia3/03_securite_conformite.md:92-111 ; texte de la norme non reproduit ici.
+- Critère 6.3 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

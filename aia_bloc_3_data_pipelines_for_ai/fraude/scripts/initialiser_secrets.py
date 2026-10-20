@@ -52,7 +52,7 @@ POURQUOI
 - Production locale et secrets Docker : docker-compose.yml:38.
 - Protection du dossier par le ``.gitignore`` du dépôt :
   test_le_gitignore_protege_secrets_donnees_et_jeu (tests/test_divers.py:117-126).
-- Indicateur 5.2 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateur 5.2 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

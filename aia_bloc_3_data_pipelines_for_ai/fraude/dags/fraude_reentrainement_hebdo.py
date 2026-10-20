@@ -48,7 +48,7 @@ POURQUOI
   livrables/aia3/02_pipeline_et_qualite.md:166-187.
 - Réentraînement : lot sans contrainte de latence : livrables/aia3/01_architecture.md:129-132.
 - Paramètres du DAG : dags/fraude_reentrainement_hebdo.py:83.
-- Indicateurs 3.1 et 3.2 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateurs 3.1 et 3.2 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

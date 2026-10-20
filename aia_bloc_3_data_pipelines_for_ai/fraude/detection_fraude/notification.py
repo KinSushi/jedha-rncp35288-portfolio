@@ -69,8 +69,8 @@ POURQUOI
   livrables/aia3/01_architecture.md:190-199.
 - Chemin de l'alerte, SLA de latence de 60 s : livrables/aia3/04_exploitation.md:41-90.
 - Texte « l'alerte est un signal, pas une décision de blocage » (article 22 du RGPD) :
-  livrables/aia3/03_securite_conformite.md:75-90 ; texte du règlement : source à joindre.
-- Indicateurs 5.2, 5.3 et 6.1 du référentiel AIA RNCP41993 : texte du référentiel à joindre.
+  livrables/aia3/03_securite_conformite.md:75-90 ; texte du règlement non reproduit ici.
+- Indicateurs 5.2, 5.3 et 6.1 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

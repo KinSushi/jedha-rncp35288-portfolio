@@ -62,7 +62,7 @@ POURQUOI
 - Couches et fonctions qui les écrivent : livrables/aia3/02_pipeline_et_qualite.md:7-36.
 - Écriture en base : transaction annulée, position non validée, lot rejoué :
   livrables/aia3/02_pipeline_et_qualite.md:271-287.
-- Indicateurs 4.2 et 6.1 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateurs 4.2 et 6.1 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

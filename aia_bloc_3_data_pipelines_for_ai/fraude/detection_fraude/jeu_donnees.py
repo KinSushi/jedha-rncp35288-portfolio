@@ -60,8 +60,8 @@ POURQUOI
   (detection_fraude/jeu_donnees.py:113-140) et lignes_depuis_jeu
   (detection_fraude/jeu_donnees.py:150-161).
 - Décalage de sept ans de ``unix_time`` : constat consigné dans ce module (mesure de ce projet,
-  fichier brut à joindre).
-- Indicateurs 2.1 et 4.1 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+  fichier brut non publié).
+- Indicateurs 2.1 et 4.1 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

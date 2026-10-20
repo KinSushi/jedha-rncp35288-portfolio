@@ -63,7 +63,7 @@ POURQUOI
 - Hypothèse « la veille en jours UTC » : livrables/aia3/02_pipeline_et_qualite.md:109-117 et
   livrables/aia3/07_couverture_et_limites.md:53-66 (hypothèses et points à confirmer).
 - Échappement HTML : livrables/aia3/03_securite_conformite.md:158-168.
-- Indicateurs 1.1 et 6.1 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateurs 1.1 et 6.1 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

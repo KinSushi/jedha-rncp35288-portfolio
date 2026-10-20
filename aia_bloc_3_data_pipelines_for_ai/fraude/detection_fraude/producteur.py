@@ -72,9 +72,9 @@ POURQUOI
   livrables/aia3/02_pipeline_et_qualite.md:232-269.
 - Volumes et débit de la collecte : livrables/aia3/01_architecture.md:152-159.
 - Constat sur l'API réelle (un 502 sur sept appels, réponses de 5,8 à 11 s) :
-  livrables/aia3/01_architecture.md:152-159 ; la mesure est de ce projet, source brute à joindre.
+  livrables/aia3/01_architecture.md:152-159 ; la mesure est de ce projet (relevé brut non publié).
 - Codes relançables : CODES_RELANCABLES (detection_fraude/producteur.py:131).
-- Indicateurs 4.1, 4.2 et 4.3 du référentiel AIA RNCP41993 : texte du référentiel à joindre.
+- Indicateurs 4.1, 4.2 et 4.3 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

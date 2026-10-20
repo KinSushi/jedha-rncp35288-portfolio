@@ -70,8 +70,8 @@ POURQUOI
   livrables/aia3/02_pipeline_et_qualite.md:166-187.
 - Valeurs du plancher et de la tolérance : config/base.yaml:39.
 - Manipulations du 11/10/2026 sur la barrière et sur la précision cible : compte rendu des
-  épreuves, source à joindre ; code : valider_candidat (detection_fraude/entrainement.py:532-567).
-- Indicateurs 2.2 et 3.3 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+  épreuves non publié ; code : valider_candidat (detection_fraude/entrainement.py:532-567).
+- Indicateurs 2.2 et 3.3 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

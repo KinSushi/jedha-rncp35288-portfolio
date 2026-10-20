@@ -50,7 +50,7 @@ POURQUOI
 - Reproductibilité (empreinte du jeu consignée dans les métadonnées du modèle) :
   livrables/aia3/02_pipeline_et_qualite.md:38-107.
 - Taille et empreinte attendues : config/base.yaml:23.
-- Indicateurs 3.3 et 4.1 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateurs 3.3 et 4.1 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

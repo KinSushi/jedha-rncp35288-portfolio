@@ -36,7 +36,7 @@ POURQUOI
 - Le DAG de supervision dans la liste des DAG : livrables/aia3/02_pipeline_et_qualite.md:145-164.
 - Première exécution échouée comme prévu, puis au vert : livrables/aia3/04_exploitation.md:78-90.
 - Paramètres du DAG : dags/fraude_supervision.py:69.
-- Indicateur 6.1 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateur 6.1 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

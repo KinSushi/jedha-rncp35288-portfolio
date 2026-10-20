@@ -63,13 +63,13 @@ POURQUOI
 - Masquage dès l'ingestion, liste blanche et limites (pseudonymisation n'est pas anonymisation) :
   livrables/aia3/03_securite_conformite.md:21-73.
 - Hachage à clé et non simple (exigence 3.5.1.1 de PCI DSS 4.0.1 telle que transposée) :
-  livrables/aia3/03_securite_conformite.md:92-111 ; texte de la norme : source à joindre.
-- Principe de minimisation (RGPD, article 5, paragraphe 1, point c) : texte du règlement, source à
-  joindre ; correspondance avec les champs du projet :
+  livrables/aia3/03_securite_conformite.md:92-111 ; texte de la norme non reproduit ici.
+- Principe de minimisation (RGPD, article 5, paragraphe 1, point c) : texte du règlement non
+  reproduit ici ; correspondance avec les champs du projet :
   livrables/aia3/03_securite_conformite.md:10-19.
 - Preuve par le résultat : test_aucune_donnee_personnelle_dans_aucun_fichier_produit
   (tests/test_bout_en_bout.py:138-161).
-- Critère 5.1 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Critère 5.1 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

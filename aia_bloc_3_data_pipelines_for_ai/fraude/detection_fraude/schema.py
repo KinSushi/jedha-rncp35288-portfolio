@@ -65,7 +65,7 @@ POURQUOI
   livrables/aia3/03_securite_conformite.md:158-168.
 - Bornes physiques : detection_fraude/schema.py:91 et la ligne suivante
   (detection_fraude/schema.py:92) ; leur justification est dans le code (commentaires).
-- Indicateurs 4.1 et 4.2 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateurs 4.1 et 4.2 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

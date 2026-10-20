@@ -57,7 +57,7 @@ POURQUOI
   livrables/aia3/03_securite_conformite.md:129-156.
 - HTTPS et TLS imposés en production : livrables/aia3/03_securite_conformite.md:113-127.
 - Production figée sur les contraintes d'Airflow 2.10.5 : docker/contraintes-ml.txt:6.
-- Indicateurs 3.3 et 5.2 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateurs 3.3 et 5.2 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

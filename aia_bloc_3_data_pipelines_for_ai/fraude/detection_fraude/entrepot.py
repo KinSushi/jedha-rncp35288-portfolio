@@ -67,8 +67,8 @@ POURQUOI
 - Requêtes paramétrées contre l'injection SQL : livrables/aia3/03_securite_conformite.md:158-168.
 - Clause ``DO NOTHING`` : construire_insertion (detection_fraude/entrepot.py:326-335). Épreuve du
   11/10/2026 (clause retirée) : deux tests de l'entrepôt échouent, ceux du consommateur restent
-  verts, car il écarte déjà les doublons ; compte rendu des manipulations : source à joindre.
-- Indicateurs 2.1 et 7.1 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+  verts, car il écarte déjà les doublons ; compte rendu des manipulations non publié.
+- Indicateurs 2.1 et 7.1 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

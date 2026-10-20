@@ -56,7 +56,7 @@ POURQUOI
   livrables/aia3/02_pipeline_et_qualite.md:166-187.
 - Environnement de tests sans Airflow, analyse par le vrai Airflow 2.10.5 dans l'image :
   livrables/aia3/07_couverture_et_limites.md:31-51.
-- Indicateurs 3.1, 3.2, 4.3 et 6.1 du référentiel AIA RNCP41993 : texte du référentiel à joindre.
+- Indicateurs 3.1, 3.2, 4.3 et 6.1 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

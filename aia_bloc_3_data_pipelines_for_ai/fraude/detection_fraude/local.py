@@ -64,7 +64,7 @@ POURQUOI
   livrables/aia3/02_pipeline_et_qualite.md:189-208.
 - Jour rejoué par défaut (période de test, 10 fraudes) : JOUR_PAR_DEFAUT
   (detection_fraude/local.py:108-110).
-- Manipulations du 11/10/2026 réalisées avec cette démonstration : compte rendu, source à joindre.
+- Manipulations du 11/10/2026 réalisées avec cette démonstration : compte rendu non publié.
 
 JOURNALISATION
 --------------

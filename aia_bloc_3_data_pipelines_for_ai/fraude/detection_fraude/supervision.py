@@ -58,7 +58,7 @@ POURQUOI
 - Constats réels pendant la validation (dont ``modele_non_applique``) :
   livrables/aia3/04_exploitation.md:78-90.
 - Valeurs des seuils : config/base.yaml:50.
-- Indicateur 6.1 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateur 6.1 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

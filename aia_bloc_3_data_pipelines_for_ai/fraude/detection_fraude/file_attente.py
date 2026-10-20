@@ -62,7 +62,7 @@ POURQUOI
 - Chiffrement des transferts et variables de sécurité de Kafka :
   livrables/aia3/03_securite_conformite.md:113-127.
 - Commentaire d'origine sur le choix IPv4 de Redpanda : detection_fraude/file_attente.py:252.
-- Indicateurs 1.2 et 4.2 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateurs 1.2 et 4.2 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

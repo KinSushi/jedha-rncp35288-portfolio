@@ -64,7 +64,7 @@ POURQUOI
 - Colonnes d'origine et lignage de chaque caractéristique :
   livrables/aia3/02_pipeline_et_qualite.md:289-330.
 - Constantes de fenêtre et plafond : detection_fraude/fonctionnalites.py:85.
-- Indicateurs 2.1 et 2.2 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateurs 2.1 et 2.2 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

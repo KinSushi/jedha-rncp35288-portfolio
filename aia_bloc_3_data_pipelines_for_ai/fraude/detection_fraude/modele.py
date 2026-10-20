@@ -63,7 +63,7 @@ POURQUOI
 - Incident constaté sous Airflow (référence à ``dill``), conservation de l'ancien modèle et
   constat ``modele_non_applique`` : livrables/aia3/04_exploitation.md:78-90.
 - Comportement du chargeur : ChargeurModele.obtenir (detection_fraude/modele.py:239-261).
-- Indicateurs 2.3 et 5.2 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateurs 2.3 et 5.2 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

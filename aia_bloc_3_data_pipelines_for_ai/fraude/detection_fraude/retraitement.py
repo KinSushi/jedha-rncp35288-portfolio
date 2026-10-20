@@ -57,7 +57,7 @@ POURQUOI
 - ETL à l'entrée pour la confidentialité, ELT ensuite pour la souplesse :
   livrables/aia3/01_architecture.md:134-145.
 - Rappel opérationnel de la commande : livrables/aia3/04_exploitation.md:182-191.
-- Indicateur 2.3 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateur 2.3 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------

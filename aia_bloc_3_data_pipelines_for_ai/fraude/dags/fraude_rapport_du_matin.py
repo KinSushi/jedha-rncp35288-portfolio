@@ -49,7 +49,7 @@ POURQUOI
 - Dépendances entre tâches du rapport du matin : livrables/aia3/02_pipeline_et_qualite.md:166-187.
 - Pourquoi un lot pour ce rapport : livrables/aia3/01_architecture.md:121-127.
 - Paramètres du DAG : dags/fraude_rapport_du_matin.py:84.
-- Indicateurs 3.1 et 3.2 du référentiel AIA RNCP41993 : texte du référentiel à joindre au dossier.
+- Indicateurs 3.1 et 3.2 du référentiel AIA RNCP41993.
 
 JOURNALISATION
 --------------
