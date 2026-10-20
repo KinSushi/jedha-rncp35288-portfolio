@@ -1,0 +1,12 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+#
+# Modèle de configuration du backend d'état : copier ce fichier en « backend.hcl » (ignoré par
+# Git), remplacer les valeurs, puis `terraform init -backend-config=backend.hcl`.
+# Le bucket d'état et la table de verrou sont créés UNE fois, en dehors de ce code (voir
+# terraform/README.md) : bucket chiffré par KMS, versionné, sans accès public.
+bucket         = "NOM-DU-BUCKET-D-ETAT"
+key            = "stripe/prod/terraform.tfstate"
+region         = "eu-west-1"
+encrypt        = true
+kms_key_id     = "alias/NOM-DE-LA-CLE-D-ETAT"
+dynamodb_table = "NOM-DE-LA-TABLE-DE-VERROU"

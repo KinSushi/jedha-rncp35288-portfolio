@@ -1,28 +1,20 @@
-# Evidence Note — AIA Bloc 2 — AI Data Architecture & Infrastructure
+# Note de preuve — AIA bloc 2 — Architecture de données pour l'IA
 
-## Block
+## Statut
 
-AIA Bloc 2 — Design and deploy the data and compute infrastructure for AI.
+Publié : l'architecture de données d'une plateforme de paiement, présentée dans le [README du bloc](../README.md).
 
-## Artifact
+## Ce que le bloc démontre
 
-Planned: an architecture plan (diagrams), the deployment code hosted on GitHub, and a video of the infrastructure running. Case study: a payment platform integrating transactional, analytical and document stores. Links will be added here once the personal deliverables are finalized.
+Conception et déploiement d'une plateforme de données prête pour l'IA : modèles transactionnel, analytique et documentaire, intégration par lots et en flux, choix d'hébergement, infrastructure décrite en code (Terraform), résilience, sécurité et maîtrise des coûts.
 
-## What this proves
+## Preuves
 
-Ability to size, model and deploy an AI-ready data platform: OLTP/OLAP/NoSQL models, batch and streaming integration, hosting trade-offs, Infrastructure as Code, resilience, security and cost control.
+| Preuve | Chemin |
+|---|---|
+| Résumé d'une page | [`RESUME_UNE_PAGE.md`](../RESUME_UNE_PAGE.md) |
+| Documents de conception | [`livrables/aia2/`](../livrables/aia2/) |
+| Diagrammes en images | [`livrables/schemas/`](../livrables/schemas/) |
+| Démonstration exécutable, infrastructure et tests | [`stripe/`](../stripe/) |
 
-## How to review
-
-Once published: architecture diagram first, then the data models, then the deployment code (`plan` before `apply`), then the video.
-
-## Public-safety review
-
-- [ ] synthetic/open data only;
-- [ ] no private school material;
-- [ ] no employer/client data;
-- [ ] no secrets.
-
----
-
-*Copyright © 2026 · Auteur — KinSushi · Enzo · Sovralys LLC*
+Toutes les données sont synthétiques, générées par la démonstration.

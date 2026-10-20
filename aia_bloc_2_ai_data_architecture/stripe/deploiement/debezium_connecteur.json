@@ -1,0 +1,38 @@
+{
+  "_copyright": "Copyright © 2026 · voir le fichier LICENSE du dépôt",
+  "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+  "tasks.max": "1",
+
+  "database.hostname": "postgres",
+  "database.port": "5432",
+  "database.user": "svc_debezium",
+  "database.password": "${secrets:/run/secrets:postgres_cdc_password}",
+  "database.dbname": "stripe",
+
+  "topic.prefix": "stripe",
+  "plugin.name": "pgoutput",
+  "slot.name": "debezium_stripe",
+  "publication.name": "stripe_cdc",
+  "publication.autocreate.mode": "disabled",
+  "table.include.list": "public.marchands,public.clients,public.moyens_paiement,public.produits,public.abonnements,public.paiements,public.remboursements,public.litiges",
+  "column.exclude.list": "public.clients.email_hache",
+
+  "topic.creation.default.replication.factor": "-1",
+  "topic.creation.default.partitions": "-1",
+
+  "snapshot.mode": "initial",
+  "decimal.handling.mode": "string",
+  "time.precision.mode": "adaptive_time_microseconds",
+  "tombstones.on.delete": "false",
+  "heartbeat.interval.ms": "10000",
+
+  "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+  "key.converter.schemas.enable": "false",
+  "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+  "value.converter.schemas.enable": "false",
+
+  "transforms": "aplatir",
+  "transforms.aplatir.type": "io.debezium.transforms.ExtractNewRecordState",
+  "transforms.aplatir.add.fields": "op,source.ts_ms",
+  "transforms.aplatir.delete.handling.mode": "rewrite"
+}

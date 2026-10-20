@@ -1,0 +1,15 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Fichiers produits par l'exécution, jamais versionnés.
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.venv/
+stripe/sorties/
+stripe/terraform/**/.terraform/
+stripe/terraform/**/*.tfstate
+stripe/terraform/**/*.tfstate.*
+stripe/terraform/**/*.tfvars
+stripe/.env
+stripe/secrets/
+stripe/terraform/**/backend.hcl

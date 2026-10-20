@@ -1,0 +1,2195 @@
+Copyright © 2026 · voir le fichier LICENSE du dépôt
+
+Analyse de sécurité de l'infrastructure : checkov sur stripe/terraform
+=======================================================================
+Commande      : checkov -d stripe/terraform --framework terraform --compact
+Exécution     : 19/10/2026, sur le Terraform du dossier après l'ajout des modules calcul et
+                supervision ; hors ligne : option --skip-download et vérification de mise à
+                jour désactivée.
+Outil         : checkov 3.3.28 (environnement Python du projet). Le même outil, sur le
+                Terraform d'avant l'ajout, rend 461 / 0 / 18 comme la version 3.3.26 du 17/10.
+Périmètre     : 13 modules et 2 environnements (dev, prod), analyse statique du texte HCL
+Résultat      : 536 contrôles réussis, 0 échec, 18 ignorés (8 règles, justifiées par écrit)
+                Les 75 contrôles de plus portent sur les ressources ajoutées le 19/10/2026
+                (ECS, rôles et politiques IAM, journaux, rubrique SNS, alarmes, clé KMS
+                « alertes », points de terminaison ECR) ; les 18 ignorés sont les mêmes.
+
+Ce qui N'A PAS été fait : terraform init, validate, plan et fmt (binaire Terraform non
+installé, aucun compte AWS). Cette analyse porte sur le code, pas sur une infrastructure déployée.
+
+Historique : une première analyse a relevé 15 échecs. Ils ont été traités ainsi :
+  - CKV_AWS_394  zones de disponibilité nommées explicitement (corrigé dans le code) ;
+  - CKV2_AWS_8   plan AWS Backup ajouté (module sauvegarde) ; la règle ne suit pas les
+                 références entre modules, elle est donc ignorée avec justification ;
+  - CKV_AWS_109, CKV_AWS_111, CKV_AWS_356  politique de clé KMS (délégation à IAM) : ignorées ;
+  - CKV_AWS_139  protection contre la suppression paramétrable (levée en dev seulement) ;
+  - CKV2_AWS_57  secret du sel de pseudonymisation : ne doit pas tourner ;
+  - CKV2_AWS_5   groupes de sécurité rattachés dans d'autres modules ;
+  - CKV_AWS_144  pas de réplication inter-régions (choix de souveraineté et de périmètre).
+Les justifications complètes figurent à la fin de ce fichier (lignes « Suppress comment »)
+et dans livrables/aia2/06_securite_conformite.md § 9.
+
+------------------------------- sortie de checkov -------------------------------
+
+       _               _
+   ___| |__   ___  ___| | _______   __
+  / __| '_ \ / _ \/ __| |/ / _ \ \ / /
+ | (__| | | |  __/ (__|   < (_) \ V /
+  \___|_| |_|\___|\___|_|\_\___/ \_/
+
+By Prisma Cloud | version: 3.3.28 
+
+terraform scan results:
+
+Passed checks: 536, Failed checks: 0, Skipped checks: 18
+
+Check: CKV_AWS_41: "Ensure no hard coded AWS access key and secret key exists in provider"
+	PASSED for resource: aws.default
+	File: \environnements\dev\main.tf:30-36
+Check: CKV_AWS_41: "Ensure no hard coded AWS access key and secret key exists in provider"
+	PASSED for resource: aws.default
+	File: \environnements\prod\main.tf:31-37
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.aurora.aws_iam_policy_document.surveillance_confiance
+	File: \modules\aurora_postgresql\main.tf:121-131
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.aurora.aws_iam_policy_document.surveillance_confiance
+	File: \modules\aurora_postgresql\main.tf:121-131
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.aurora.aws_iam_policy_document.surveillance_confiance
+	File: \modules\aurora_postgresql\main.tf:121-131
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.aurora.aws_iam_policy_document.surveillance_confiance
+	File: \modules\aurora_postgresql\main.tf:121-131
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.aurora.aws_iam_policy_document.surveillance_confiance
+	File: \modules\aurora_postgresql\main.tf:121-131
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.aurora.aws_iam_policy_document.surveillance_confiance
+	File: \modules\aurora_postgresql\main.tf:121-131
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.aurora.aws_iam_policy_document.surveillance_confiance
+	File: \modules\aurora_postgresql\main.tf:121-131
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.aurora.aws_iam_policy_document.surveillance_confiance
+	File: \modules\aurora_postgresql\main.tf:121-131
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.aurora.aws_iam_policy_document.surveillance_confiance
+	File: \modules\aurora_postgresql\main.tf:121-131
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.aurora.aws_iam_policy_document.surveillance_confiance
+	File: \modules\aurora_postgresql\main.tf:121-131
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_158: "Ensure that CloudWatch Log Group is encrypted by KMS"
+	PASSED for resource: module.aurora.aws_cloudwatch_log_group.postgresql
+	File: \modules\aurora_postgresql\main.tf:74-80
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_66: "Ensure that CloudWatch Log Group specifies retention days"
+	PASSED for resource: module.aurora.aws_cloudwatch_log_group.postgresql
+	File: \modules\aurora_postgresql\main.tf:74-80
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_338: "Ensure CloudWatch log groups retains logs for at least 1 year"
+	PASSED for resource: module.aurora.aws_cloudwatch_log_group.postgresql
+	File: \modules\aurora_postgresql\main.tf:74-80
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_96: "Ensure all data stored in Aurora is securely encrypted at rest"
+	PASSED for resource: module.aurora.aws_rds_cluster.this
+	File: \modules\aurora_postgresql\main.tf:82-117
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_133: "Ensure that RDS instances has backup policy"
+	PASSED for resource: module.aurora.aws_rds_cluster.this
+	File: \modules\aurora_postgresql\main.tf:82-117
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_313: "Ensure RDS cluster configured to copy tags to snapshots"
+	PASSED for resource: module.aurora.aws_rds_cluster.this
+	File: \modules\aurora_postgresql\main.tf:82-117
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_327: "Ensure RDS Clusters are encrypted using KMS CMKs"
+	PASSED for resource: module.aurora.aws_rds_cluster.this
+	File: \modules\aurora_postgresql\main.tf:82-117
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_162: "Ensure RDS cluster has IAM authentication enabled"
+	PASSED for resource: module.aurora.aws_rds_cluster.this
+	File: \modules\aurora_postgresql\main.tf:82-117
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_324: "Ensure that RDS Cluster log capture is enabled"
+	PASSED for resource: module.aurora.aws_rds_cluster.this
+	File: \modules\aurora_postgresql\main.tf:82-117
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_250: "Ensure that RDS PostgreSQL instances use a non vulnerable version with the log_fdw extension (https://aws.amazon.com/security/security-bulletins/AWS-2022-004/)"
+	PASSED for resource: module.aurora.aws_rds_cluster.this
+	File: \modules\aurora_postgresql\main.tf:82-117
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_393: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order on IAM role"
+	PASSED for resource: module.aurora.aws_iam_role.surveillance
+	File: \modules\aurora_postgresql\main.tf:133-138
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.aurora.aws_iam_role.surveillance
+	File: \modules\aurora_postgresql\main.tf:133-138
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+	PASSED for resource: module.aurora.aws_iam_role.surveillance
+	File: \modules\aurora_postgresql\main.tf:133-138
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+	PASSED for resource: module.aurora.aws_iam_role.surveillance
+	File: \modules\aurora_postgresql\main.tf:133-138
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.aurora.aws_iam_role_policy_attachment.surveillance
+	File: \modules\aurora_postgresql\main.tf:140-143
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_226: "Ensure DB instance gets all minor upgrades automatically"
+	PASSED for resource: module.aurora.aws_rds_cluster_instance.this[0]
+	File: \modules\aurora_postgresql\main.tf:147-170
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_118: "Ensure that enhanced monitoring is enabled for Amazon RDS instances"
+	PASSED for resource: module.aurora.aws_rds_cluster_instance.this[0]
+	File: \modules\aurora_postgresql\main.tf:147-170
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_354: "Ensure RDS Performance Insights are encrypted using KMS CMKs"
+	PASSED for resource: module.aurora.aws_rds_cluster_instance.this[0]
+	File: \modules\aurora_postgresql\main.tf:147-170
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_353: "Ensure that RDS instances have performance insights enabled"
+	PASSED for resource: module.aurora.aws_rds_cluster_instance.this[0]
+	File: \modules\aurora_postgresql\main.tf:147-170
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_17: "Ensure all data stored in RDS is not publicly accessible"
+	PASSED for resource: module.aurora.aws_rds_cluster_instance.this[0]
+	File: \modules\aurora_postgresql\main.tf:147-170
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_226: "Ensure DB instance gets all minor upgrades automatically"
+	PASSED for resource: module.aurora.aws_rds_cluster_instance.this[1]
+	File: \modules\aurora_postgresql\main.tf:147-170
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_118: "Ensure that enhanced monitoring is enabled for Amazon RDS instances"
+	PASSED for resource: module.aurora.aws_rds_cluster_instance.this[1]
+	File: \modules\aurora_postgresql\main.tf:147-170
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_354: "Ensure RDS Performance Insights are encrypted using KMS CMKs"
+	PASSED for resource: module.aurora.aws_rds_cluster_instance.this[1]
+	File: \modules\aurora_postgresql\main.tf:147-170
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_353: "Ensure that RDS instances have performance insights enabled"
+	PASSED for resource: module.aurora.aws_rds_cluster_instance.this[1]
+	File: \modules\aurora_postgresql\main.tf:147-170
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_17: "Ensure all data stored in RDS is not publicly accessible"
+	PASSED for resource: module.aurora.aws_rds_cluster_instance.this[1]
+	File: \modules\aurora_postgresql\main.tf:147-170
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.lac.module.audit.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.lac.module.audit.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.lac.module.audit.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.lac.module.audit.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.lac.module.audit.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.lac.module.audit.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.lac.module.audit.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.lac.module.audit.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.lac.module.audit.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.lac.module.audit.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_93: "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_53: "Ensure S3 bucket has block public ACLS enabled"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_54: "Ensure S3 bucket has block public policy enabled"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_55: "Ensure S3 bucket has ignore public ACLs enabled"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_56: "Ensure S3 bucket has 'restrict_public_buckets' enabled"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_300: "Ensure S3 lifecycle configuration sets period for aborting failed uploads"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket_lifecycle_configuration.this
+	File: \modules\bucket_s3\main.tf:86-114
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_93: "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket_policy.this
+	File: \modules\bucket_s3\main.tf:143-148
+	Calling File: \modules\lac_s3\main.tf:83-94
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.lac.module.journaux.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.lac.module.journaux.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.lac.module.journaux.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.lac.module.journaux.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.lac.module.journaux.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.lac.module.journaux.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.lac.module.journaux.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.lac.module.journaux.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.lac.module.journaux.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.lac.module.journaux.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_93: "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_53: "Ensure S3 bucket has block public ACLS enabled"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_54: "Ensure S3 bucket has block public policy enabled"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_55: "Ensure S3 bucket has ignore public ACLs enabled"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_56: "Ensure S3 bucket has 'restrict_public_buckets' enabled"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_300: "Ensure S3 lifecycle configuration sets period for aborting failed uploads"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket_lifecycle_configuration.this
+	File: \modules\bucket_s3\main.tf:86-114
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_93: "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket_policy.this
+	File: \modules\bucket_s3\main.tf:143-148
+	Calling File: \modules\lac_s3\main.tf:53-63
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.lac.module.lac.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.lac.module.lac.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.lac.module.lac.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.lac.module.lac.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.lac.module.lac.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.lac.module.lac.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.lac.module.lac.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.lac.module.lac.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.lac.module.lac.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.lac.module.lac.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_93: "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_53: "Ensure S3 bucket has block public ACLS enabled"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_54: "Ensure S3 bucket has block public policy enabled"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_55: "Ensure S3 bucket has ignore public ACLs enabled"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_56: "Ensure S3 bucket has 'restrict_public_buckets' enabled"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket_public_access_block.this
+	File: \modules\bucket_s3\main.tf:32-38
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_300: "Ensure S3 lifecycle configuration sets period for aborting failed uploads"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket_lifecycle_configuration.this
+	File: \modules\bucket_s3\main.tf:86-114
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_93: "Ensure S3 bucket policy does not lockout all but root user. (Prevent lockouts needing root account fixes)"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket_policy.this
+	File: \modules\bucket_s3\main.tf:143-148
+	Calling File: \modules\lac_s3\main.tf:65-81
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.calcul.aws_iam_policy_document.confiance_execution
+	File: \modules\calcul\main.tf:111-127
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.calcul.aws_iam_policy_document.confiance_execution
+	File: \modules\calcul\main.tf:111-127
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.calcul.aws_iam_policy_document.confiance_execution
+	File: \modules\calcul\main.tf:111-127
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.calcul.aws_iam_policy_document.confiance_execution
+	File: \modules\calcul\main.tf:111-127
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.calcul.aws_iam_policy_document.confiance_execution
+	File: \modules\calcul\main.tf:111-127
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.calcul.aws_iam_policy_document.confiance_execution
+	File: \modules\calcul\main.tf:111-127
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.calcul.aws_iam_policy_document.confiance_execution
+	File: \modules\calcul\main.tf:111-127
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.calcul.aws_iam_policy_document.confiance_execution
+	File: \modules\calcul\main.tf:111-127
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.calcul.aws_iam_policy_document.confiance_execution
+	File: \modules\calcul\main.tf:111-127
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.calcul.aws_iam_policy_document.confiance_execution
+	File: \modules\calcul\main.tf:111-127
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.calcul.aws_iam_policy_document.execution
+	File: \modules\calcul\main.tf:129-152
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.calcul.aws_iam_policy_document.execution
+	File: \modules\calcul\main.tf:129-152
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.calcul.aws_iam_policy_document.execution
+	File: \modules\calcul\main.tf:129-152
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.calcul.aws_iam_policy_document.execution
+	File: \modules\calcul\main.tf:129-152
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.calcul.aws_iam_policy_document.execution
+	File: \modules\calcul\main.tf:129-152
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.calcul.aws_iam_policy_document.execution
+	File: \modules\calcul\main.tf:129-152
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.calcul.aws_iam_policy_document.execution
+	File: \modules\calcul\main.tf:129-152
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.calcul.aws_iam_policy_document.execution
+	File: \modules\calcul\main.tf:129-152
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.calcul.aws_iam_policy_document.execution
+	File: \modules\calcul\main.tf:129-152
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.calcul.aws_iam_policy_document.execution
+	File: \modules\calcul\main.tf:129-152
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_65: "Ensure container insights are enabled on ECS cluster"
+	PASSED for resource: module.calcul.aws_ecs_cluster.this
+	File: \modules\calcul\main.tf:51-75
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_223: "Ensure ECS Cluster enables logging of ECS Exec"
+	PASSED for resource: module.calcul.aws_ecs_cluster.this
+	File: \modules\calcul\main.tf:51-75
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_224: "Ensure ECS Cluster logging is enabled and client to container communication uses CMK"
+	PASSED for resource: module.calcul.aws_ecs_cluster.this
+	File: \modules\calcul\main.tf:51-75
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_158: "Ensure that CloudWatch Log Group is encrypted by KMS"
+	PASSED for resource: module.calcul.aws_cloudwatch_log_group.taches["score"]
+	File: \modules\calcul\main.tf:89-97
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_66: "Ensure that CloudWatch Log Group specifies retention days"
+	PASSED for resource: module.calcul.aws_cloudwatch_log_group.taches["score"]
+	File: \modules\calcul\main.tf:89-97
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_338: "Ensure CloudWatch log groups retains logs for at least 1 year"
+	PASSED for resource: module.calcul.aws_cloudwatch_log_group.taches["score"]
+	File: \modules\calcul\main.tf:89-97
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_158: "Ensure that CloudWatch Log Group is encrypted by KMS"
+	PASSED for resource: module.calcul.aws_cloudwatch_log_group.exec
+	File: \modules\calcul\main.tf:99-105
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_66: "Ensure that CloudWatch Log Group specifies retention days"
+	PASSED for resource: module.calcul.aws_cloudwatch_log_group.exec
+	File: \modules\calcul\main.tf:99-105
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_338: "Ensure CloudWatch log groups retains logs for at least 1 year"
+	PASSED for resource: module.calcul.aws_cloudwatch_log_group.exec
+	File: \modules\calcul\main.tf:99-105
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_393: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order on IAM role"
+	PASSED for resource: module.calcul.aws_iam_role.execution
+	File: \modules\calcul\main.tf:154-160
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.calcul.aws_iam_role.execution
+	File: \modules\calcul\main.tf:154-160
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+	PASSED for resource: module.calcul.aws_iam_role.execution
+	File: \modules\calcul\main.tf:154-160
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+	PASSED for resource: module.calcul.aws_iam_role.execution
+	File: \modules\calcul\main.tf:154-160
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.calcul.aws_iam_role_policy.execution
+	File: \modules\calcul\main.tf:162-166
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.calcul.aws_iam_role_policy.execution
+	File: \modules\calcul\main.tf:162-166
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_336: "Ensure ECS containers are limited to read-only access to root filesystems"
+	PASSED for resource: module.calcul.aws_ecs_task_definition.score
+	File: \modules\calcul\main.tf:170-203
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_97: "Ensure Encryption in transit is enabled for EFS volumes in ECS Task definitions"
+	PASSED for resource: module.calcul.aws_ecs_task_definition.score
+	File: \modules\calcul\main.tf:170-203
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_249: "Ensure that the Execution Role ARN and the Task Role ARN are different in ECS Task definitions"
+	PASSED for resource: module.calcul.aws_ecs_task_definition.score
+	File: \modules\calcul\main.tf:170-203
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_336: "Ensure ECS containers are limited to read-only access to root filesystems"
+	PASSED for resource: module.calcul.aws_ecs_task_definition.etl
+	File: \modules\calcul\main.tf:205-238
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_97: "Ensure Encryption in transit is enabled for EFS volumes in ECS Task definitions"
+	PASSED for resource: module.calcul.aws_ecs_task_definition.etl
+	File: \modules\calcul\main.tf:205-238
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_249: "Ensure that the Execution Role ARN and the Task Role ARN are different in ECS Task definitions"
+	PASSED for resource: module.calcul.aws_ecs_task_definition.etl
+	File: \modules\calcul\main.tf:205-238
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_332: "Ensure ECS Fargate services run on the latest Fargate platform version"
+	PASSED for resource: module.calcul.aws_ecs_service.score
+	File: \modules\calcul\main.tf:242-276
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_333: "Ensure ECS services do not have public IP addresses assigned to them automatically"
+	PASSED for resource: module.calcul.aws_ecs_service.score
+	File: \modules\calcul\main.tf:242-276
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_158: "Ensure that CloudWatch Log Group is encrypted by KMS"
+	PASSED for resource: module.calcul.aws_cloudwatch_log_group.taches["etl"]
+	File: \modules\calcul\main.tf:89-97
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_66: "Ensure that CloudWatch Log Group specifies retention days"
+	PASSED for resource: module.calcul.aws_cloudwatch_log_group.taches["etl"]
+	File: \modules\calcul\main.tf:89-97
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_338: "Ensure CloudWatch log groups retains logs for at least 1 year"
+	PASSED for resource: module.calcul.aws_cloudwatch_log_group.taches["etl"]
+	File: \modules\calcul\main.tf:89-97
+	Calling File: \environnements\prod\main.tf:238-270
+Check: CKV_AWS_104: "Ensure DocumentDB has audit logs enabled"
+	PASSED for resource: module.documentdb.aws_docdb_cluster_parameter_group.this
+	File: \modules\documentdb\main.tf:21-43
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_90: "Ensure DocumentDB TLS is not disabled"
+	PASSED for resource: module.documentdb.aws_docdb_cluster_parameter_group.this
+	File: \modules\documentdb\main.tf:21-43
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_158: "Ensure that CloudWatch Log Group is encrypted by KMS"
+	PASSED for resource: module.documentdb.aws_cloudwatch_log_group.journaux["audit"]
+	File: \modules\documentdb\main.tf:46-54
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_66: "Ensure that CloudWatch Log Group specifies retention days"
+	PASSED for resource: module.documentdb.aws_cloudwatch_log_group.journaux["audit"]
+	File: \modules\documentdb\main.tf:46-54
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_338: "Ensure CloudWatch log groups retains logs for at least 1 year"
+	PASSED for resource: module.documentdb.aws_cloudwatch_log_group.journaux["audit"]
+	File: \modules\documentdb\main.tf:46-54
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_360: "Ensure DocumentDB has an adequate backup retention period"
+	PASSED for resource: module.documentdb.aws_docdb_cluster.this
+	File: \modules\documentdb\main.tf:56-88
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_182: "Ensure DocumentDB is encrypted by KMS using a customer managed Key (CMK)"
+	PASSED for resource: module.documentdb.aws_docdb_cluster.this
+	File: \modules\documentdb\main.tf:56-88
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_74: "Ensure DocumentDB is encrypted at rest (default is unencrypted)"
+	PASSED for resource: module.documentdb.aws_docdb_cluster.this
+	File: \modules\documentdb\main.tf:56-88
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_85: "Ensure DocumentDB Logging is enabled"
+	PASSED for resource: module.documentdb.aws_docdb_cluster.this
+	File: \modules\documentdb\main.tf:56-88
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_158: "Ensure that CloudWatch Log Group is encrypted by KMS"
+	PASSED for resource: module.documentdb.aws_cloudwatch_log_group.journaux["profiler"]
+	File: \modules\documentdb\main.tf:46-54
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_66: "Ensure that CloudWatch Log Group specifies retention days"
+	PASSED for resource: module.documentdb.aws_cloudwatch_log_group.journaux["profiler"]
+	File: \modules\documentdb\main.tf:46-54
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_338: "Ensure CloudWatch log groups retains logs for at least 1 year"
+	PASSED for resource: module.documentdb.aws_cloudwatch_log_group.journaux["profiler"]
+	File: \modules\documentdb\main.tf:46-54
+	Calling File: \environnements\prod\main.tf:165-178
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_taches
+	File: \modules\iam\main.tf:36-52
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_taches
+	File: \modules\iam\main.tf:36-52
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_taches
+	File: \modules\iam\main.tf:36-52
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_taches
+	File: \modules\iam\main.tf:36-52
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_taches
+	File: \modules\iam\main.tf:36-52
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_taches
+	File: \modules\iam\main.tf:36-52
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_taches
+	File: \modules\iam\main.tf:36-52
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_taches
+	File: \modules\iam\main.tf:36-52
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_taches
+	File: \modules\iam\main.tf:36-52
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_taches
+	File: \modules\iam\main.tf:36-52
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_connecteur
+	File: \modules\iam\main.tf:54-70
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_connecteur
+	File: \modules\iam\main.tf:54-70
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_connecteur
+	File: \modules\iam\main.tf:54-70
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_connecteur
+	File: \modules\iam\main.tf:54-70
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_connecteur
+	File: \modules\iam\main.tf:54-70
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_connecteur
+	File: \modules\iam\main.tf:54-70
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_connecteur
+	File: \modules\iam\main.tf:54-70
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_connecteur
+	File: \modules\iam\main.tf:54-70
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_connecteur
+	File: \modules\iam\main.tf:54-70
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_connecteur
+	File: \modules\iam\main.tf:54-70
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_redshift
+	File: \modules\iam\main.tf:72-88
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_redshift
+	File: \modules\iam\main.tf:72-88
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_redshift
+	File: \modules\iam\main.tf:72-88
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_redshift
+	File: \modules\iam\main.tf:72-88
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_redshift
+	File: \modules\iam\main.tf:72-88
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_redshift
+	File: \modules\iam\main.tf:72-88
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_redshift
+	File: \modules\iam\main.tf:72-88
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_redshift
+	File: \modules\iam\main.tf:72-88
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_redshift
+	File: \modules\iam\main.tf:72-88
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_redshift
+	File: \modules\iam\main.tf:72-88
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_analystes
+	File: \modules\iam\main.tf:90-109
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_analystes
+	File: \modules\iam\main.tf:90-109
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_analystes
+	File: \modules\iam\main.tf:90-109
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_analystes
+	File: \modules\iam\main.tf:90-109
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_analystes
+	File: \modules\iam\main.tf:90-109
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_analystes
+	File: \modules\iam\main.tf:90-109
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_analystes
+	File: \modules\iam\main.tf:90-109
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_analystes
+	File: \modules\iam\main.tf:90-109
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_analystes
+	File: \modules\iam\main.tf:90-109
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_analystes
+	File: \modules\iam\main.tf:90-109
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_policy_document.etl
+	File: \modules\iam\main.tf:113-201
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.iam.aws_iam_policy_document.etl
+	File: \modules\iam\main.tf:113-201
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.iam.aws_iam_policy_document.etl
+	File: \modules\iam\main.tf:113-201
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.iam.aws_iam_policy_document.etl
+	File: \modules\iam\main.tf:113-201
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.etl
+	File: \modules\iam\main.tf:113-201
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.iam.aws_iam_policy_document.etl
+	File: \modules\iam\main.tf:113-201
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.iam.aws_iam_policy_document.etl
+	File: \modules\iam\main.tf:113-201
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.etl
+	File: \modules\iam\main.tf:113-201
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.etl
+	File: \modules\iam\main.tf:113-201
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.etl
+	File: \modules\iam\main.tf:113-201
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_policy_document.cdc
+	File: \modules\iam\main.tf:219-278
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.iam.aws_iam_policy_document.cdc
+	File: \modules\iam\main.tf:219-278
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.iam.aws_iam_policy_document.cdc
+	File: \modules\iam\main.tf:219-278
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.iam.aws_iam_policy_document.cdc
+	File: \modules\iam\main.tf:219-278
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.cdc
+	File: \modules\iam\main.tf:219-278
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.iam.aws_iam_policy_document.cdc
+	File: \modules\iam\main.tf:219-278
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.iam.aws_iam_policy_document.cdc
+	File: \modules\iam\main.tf:219-278
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.cdc
+	File: \modules\iam\main.tf:219-278
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.cdc
+	File: \modules\iam\main.tf:219-278
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.cdc
+	File: \modules\iam\main.tf:219-278
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_policy_document.redshift_s3
+	File: \modules\iam\main.tf:296-323
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.iam.aws_iam_policy_document.redshift_s3
+	File: \modules\iam\main.tf:296-323
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.iam.aws_iam_policy_document.redshift_s3
+	File: \modules\iam\main.tf:296-323
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.iam.aws_iam_policy_document.redshift_s3
+	File: \modules\iam\main.tf:296-323
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.redshift_s3
+	File: \modules\iam\main.tf:296-323
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.iam.aws_iam_policy_document.redshift_s3
+	File: \modules\iam\main.tf:296-323
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.iam.aws_iam_policy_document.redshift_s3
+	File: \modules\iam\main.tf:296-323
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.redshift_s3
+	File: \modules\iam\main.tf:296-323
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.redshift_s3
+	File: \modules\iam\main.tf:296-323
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.redshift_s3
+	File: \modules\iam\main.tf:296-323
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_policy_document.application
+	File: \modules\iam\main.tf:341-348
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.iam.aws_iam_policy_document.application
+	File: \modules\iam\main.tf:341-348
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.iam.aws_iam_policy_document.application
+	File: \modules\iam\main.tf:341-348
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.iam.aws_iam_policy_document.application
+	File: \modules\iam\main.tf:341-348
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.application
+	File: \modules\iam\main.tf:341-348
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.iam.aws_iam_policy_document.application
+	File: \modules\iam\main.tf:341-348
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.iam.aws_iam_policy_document.application
+	File: \modules\iam\main.tf:341-348
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.application
+	File: \modules\iam\main.tf:341-348
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.application
+	File: \modules\iam\main.tf:341-348
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.application
+	File: \modules\iam\main.tf:341-348
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_policy_document.score
+	File: \modules\iam\main.tf:369-396
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.iam.aws_iam_policy_document.score
+	File: \modules\iam\main.tf:369-396
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.iam.aws_iam_policy_document.score
+	File: \modules\iam\main.tf:369-396
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.iam.aws_iam_policy_document.score
+	File: \modules\iam\main.tf:369-396
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.score
+	File: \modules\iam\main.tf:369-396
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.iam.aws_iam_policy_document.score
+	File: \modules\iam\main.tf:369-396
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.iam.aws_iam_policy_document.score
+	File: \modules\iam\main.tf:369-396
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.score
+	File: \modules\iam\main.tf:369-396
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.score
+	File: \modules\iam\main.tf:369-396
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.score
+	File: \modules\iam\main.tf:369-396
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_policy_document.analyste
+	File: \modules\iam\main.tf:414-426
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.iam.aws_iam_policy_document.analyste
+	File: \modules\iam\main.tf:414-426
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.iam.aws_iam_policy_document.analyste
+	File: \modules\iam\main.tf:414-426
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.iam.aws_iam_policy_document.analyste
+	File: \modules\iam\main.tf:414-426
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.analyste
+	File: \modules\iam\main.tf:414-426
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.iam.aws_iam_policy_document.analyste
+	File: \modules\iam\main.tf:414-426
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.iam.aws_iam_policy_document.analyste
+	File: \modules\iam\main.tf:414-426
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.iam.aws_iam_policy_document.analyste
+	File: \modules\iam\main.tf:414-426
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.analyste
+	File: \modules\iam\main.tf:414-426
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_policy_document.analyste
+	File: \modules\iam\main.tf:414-426
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_393: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order on IAM role"
+	PASSED for resource: module.iam.aws_iam_role.etl
+	File: \modules\iam\main.tf:203-209
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.iam.aws_iam_role.etl
+	File: \modules\iam\main.tf:203-209
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+	PASSED for resource: module.iam.aws_iam_role.etl
+	File: \modules\iam\main.tf:203-209
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+	PASSED for resource: module.iam.aws_iam_role.etl
+	File: \modules\iam\main.tf:203-209
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_role_policy.etl
+	File: \modules\iam\main.tf:211-215
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_role_policy.etl
+	File: \modules\iam\main.tf:211-215
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_393: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order on IAM role"
+	PASSED for resource: module.iam.aws_iam_role.cdc
+	File: \modules\iam\main.tf:280-286
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.iam.aws_iam_role.cdc
+	File: \modules\iam\main.tf:280-286
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+	PASSED for resource: module.iam.aws_iam_role.cdc
+	File: \modules\iam\main.tf:280-286
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+	PASSED for resource: module.iam.aws_iam_role.cdc
+	File: \modules\iam\main.tf:280-286
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_role_policy.cdc
+	File: \modules\iam\main.tf:288-292
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_role_policy.cdc
+	File: \modules\iam\main.tf:288-292
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_393: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order on IAM role"
+	PASSED for resource: module.iam.aws_iam_role.redshift_s3
+	File: \modules\iam\main.tf:325-331
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.iam.aws_iam_role.redshift_s3
+	File: \modules\iam\main.tf:325-331
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+	PASSED for resource: module.iam.aws_iam_role.redshift_s3
+	File: \modules\iam\main.tf:325-331
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+	PASSED for resource: module.iam.aws_iam_role.redshift_s3
+	File: \modules\iam\main.tf:325-331
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_role_policy.redshift_s3
+	File: \modules\iam\main.tf:333-337
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_role_policy.redshift_s3
+	File: \modules\iam\main.tf:333-337
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_393: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order on IAM role"
+	PASSED for resource: module.iam.aws_iam_role.application
+	File: \modules\iam\main.tf:350-356
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.iam.aws_iam_role.application
+	File: \modules\iam\main.tf:350-356
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+	PASSED for resource: module.iam.aws_iam_role.application
+	File: \modules\iam\main.tf:350-356
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+	PASSED for resource: module.iam.aws_iam_role.application
+	File: \modules\iam\main.tf:350-356
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_role_policy.application
+	File: \modules\iam\main.tf:358-362
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_role_policy.application
+	File: \modules\iam\main.tf:358-362
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_393: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order on IAM role"
+	PASSED for resource: module.iam.aws_iam_role.score
+	File: \modules\iam\main.tf:398-404
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.iam.aws_iam_role.score
+	File: \modules\iam\main.tf:398-404
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+	PASSED for resource: module.iam.aws_iam_role.score
+	File: \modules\iam\main.tf:398-404
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+	PASSED for resource: module.iam.aws_iam_role.score
+	File: \modules\iam\main.tf:398-404
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_role_policy.score
+	File: \modules\iam\main.tf:406-410
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_role_policy.score
+	File: \modules\iam\main.tf:406-410
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_393: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order on IAM role"
+	PASSED for resource: module.iam.aws_iam_role.analyste[0]
+	File: \modules\iam\main.tf:428-437
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.iam.aws_iam_role.analyste[0]
+	File: \modules\iam\main.tf:428-437
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+	PASSED for resource: module.iam.aws_iam_role.analyste[0]
+	File: \modules\iam\main.tf:428-437
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+	PASSED for resource: module.iam.aws_iam_role.analyste[0]
+	File: \modules\iam\main.tf:428-437
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.iam.aws_iam_role_policy.analyste[0]
+	File: \modules\iam\main.tf:439-445
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.iam.aws_iam_role_policy.analyste[0]
+	File: \modules\iam\main.tf:439-445
+	Calling File: \environnements\prod\main.tf:204-218
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.kms.aws_iam_policy_document.cle
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.kms.aws_iam_policy_document.cle
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.kms.aws_iam_policy_document.cle
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.kms.aws_iam_policy_document.cle
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.kms.aws_iam_policy_document.cle
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.kms.aws_iam_policy_document.cle
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.kms.aws_iam_policy_document.cle
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_227: "Ensure KMS key is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["alertes"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_33: "Ensure KMS key policy does not contain wildcard (*) principal"
+	PASSED for resource: module.kms.aws_kms_key.cle["alertes"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_7: "Ensure rotation for customer created CMKs is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["alertes"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_227: "Ensure KMS key is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["analytique"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_33: "Ensure KMS key policy does not contain wildcard (*) principal"
+	PASSED for resource: module.kms.aws_kms_key.cle["analytique"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_7: "Ensure rotation for customer created CMKs is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["analytique"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_227: "Ensure KMS key is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["documents"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_33: "Ensure KMS key policy does not contain wildcard (*) principal"
+	PASSED for resource: module.kms.aws_kms_key.cle["documents"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_7: "Ensure rotation for customer created CMKs is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["documents"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_227: "Ensure KMS key is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["journaux"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_33: "Ensure KMS key policy does not contain wildcard (*) principal"
+	PASSED for resource: module.kms.aws_kms_key.cle["journaux"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_7: "Ensure rotation for customer created CMKs is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["journaux"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_227: "Ensure KMS key is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["lac"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_33: "Ensure KMS key policy does not contain wildcard (*) principal"
+	PASSED for resource: module.kms.aws_kms_key.cle["lac"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_7: "Ensure rotation for customer created CMKs is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["lac"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_227: "Ensure KMS key is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["oltp"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_33: "Ensure KMS key policy does not contain wildcard (*) principal"
+	PASSED for resource: module.kms.aws_kms_key.cle["oltp"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_7: "Ensure rotation for customer created CMKs is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["oltp"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_227: "Ensure KMS key is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["sauvegarde"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_33: "Ensure KMS key policy does not contain wildcard (*) principal"
+	PASSED for resource: module.kms.aws_kms_key.cle["sauvegarde"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_7: "Ensure rotation for customer created CMKs is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["sauvegarde"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_227: "Ensure KMS key is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["secrets"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_33: "Ensure KMS key policy does not contain wildcard (*) principal"
+	PASSED for resource: module.kms.aws_kms_key.cle["secrets"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_7: "Ensure rotation for customer created CMKs is enabled"
+	PASSED for resource: module.kms.aws_kms_key.cle["secrets"]
+	File: \modules\kms\main.tf:88-97
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.lac.aws_iam_policy_document.ecriture_journaux
+	File: \modules\lac_s3\main.tf:27-51
+	Calling File: \environnements\prod\main.tf:127-134
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.lac.aws_iam_policy_document.ecriture_journaux
+	File: \modules\lac_s3\main.tf:27-51
+	Calling File: \environnements\prod\main.tf:127-134
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.lac.aws_iam_policy_document.ecriture_journaux
+	File: \modules\lac_s3\main.tf:27-51
+	Calling File: \environnements\prod\main.tf:127-134
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.lac.aws_iam_policy_document.ecriture_journaux
+	File: \modules\lac_s3\main.tf:27-51
+	Calling File: \environnements\prod\main.tf:127-134
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.lac.aws_iam_policy_document.ecriture_journaux
+	File: \modules\lac_s3\main.tf:27-51
+	Calling File: \environnements\prod\main.tf:127-134
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.lac.aws_iam_policy_document.ecriture_journaux
+	File: \modules\lac_s3\main.tf:27-51
+	Calling File: \environnements\prod\main.tf:127-134
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.lac.aws_iam_policy_document.ecriture_journaux
+	File: \modules\lac_s3\main.tf:27-51
+	Calling File: \environnements\prod\main.tf:127-134
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.lac.aws_iam_policy_document.ecriture_journaux
+	File: \modules\lac_s3\main.tf:27-51
+	Calling File: \environnements\prod\main.tf:127-134
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.lac.aws_iam_policy_document.ecriture_journaux
+	File: \modules\lac_s3\main.tf:27-51
+	Calling File: \environnements\prod\main.tf:127-134
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.lac.aws_iam_policy_document.ecriture_journaux
+	File: \modules\lac_s3\main.tf:27-51
+	Calling File: \environnements\prod\main.tf:127-134
+Check: CKV_AWS_282: "Ensure that Redshift Serverless namespace is encrypted by KMS using a customer managed key (CMK)"
+	PASSED for resource: module.redshift.aws_redshiftserverless_namespace.this
+	File: \modules\redshift_serverless\main.tf:13-28
+	Calling File: \environnements\prod\main.tf:222-234
+Check: CKV_AWS_394: "Ensure aws_availability_zones data source pins zone identity so its result set does not silently expand when AWS adds an Availability Zone"
+	PASSED for resource: module.reseau.aws_availability_zones.disponibles
+	File: \modules\reseau\main.tf:16-23
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_confiance
+	File: \modules\reseau\main.tf:81-91
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_confiance
+	File: \modules\reseau\main.tf:81-91
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_confiance
+	File: \modules\reseau\main.tf:81-91
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_confiance
+	File: \modules\reseau\main.tf:81-91
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_confiance
+	File: \modules\reseau\main.tf:81-91
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_confiance
+	File: \modules\reseau\main.tf:81-91
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_confiance
+	File: \modules\reseau\main.tf:81-91
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_confiance
+	File: \modules\reseau\main.tf:81-91
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_confiance
+	File: \modules\reseau\main.tf:81-91
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_confiance
+	File: \modules\reseau\main.tf:81-91
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_droits
+	File: \modules\reseau\main.tf:93-103
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_droits
+	File: \modules\reseau\main.tf:93-103
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_droits
+	File: \modules\reseau\main.tf:93-103
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_droits
+	File: \modules\reseau\main.tf:93-103
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_droits
+	File: \modules\reseau\main.tf:93-103
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_droits
+	File: \modules\reseau\main.tf:93-103
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_droits
+	File: \modules\reseau\main.tf:93-103
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_droits
+	File: \modules\reseau\main.tf:93-103
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_droits
+	File: \modules\reseau\main.tf:93-103
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_droits
+	File: \modules\reseau\main.tf:93-103
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_130: "Ensure VPC subnets do not assign public IP by default"
+	PASSED for resource: module.reseau.aws_subnet.prive
+	File: \modules\reseau\main.tf:46-55
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_158: "Ensure that CloudWatch Log Group is encrypted by KMS"
+	PASSED for resource: module.reseau.aws_cloudwatch_log_group.flux_vpc
+	File: \modules\reseau\main.tf:73-79
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_66: "Ensure that CloudWatch Log Group specifies retention days"
+	PASSED for resource: module.reseau.aws_cloudwatch_log_group.flux_vpc
+	File: \modules\reseau\main.tf:73-79
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_338: "Ensure CloudWatch log groups retains logs for at least 1 year"
+	PASSED for resource: module.reseau.aws_cloudwatch_log_group.flux_vpc
+	File: \modules\reseau\main.tf:73-79
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_393: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order on IAM role"
+	PASSED for resource: module.reseau.aws_iam_role.flux_vpc
+	File: \modules\reseau\main.tf:105-110
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.reseau.aws_iam_role.flux_vpc
+	File: \modules\reseau\main.tf:105-110
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+	PASSED for resource: module.reseau.aws_iam_role.flux_vpc
+	File: \modules\reseau\main.tf:105-110
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+	PASSED for resource: module.reseau.aws_iam_role.flux_vpc
+	File: \modules\reseau\main.tf:105-110
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.reseau.aws_iam_role_policy.flux_vpc
+	File: \modules\reseau\main.tf:112-116
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.reseau.aws_iam_role_policy.flux_vpc
+	File: \modules\reseau\main.tf:112-116
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_security_group.application
+	File: \modules\reseau\main.tf:129-136
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.application
+	File: \modules\reseau\main.tf:129-136
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	PASSED for resource: module.reseau.aws_security_group.application
+	File: \modules\reseau\main.tf:129-136
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: module.reseau.aws_security_group.application
+	File: \modules\reseau\main.tf:129-136
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: module.reseau.aws_security_group.application
+	File: \modules\reseau\main.tf:129-136
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.application
+	File: \modules\reseau\main.tf:129-136
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_security_group.points_terminaison
+	File: \modules\reseau\main.tf:138-144
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.points_terminaison
+	File: \modules\reseau\main.tf:138-144
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	PASSED for resource: module.reseau.aws_security_group.points_terminaison
+	File: \modules\reseau\main.tf:138-144
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: module.reseau.aws_security_group.points_terminaison
+	File: \modules\reseau\main.tf:138-144
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: module.reseau.aws_security_group.points_terminaison
+	File: \modules\reseau\main.tf:138-144
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.points_terminaison
+	File: \modules\reseau\main.tf:138-144
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_security_group.base_transactionnelle
+	File: \modules\reseau\main.tf:146-153
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.base_transactionnelle
+	File: \modules\reseau\main.tf:146-153
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	PASSED for resource: module.reseau.aws_security_group.base_transactionnelle
+	File: \modules\reseau\main.tf:146-153
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: module.reseau.aws_security_group.base_transactionnelle
+	File: \modules\reseau\main.tf:146-153
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: module.reseau.aws_security_group.base_transactionnelle
+	File: \modules\reseau\main.tf:146-153
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.base_transactionnelle
+	File: \modules\reseau\main.tf:146-153
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_security_group.documents
+	File: \modules\reseau\main.tf:155-162
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.documents
+	File: \modules\reseau\main.tf:155-162
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	PASSED for resource: module.reseau.aws_security_group.documents
+	File: \modules\reseau\main.tf:155-162
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: module.reseau.aws_security_group.documents
+	File: \modules\reseau\main.tf:155-162
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: module.reseau.aws_security_group.documents
+	File: \modules\reseau\main.tf:155-162
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.documents
+	File: \modules\reseau\main.tf:155-162
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_security_group.bus
+	File: \modules\reseau\main.tf:164-171
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.bus
+	File: \modules\reseau\main.tf:164-171
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	PASSED for resource: module.reseau.aws_security_group.bus
+	File: \modules\reseau\main.tf:164-171
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: module.reseau.aws_security_group.bus
+	File: \modules\reseau\main.tf:164-171
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: module.reseau.aws_security_group.bus
+	File: \modules\reseau\main.tf:164-171
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.bus
+	File: \modules\reseau\main.tf:164-171
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_security_group.entrepot
+	File: \modules\reseau\main.tf:173-180
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.entrepot
+	File: \modules\reseau\main.tf:173-180
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	PASSED for resource: module.reseau.aws_security_group.entrepot
+	File: \modules\reseau\main.tf:173-180
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: module.reseau.aws_security_group.entrepot
+	File: \modules\reseau\main.tf:173-180
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: module.reseau.aws_security_group.entrepot
+	File: \modules\reseau\main.tf:173-180
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_security_group.entrepot
+	File: \modules\reseau\main.tf:173-180
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["base_transactionnelle"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["base_transactionnelle"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["base_transactionnelle"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["base_transactionnelle"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["base_transactionnelle"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.points_terminaison_https
+	File: \modules\reseau\main.tf:203-210
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.points_terminaison_https
+	File: \modules\reseau\main.tf:203-210
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.points_terminaison_https
+	File: \modules\reseau\main.tf:203-210
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.points_terminaison_https
+	File: \modules\reseau\main.tf:203-210
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.points_terminaison_https
+	File: \modules\reseau\main.tf:203-210
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_donnees["base_transactionnelle"]
+	File: \modules\reseau\main.tf:214-223
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_donnees["base_transactionnelle"]
+	File: \modules\reseau\main.tf:214-223
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_s3
+	File: \modules\reseau\main.tf:228-235
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_s3
+	File: \modules\reseau\main.tf:228-235
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_points_terminaison
+	File: \modules\reseau\main.tf:237-244
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_points_terminaison
+	File: \modules\reseau\main.tf:237-244
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["bus"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["bus"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["bus"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["bus"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["bus"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["documents"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["documents"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["documents"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["documents"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["documents"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["entrepot"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_24: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 22"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["entrepot"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_25: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 3389"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["entrepot"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_260: "Ensure no security groups allow ingress from 0.0.0.0:0 to port 80"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["entrepot"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_277: "Ensure no security groups allow ingress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_vpc_security_group_ingress_rule.depuis_application["entrepot"]
+	File: \modules\reseau\main.tf:192-201
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_donnees["bus"]
+	File: \modules\reseau\main.tf:214-223
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_donnees["bus"]
+	File: \modules\reseau\main.tf:214-223
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_donnees["documents"]
+	File: \modules\reseau\main.tf:214-223
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_donnees["documents"]
+	File: \modules\reseau\main.tf:214-223
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_23: "Ensure every security group and rule has a description"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_donnees["entrepot"]
+	File: \modules\reseau\main.tf:214-223
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_382: "Ensure no security groups allow egress from 0.0.0.0:0 to port -1"
+	PASSED for resource: module.reseau.aws_vpc_security_group_egress_rule.application_vers_donnees["entrepot"]
+	File: \modules\reseau\main.tf:214-223
+	Calling File: \environnements\prod\main.tf:115-123
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.confiance
+	File: \modules\sauvegarde\main.tf:11-21
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.confiance
+	File: \modules\sauvegarde\main.tf:11-21
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.confiance
+	File: \modules\sauvegarde\main.tf:11-21
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.confiance
+	File: \modules\sauvegarde\main.tf:11-21
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.confiance
+	File: \modules\sauvegarde\main.tf:11-21
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.confiance
+	File: \modules\sauvegarde\main.tf:11-21
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.confiance
+	File: \modules\sauvegarde\main.tf:11-21
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.confiance
+	File: \modules\sauvegarde\main.tf:11-21
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.confiance
+	File: \modules\sauvegarde\main.tf:11-21
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.confiance
+	File: \modules\sauvegarde\main.tf:11-21
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_1: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.cles
+	File: \modules\sauvegarde\main.tf:43-63
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_358: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.cles
+	File: \modules\sauvegarde\main.tf:43-63
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_107: "Ensure IAM policies does not allow credentials exposure"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.cles
+	File: \modules\sauvegarde\main.tf:43-63
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_108: "Ensure IAM policies does not allow data exfiltration"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.cles
+	File: \modules\sauvegarde\main.tf:43-63
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.cles
+	File: \modules\sauvegarde\main.tf:43-63
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_110: "Ensure IAM policies does not allow privilege escalation"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.cles
+	File: \modules\sauvegarde\main.tf:43-63
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_283: "Ensure no IAM policies documents allow ALL or any AWS principal permissions to the resource"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.cles
+	File: \modules\sauvegarde\main.tf:43-63
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.cles
+	File: \modules\sauvegarde\main.tf:43-63
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.cles
+	File: \modules\sauvegarde\main.tf:43-63
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_49: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.cles
+	File: \modules\sauvegarde\main.tf:43-63
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_393: "Ensure AWS GitHub Actions OIDC authorization policies only allow safe claims and claim order on IAM role"
+	PASSED for resource: module.sauvegarde.aws_iam_role.sauvegarde
+	File: \modules\sauvegarde\main.tf:23-29
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.sauvegarde.aws_iam_role.sauvegarde
+	File: \modules\sauvegarde\main.tf:23-29
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_61: "Ensure AWS IAM policy does not allow assume role permission across all services"
+	PASSED for resource: module.sauvegarde.aws_iam_role.sauvegarde
+	File: \modules\sauvegarde\main.tf:23-29
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_60: "Ensure IAM role allows only specific services or principals to assume it"
+	PASSED for resource: module.sauvegarde.aws_iam_role.sauvegarde
+	File: \modules\sauvegarde\main.tf:23-29
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.sauvegarde.aws_iam_role_policy_attachment.sauvegarde
+	File: \modules\sauvegarde\main.tf:31-34
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_274: "Disallow IAM roles, users, and groups from using the AWS AdministratorAccess policy"
+	PASSED for resource: module.sauvegarde.aws_iam_role_policy_attachment.restauration
+	File: \modules\sauvegarde\main.tf:36-39
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_62: "Ensure IAM policies that allow full "*-*" administrative privileges are not created"
+	PASSED for resource: module.sauvegarde.aws_iam_role_policy.cles
+	File: \modules\sauvegarde\main.tf:65-69
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_63: "Ensure no IAM policies documents allow "*" as a statement's actions"
+	PASSED for resource: module.sauvegarde.aws_iam_role_policy.cles
+	File: \modules\sauvegarde\main.tf:65-69
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_166: "Ensure Backup Vault is encrypted at rest using KMS CMK"
+	PASSED for resource: module.sauvegarde.aws_backup_vault.this
+	File: \modules\sauvegarde\main.tf:71-76
+	Calling File: \environnements\prod\main.tf:182-190
+Check: CKV_AWS_149: "Ensure that Secrets Manager secret is encrypted using KMS CMK"
+	PASSED for resource: module.secrets.aws_secretsmanager_secret.sel
+	File: \modules\secrets\main.tf:31-39
+	Calling File: \environnements\prod\main.tf:138-145
+Check: CKV_AWS_149: "Ensure that Secrets Manager secret is encrypted using KMS CMK"
+	PASSED for resource: module.secrets.aws_secretsmanager_secret.cdc
+	File: \modules\secrets\main.tf:46-53
+	Calling File: \environnements\prod\main.tf:138-145
+Check: CKV_AWS_304: "Ensure Secrets Manager secrets should be rotated within 90 days"
+	PASSED for resource: module.secrets.aws_secretsmanager_secret_rotation.cdc[0]
+	File: \modules\secrets\main.tf:66-75
+	Calling File: \environnements\prod\main.tf:138-145
+Check: CKV_AWS_26: "Ensure all data stored in the SNS topic is encrypted"
+	PASSED for resource: module.supervision.aws_sns_topic.alertes
+	File: \modules\supervision\main.tf:31-36
+	Calling File: \environnements\prod\main.tf:274-286
+Check: CKV_AWS_319: "Ensure that CloudWatch alarm actions are enabled"
+	PASSED for resource: module.supervision.aws_cloudwatch_metric_alarm.retard_emplacement_replication
+	File: \modules\supervision\main.tf:48-71
+	Calling File: \environnements\prod\main.tf:274-286
+Check: CKV_AWS_319: "Ensure that CloudWatch alarm actions are enabled"
+	PASSED for resource: module.supervision.aws_cloudwatch_metric_alarm.consommation_entrepot
+	File: \modules\supervision\main.tf:89-110
+	Calling File: \environnements\prod\main.tf:274-286
+Check: CKV_AWS_319: "Ensure that CloudWatch alarm actions are enabled"
+	PASSED for resource: module.supervision.aws_cloudwatch_metric_alarm.score_sans_tache
+	File: \modules\supervision\main.tf:114-137
+	Calling File: \environnements\prod\main.tf:274-286
+Check: CKV2_AWS_35: "AWS NAT Gateways should be utilized for the default route"
+	PASSED for resource: module.reseau.aws_route_table.prive
+	File: \modules\reseau\main.tf:58-62
+Check: CKV2_AWS_56: "Ensure AWS Managed IAMFullAccess IAM policy is not used."
+	PASSED for resource: module.aurora.aws_iam_role.surveillance
+	File: \modules\aurora_postgresql\main.tf:133-138
+Check: CKV2_AWS_56: "Ensure AWS Managed IAMFullAccess IAM policy is not used."
+	PASSED for resource: module.aurora.aws_iam_role_policy_attachment.surveillance
+	File: \modules\aurora_postgresql\main.tf:140-143
+Check: CKV2_AWS_56: "Ensure AWS Managed IAMFullAccess IAM policy is not used."
+	PASSED for resource: module.reseau.aws_iam_role.flux_vpc
+	File: \modules\reseau\main.tf:105-110
+Check: CKV2_AWS_56: "Ensure AWS Managed IAMFullAccess IAM policy is not used."
+	PASSED for resource: module.sauvegarde.aws_iam_role_policy_attachment.sauvegarde
+	File: \modules\sauvegarde\main.tf:31-34
+Check: CKV2_AWS_56: "Ensure AWS Managed IAMFullAccess IAM policy is not used."
+	PASSED for resource: module.sauvegarde.aws_iam_role_policy_attachment.restauration
+	File: \modules\sauvegarde\main.tf:36-39
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.aurora.aws_iam_policy_document.surveillance_confiance
+	File: \modules\aurora_postgresql\main.tf:121-131
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.lac.module.audit.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.lac.module.journaux.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.lac.module.lac.aws_iam_policy_document.this
+	File: \modules\bucket_s3\main.tf:121-141
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.calcul.aws_iam_policy_document.confiance_execution
+	File: \modules\calcul\main.tf:111-127
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.calcul.aws_iam_policy_document.execution
+	File: \modules\calcul\main.tf:129-152
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_taches
+	File: \modules\iam\main.tf:36-52
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_connecteur
+	File: \modules\iam\main.tf:54-70
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_redshift
+	File: \modules\iam\main.tf:72-88
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.iam.aws_iam_policy_document.confiance_analystes
+	File: \modules\iam\main.tf:90-109
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.iam.aws_iam_policy_document.etl
+	File: \modules\iam\main.tf:113-201
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.iam.aws_iam_policy_document.cdc
+	File: \modules\iam\main.tf:219-278
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.iam.aws_iam_policy_document.redshift_s3
+	File: \modules\iam\main.tf:296-323
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.iam.aws_iam_policy_document.application
+	File: \modules\iam\main.tf:341-348
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.iam.aws_iam_policy_document.score
+	File: \modules\iam\main.tf:369-396
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.iam.aws_iam_policy_document.analyste
+	File: \modules\iam\main.tf:414-426
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.kms.aws_iam_policy_document.cle
+	File: \modules\kms\main.tf:18-86
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.lac.aws_iam_policy_document.ecriture_journaux
+	File: \modules\lac_s3\main.tf:27-51
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_confiance
+	File: \modules\reseau\main.tf:81-91
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.reseau.aws_iam_policy_document.flux_vpc_droits
+	File: \modules\reseau\main.tf:93-103
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.confiance
+	File: \modules\sauvegarde\main.tf:11-21
+Check: CKV2_AWS_40: "Ensure AWS IAM policy does not allow full IAM privileges"
+	PASSED for resource: module.sauvegarde.aws_iam_policy_document.cles
+	File: \modules\sauvegarde\main.tf:43-63
+Check: CKV2_AWS_65: "Ensure access control lists for S3 buckets are disabled"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket_ownership_controls.this
+	File: \modules\bucket_s3\main.tf:24-30
+Check: CKV2_AWS_65: "Ensure access control lists for S3 buckets are disabled"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket_ownership_controls.this
+	File: \modules\bucket_s3\main.tf:24-30
+Check: CKV2_AWS_65: "Ensure access control lists for S3 buckets are disabled"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket_ownership_controls.this
+	File: \modules\bucket_s3\main.tf:24-30
+Check: CKV2_AWS_62: "Ensure S3 buckets should have event notifications enabled"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV2_AWS_62: "Ensure S3 buckets should have event notifications enabled"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV2_AWS_62: "Ensure S3 buckets should have event notifications enabled"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV2_AWS_27: "Ensure Postgres RDS as aws_rds_cluster has Query Logging enabled"
+	PASSED for resource: module.aurora.aws_rds_cluster.this
+	File: \modules\aurora_postgresql\main.tf:82-117
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+	PASSED for resource: module.kms.aws_kms_key.cle["alertes"]
+	File: \modules\kms\main.tf:88-97
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+	PASSED for resource: module.kms.aws_kms_key.cle["analytique"]
+	File: \modules\kms\main.tf:88-97
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+	PASSED for resource: module.kms.aws_kms_key.cle["documents"]
+	File: \modules\kms\main.tf:88-97
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+	PASSED for resource: module.kms.aws_kms_key.cle["journaux"]
+	File: \modules\kms\main.tf:88-97
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+	PASSED for resource: module.kms.aws_kms_key.cle["lac"]
+	File: \modules\kms\main.tf:88-97
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+	PASSED for resource: module.kms.aws_kms_key.cle["oltp"]
+	File: \modules\kms\main.tf:88-97
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+	PASSED for resource: module.kms.aws_kms_key.cle["sauvegarde"]
+	File: \modules\kms\main.tf:88-97
+Check: CKV2_AWS_64: "Ensure KMS key Policy is defined"
+	PASSED for resource: module.kms.aws_kms_key.cle["secrets"]
+	File: \modules\kms\main.tf:88-97
+Check: CKV2_AWS_57: "Ensure Secrets Manager secrets should have automatic rotation enabled"
+	PASSED for resource: module.secrets.aws_secretsmanager_secret.cdc
+	File: \modules\secrets\main.tf:46-53
+Check: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+	PASSED for resource: module.reseau.aws_security_group.points_terminaison
+	File: \modules\reseau\main.tf:138-144
+Check: CKV_AWS_57: "S3 Bucket has an ACL defined which allows public WRITE access."
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_57: "S3 Bucket has an ACL defined which allows public WRITE access."
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_57: "S3 Bucket has an ACL defined which allows public WRITE access."
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV2_AWS_11: "Ensure VPC flow logging is enabled in all VPCs"
+	PASSED for resource: module.reseau.aws_vpc.principal
+	File: \modules\reseau\main.tf:29-35
+Check: CKV2_AWS_44: "Ensure AWS route table with VPC peering does not contain routes overly permissive to all traffic"
+	PASSED for resource: module.reseau.aws_route_table.prive
+	File: \modules\reseau\main.tf:58-62
+Check: CKV_AWS_18: "Ensure the S3 bucket has access logging enabled"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_18: "Ensure the S3 bucket has access logging enabled"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_18: "Ensure the S3 bucket has access logging enabled"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_19: "Ensure all data stored in the S3 bucket is securely encrypted at rest"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_19: "Ensure all data stored in the S3 bucket is securely encrypted at rest"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_19: "Ensure all data stored in the S3 bucket is securely encrypted at rest"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV2_AWS_6: "Ensure that S3 bucket has a Public Access block"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV2_AWS_6: "Ensure that S3 bucket has a Public Access block"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV2_AWS_6: "Ensure that S3 bucket has a Public Access block"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV2_AWS_61: "Ensure that an S3 bucket has a lifecycle configuration"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV2_AWS_61: "Ensure that an S3 bucket has a lifecycle configuration"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV2_AWS_61: "Ensure that an S3 bucket has a lifecycle configuration"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_20: "S3 Bucket has an ACL defined which allows public READ access."
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_20: "S3 Bucket has an ACL defined which allows public READ access."
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_20: "S3 Bucket has an ACL defined which allows public READ access."
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_21: "Ensure all data stored in the S3 bucket have versioning enabled"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_21: "Ensure all data stored in the S3 bucket have versioning enabled"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_21: "Ensure all data stored in the S3 bucket have versioning enabled"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_145: "Ensure that S3 buckets are encrypted with KMS by default"
+	PASSED for resource: module.lac.module.audit.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_145: "Ensure that S3 buckets are encrypted with KMS by default"
+	PASSED for resource: module.lac.module.journaux.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_145: "Ensure that S3 buckets are encrypted with KMS by default"
+	PASSED for resource: module.lac.module.lac.aws_s3_bucket.this
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV2_AWS_12: "Ensure the default security group of every VPC restricts all traffic"
+	PASSED for resource: module.reseau.aws_vpc.principal
+	File: \modules\reseau\main.tf:29-35
+Check: CKV_AWS_139: "Ensure that RDS clusters have deletion protection enabled"
+	SKIPPED for resource: module.aurora.aws_rds_cluster.this
+	Suppress comment: La protection contre la suppression est un parametre (vraie par defaut et en prod, verifiee par un bloc check dans environnements/prod) ; seul l'environnement dev la leve pour pouvoir detruire et recreer.
+	File: \modules\aurora_postgresql\main.tf:82-117
+	Calling File: \environnements\dev\main.tf:137-151
+Check: CKV_AWS_139: "Ensure that RDS clusters have deletion protection enabled"
+	SKIPPED for resource: module.aurora.aws_rds_cluster.this
+	Suppress comment: La protection contre la suppression est un parametre (vraie par defaut et en prod, verifiee par un bloc check dans environnements/prod) ; seul l'environnement dev la leve pour pouvoir detruire et recreer.
+	File: \modules\aurora_postgresql\main.tf:82-117
+	Calling File: \environnements\prod\main.tf:149-163
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	SKIPPED for resource: module.kms.aws_iam_policy_document.cle
+	Suppress comment: Politique de cle recommandee par AWS : seul le compte racine recoit kms:* pour deleguer a IAM ; dans une politique de cle, la ressource * designe la cle elle-meme.
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\dev\main.tf:81-99
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	SKIPPED for resource: module.kms.aws_iam_policy_document.cle
+	Suppress comment: Voir CKV_AWS_109 : meme statement de delegation a IAM, sans autre principal.
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\dev\main.tf:81-99
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	SKIPPED for resource: module.kms.aws_iam_policy_document.cle
+	Suppress comment: Voir CKV_AWS_109 : * designe uniquement la cle porteuse de la politique.
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\dev\main.tf:81-99
+Check: CKV_AWS_109: "Ensure IAM policies does not allow permissions management / resource exposure without constraints"
+	SKIPPED for resource: module.kms.aws_iam_policy_document.cle
+	Suppress comment: Politique de cle recommandee par AWS : seul le compte racine recoit kms:* pour deleguer a IAM ; dans une politique de cle, la ressource * designe la cle elle-meme.
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_111: "Ensure IAM policies does not allow write access without constraints"
+	SKIPPED for resource: module.kms.aws_iam_policy_document.cle
+	Suppress comment: Voir CKV_AWS_109 : meme statement de delegation a IAM, sans autre principal.
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV_AWS_356: "Ensure no IAM policies documents allow "*" as a statement's resource for restrictable actions"
+	SKIPPED for resource: module.kms.aws_iam_policy_document.cle
+	Suppress comment: Voir CKV_AWS_109 : * designe uniquement la cle porteuse de la politique.
+	File: \modules\kms\main.tf:18-86
+	Calling File: \environnements\prod\main.tf:93-111
+Check: CKV2_AWS_8: "Ensure that RDS clusters has backup plan of AWS Backup"
+	SKIPPED for resource: module.aurora.aws_rds_cluster.this
+	Suppress comment: Le plan AWS Backup est defini dans le module sauvegarde, qui recoit l'ARN du cluster en entree ; le controle ne suit pas les references entre modules.
+	File: \modules\aurora_postgresql\main.tf:82-117
+Check: CKV2_AWS_57: "Ensure Secrets Manager secrets should have automatic rotation enabled"
+	SKIPPED for resource: module.secrets.aws_secretsmanager_secret.sel
+	Suppress comment: Le sel de pseudonymisation ne doit PAS tourner : changer sa valeur invaliderait toutes les empreintes de courriels deja stockees. Il est chiffre par KMS et lisible par un seul role.
+	File: \modules\secrets\main.tf:31-39
+Check: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+	SKIPPED for resource: module.reseau.aws_security_group.application
+	Suppress comment: Groupe rattache a ses ressources dans d'autres modules (variable groupe_securite_id) ou par les equipes plateforme (taches ECS, connecteurs) : le controle, limite a ce module, ne voit pas le rattachement.
+	File: \modules\reseau\main.tf:129-136
+Check: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+	SKIPPED for resource: module.reseau.aws_security_group.base_transactionnelle
+	Suppress comment: Groupe rattache a ses ressources dans d'autres modules (variable groupe_securite_id) ou par les equipes plateforme (taches ECS, connecteurs) : le controle, limite a ce module, ne voit pas le rattachement.
+	File: \modules\reseau\main.tf:146-153
+Check: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+	SKIPPED for resource: module.reseau.aws_security_group.documents
+	Suppress comment: Groupe rattache a ses ressources dans d'autres modules (variable groupe_securite_id) ou par les equipes plateforme (taches ECS, connecteurs) : le controle, limite a ce module, ne voit pas le rattachement.
+	File: \modules\reseau\main.tf:155-162
+Check: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+	SKIPPED for resource: module.reseau.aws_security_group.bus
+	Suppress comment: Groupe rattache a ses ressources dans d'autres modules (variable groupe_securite_id) ou par les equipes plateforme (taches ECS, connecteurs) : le controle, limite a ce module, ne voit pas le rattachement.
+	File: \modules\reseau\main.tf:164-171
+Check: CKV2_AWS_5: "Ensure that Security Groups are attached to another resource"
+	SKIPPED for resource: module.reseau.aws_security_group.entrepot
+	Suppress comment: Groupe rattache a ses ressources dans d'autres modules (variable groupe_securite_id) ou par les equipes plateforme (taches ECS, connecteurs) : le controle, limite a ce module, ne voit pas le rattachement.
+	File: \modules\reseau\main.tf:173-180
+Check: CKV_AWS_144: "Ensure that S3 bucket has cross-region replication enabled"
+	SKIPPED for resource: module.lac.module.audit.aws_s3_bucket.this
+	Suppress comment: Replication inter-regions non retenue dans ce perimetre : donnees maintenues dans une seule region (souverainete), durabilite multi-zones de S3, versionnement et verrouillage d'objets contre la suppression. A reevaluer si l'objectif de reprise apres sinistre regional l'exige (voir 10_continuite_supervision_maintenance.md).
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_144: "Ensure that S3 bucket has cross-region replication enabled"
+	SKIPPED for resource: module.lac.module.journaux.aws_s3_bucket.this
+	Suppress comment: Replication inter-regions non retenue dans ce perimetre : donnees maintenues dans une seule region (souverainete), durabilite multi-zones de S3, versionnement et verrouillage d'objets contre la suppression. A reevaluer si l'objectif de reprise apres sinistre regional l'exige (voir 10_continuite_supervision_maintenance.md).
+	File: \modules\bucket_s3\main.tf:15-22
+Check: CKV_AWS_144: "Ensure that S3 bucket has cross-region replication enabled"
+	SKIPPED for resource: module.lac.module.lac.aws_s3_bucket.this
+	Suppress comment: Replication inter-regions non retenue dans ce perimetre : donnees maintenues dans une seule region (souverainete), durabilite multi-zones de S3, versionnement et verrouillage d'objets contre la suppression. A reevaluer si l'objectif de reprise apres sinistre regional l'exige (voir 10_continuite_supervision_maintenance.md).
+	File: \modules\bucket_s3\main.tf:15-22

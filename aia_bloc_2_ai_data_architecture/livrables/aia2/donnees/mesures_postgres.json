@@ -1,0 +1,101 @@
+{
+  "_copyright": "Copyright © 2026 · voir le fichier LICENSE du dépôt",
+  "serveur": "16.15 (Debian 16.15-1.pgdg13+2)",
+  "paiements": 48000,
+  "jours": 60,
+  "duree_chargement_s": 12.2,
+  "wal_octets": 31022552,
+  "tables": {
+    "abonnements": {
+      "lignes": 0,
+      "tas_octets": 0,
+      "index_octets": 8192,
+      "total_octets": 8192,
+      "octets_par_ligne": null
+    },
+    "clients": {
+      "lignes": 2000,
+      "tas_octets": 253952,
+      "index_octets": 65536,
+      "total_octets": 352256,
+      "octets_par_ligne": 176.1
+    },
+    "devises": {
+      "lignes": 5,
+      "tas_octets": 8192,
+      "index_octets": 16384,
+      "total_octets": 57344,
+      "octets_par_ligne": 11468.8
+    },
+    "journal_audit": {
+      "lignes": 0,
+      "tas_octets": 0,
+      "index_octets": 8192,
+      "total_octets": 16384,
+      "octets_par_ligne": null
+    },
+    "journal_changements": {
+      "lignes": 0,
+      "tas_octets": 0,
+      "index_octets": 8192,
+      "total_octets": 8192,
+      "octets_par_ligne": null
+    },
+    "litiges": {
+      "lignes": 1206,
+      "tas_octets": 90112,
+      "index_octets": 98304,
+      "total_octets": 221184,
+      "octets_par_ligne": 183.4
+    },
+    "marchands": {
+      "lignes": 40,
+      "tas_octets": 8192,
+      "index_octets": 16384,
+      "total_octets": 57344,
+      "octets_par_ligne": 1433.6
+    },
+    "moyens_paiement": {
+      "lignes": 2000,
+      "tas_octets": 196608,
+      "index_octets": 221184,
+      "total_octets": 450560,
+      "octets_par_ligne": 225.3
+    },
+    "paiements": {
+      "lignes": 48000,
+      "tas_octets": 6168576,
+      "index_octets": 8126464,
+      "total_octets": 14327808,
+      "octets_par_ligne": 298.5
+    },
+    "pays": {
+      "lignes": 8,
+      "tas_octets": 8192,
+      "index_octets": 16384,
+      "total_octets": 57344,
+      "octets_par_ligne": 7168.0
+    },
+    "produits": {
+      "lignes": 80,
+      "tas_octets": 8192,
+      "index_octets": 16384,
+      "total_octets": 57344,
+      "octets_par_ligne": 716.8
+    },
+    "remboursements": {
+      "lignes": 1364,
+      "tas_octets": 106496,
+      "index_octets": 49152,
+      "total_octets": 188416,
+      "octets_par_ligne": 138.1
+    },
+    "taux_change": {
+      "lignes": 310,
+      "tas_octets": 16384,
+      "index_octets": 16384,
+      "total_octets": 65536,
+      "octets_par_ligne": 211.4
+    }
+  }
+}

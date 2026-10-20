@@ -1,0 +1,24 @@
+{
+  "_copyright": "Copyright © 2026 · voir le fichier LICENSE du dépôt",
+  "title": "caracteristiques_clients",
+  "description": "Magasin de caractéristiques en ligne pour le score de fraude : un document par client, mis à jour de façon atomique à chaque paiement.",
+  "bsonType": "object",
+  "required": ["id_client", "nb_paiements", "montant_total_usd", "montant_max_usd",
+               "pays_ip_vus", "mis_a_jour_le"],
+  "properties": {
+    "_id": {"bsonType": "objectId"},
+    "id_client": {
+      "bsonType": ["int", "long"], "minimum": 1,
+      "description": "Référence vers clients.id_client ; unique (index unique)."
+    },
+    "nb_paiements": {"bsonType": ["int", "long"], "minimum": 1},
+    "montant_total_usd": {"bsonType": "number", "minimum": 0},
+    "montant_max_usd": {"bsonType": "number", "minimum": 0},
+    "pays_ip_vus": {
+      "bsonType": "array", "minItems": 1, "uniqueItems": true,
+      "items": {"bsonType": "string", "pattern": "^[A-Z]{2}$"}
+    },
+    "mis_a_jour_le": {"bsonType": "date"}
+  },
+  "additionalProperties": true
+}

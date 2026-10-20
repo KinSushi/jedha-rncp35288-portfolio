@@ -1,0 +1,44 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+#
+# Configuration des outils Python de la démonstration Stripe (lint, types et tests).
+# Pourquoi ici : un seul endroit fixe les règles de style (PEP 8, 99 colonnes), le contrôle des
+# types et la façon dont pytest trouve le paquet `stripe_demo`, pour que `ruff check .`,
+# `mypy --strict` et `pytest` donnent le même résultat sur toutes les machines.
+
+[tool.ruff]
+line-length = 99
+target-version = "py312"
+extend-exclude = ["sorties", "terraform/.terraform"]
+
+[tool.ruff.lint]
+# E/W : pycodestyle ; F : pyflakes ; I : tri des imports ; B : pièges courants (bugbear) ;
+# SLF : accès à un membre privé d'un autre module ; UP : syntaxe modernisée (pyupgrade).
+# Ce sont les règles retenues pour ce dépôt (E, F, I, B, SLF, UP, W).
+select = ["E", "F", "W", "I", "B", "SLF", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+explicit_package_bases = true
+
+# scikit-learn ne publie ni annotations ni stubs : ses importations restent non typées.
+# pandas, jsonschema et psutil ont des stubs (pandas-stubs, types-jsonschema, types-psutil,
+# installés par requirements-dev.txt) ; la dérogation ne joue que si un stub est absent.
+[[tool.mypy.overrides]]
+module = ["sklearn", "sklearn.*", "pandas", "pandas.*", "jsonschema", "jsonschema.*", "psutil"]
+ignore_missing_imports = true
+
+# Airflow n'est pas une dépendance du projet (service à part, non installé ici) : le DAG
+# (dags/stripe_quotidien.py) ne l'importe que dans `construire_dag` ou sous garde.
+[[tool.mypy.overrides]]
+module = ["airflow", "airflow.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+# Aucun filterwarnings : un avertissement de dépréciation doit faire échouer le test (lancer
+# pytest avec -W error::DeprecationWarning pour l'exiger). L'appel déprécié de mongomock
+# (datetime.utcnow) est neutralisé dans tests/conftest.py par le point d'extension que la
+# bibliothèque documente, et non par un filtre qui masquerait l'avertissement.

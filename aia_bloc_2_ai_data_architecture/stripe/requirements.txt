@@ -1,0 +1,13 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Dépendances d'exécution de la démonstration (Python 3.12).
+sqlalchemy>=2.0
+duckdb>=1.0
+mongomock>=4.1
+pymongo>=4.6
+scikit-learn>=1.4
+pandas>=2.2
+numpy>=1.26
+# Validation des documents NoSQL (stripe_demo/validation_mongo.py).
+jsonschema>=4.20
+# Pilote PostgreSQL du service d'alimentation (stripe_demo/vers_postgres.py).
+psycopg[binary]>=3.1

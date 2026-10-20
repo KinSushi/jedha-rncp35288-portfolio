@@ -1,0 +1,75 @@
+Copyright © 2026 · voir le fichier LICENSE du dépôt
+
+=== 1. OLTP : schéma normalisé et données synthétiques ===
+{'marchands': 40, 'clients': 2000, 'paiements': 300, 'litiges': 8, 'remboursements': 12, 'journal_changements': 300}
+
+=== 2. Batch : entrepôt en étoile et agrégats ===
+{'faits': 300} en 0.1 s
+
+=== 3. ML : modèle de fraude entraîné sur l'entrepôt ===
+{'taux_fraude': 0.025, 'pr_auc_test': 0.5, 'roc_auc_test': 0.9, 'lignes_apprentissage': 300, 'lignes_test': 0}
+
+=== 4. Flux : nouveaux paiements → CDC → entrepôt, NoSQL, score en temps réel ===
+micro-lot 1 : journal 300 → 500, 200 faits insérés, 200 paiements notés, alertes cumulées : 15
+micro-lot 2 : journal 500 → 700, 200 faits insérés, 200 paiements notés, alertes cumulées : 25
+micro-lot 3 : journal 700 → 900, 200 faits insérés, 200 paiements notés, alertes cumulées : 44
+micro-lot 4 : journal 900 → 1100, 200 faits insérés, 200 paiements notés, alertes cumulées : 60
+micro-lot 5 : journal 1100 → 1300, 200 faits insérés, 200 paiements notés, alertes cumulées : 73
+{'paiements_notes': 1000, 'alertes': 73, 'latence_mediane_ms': 123.5, 'documents_caracteristiques': 795}
+
+=== 5. Surveillance du modèle : dérive des scores ===
+{'psi': 10.98, 'decision': 'réentraînement'}
+
+=== 6. Requêtes métier ===
+
+-- Chiffre d'affaires mensuel (USD) et nombre de paiements réussis
+ annee  mois  chiffre_usd  nb_paiements
+  2026     8     45751.03          1175
+
+-- Les 5 marchands au plus fort chiffre (agrégat pré-calculé)
+raison_sociale  chiffre_usd
+  Marchand 012      2258.49
+  Marchand 011      1816.83
+  Marchand 024      1799.53
+  Marchand 037      1692.14
+  Marchand 031      1620.19
+
+-- Taux de remboursement et de litige par catégorie d'activité (MCC)
+code_mcc  nb_paiements  taux_remboursement_pct  taux_litige_pct
+    5999           182                    4.40             4.95
+    5411           332                    4.82             2.41
+    5732           102                    3.92             1.96
+    7372           222                    1.80             1.80
+    4121           306                    0.98             1.63
+    5812           156                    3.21             1.28
+
+-- Fraude : taux de litige quand le pays de l'IP diffère du pays du client
+ pays_different  nb_paiements  taux_litige_pct
+          False          1239             1.13
+           True            61            26.23
+
+-- Fraude par tranche horaire (nuit 0-6 h contre journée)
+     tranche  nb_paiements  taux_litige_pct
+     journée           985             1.42
+nuit (0-6 h)           315             5.08
+
+-- Segmentation des clients (dimension client) : volume et panier moyen
+    segment  clients  paiements  panier_moyen_usd
+occasionnel      962       1300             39.26
+
+-- Série temporelle : chiffre quotidien et moyenne mobile sur 7 jours (fonction fenêtre)
+      date  chiffre_usd  moyenne_mobile_7j
+2026-08-05     12412.97            9150.21
+2026-08-04     22685.43            8334.52
+2026-08-03      4024.16            3550.88
+2026-08-02      3609.53            3314.24
+2026-08-01      3018.95            3018.95
+
+-- erreurs de paiement les plus fréquentes (30 jours)
+[{'nombre': 437, '_id': 'card_declined'}, {'nombre': 432, '_id': 'insufficient_funds'}, {'nombre': 380, '_id': 'expired_card'}]
+
+-- sessions mobiles abandonnées les plus longues
+[{'id_client': 249, 'duree_s': 898}, {'id_client': 1714, 'duree_s': 897}, {'id_client': 26, 'duree_s': 895}]
+
+-- thèmes des avis négatifs
+[{'nombre': 64, '_id': 'frais'}, {'nombre': 64, '_id': 'rapidite'}, {'nombre': 62, '_id': 'litige'}, {'nombre': 57, '_id': 'integration'}, {'nombre': 57, '_id': 'support'}]

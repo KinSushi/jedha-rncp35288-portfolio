@@ -1,0 +1,26 @@
+{
+  "_copyright": "Copyright © 2026 · voir le fichier LICENSE du dépôt",
+  "title": "retours_clients",
+  "description": "Avis et réponses aux enquêtes. Le texte et son analyse (sentiment, thèmes) sont imbriqués : ils sont toujours lus ensemble.",
+  "bsonType": "object",
+  "required": ["id_marchand", "note", "texte", "date", "analyse"],
+  "properties": {
+    "_id": {"bsonType": "objectId"},
+    "id_marchand": {"bsonType": ["int", "long"], "minimum": 1},
+    "note": {"bsonType": ["int", "long"], "minimum": 1, "maximum": 5},
+    "texte": {"bsonType": "string", "maxLength": 2000},
+    "date": {"bsonType": "date"},
+    "analyse": {
+      "bsonType": "object",
+      "required": ["sentiment", "themes"],
+      "properties": {
+        "sentiment": {"enum": ["positif", "neutre", "negatif"]},
+        "themes": {
+          "bsonType": "array", "minItems": 1, "maxItems": 5, "uniqueItems": true,
+          "items": {"enum": ["frais", "rapidite", "support", "litige", "integration"]}
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

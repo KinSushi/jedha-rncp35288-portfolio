@@ -1,0 +1,43 @@
+{
+  "_copyright": "Copyright © 2026 · voir le fichier LICENSE du dépôt",
+  "title": "evenements",
+  "description": "Flux de navigation et de session : un document par événement. Noyau obligatoire validé, champs propres à chaque type d'événement libres (schéma souple).",
+  "bsonType": "object",
+  "required": ["id_client", "type", "horodatage", "session"],
+  "properties": {
+    "_id": {"bsonType": "objectId"},
+    "id_client": {
+      "bsonType": ["int", "long"], "minimum": 1,
+      "description": "Référence vers clients.id_client de l'OLTP (source de vérité)."
+    },
+    "type": {
+      "enum": ["page_paiement", "erreur_paiement", "connexion", "abandon"],
+      "description": "Type d'événement ; détermine les champs facultatifs présents."
+    },
+    "horodatage": {
+      "bsonType": "date",
+      "description": "Instant de l'événement ; sert aussi à l'index à durée de vie (90 jours)."
+    },
+    "session": {
+      "bsonType": "object",
+      "required": ["appareil", "duree_s"],
+      "properties": {
+        "appareil": {"enum": ["mobile", "ordinateur"]},
+        "duree_s": {"bsonType": ["int", "long"], "minimum": 0}
+      }
+    },
+    "erreur": {
+      "bsonType": "object",
+      "required": ["code", "tentative"],
+      "properties": {
+        "code": {"bsonType": "string", "minLength": 1},
+        "tentative": {"bsonType": ["int", "long"], "minimum": 1}
+      }
+    }
+  },
+  "anyOf": [
+    {"properties": {"type": {"enum": ["erreur_paiement"]}}, "required": ["erreur"]},
+    {"properties": {"type": {"enum": ["page_paiement", "connexion", "abandon"]}}}
+  ],
+  "additionalProperties": true
+}

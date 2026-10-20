@@ -1,0 +1,9 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Fichiers exclus du contexte de construction de l'image.
+sorties/
+tests/
+terraform/
+.env
+**/__pycache__/
+.pytest_cache/
+.ruff_cache/

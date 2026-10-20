@@ -1,0 +1,247 @@
+{
+  "_copyright": "Copyright © 2026 · voir le fichier LICENSE du dépôt",
+  "oltp": {
+    "marchands": 40,
+    "clients": 2000,
+    "paiements": 48000,
+    "litiges": 1206,
+    "remboursements": 1364,
+    "journal_changements": 48000
+  },
+  "batch": {
+    "faits": 48000
+  },
+  "modele": {
+    "version": "fraude-hgb-1.0",
+    "taux_fraude": 0.0251,
+    "pr_auc_test": 0.16,
+    "roc_auc_test": 0.872,
+    "lignes_apprentissage": 38400,
+    "lignes_test": 9600
+  },
+  "flux": {
+    "paiements_notes": 1000,
+    "alertes": 40,
+    "latence_mediane_ms": 9.1,
+    "documents_caracteristiques": 793
+  },
+  "surveillance": {
+    "psi": 0.01,
+    "decision": "stable"
+  },
+  "requetes_sql": {
+    "Chiffre d'affaires mensuel (USD) et nombre de paiements réussis": [
+      {
+        "annee": "2026",
+        "mois": "8",
+        "chiffre_usd": "880432.47",
+        "nb_paiements": "22238"
+      },
+      {
+        "annee": "2026",
+        "mois": "9",
+        "chiffre_usd": "853875.51",
+        "nb_paiements": "21449"
+      },
+      {
+        "annee": "2026",
+        "mois": "10",
+        "chiffre_usd": "12276.43",
+        "nb_paiements": "288"
+      }
+    ],
+    "Les 5 marchands au plus fort chiffre (agrégat pré-calculé)": [
+      {
+        "raison_sociale": "Marchand 037",
+        "chiffre_usd": "58143.71"
+      },
+      {
+        "raison_sociale": "Marchand 035",
+        "chiffre_usd": "54912.4"
+      },
+      {
+        "raison_sociale": "Marchand 016",
+        "chiffre_usd": "54347.88"
+      },
+      {
+        "raison_sociale": "Marchand 036",
+        "chiffre_usd": "53518.14"
+      },
+      {
+        "raison_sociale": "Marchand 025",
+        "chiffre_usd": "53434.0"
+      }
+    ],
+    "Taux de remboursement et de litige par catégorie d'activité (MCC)": [
+      {
+        "code_mcc": "4121",
+        "nb_paiements": "5170",
+        "taux_remboursement_pct": "2.55",
+        "taux_litige_pct": "2.67"
+      },
+      {
+        "code_mcc": "5999",
+        "nb_paiements": "4274",
+        "taux_remboursement_pct": "2.46",
+        "taux_litige_pct": "2.57"
+      },
+      {
+        "code_mcc": "5812",
+        "nb_paiements": "10571",
+        "taux_remboursement_pct": "2.71",
+        "taux_litige_pct": "2.56"
+      },
+      {
+        "code_mcc": "5732",
+        "nb_paiements": "11290",
+        "taux_remboursement_pct": "3.03",
+        "taux_litige_pct": "2.52"
+      },
+      {
+        "code_mcc": "5411",
+        "nb_paiements": "7771",
+        "taux_remboursement_pct": "3.15",
+        "taux_litige_pct": "2.41"
+      },
+      {
+        "code_mcc": "7372",
+        "nb_paiements": "9924",
+        "taux_remboursement_pct": "2.84",
+        "taux_litige_pct": "2.4"
+      }
+    ],
+    "Fraude : taux de litige quand le pays de l'IP diffère du pays du client": [
+      {
+        "pays_different": "False",
+        "nb_paiements": "46451",
+        "taux_litige_pct": "1.28"
+      },
+      {
+        "pays_different": "True",
+        "nb_paiements": "2549",
+        "taux_litige_pct": "24.87"
+      }
+    ],
+    "Fraude par tranche horaire (nuit 0-6 h contre journée)": [
+      {
+        "tranche": "journée",
+        "nb_paiements": "36574",
+        "taux_litige_pct": "1.5"
+      },
+      {
+        "tranche": "nuit (0-6 h)",
+        "nb_paiements": "12426",
+        "taux_litige_pct": "5.47"
+      }
+    ],
+    "Segmentation des clients (dimension client) : volume et panier moyen": [
+      {
+        "segment": "regulier",
+        "clients": "1739",
+        "paiements": "40501",
+        "panier_moyen_usd": "39.67"
+      },
+      {
+        "segment": "fidele",
+        "clients": "259",
+        "paiements": "8480",
+        "panier_moyen_usd": "40.93"
+      },
+      {
+        "segment": "occasionnel",
+        "clients": "2",
+        "paiements": "19",
+        "panier_moyen_usd": "44.64"
+      }
+    ],
+    "Série temporelle : chiffre quotidien et moyenne mobile sur 7 jours (fonction fenêtre)": [
+      {
+        "date": "2026-10-01",
+        "chiffre_usd": "12276.43",
+        "moyenne_mobile_7j": "25674.4"
+      },
+      {
+        "date": "2026-09-30",
+        "chiffre_usd": "22574.64",
+        "moyenne_mobile_7j": "28218.39"
+      },
+      {
+        "date": "2026-09-29",
+        "chiffre_usd": "30270.48",
+        "moyenne_mobile_7j": "29050.79"
+      },
+      {
+        "date": "2026-09-28",
+        "chiffre_usd": "28478.08",
+        "moyenne_mobile_7j": "28461.65"
+      },
+      {
+        "date": "2026-09-27",
+        "chiffre_usd": "30037.64",
+        "moyenne_mobile_7j": "28625.89"
+      },
+      {
+        "date": "2026-09-26",
+        "chiffre_usd": "27203.99",
+        "moyenne_mobile_7j": "28497.47"
+      },
+      {
+        "date": "2026-09-25",
+        "chiffre_usd": "28879.53",
+        "moyenne_mobile_7j": "29040.18"
+      }
+    ]
+  },
+  "requetes_nosql": {
+    "erreurs de paiement les plus fréquentes (30 jours)": [
+      {
+        "nombre": 437,
+        "_id": "card_declined"
+      },
+      {
+        "nombre": 432,
+        "_id": "insufficient_funds"
+      },
+      {
+        "nombre": 380,
+        "_id": "expired_card"
+      }
+    ],
+    "sessions mobiles abandonnées les plus longues": [
+      {
+        "id_client": 249,
+        "duree_s": 898
+      },
+      {
+        "id_client": 1714,
+        "duree_s": 897
+      },
+      {
+        "id_client": 26,
+        "duree_s": 895
+      }
+    ],
+    "thèmes des avis négatifs": [
+      {
+        "nombre": 64,
+        "_id": "frais"
+      },
+      {
+        "nombre": 64,
+        "_id": "rapidite"
+      },
+      {
+        "nombre": 62,
+        "_id": "litige"
+      },
+      {
+        "nombre": 57,
+        "_id": "integration"
+      },
+      {
+        "nombre": 57,
+        "_id": "support"
+      }
+    ]
+  }
+}

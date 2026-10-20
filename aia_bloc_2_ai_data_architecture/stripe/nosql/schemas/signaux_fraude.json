@@ -1,0 +1,18 @@
+{
+  "_copyright": "Copyright © 2026 · voir le fichier LICENSE du dépôt",
+  "title": "signaux_fraude",
+  "description": "Score de fraude attribué à chaque paiement, avec la version du modèle qui l'a calculé (traçabilité).",
+  "bsonType": "object",
+  "required": ["id_paiement", "score", "version_modele", "horodatage"],
+  "properties": {
+    "_id": {"bsonType": "objectId"},
+    "id_paiement": {
+      "bsonType": ["int", "long"], "minimum": 1,
+      "description": "Référence vers paiements.id_paiement de l'OLTP."
+    },
+    "score": {"bsonType": "number", "minimum": 0, "maximum": 1},
+    "version_modele": {"bsonType": "string", "minLength": 1},
+    "horodatage": {"bsonType": "date"}
+  },
+  "additionalProperties": true
+}

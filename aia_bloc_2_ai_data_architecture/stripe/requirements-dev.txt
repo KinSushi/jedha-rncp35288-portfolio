@@ -1,0 +1,15 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Dépendances de développement : tests, lint, types, analyse de la configuration et de l'IaC.
+-r requirements.txt
+pytest>=8.0
+ruff>=0.4
+pyyaml>=6.0
+psutil>=5.9
+checkov>=3.2
+# Contrôle des types (`mypy --strict`) : mypy et les stubs des bibliothèques qui n'embarquent pas
+# leurs annotations. Sans eux, chaque importation de pandas, jsonschema ou psutil serait
+# non typée ; ces stubs rendent la vérification plus stricte, pas plus lâche.
+mypy>=1.10
+pandas-stubs>=2.2
+types-jsonschema>=4.20
+types-psutil>=5.9

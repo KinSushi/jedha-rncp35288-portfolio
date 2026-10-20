@@ -1,0 +1,33 @@
+{
+  "_copyright": "Copyright © 2026 · voir le fichier LICENSE du dépôt",
+  "duree_s": 33.9,
+  "pic_rss_octets": 283660288,
+  "fichiers_octets": {
+    "oltp.sqlite": 13369344,
+    "olap.duckdb": 4730880
+  },
+  "paiements": 48000,
+  "faits": 48000,
+  "latence_mediane_ms": 9.1,
+  "parquet_faits_octets": 897258,
+  "parquet_octets_par_fait": 18.3,
+  "entrainement_modele_s": 0.5,
+  "mesures_modele": {
+    "taux_fraude": 0.0251,
+    "pr_auc_test": 0.16,
+    "roc_auc_test": 0.872,
+    "lignes_apprentissage": 38400,
+    "lignes_test": 9600
+  },
+  "alertes_flux": {
+    "seuil": 0.8,
+    "paiements": 1000,
+    "alertes": 40,
+    "fraudes": 22,
+    "vrais_positifs": 10,
+    "precision": 0.25,
+    "rappel": 0.455
+  },
+  "prevalence_fraude_periode_test": 0.0228,
+  "json_paiement_octets_moyens": 302.6
+}

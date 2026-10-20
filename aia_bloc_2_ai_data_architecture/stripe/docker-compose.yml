@@ -1,0 +1,234 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+#
+# « Production locale » de l'architecture Stripe, pour la démonstration vidéo :
+#
+#   PostgreSQL 16 ──(WAL)──> Debezium Connect ──> Redpanda (API Kafka)
+#        ^                                              (topics stripe.public.<table>)
+#        │ écritures du service de démonstration
+#   MongoDB 7 (collections et validateurs créés au premier démarrage)
+#
+# Usage (voir stripe/README.md) :
+#   python deploiement/generer_secrets.py   # crée secrets/*.txt (4 mots de passe, non commités)
+#   docker compose up --build
+#
+# Ce fichier est validé par `docker compose config` ; les images externes n'ont PAS été
+# téléchargées ni démarrées lors de sa rédaction (voir livrables/aia2/13_couverture_et_limites.md).
+#
+# Les valeurs de ressources (mem_limit, cpus, pids_limit) sont des HYPOTHÈSES de dimensionnement
+# pour un poste de développeur, pas des mesures ; seule la limite du service de démonstration
+# s'appuie sur une mesure (livrables/aia2/09_dimensionnement_finops_greenops.md).
+
+name: stripe
+
+x-securite: &securite
+  # Isolation de chaque conteneur : aucun privilège Linux superflu, pas d'élévation possible.
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+
+services:
+  postgres:
+    image: postgres:16
+    <<: *securite
+    # cap_drop ALL retire des droits dont l'image a besoin au démarrage (changement
+    # d'utilisateur, propriété des fichiers) : on les rend un par un.
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]
+    # wal_level=logical : prérequis de la capture des changements par Debezium (plugin pgoutput).
+    command: >
+      postgres -c wal_level=logical -c max_wal_senders=4 -c max_replication_slots=4
+      -c password_encryption=scram-sha-256
+    environment:
+      POSTGRES_DB: stripe
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_INITDB_ARGS: "--auth-host=scram-sha-256"
+    secrets: [postgres_password, postgres_app_password, postgres_cdc_password]
+    volumes:
+      - donnees_postgres:/var/lib/postgresql/data
+      # Scripts exécutés une seule fois, à la création de la base, dans l'ordre alphabétique.
+      - ./sql/oltp_schema_postgresql.sql:/docker-entrypoint-initdb.d/01_oltp_schema.sql:ro
+      - ./deploiement/02_comptes_service.sh:/docker-entrypoint-initdb.d/02_comptes_service.sh:ro
+    ports:
+      # Lié à la boucle locale uniquement (jamais exposé au réseau) ; port hôte modifiable si
+      # 5432 est déjà pris sur la machine : POSTGRES_PORT_HOTE=5433 docker compose up
+      - "127.0.0.1:${POSTGRES_PORT_HOTE:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d stripe"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    mem_limit: 1g
+    cpus: 1.0
+    pids_limit: 200
+    networks: [reseau_stripe]
+
+  mongodb:
+    image: mongo:7.0.43
+    <<: *securite
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: administrateur
+      MONGO_INITDB_ROOT_PASSWORD_FILE: /run/secrets/mongo_root_password
+    secrets: [mongo_root_password]
+    volumes:
+      - donnees_mongo:/data/db
+      # Crée les 4 collections avec leur validateur JSON Schema et leurs index.
+      - ./nosql/creer_collections.js:/docker-entrypoint-initdb.d/01_collections.js:ro
+    ports:
+      - "127.0.0.1:${MONGO_PORT_HOTE:-27017}:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    mem_limit: 1g
+    cpus: 1.0
+    pids_limit: 400
+    networks: [reseau_stripe]
+
+  redpanda:
+    # Courtier compatible Kafka, d'un seul nœud : suffisant pour la démonstration locale.
+    # En production, ce rôle est tenu par Amazon MSK Serverless (voir terraform/).
+    image: docker.redpanda.com/redpandadata/redpanda:v24.2.27
+    <<: *securite
+    command:
+      - redpanda
+      - start
+      - --mode=dev-container
+      - --smp=1
+      - --kafka-addr=internal://0.0.0.0:9092
+      - --advertise-kafka-addr=internal://redpanda:9092
+    volumes:
+      - donnees_redpanda:/var/lib/redpanda/data
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -q 'Healthy:.*true'"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    mem_limit: 1g
+    cpus: 1.0
+    pids_limit: 400
+    networks: [reseau_stripe]
+
+  connect:
+    # Debezium Connect : lit le WAL de PostgreSQL et publie chaque changement dans Redpanda.
+    image: quay.io/debezium/connect:2.7.3.Final
+    <<: *securite
+    depends_on:
+      postgres: {condition: service_healthy}
+      redpanda: {condition: service_healthy}
+    environment:
+      BOOTSTRAP_SERVERS: redpanda:9092
+      GROUP_ID: stripe-connect
+      CONFIG_STORAGE_TOPIC: stripe_connect_configs
+      OFFSET_STORAGE_TOPIC: stripe_connect_offsets
+      STATUS_STORAGE_TOPIC: stripe_connect_statuses
+      HEAP_OPTS: "-Xms256M -Xmx768M"
+      # Les mots de passe ne figurent pas dans la configuration du connecteur : elle y renvoie
+      # par ${secrets:/run/secrets:<nom du fichier>}, résolu par le fournisseur ci-dessous.
+      CONNECT_CONFIG_PROVIDERS: secrets
+      CONNECT_CONFIG_PROVIDERS_SECRETS_CLASS: org.apache.kafka.common.config.provider.DirectoryConfigProvider
+    secrets: [postgres_cdc_password]
+    ports:
+      - "127.0.0.1:${CONNECT_PORT_HOTE:-8083}:8083"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8083/ > /dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+    mem_limit: 1g
+    cpus: 1.0
+    pids_limit: 500
+    networks: [reseau_stripe]
+
+  enregistrer_connecteur:
+    # Service ponctuel : enregistre (ou met à jour) le connecteur. PUT est idempotent, le rejouer
+    # est sans danger. La clé _copyright (mention de droits d'auteur du fichier JSON) est retirée.
+    image: curlimages/curl:8.10.1
+    <<: *securite
+    depends_on:
+      connect: {condition: service_healthy}
+    volumes:
+      - ./deploiement/debezium_connecteur.json:/deploiement/debezium_connecteur.json:ro
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >
+        sed '/"_copyright"/d' /deploiement/debezium_connecteur.json |
+        curl -fsS -X PUT -H 'Content-Type: application/json' --data-binary @-
+        http://connect:8083/connectors/stripe-postgres/config
+    restart: "no"
+    networks: [reseau_stripe]
+
+  amorcage:
+    # Service ponctuel : charge les référentiels (compte propriétaire), une seule fois.
+    build: &construction
+      context: .
+      dockerfile: Dockerfile
+    image: stripe-demonstration:local
+    <<: *securite
+    command: ["python", "-m", "stripe_demo.vers_postgres", "amorcer"]
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: stripe
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    secrets: [postgres_password]
+    depends_on:
+      postgres: {condition: service_healthy}
+    read_only: true
+    restart: "no"
+    mem_limit: 512m
+    cpus: 1.0
+    pids_limit: 100
+    networks: [reseau_stripe]
+
+  demonstration:
+    # Service de démonstration : écrit des lots de paiements dans PostgreSQL avec le compte
+    # applicatif (moindre privilège) ; Debezium les publie aussitôt dans Redpanda.
+    # La démonstration autonome (SQLite + DuckDB + modèle de fraude) se lance avec :
+    #   docker compose run --rm --no-deps demonstration python -m stripe_demo.pipeline
+    build: *construction
+    image: stripe-demonstration:local
+    <<: *securite
+    command: ["python", "-m", "stripe_demo.vers_postgres", "flux", "--lots", "20", "--pause", "3"]
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: stripe
+      POSTGRES_APP_PASSWORD_FILE: /run/secrets/postgres_app_password
+    secrets: [postgres_app_password]
+    depends_on:
+      amorcage: {condition: service_completed_successfully}
+      enregistrer_connecteur: {condition: service_completed_successfully}
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /app/sorties
+    restart: "no"
+    mem_limit: 1g
+    cpus: 1.0
+    pids_limit: 100
+    networks: [reseau_stripe]
+
+secrets:
+  # Chaque secret est un fichier de secrets/ (généré localement, ignoré par Git) monté en lecture
+  # seule dans /run/secrets : il n'apparaît ni dans ce fichier, ni dans l'image, ni dans
+  # l'environnement du conteneur. Source de type « file » : seule compatible avec les services
+  # en lecture seule (read_only: true).
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+  postgres_app_password:
+    file: ./secrets/postgres_app_password.txt
+  postgres_cdc_password:
+    file: ./secrets/postgres_cdc_password.txt
+  mongo_root_password:
+    file: ./secrets/mongo_root_password.txt
+
+volumes:
+  donnees_postgres:
+  donnees_mongo:
+  donnees_redpanda:
+
+networks:
+  reseau_stripe:
+    driver: bridge

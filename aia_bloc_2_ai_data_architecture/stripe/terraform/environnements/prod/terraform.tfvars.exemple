@@ -1,0 +1,22 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+#
+# Modèle de variables : copier en « terraform.tfvars » (ignoré par Git) pour surcharger les
+# valeurs par défaut. Aucun secret ici : les mots de passe sont générés et conservés par les
+# services (Secrets Manager).
+region   = "eu-west-1"
+cidr_vpc = "10.40.0.0/16"
+
+# Identités autorisées à endosser le rôle « analyste » (avec MFA). Exemple fictif :
+# principaux_analystes = ["arn:aws:iam::123456789012:role/NOM-DU-ROLE-FEDERE"]
+# Obligatoire en production : ARN de la fonction Lambda de rotation du secret Debezium.
+# fonction_rotation_arn = "arn:aws:lambda:eu-west-1:123456789012:function:NOM-DE-LA-FONCTION"
+principaux_analystes = []
+
+# Images du calcul (obligatoires), construites par l'intégration continue et désignées par leur
+# empreinte. Exemple fictif :
+# depots_ecr_arns = ["arn:aws:ecr:eu-west-1:123456789012:repository/stripe"]
+# image_score     = "123456789012.dkr.ecr.eu-west-1.amazonaws.com/stripe@sha256:<64 caractères hexadécimaux>"
+# image_etl       = "123456789012.dkr.ecr.eu-west-1.amazonaws.com/stripe@sha256:<64 caractères hexadécimaux>"
+
+# Astreinte prévenue par les alarmes (chaque destinataire confirme son abonnement). Exemple fictif :
+# adresses_astreinte = ["astreinte@exemple.invalid"]
