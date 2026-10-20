@@ -29,4 +29,4 @@ No private course, exam, grade, certificate or administrative material belongs h
 
 ---
 
-*Copyright © 2026 · Auteur — KinSushi · Enzo · Sovralys LLC*
+*Copyright © 2026 · see the LICENSE file*

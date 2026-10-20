@@ -42,4 +42,4 @@ Do not publish exam material, grades, private certificates or administrative doc
 
 ---
 
-*Copyright © 2026 · Auteur — KinSushi · Enzo · Sovralys LLC*
+*Copyright © 2026 · see the LICENSE file*

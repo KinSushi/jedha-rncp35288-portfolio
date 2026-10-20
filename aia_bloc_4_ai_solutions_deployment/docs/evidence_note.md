@@ -25,4 +25,4 @@ Once published: README first, then the architecture document, the model card and
 
 ---
 
-*Copyright © 2026 · Auteur — KinSushi · Enzo · Sovralys LLC*
+*Copyright © 2026 · see the LICENSE file*

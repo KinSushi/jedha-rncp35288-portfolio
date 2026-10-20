@@ -27,4 +27,4 @@ This index should be updated whenever a new public artifact is added.
 
 ---
 
-*Copyright © 2026 · Auteur — KinSushi · Enzo · Sovralys LLC*
+*Copyright © 2026 · see the LICENSE file*

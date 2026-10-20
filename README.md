@@ -36,6 +36,34 @@ RNCP38777 : data & AI governance -> AI data architecture -> data pipelines for A
 
 ---
 
+## Published project work
+
+Eight of the ten blocks now hold the technical work of their certification project, in a cleaned-up public version: code, tests, executed notebooks and documentation. No input dataset, assignment text, grade or administrative document is included; [DONNEES.md](DONNEES.md) (in French) explains how to obtain the data of each block.
+
+### Data Science (RNCP35288)
+
+| Block | Published project | Folder | Status |
+|---|---|---|---|
+| Bloc 1 - Data infrastructure | Kayak: web collection, data lake, Spark ETL, SQL warehouse | [bloc_1_data_infrastructure](bloc_1_data_infrastructure/) | published |
+| Bloc 2 - EDA / statistics | Speed dating (pandas) and Steam (PySpark) | [bloc_2_eda_statistics](bloc_2_eda_statistics/) | published |
+| Bloc 3 - Machine learning | Walmart, Conversion and Uber | [bloc_3_machine_learning](bloc_3_machine_learning/) | published |
+| Bloc 4 - NLP / deep learning | SMS spam detector with deep learning | [bloc_4_nlp_deep_learning](bloc_4_nlp_deep_learning/) | published |
+| Bloc 5 - Industrialization / MLOps | — | [bloc_5_mlops_deployment](bloc_5_mlops_deployment/) | not published in this version |
+| Bloc 6 - Project governance | banking-dataops-monitoring: quality control of synthetic banking data, run as a project | [bloc_6_project_governance](bloc_6_project_governance/) | published |
+
+### AI Architect (RNCP38777)
+
+| Block | Published project | Folder | Status |
+|---|---|---|---|
+| AIA Bloc 1 - Data & AI governance | Governance plan for a music-streaming platform (summary) | [aia_bloc_1_data_ai_governance](aia_bloc_1_data_ai_governance/) | published (summary) |
+| AIA Bloc 2 - AI data architecture | Data architecture of a payment platform | [aia_bloc_2_ai_data_architecture](aia_bloc_2_ai_data_architecture/) | published |
+| AIA Bloc 3 - Data pipelines for AI | Real-time fraud detection pipeline | [aia_bloc_3_data_pipelines_for_ai](aia_bloc_3_data_pipelines_for_ai/) | published |
+| AIA Bloc 4 - AI solutions deployment | — | [aia_bloc_4_ai_solutions_deployment](aia_bloc_4_ai_solutions_deployment/) | not published in this version |
+
+Each published folder opens with a README written in French: problem, data, method, results (each figure points to the notebook cell or file that produces it), how to reproduce, and limitations.
+
+---
+
 ## Validation evidence
 
 Generated validation artifacts are available in:
@@ -53,7 +81,7 @@ Current public validation checks the core evidence files. Future hardening will 
 This repository must never contain:
 
 - private Jedha course content;
-- exam subjects or answers;
+- exam subjects, assignment texts or grading material;
 - grades;
 - private certificates with identifiers;
 - administrative PDFs;
@@ -82,21 +110,21 @@ Allowed:
 
 | Block | Public evidence folder | Technical signal |
 |---|---|---|
-| Bloc 1 - Data infrastructure | `bloc_1_data_infrastructure/` | ingestion, SQL, schema, data quality, architecture |
-| Bloc 2 - EDA / statistics | `bloc_2_eda_statistics/` | analysis, distributions, anomalies, hypothesis testing |
-| Bloc 3 - Machine learning | `bloc_3_machine_learning/` | supervised/unsupervised ML, evaluation, explainability |
-| Bloc 4 - NLP / deep learning | `bloc_4_nlp_deep_learning/` | text processing, document classification, GenAI foundations |
-| Bloc 5 - Industrialization / MLOps | `bloc_5_mlops_deployment/` | API, Docker, MLflow, tests, monitoring |
-| Bloc 6 - Project governance | `bloc_6_project_governance/` | project charter, risk register, model/data governance |
+| Bloc 1 - Data infrastructure | [`bloc_1_data_infrastructure/`](bloc_1_data_infrastructure/) | ingestion, SQL, schema, data quality, architecture |
+| Bloc 2 - EDA / statistics | [`bloc_2_eda_statistics/`](bloc_2_eda_statistics/) | analysis, distributions, anomalies, hypothesis testing |
+| Bloc 3 - Machine learning | [`bloc_3_machine_learning/`](bloc_3_machine_learning/) | supervised/unsupervised ML, evaluation, explainability |
+| Bloc 4 - NLP / deep learning | [`bloc_4_nlp_deep_learning/`](bloc_4_nlp_deep_learning/) | text processing, document classification, GenAI foundations |
+| Bloc 5 - Industrialization / MLOps | [`bloc_5_mlops_deployment/`](bloc_5_mlops_deployment/) | API, Docker, MLflow, tests, monitoring |
+| Bloc 6 - Project governance | [`bloc_6_project_governance/`](bloc_6_project_governance/) | project charter, risk register, model/data governance |
 
 ## Four-block evidence map — AI Architect (RNCP38777)
 
 | Block | Public evidence folder | Technical signal |
 |---|---|---|
-| AIA Bloc 1 - Data & AI governance | `aia_bloc_1_data_ai_governance/` | asset and risk mapping, RACI, data contracts, RBAC/ABAC, GDPR and EU AI Act |
-| AIA Bloc 2 - AI data architecture | `aia_bloc_2_ai_data_architecture/` | OLTP/OLAP/NoSQL design, sizing, Infrastructure as Code, resilience, FinOps |
-| AIA Bloc 3 - Data pipelines for AI | `aia_bloc_3_data_pipelines_for_ai/` | batch/streaming flows, orchestration, data quality, privacy by design, observability |
-| AIA Bloc 4 - AI solutions deployment | `aia_bloc_4_ai_solutions_deployment/` | CI/CD/CT, model registry, inference API, drift monitoring, retraining, model card |
+| AIA Bloc 1 - Data & AI governance | [`aia_bloc_1_data_ai_governance/`](aia_bloc_1_data_ai_governance/) | asset and risk mapping, RACI, data contracts, RBAC/ABAC, GDPR and EU AI Act |
+| AIA Bloc 2 - AI data architecture | [`aia_bloc_2_ai_data_architecture/`](aia_bloc_2_ai_data_architecture/) | OLTP/OLAP/NoSQL design, sizing, Infrastructure as Code, resilience, FinOps |
+| AIA Bloc 3 - Data pipelines for AI | [`aia_bloc_3_data_pipelines_for_ai/`](aia_bloc_3_data_pipelines_for_ai/) | batch/streaming flows, orchestration, data quality, privacy by design, observability |
+| AIA Bloc 4 - AI solutions deployment | [`aia_bloc_4_ai_solutions_deployment/`](aia_bloc_4_ai_solutions_deployment/) | CI/CD/CT, model registry, inference API, drift monitoring, retraining, model card |
 
 ---
 
@@ -121,6 +149,7 @@ This repository should reference, not duplicate, the technical repos:
 jedha-rncp35288-portfolio/
 |-- README.md
 |-- PORTFOLIO.md
+|-- DONNEES.md
 |-- LICENSE
 |-- assets/
 |-- docs/
@@ -179,4 +208,4 @@ Detailed cross-repository context: [docs/PORTFOLIO_LAYER.md](docs/PORTFOLIO_LAYE
 
 ---
 
-*Copyright © 2026 · Auteur — KinSushi · Enzo · Sovralys LLC*
+*Copyright © 2026 · see the LICENSE file*
