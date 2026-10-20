@@ -1,0 +1,7 @@
+<svg width="1280" height="900" viewBox="0 0 1280 900" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="banking_dataops_monitoring_demoday validation preview">
+<defs><style>.title{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:42px;font-weight:750;fill:#fff}.sub{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:20px;fill:#9FB3C8}.mono{font-family:Consolas,Menlo,monospace;font-size:18px;fill:#D8E2F0}</style></defs>
+<rect width="1280" height="900" rx="26" fill="#07111F"/>
+<text x="60" y="52" class="title">banking_dataops_monitoring_demoday</text>
+<text x="60" y="78" class="sub">Generated from real validation commands in GitHub Actions</text>
+<text x="60" y="90" class="mono">pip-upgrade: PASS exit=0</text><text x="60" y="116" class="mono">pip-install-editable-dev: PASS exit=0</text><text x="60" y="142" class="mono">compileall: PASS exit=0</text><text x="60" y="168" class="mono">pytest: PASS exit=0</text><text x="60" y="194" class="mono">ruff: PASS exit=0</text><text x="60" y="220" class="mono">secret-keyword-scan: REVIEW exit=0</text>
+</svg>

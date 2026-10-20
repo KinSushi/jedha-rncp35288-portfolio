@@ -1,0 +1,34 @@
+        occurred_at         |      run_id      | category  |          action           | row_count |                            reason                            
+----------------------------+------------------+-----------+---------------------------+-----------+--------------------------------------------------------------
+ 2026-10-11 18:47:30.96627  | 70a7e601a0404cc0 | pipeline  | run_succeeded             |           | step powerbi_views completed without error
+ 2026-10-11 18:47:30.953522 | 70a7e601a0404cc0 | data      | star_schema_views_created |         8 | the star schema the Gold build and the Power BI model both r
+ 2026-10-11 18:47:30.939022 | 70a7e601a0404cc0 | integrity | invariant_checked         |           | a missing view surfaces as an empty Power BI panel rather th
+ 2026-10-11 18:47:30.878925 | 70a7e601a0404cc0 | pipeline  | run_started               |           | step powerbi_views began
+ 2026-10-11 18:47:27.293533 | 6af18ca7125340b3 | pipeline  | run_succeeded             |           | step reconciliation completed without error
+ 2026-10-11 18:47:27.277605 | 6af18ca7125340b3 | data      | coherence_summary_written |      1500 | aggregate coherence check across source systems; NOT a recon
+ 2026-10-11 18:47:27.244545 | 6af18ca7125340b3 | integrity | invariant_checked         |           | a zero total is indistinguishable from a legitimately empty 
+ 2026-10-11 18:47:27.143668 | 6af18ca7125340b3 | pipeline  | run_started               |           | step reconciliation began
+ 2026-10-11 18:47:25.319983 | 42edd3a8cea044de | pipeline  | run_succeeded             |           | step ml_predict completed without error
+ 2026-10-11 18:47:25.307836 | 42edd3a8cea044de | data      | predictions_written       |      1500 | the investigation queue is refreshed; it prioritises analyst
+ 2026-10-11 18:47:25.144674 | 42edd3a8cea044de | integrity | invariant_checked         |           | a length mismatch would attach each score to the wrong trans
+ 2026-10-11 18:47:25.104506 | 42edd3a8cea044de | integrity | invariant_checked         |           | scoring an empty batch would silently produce an empty queue
+ 2026-10-11 18:47:24.307728 | 42edd3a8cea044de | pipeline  | run_started               |           | step ml_predict began
+ 2026-10-11 18:47:21.665462 | 583b33c23fbf4ddd | pipeline  | run_succeeded             |           | step pipeline completed without error
+ 2026-10-11 18:47:21.651541 | 583b33c23fbf4ddd | pipeline  | run_succeeded             |           | step ml_train completed without error
+ 2026-10-11 18:47:21.634959 | 583b33c23fbf4ddd | data      | model_persisted           |      1125 | the artefact and its metrics are versioned so a verdict can 
+ 2026-10-11 18:47:21.609595 | 583b33c23fbf4ddd | integrity | invariant_checked         |           | publishing a model at chance level would send analysts to in
+ 2026-10-11 18:47:21.594912 | 583b33c23fbf4ddd | data      | model_evaluated           |       375 | single evaluation on the test rows, after model and threshol
+ 2026-10-11 18:47:21.338286 | 583b33c23fbf4ddd | data      | threshold_selected        |      1125 | max_f1 on out-of-fold predictions on the training set: the t
+ 2026-10-11 18:47:21.194628 | 583b33c23fbf4ddd | data      | model_selected            |      1125 | the tuned forest gains only -0.0087 cross-validated AUC over
+ 2026-10-11 18:47:21.175225 | 583b33c23fbf4ddd | data      | baseline_trained          |      1125 | a linear reference everyone can read, to judge whether tunin
+ 2026-10-11 18:47:08.628856 | 583b33c23fbf4ddd | integrity | invariant_checked         |           | a degenerate class balance makes every metric misleading and
+ 2026-10-11 18:47:08.607082 | 583b33c23fbf4ddd | integrity | invariant_checked         |           | below that, a stratified split leaves too few positives for 
+ 2026-10-11 18:47:08.572887 | 583b33c23fbf4ddd | pipeline  | run_started               |           | step ml_train began
+ 2026-10-11 18:47:07.534267 | 583b33c23fbf4ddd | pipeline  | run_succeeded             |           | step gold_build completed without error
+ 2026-10-11 18:47:07.523372 | 583b33c23fbf4ddd | integrity | invariant_checked         |           | a gap means the join dropped rows; every downstream aggregat
+ 2026-10-11 18:47:07.502244 | 583b33c23fbf4ddd | integrity | invariant_checked         |           | an empty fact table means the join to accounts or customers 
+ 2026-10-11 18:47:07.489734 | 583b33c23fbf4ddd | data      | gold_table_loaded         |         7 | gold.fact_quality_results rebuilt from silver, truncate-then
+ 2026-10-11 18:47:07.473755 | 583b33c23fbf4ddd | data      | gold_table_loaded         |      1500 | gold.fact_transactions rebuilt from silver, truncate-then-in
+ 2026-10-11 18:47:07.459648 | 583b33c23fbf4ddd | data      | gold_table_loaded         |         7 | gold.dim_control rebuilt from silver, truncate-then-insert k
+(30 rows)
+

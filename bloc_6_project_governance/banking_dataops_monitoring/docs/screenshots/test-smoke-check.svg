@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="551" height="752" viewBox="0 0 551 752" font-family="Menlo, Consolas, monospace">
+<rect width="551" height="752" rx="10" fill="#0d1b2a"/>
+<rect width="551" height="36" rx="10" fill="#152a41"/>
+<rect y="26" width="551" height="10" fill="#152a41"/>
+<circle cx="20" cy="18" r="5.5" fill="#ff5f57"/>
+<circle cx="39" cy="18" r="5.5" fill="#febc2e"/>
+<circle cx="58" cy="18" r="5.5" fill="#28c840"/>
+<text x="78" y="23" font-size="12.5" fill="#8ba3bf">scripts/smoke_check.py  —  validation de bout en bout</text>
+<text x="22" y="52" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">$ python scripts/smoke_check.py</text>
+<text x="22" y="112" font-size="13.5" fill="#e8b64c" font-weight="400" xml:space="preserve">==&gt; 1. Silver layer</text>
+<text x="22" y="132" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  transactions loaded  (1500 rows)</text>
+<text x="22" y="152" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  accounts loaded  (200 rows)</text>
+<text x="22" y="172" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  customers loaded  (100 rows)</text>
+<text x="22" y="212" font-size="13.5" fill="#e8b64c" font-weight="400" xml:space="preserve">==&gt; 2. Quality controls</text>
+<text x="22" y="232" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  7 controls persisted  (found 7)</text>
+<text x="22" y="252" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  no control in failure  (0 failing)</text>
+<text x="22" y="292" font-size="13.5" fill="#e8b64c" font-weight="400" xml:space="preserve">==&gt; 3. Gold layer</text>
+<text x="22" y="312" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  gold.fact_transactions populated  (1500 rows)</text>
+<text x="22" y="332" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  gold matches silver exactly  (gold 1500 vs silver 1500)</text>
+<text x="22" y="352" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  all 4 gold dimensions populated  (4/4)</text>
+<text x="22" y="392" font-size="13.5" fill="#e8b64c" font-weight="400" xml:space="preserve">==&gt; 4. Machine learning</text>
+<text x="22" y="412" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  model artefact present</text>
+<text x="22" y="432" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  gold.predictions populated  (1500 rows)</text>
+<text x="22" y="452" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  every suspicion score within [0, 1]  (0 outside)</text>
+<text x="22" y="492" font-size="13.5" fill="#e8b64c" font-weight="400" xml:space="preserve">==&gt; 5. Audit trail</text>
+<text x="22" y="512" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  audit journal populated  (267 events)</text>
+<text x="22" y="532" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  every event carries a business reason  (0 without)</text>
+<text x="22" y="552" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  no invariant was violated  (0 violations)</text>
+<text x="22" y="592" font-size="13.5" fill="#e8b64c" font-weight="400" xml:space="preserve">==&gt; 6. Publication verdict independence</text>
+<text x="22" y="612" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  PASS  verdict does not read model predictions (ADR-0002)</text>
+<text x="22" y="652" font-size="13.5" fill="#8ba3bf" font-weight="400" xml:space="preserve">======================================================</text>
+<text x="22" y="672" font-size="13.5" fill="#3ddc84" font-weight="600" xml:space="preserve">  DEMO READY  -  15 checks passed</text>
+<text x="22" y="692" font-size="13.5" fill="#8ba3bf" font-weight="400" xml:space="preserve">======================================================</text>
+</svg>

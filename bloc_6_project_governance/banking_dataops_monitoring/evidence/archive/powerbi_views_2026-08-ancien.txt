@@ -1,0 +1,8 @@
+      ok  vw_dim_date
+      ok  vw_dim_customer
+      ok  vw_dim_account
+      ok  vw_dim_control
+      ok  vw_fact_transactions
+      ok  vw_fact_quality_results
+      ok  vw_fact_incidents
+      ok  vw_publication_verdict

@@ -1,0 +1,121 @@
+# ============================================================================
+# FILE HEADER - REQUIREMENTS.TXT CONFIGURATION
+# ============================================================================
+# WHY: Define runtime dependencies for pip install -r requirements.txt
+# HOW: Lists Python packages with minimum version constraints
+# WHAT: This file specifies what packages are needed to run the application
+# MEANING: "Runtime dependencies for pip installation"
+# NOTE: This file exists alongside pyproject.toml because:
+#       1. The training brief names requirements.txt explicitly
+#       2. Most reviewers will type 'pip install -r requirements.txt' first
+#       3. It mirrors the runtime subset of dependencies from pyproject.toml
+#       
+#       IMPORTANT: If you edit pyproject.toml dependencies, edit this file too.
+#       A test asserts they cannot drift apart.
+#       
+#       Lower bounds only (>=), same as pyproject.toml. Exact versions are
+#       frozen with 'make lock', which reads them from the built Docker image
+#       rather than guessing.
+# ============================================================================
+
+# ============================================================================
+# DATABASE DEPENDENCIES
+# ============================================================================
+# WHY: Connect to PostgreSQL database
+# HOW: Uses psycopg (version 3) with binary wheels for easy installation
+# WHAT: PostgreSQL adapter for Python
+# MEANING: "PostgreSQL database driver"
+# NOTE: psycopg[binary]>=3.1 includes pre-compiled binaries, avoiding the need
+#       for C compilers on the target system. Version 3 has a different API
+#       from psycopg2 - they are NOT interchangeable.
+psycopg[binary]>=3.1
+
+# ============================================================================
+# DATA MANIPULATION DEPENDENCIES
+# ============================================================================
+# WHY: Process and analyze data
+# HOW: Uses pandas for DataFrames and data manipulation
+# WHAT: Data analysis and manipulation library
+# MEANING: "Data manipulation library"
+# NOTE: pandas>=2.0 provides modern DataFrame operations, time series handling,
+#       and efficient data processing. It's the foundation for all data transformations.
+pandas>=2.0
+
+# ============================================================================
+# DATA VALIDATION DEPENDENCIES
+# ============================================================================
+# WHY: Validate data structures and settings
+# HOW: Uses pydantic for data validation and pydantic-settings for configuration
+# WHAT: Data validation using Python type annotations
+# MEANING: "Data validation libraries"
+# NOTE: pydantic>=2.0 has breaking changes from version 1. It provides:
+#       - Data validation using type hints
+#       - Settings management with environment variables
+#       - JSON schema generation
+#       Both packages must be version 2.x for compatibility.
+pydantic>=2.0
+pydantic-settings>=2.0
+
+# ============================================================================
+# DASHBOARD DEPENDENCIES
+# ============================================================================
+# WHY: Build interactive web dashboard
+# HOW: Uses Streamlit for rapid dashboard development
+# WHAT: Web framework for data applications
+# MEANING: "Dashboard framework"
+# NOTE: streamlit>=1.30 is required for st.rerun() functionality (introduced in 1.27).
+#       Streamlit provides rapid prototyping of data applications with minimal code.
+#       It automatically reloads when code changes, making development fast.
+streamlit>=1.30
+
+# ============================================================================
+# API DEPENDENCIES
+# ============================================================================
+# WHY: Build REST API for model serving and data access
+# HOW: Uses FastAPI for the web framework and uvicorn as the ASGI server
+# WHAT: Web framework and server for building APIs
+# MEANING: "API framework and server"
+# NOTE: FastAPI>=0.110 provides:
+#       - Automatic OpenAPI documentation generation
+#       - Type validation using Pydantic
+#       - Async support for high performance
+#       - Modern Python features (type hints, async/await)
+#       
+#       uvicorn[standard]>=0.27 is the ASGI server that runs FastAPI.
+#       The [standard] extra includes uvloop for better performance.
+fastapi>=0.110
+uvicorn[standard]>=0.27
+
+# ============================================================================
+# MACHINE LEARNING DEPENDENCIES
+# ============================================================================
+# WHY: Train and serve ML models
+# HOW: Uses scikit-learn for ML algorithms and joblib for model serialization
+# WHAT: Machine learning library and model persistence
+# MEANING: "Machine learning libraries"
+# NOTE: scikit-learn>=1.4 provides:
+#       - Classification algorithms (LogisticRegression, RandomForest, etc.)
+#       - Model evaluation metrics (F1-score, precision, recall)
+#       - Data preprocessing (scaling, encoding)
+#       - Cross-validation and hyperparameter tuning
+#       
+#       joblib>=1.3 is used to save and load trained models (.joblib files).
+#       It's more efficient than pickle for large NumPy arrays.
+scikit-learn>=1.4
+joblib>=1.3
+
+# ============================================================================
+# VISUALIZATION DEPENDENCIES
+# ============================================================================
+# WHY: Create charts and plots for dashboards
+# HOW: Uses matplotlib for plotting
+# WHAT: Plotting library for Python
+# MEANING: "Visualization library"
+# NOTE: matplotlib>=3.7,<4 provides:
+#       - Static, animated, and interactive plots
+#       - Integration with pandas and Streamlit
+#       - Publication-quality figures
+#       
+#       The <4 constraint pins to major version 3 to avoid breaking changes
+#       in version 4. This ensures stability while allowing minor updates.
+matplotlib>=3.7,<4

@@ -1,0 +1,82 @@
+# Local stack of the project (ADR-0005): two services, `postgres` and `app`.
+# `app` is the image built from the Dockerfile. Its entrypoint (docker/entrypoint.sh) loads the
+# data and runs the pipeline, then serves the API (ADR-0006, port 8000) and the Streamlit
+# dashboard (port 8501) from that same container.
+# Driven by the Makefile (stack-up, stack-reset, ...) and by run.ps1 on Windows.
+# The host ports can be moved with POSTGRES_PORT, API_PORT and DASHBOARD_PORT, which Compose reads
+# from the environment or from a .env file (.env.example, run.ps1 setup).
+
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: banking-dataops-postgres
+    # Development credentials for a local, synthetic database (ADR-0003). They are the defaults of
+    # src/banking_dataops/config.py and are repeated in the healthcheck below, in the environment
+    # of `app` and in the connection probe of docker/entrypoint.sh: change them together.
+    environment:
+      POSTGRES_USER: dataops
+      POSTGRES_DB: banking_dataops
+      POSTGRES_PASSWORD: dataops
+    # Only the host side is configurable: a PostgreSQL already installed on the machine often
+    # holds 5432 (see POSTGRES_PORT, top of this file). Inside the network the port stays 5432.
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    # The only named volume. `down -v` removes it, and with it the database (make stack-reset,
+    # run.ps1 start and reset).
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # Gate of the `app` service (depends_on below), with the same user and database as above.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dataops -d banking_dataops"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+  app:
+    build: .
+    container_name: banking-dataops-app
+    # Starts once postgres is healthy. The entrypoint also retries its own connection (60
+    # attempts, 2 s apart).
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # Same host-port override as for postgres. The container ports, 8000 for uvicorn and 8501 for
+    # Streamlit, are fixed by docker/entrypoint.sh.
+    ports:
+      - "${API_PORT:-8000}:8000"
+      - "${DASHBOARD_PORT:-8501}:8501"
+    # Read by src/banking_dataops/config.py (prefix BANKING_DATAOPS_). The host is the name of the
+    # postgres service.
+    environment:
+      - BANKING_DATAOPS_DATABASE_HOST=postgres
+      - BANKING_DATAOPS_DATABASE_PORT=5432
+      - BANKING_DATAOPS_DATABASE_NAME=banking_dataops
+      - BANKING_DATAOPS_DATABASE_USER=dataops
+      - BANKING_DATAOPS_DATABASE_PASSWORD=dataops
+      # Date anchor of the generated batch (ADR-0009). Empty or unset: the fixed default of the code,
+      # 2026-07-27T00:00:00Z. Set it on the host (shell or .env) to change it, e.g.
+      # BANKING_DATAOPS_GENERATED_AT=today, or run `.\run.ps1 start -GeneratedAt today`. The option
+      # `--generated-at` of docker/entrypoint.sh does the same and wins over this variable.
+      - BANKING_DATAOPS_GENERATED_AT=${BANKING_DATAOPS_GENERATED_AT:-}
+      # Not read by docker/entrypoint.sh: whatever its value, nothing is trained at start. The
+      # model is trained on demand (make ml-train, or run_pipeline.py --train).
+      - TRAIN_ON_BOOT=false
+    # Bind mount of the checkout over /app: the container runs the host's files (src/, sql/,
+    # dashboard/) instead of the copy baked into the image, and what it writes (data/, models/,
+    # output/) lands in the host checkout.
+    volumes:
+      - .:/app
+    # A restart replays docker/entrypoint.sh from the top, which reloads the tables (TRUNCATE then
+    # INSERT): rows injected by the demo scenario do not survive it.
+    restart: unless-stopped
+    # docker/entrypoint.sh reads no input: these two only matter when a terminal is attached to the
+    # container.
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres_data:

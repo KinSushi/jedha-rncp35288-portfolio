@@ -1,0 +1,88 @@
+{
+  "model_name": "suspicion_classifier",
+  "model_family": "logistic_regression",
+  "model_version": "20261011-184721",
+  "trained_at": "2026-10-11T18:47:21.609117+00:00",
+  "rows_total": 1500,
+  "rows_train": 1125,
+  "rows_test": 375,
+  "positive_rate": 0.0807,
+  "best_params": {
+    "model__max_depth": "8",
+    "model__min_samples_leaf": "1",
+    "model__n_estimators": "300"
+  },
+  "cv_folds": 4,
+  "baseline_cv_roc_auc": 0.9748,
+  "forest_cv_roc_auc": 0.9661,
+  "selection_margin": 0.01,
+  "selection_reason": "the tuned forest gains only -0.0087 cross-validated AUC over the baseline on the training rows, below the 0.01 margin; the simpler and readable model is shipped instead",
+  "decision_threshold": 0.852,
+  "threshold_criterion": "max_f1",
+  "threshold_source": "out-of-fold predictions on the training set",
+  "threshold_oof_f1": 0.7079,
+  "roc_auc": 0.97,
+  "average_precision": 0.7734,
+  "precision": 0.6562,
+  "recall": 0.7,
+  "f1": 0.6774,
+  "confusion": {
+    "true_negative": 334,
+    "false_positive": 11,
+    "false_negative": 9,
+    "true_positive": 21
+  },
+  "baseline_test_roc_auc": 0.97,
+  "forest_test_roc_auc": 0.9573,
+  "top_features": [
+    {
+      "feature": "bool__is_night",
+      "importance": 4.18011
+    },
+    {
+      "feature": "bool__is_cross_border",
+      "importance": 3.81383
+    },
+    {
+      "feature": "cat__channel_api",
+      "importance": 3.77972
+    },
+    {
+      "feature": "cat__channel_branch",
+      "importance": 2.56168
+    },
+    {
+      "feature": "cat__merchant_category_electronics",
+      "importance": 2.51239
+    },
+    {
+      "feature": "cat__merchant_category_grocery",
+      "importance": 1.94929
+    },
+    {
+      "feature": "cat__merchant_category_travel",
+      "importance": 1.60316
+    },
+    {
+      "feature": "cat__merchant_category_utilities",
+      "importance": 1.55352
+    },
+    {
+      "feature": "cat__channel_mobile",
+      "importance": 1.29182
+    },
+    {
+      "feature": "cat__merchant_category_health",
+      "importance": 0.99579
+    },
+    {
+      "feature": "cat__weekday_name_Wednesday",
+      "importance": 0.91507
+    },
+    {
+      "feature": "cat__weekday_name_Tuesday",
+      "importance": 0.74676
+    }
+  ],
+  "random_state": 42
+}

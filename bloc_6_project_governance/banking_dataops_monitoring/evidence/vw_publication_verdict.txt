@@ -1,0 +1,5 @@
+ controls_total | controls_passed | controls_warning | controls_failed | rows_in_violation | verdict | can_publish |        evaluated_at        
+----------------+-----------------+------------------+-----------------+-------------------+---------+-------------+----------------------------
+              7 |               6 |                1 |               0 |                 0 | WARN    | t           | 2026-10-11 18:47:07.001272
+(1 row)
+

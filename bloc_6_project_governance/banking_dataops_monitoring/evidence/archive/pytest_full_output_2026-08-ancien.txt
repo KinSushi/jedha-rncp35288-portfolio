@@ -1,0 +1,8 @@
+tests/test_quality_checks.py ..                                          [ 52%]
+tests/test_reconciliation.py ..                                          [ 53%]
+tests/test_reproducibility.py .......                                    [ 58%]
+tests/test_reverse_paths.py ...............................ss            [ 80%]
+tests/test_sql_files_exist.py ..                                         [ 81%]
+tests/test_sql_splitter.py ...................ss..ss.                    [ 99%]
+tests/test_synthetic_data.py .                                           [100%]
+../../venv/lib/python3.12/site-packages/fastapi/testclient.py:1

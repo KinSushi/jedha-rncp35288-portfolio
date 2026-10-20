@@ -1,0 +1,308 @@
+{
+  "ancre": "2026-07-27T00:00:00+00:00",
+  "jour_semaine_ancre": "Monday",
+  "lignes": 1500,
+  "positifs": 121,
+  "taux_positifs": 0.0807,
+  "entrainement": 1125,
+  "test": 375,
+  "positifs_test": 30,
+  "famille": "logistic_regression",
+  "auc_base": 0.97,
+  "auc_foret": 0.9573,
+  "auc_retenu": 0.97,
+  "ap": 0.7734,
+  "precision": 0.6571,
+  "rappel": 0.7667,
+  "f1": 0.7077,
+  "seuil": 0.833,
+  "seuil_exact": 0.8334664347073727,
+  "matrice": {
+    "true_negative": 333,
+    "false_positive": 12,
+    "false_negative": 7,
+    "true_positive": 23
+  },
+  "raison": "the tuned forest gains only -0.0128 AUC over the baseline, below the 0.01 margin; the simpler and readable model is shipped instead",
+  "meilleurs_parametres_foret": {
+    "model__max_depth": "8",
+    "model__min_samples_leaf": "1",
+    "model__n_estimators": "300"
+  },
+  "variables_importantes": [
+    {
+      "feature": "bool__is_night",
+      "importance": 4.18011
+    },
+    {
+      "feature": "bool__is_cross_border",
+      "importance": 3.81383
+    },
+    {
+      "feature": "cat__channel_api",
+      "importance": 3.77972
+    },
+    {
+      "feature": "cat__channel_branch",
+      "importance": 2.56168
+    },
+    {
+      "feature": "cat__merchant_category_electronics",
+      "importance": 2.51239
+    },
+    {
+      "feature": "cat__merchant_category_grocery",
+      "importance": 1.94929
+    },
+    {
+      "feature": "cat__merchant_category_travel",
+      "importance": 1.60316
+    },
+    {
+      "feature": "cat__merchant_category_utilities",
+      "importance": 1.55352
+    },
+    {
+      "feature": "cat__channel_mobile",
+      "importance": 1.29182
+    },
+    {
+      "feature": "cat__merchant_category_health",
+      "importance": 0.99579
+    },
+    {
+      "feature": "cat__weekday_name_Wednesday",
+      "importance": 0.91507
+    },
+    {
+      "feature": "cat__weekday_name_Tuesday",
+      "importance": 0.74676
+    }
+  ],
+  "seuil_haut": 1.0835,
+  "seuil_bas": 0.5001,
+  "multiplicateurs": {
+    "haut": 1.3,
+    "bas": 0.6
+  },
+  "score_max_observe": 0.9994,
+  "bandes_1500": {
+    "medium": 227,
+    "low": 1273
+  },
+  "signales_1500": 133,
+  "descriptif": {
+    "nuit": {
+      "n": 365,
+      "taux_suspect": 0.263,
+      "taux_suspect_hors_nuit": 0.022
+    },
+    "transfrontalier": {
+      "n": 1210,
+      "taux_suspect": 0.0983,
+      "taux_suspect_sinon": 0.0069
+    },
+    "montant_eleve": {
+      "n": 11,
+      "taux_suspect": 0.2727
+    },
+    "canal": {
+      "api": {
+        "n": 374,
+        "taux_suspect": 0.246
+      },
+      "branch": {
+        "n": 382,
+        "taux_suspect": 0.0079
+      },
+      "mobile": {
+        "n": 361,
+        "taux_suspect": 0.0249
+      },
+      "web": {
+        "n": 383,
+        "taux_suspect": 0.0444
+      }
+    },
+    "categorie": {
+      "electronics": {
+        "n": 251,
+        "taux_suspect": 0.1554
+      },
+      "grocery": {
+        "n": 256,
+        "taux_suspect": 0.0273
+      },
+      "health": {
+        "n": 221,
+        "taux_suspect": 0.0452
+      },
+      "services": {
+        "n": 248,
+        "taux_suspect": 0.0766
+      },
+      "travel": {
+        "n": 248,
+        "taux_suspect": 0.1371
+      },
+      "utilities": {
+        "n": 276,
+        "taux_suspect": 0.0435
+      }
+    },
+    "fenetre_evenements": [
+      "2026-06-27T00:11:00+00:00",
+      "2026-07-26T23:02:00+00:00"
+    ],
+    "statuts": {
+      "posted": 1305,
+      "pending": 128,
+      "rejected": 67
+    },
+    "montants_50k_et_plus": 11
+  },
+  "au_seuil_bas_test": {
+    "seuil": 0.5001,
+    "tn": 309,
+    "fp": 36,
+    "fn": 3,
+    "tp": 27,
+    "precision": 0.4286,
+    "rappel": 0.9,
+    "f1": 0.5806
+  },
+  "ordre_arrivee": {
+    "auc_test_horodatage": 0.4517,
+    "auc_test_identifiant": 0.4905,
+    "auc_1500_horodatage": 0.4729,
+    "auc_1500_identifiant": 0.462
+  },
+  "regle_simple": {
+    "auc": 0.8107,
+    "au_moins_1": {
+      "tn": 50,
+      "fp": 295,
+      "fn": 0,
+      "tp": 30,
+      "precision": 0.0923,
+      "rappel": 1.0,
+      "f1": 0.169
+    },
+    "au_moins_2": {
+      "tn": 292,
+      "fp": 53,
+      "fn": 8,
+      "tp": 22,
+      "precision": 0.2933,
+      "rappel": 0.7333,
+      "f1": 0.419
+    },
+    "au_moins_3": {
+      "tn": 344,
+      "fp": 1,
+      "fn": 29,
+      "tp": 1,
+      "precision": 0.5,
+      "rappel": 0.0333,
+      "f1": 0.0625
+    }
+  },
+  "seuil_hors_test": {
+    "seuil": 0.852,
+    "tn": 334,
+    "fp": 11,
+    "fn": 9,
+    "tp": 21,
+    "precision": 0.6562,
+    "rappel": 0.7,
+    "f1": 0.6774
+  },
+  "choix_hors_test": {
+    "auc_cv_logistique": 0.9748,
+    "auc_cv_meilleure_foret": 0.9661,
+    "ecart_foret_moins_logistique": -0.0087,
+    "marge_exigee": 0.01,
+    "modele_retenu_sans_le_test": "logistic_regression"
+  },
+  "bootstrap_95": {
+    "auc": [
+      0.951,
+      0.985
+    ],
+    "precision": [
+      0.5,
+      0.815
+    ],
+    "rappel": [
+      0.606,
+      0.909
+    ],
+    "tirages": 2000,
+    "graine": 0
+  },
+  "auc_20_decoupages": {
+    "min": 0.9574,
+    "max": 0.9892,
+    "moyenne": 0.9734
+  },
+  "coefficients_signes": [
+    {
+      "variable": "bool__is_night",
+      "coefficient": 4.18
+    },
+    {
+      "variable": "bool__is_cross_border",
+      "coefficient": 3.814
+    },
+    {
+      "variable": "cat__channel_api",
+      "coefficient": 3.78
+    },
+    {
+      "variable": "cat__channel_branch",
+      "coefficient": -2.562
+    },
+    {
+      "variable": "cat__merchant_category_electronics",
+      "coefficient": 2.512
+    },
+    {
+      "variable": "cat__merchant_category_grocery",
+      "coefficient": -1.949
+    },
+    {
+      "variable": "cat__merchant_category_travel",
+      "coefficient": 1.603
+    },
+    {
+      "variable": "cat__merchant_category_utilities",
+      "coefficient": -1.554
+    },
+    {
+      "variable": "cat__channel_mobile",
+      "coefficient": -1.292
+    },
+    {
+      "variable": "cat__merchant_category_health",
+      "coefficient": -0.996
+    },
+    {
+      "variable": "cat__weekday_name_Wednesday",
+      "coefficient": 0.915
+    },
+    {
+      "variable": "cat__weekday_name_Tuesday",
+      "coefficient": -0.747
+    }
+  ],
+  "coefficients_variables_cle": {
+    "cat__channel_api": 3.78,
+    "cat__channel_branch": -2.562,
+    "cat__channel_mobile": -1.292,
+    "cat__channel_web": 0.056,
+    "bool__is_night": 4.18,
+    "bool__is_cross_border": 3.814,
+    "bool__is_high_amount": -0.004,
+    "bool__is_weekend": -0.171
+  }
+}

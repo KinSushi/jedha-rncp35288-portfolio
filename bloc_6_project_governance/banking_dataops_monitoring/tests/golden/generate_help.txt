@@ -1,0 +1,22 @@
+usage: generate_synthetic_data [-h] [--output-dir OUTPUT_DIR] [--customers CUSTOMERS]
+                               [--accounts-per-customer ACCOUNTS_PER_CUSTOMER]
+                               [--transactions TRANSACTIONS] [--seed SEED]
+                               [--generated-at GENERATED_AT]
+
+Generate synthetic regulated-data CSV files.
+
+options:
+  -h, --help            show this help message and exit
+  --output-dir OUTPUT_DIR
+                        Output directory for CSV files
+  --customers CUSTOMERS
+                        Number of customers to generate
+  --accounts-per-customer ACCOUNTS_PER_CUSTOMER
+                        Number of accounts per customer
+  --transactions TRANSACTIONS
+                        Number of transactions to generate
+  --seed SEED           Random seed for reproducibility
+  --generated-at GENERATED_AT
+                        Date anchor of every timestamp, ISO 8601 (e.g. 2026-07-27T00:00:00Z) or
+                        'today'. Default: $BANKING_DATAOPS_GENERATED_AT, else 2026-07-27T00:00:00Z
+                        (reproduces the logged batch fingerprint).

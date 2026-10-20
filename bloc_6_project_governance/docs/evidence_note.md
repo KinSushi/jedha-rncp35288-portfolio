@@ -1,27 +1,20 @@
-# Evidence Note — Bloc 6 — Project Governance
+# Note de preuve — Bloc 6 — Direction de projets de gestion de données
 
-## Status
+## Statut
 
-Planned.
+Publié : le projet banking-dataops-monitoring, présenté dans le [README du bloc](../README.md).
 
-## What this block should prove
+## Ce que le bloc démontre
 
-Project framing, risk register, model/data cards and operational handover.
+Conduite d'un projet de données de bout en bout : cahier des charges, veille, rétroplanning, budget, registre des risques, conformité RGPD, indicateurs de pilotage et décisions d'architecture datées, appliqués à un dispositif de contrôle de la qualité de données bancaires synthétiques.
 
-## Candidate external evidence
+## Preuves
 
-- banking-dataops-monitoring;
-- fraud-mlops-control-tower;
-- database-migration-quality-lab;
-- secure-wealth-rag-assistant;
-- sovralys-infra-lab;
-- pty-flights-pricing.
-
-## Public-safety checklist
-
-- [ ] no private course material;
-- [ ] no exam material;
-- [ ] no grades;
-- [ ] no certificates with identifiers;
-- [ ] no real client/employer data;
-- [ ] no secrets.
+| Preuve | Chemin |
+|---|---|
+| Documents de conduite de projet | [`banking_dataops_monitoring/docs/project/`](../banking_dataops_monitoring/docs/project/) |
+| Décisions d'architecture | [`banking_dataops_monitoring/docs/adr/`](../banking_dataops_monitoring/docs/adr/) |
+| Pipeline, contrôles SQL et modèle de priorisation | `banking_dataops_monitoring/run_pipeline.py`, [`sql/`](../banking_dataops_monitoring/sql/), [`src/banking_dataops/`](../banking_dataops_monitoring/src/banking_dataops/) |
+| Tests | [`banking_dataops_monitoring/tests/`](../banking_dataops_monitoring/tests/) |
+| Sorties d'exécution datées | [`banking_dataops_monitoring/evidence/`](../banking_dataops_monitoring/evidence/) |
+| Données (synthétiques) | [`banking_dataops_monitoring/data/README.md`](../banking_dataops_monitoring/data/README.md) |

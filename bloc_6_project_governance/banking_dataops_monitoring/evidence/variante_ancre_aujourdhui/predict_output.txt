@@ -1,0 +1,8 @@
+18:48:31  INFO    [run:8e686988] ml_predict   run_started  category=pipeline reason=step ml_predict began rows=- seed=None python=3.12.15 platform=Linux code_version=unknown
+18:48:31  INFO    [run:8e686988] ml_predict   features_extracted  category=data reason=silver layer read for modelling, demo rows excluded rows=1500
+18:48:31  INFO    [run:8e686988] ml_predict   invariant_checked  category=integrity reason=scoring an empty batch would silently produce an empty queue rows=1500 invariant=there is something to score holds=True
+18:48:31  INFO    [run:8e686988] ml_predict   features_built  category=data reason=derived hour, weekday, cross-border and amount band from silver rows=1500 features=13
+18:48:31  INFO    [run:8e686988] ml_predict   invariant_checked  category=integrity reason=a length mismatch would attach each score to the wrong transaction and send analysts to investigate innocent rows rows=1500 invariant=one score per transaction, in order holds=True scores=1500
+18:48:31  INFO    [run:8e686988] ml_predict   predictions_written  category=data reason=the investigation queue is refreshed; it prioritises analyst attention and never blocks publication rows=1500 model_family=logistic_regression model_version=20261011-184828 threshold=0.852 flagged=127 high_priority=127 medium_priority=98 low_priority=1275
+18:48:31  INFO    [run:8e686988] ml_predict   run_succeeded  category=pipeline reason=step ml_predict completed without error rows=- duration_ms=977
+1500 transaction(s) scored into gold.predictions.

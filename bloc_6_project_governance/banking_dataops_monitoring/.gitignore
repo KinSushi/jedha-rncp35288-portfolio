@@ -1,0 +1,61 @@
+# ---------------------------------------------------------------------------
+# Artefacts Python
+# ---------------------------------------------------------------------------
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+.venv/
+venv/
+
+# ---------------------------------------------------------------------------
+# Secrets — ne doit JAMAIS partir sur un dépôt public
+#
+# NOTE : le motif ".env" ci-dessous ne correspond QU'AU fichier nommé
+# exactement ".env". Il n'exclut pas ".env.example", et c'est voulu :
+#   .env          = vos vraies valeurs (hôte Neon, mot de passe) -> JAMAIS poussé
+#   .env.example  = le gabarit, sans aucun secret                -> POUSSÉ, il
+#                   documente les variables attendues et rend le projet
+#                   reproductible pour quelqu'un qui clone le dépôt.
+# Vérifiable :
+#   git check-ignore -v .env          -> doit renvoyer une ligne (ignoré)
+#   git check-ignore -v .env.example  -> ne doit rien renvoyer (suivi)
+# ---------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# ---------------------------------------------------------------------------
+# Données générées par le pipeline
+# WHY: régénérables en une commande (run_pipeline.py --seed 42). Un CSV
+# versionné serait un artefact périmé du run local de quelqu'un, indiscernable
+# d'un vrai. La donnée est synthétique et déterministe : le seed suffit.
+# NOTE: le double astérisque est nécessaire — "data/*.csv" ne couvre PAS
+# "data/silver/*.csv", une seule étoile ne traverse pas les sous-dossiers.
+# ---------------------------------------------------------------------------
+data/**/*.csv
+data/*.csv
+output/*
+!output/.gitkeep
+!data/.gitkeep
+!data/README.md
+
+# ---------------------------------------------------------------------------
+# Modèle entraîné
+# WHY: artefact binaire régénéré par ml.train ; un .joblib versionné pollue
+# l'historique git sans bénéfice.
+# ---------------------------------------------------------------------------
+models/*.joblib
+models/metrics.json
+!models/.gitkeep
+
+# ---------------------------------------------------------------------------
+# Système
+# ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini

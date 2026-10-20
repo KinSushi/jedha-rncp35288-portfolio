@@ -1,0 +1,8 @@
+tests/test_reverse_paths.py::test_every_control_declares_a_business_reason PASSED [ 81%]
+tests/test_reverse_paths.py::test_verdict_is_journalled_as_a_decision PASSED [ 84%]
+tests/test_reverse_paths.py::test_control_results_are_complete_by_invariant PASSED [ 87%]
+tests/test_reverse_paths.py::test_no_module_writes_without_leaving_a_trace PASSED [ 90%]
+tests/test_reverse_paths.py::test_api_traces_every_request PASSED        [ 93%]
+tests/test_reverse_paths.py::test_pipeline_does_not_require_a_model_to_complete SKIPPED [ 96%]
+tests/test_reverse_paths.py::test_entrypoint_starts_the_dashboard_even_when_the_pipeline_fails SKIPPED [100%]
+=================== 31 passed, 2 skipped, 1 warning in 0.58s ===================

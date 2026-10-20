@@ -1,0 +1,12 @@
+14:41:55  INFO    [run:9565ed81] ml_train     baseline_trained  category=data reason=a linear reference everyone can read, to judge whether tuning earns its cost rows=1125 roc_auc=0.97
+14:42:18  INFO    [run:9565ed81] ml_train     model_selected  category=data reason=the tuned forest gains only -0.0128 AUC over the baseline, below the 0.01 margin; the simpler and readable model is shipped instead rows=375 chosen=logistic_regression rejected=random_forest baseline_roc_auc=0.97 forest_roc_auc=0.9573
+14:42:18  INFO    [run:9565ed81] ml_train     invariant_checked  category=integrity reason=publishing a model at chance level would send analysts to investigate randomly while displaying a confidence score rows=- invariant=roc_auc >= 0.7 holds=True roc_auc=0.97
+14:42:18  INFO    [run:9565ed81] ml_train     model_persisted  category=data reason=the artefact and its metrics are versioned so a verdict can be traced to a model rows=1125 path=models/suspicion_classifier.joblib roc_auc=0.97 beats_baseline=-0.0
+14:42:18  INFO    [run:9565ed81] ml_train     run_succeeded  category=pipeline reason=step ml_train completed without error rows=- duration_ms=23041
+14:42:18  INFO    [run:9565ed81] ml_train     run_succeeded  category=pipeline reason=step pipeline completed without error rows=- duration_ms=24384
+Pipeline completed successfully.
+  bronze           1500 rows      40 ms
+  cleaning         1500 rows      89 ms
+  silver           1500 rows     243 ms
+  gold             1500 rows     178 ms
+  ml_train         1500 rows   23049 ms

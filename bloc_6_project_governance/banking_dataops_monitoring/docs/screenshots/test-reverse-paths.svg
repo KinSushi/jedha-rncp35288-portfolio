@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="816" height="872" viewBox="0 0 816 872" font-family="Menlo, Consolas, monospace">
+<rect width="816" height="872" rx="10" fill="#0d1b2a"/>
+<rect width="816" height="36" rx="10" fill="#152a41"/>
+<rect y="26" width="816" height="10" fill="#152a41"/>
+<circle cx="20" cy="18" r="5.5" fill="#ff5f57"/>
+<circle cx="39" cy="18" r="5.5" fill="#febc2e"/>
+<circle cx="58" cy="18" r="5.5" fill="#28c840"/>
+<text x="78" y="23" font-size="12.5" fill="#8ba3bf">pytest tests/test_reverse_paths.py  —  chemins interdits</text>
+<text x="22" y="52" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">$ pytest tests/test_reverse_paths.py -v</text>
+<text x="22" y="92" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">============================= test session starts =============================</text>
+<text x="22" y="112" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">platform win32 -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- &lt;venv&gt;\Scripts\python.exe</text>
+<text x="22" y="132" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">rootdir: &lt;depot&gt;</text>
+<text x="22" y="152" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">configfile: pyproject.toml</text>
+<text x="22" y="172" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">plugins: anyio-4.15.1</text>
+<text x="22" y="192" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">collecting ... collected 13 items</text>
+<text x="22" y="232" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_the_demo_reset_is_scoped_to_its_marker_and_a_mistyped_action_is_refused_instead_of_read_as_</text>
+<text x="22" y="252" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    reset PASSED</text>
+<text x="22" y="272" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_a_run_identifier_is_sixteen_hexadecimal_characters_unique_per_run_and_anything_else_reaches</text>
+<text x="22" y="292" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    _no_query PASSED</text>
+<text x="22" y="312" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_audit_event_without_a_reason_is_refused PASSED</text>
+<text x="22" y="332" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_audit_event_with_a_negative_row_count_is_refused PASSED</text>
+<text x="22" y="352" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_logging_never_raises_when_the_sink_is_broken_and_configuring_it_twice_does_not_duplicate_ou</text>
+<text x="22" y="372" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    tput PASSED</text>
+<text x="22" y="392" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_the_verdict_blocks_on_a_failure_not_on_a_warning_is_503_when_it_cannot_decide_and_health_st</text>
+<text x="22" y="412" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    ays_up PASSED</text>
+<text x="22" y="432" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_a_violated_invariant_stops_the_run_and_a_satisfied_one_is_journalled_too PASSED</text>
+<text x="22" y="452" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_every_demo_violation_breaks_its_control_fits_the_schema_carries_a_reason_and_cannot_be_edit</text>
+<text x="22" y="472" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    ed PASSED</text>
+<text x="22" y="492" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_the_audit_categories_are_a_closed_list_shared_with_the_sql_check_and_an_unknown_one_is_refu</text>
+<text x="22" y="512" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    sed PASSED</text>
+<text x="22" y="532" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_every_state_changing_module_is_journalled_and_the_scan_refuses_a_module_that_leaves_no_trac</text>
+<text x="22" y="552" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    e PASSED</text>
+<text x="22" y="572" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_every_control_has_a_business_reason_and_the_decision_trail_is_complete_and_the_check_refuse</text>
+<text x="22" y="592" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    s_a_gap PASSED</text>
+<text x="22" y="612" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_the_pipeline_does_not_require_a_model_to_complete_and_a_failing_training_is_not_swallowed P</text>
+<text x="22" y="632" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    ASSED</text>
+<text x="22" y="652" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">test_entrypoint_starts_the_dashboard_even_when_the_pipeline_fails XFAIL</text>
+<text x="22" y="692" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">============================== warnings summary ===============================</text>
+<text x="22" y="712" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">&lt;venv&gt;\Lib\site-packages\fastapi\testclient.py:1</text>
+<text x="22" y="732" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">  &lt;venv&gt;\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` w</text>
+<text x="22" y="752" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    ith `starlette.testclient` is deprecated; install `httpx2` instead.</text>
+<text x="22" y="772" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    from starlette.testclient import TestClient as TestClient  # noqa</text>
+<text x="22" y="812" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html</text>
+<text x="22" y="832" font-size="13.5" fill="#ff5c5c" font-weight="600" xml:space="preserve">================== 12 passed, 1 xfailed, 1 warning in 0.50s ===================</text>
+</svg>

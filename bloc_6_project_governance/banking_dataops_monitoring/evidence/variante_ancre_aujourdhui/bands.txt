@@ -1,0 +1,7 @@
+ priority_band | count 
+---------------+-------
+ high          |   127
+ low           |  1275
+ medium        |    98
+(3 rows)
+

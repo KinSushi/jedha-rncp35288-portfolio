@@ -1,0 +1,49 @@
+{
+  "name": "Banking DataOps Monitoring",
+  "dataColors": [
+    "#0F1D3D",
+    "#1C3461",
+    "#3C5A8F",
+    "#6B86B5",
+    "#9DB0D2",
+    "#1B9E5A",
+    "#E0A03C",
+    "#D64545"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#0F1D3D",
+  "tableAccent": "#1C3461",
+  "good": "#1B9E5A",
+  "neutral": "#E0A03C",
+  "bad": "#D64545",
+  "maximum": "#0F1D3D",
+  "center": "#6B86B5",
+  "minimum": "#EEF1F7",
+  "textClasses": {
+    "title": { "fontSize": 16, "fontFace": "Segoe UI Semibold", "color": "#0F1D3D" },
+    "header": { "fontSize": 13, "fontFace": "Segoe UI Semibold", "color": "#0F1D3D" },
+    "label": { "fontSize": 11, "fontFace": "Segoe UI", "color": "#5A6478" },
+    "callout": { "fontSize": 40, "fontFace": "Segoe UI", "color": "#0F1D3D" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": false }],
+        "visualHeader": [{ "show": false }],
+        "title": [{ "fontColor": { "solid": { "color": "#0F1D3D" } }, "fontSize": 13 }]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [{ "color": { "solid": { "color": "#0F1D3D" } }, "fontSize": 36 }],
+        "categoryLabels": [{ "color": { "solid": { "color": "#5A6478" } }, "fontSize": 11 }]
+      }
+    },
+    "slicer": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#EEF1F7" } } }]
+      }
+    }
+  }
+}

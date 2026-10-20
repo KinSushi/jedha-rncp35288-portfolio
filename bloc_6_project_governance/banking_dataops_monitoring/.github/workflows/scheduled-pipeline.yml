@@ -1,0 +1,89 @@
+# Daily run of the pipeline in the Docker stack (ADR-0001: daily batch; ADR-0005: containerised
+# execution), on a runner that nobody configured by hand. It shows that the whole chain starts from
+# an empty volume and reaches a verdict, which the unit suite cannot show. It deploys nothing: the
+# data are synthetic (ADR-0003) and the stack is torn down at the end.
+# Started by the cron below or by hand (workflow_dispatch).
+name: Scheduled pipeline
+
+on:
+  schedule:
+    # 05:00 UTC every day.
+    - cron: "0 5 * * *"
+  workflow_dispatch:
+    inputs:
+      train:
+        description: "Retrain the model as part of the run"
+        type: boolean
+        default: false
+
+jobs:
+  pipeline:
+    name: Bronze to Gold, end to end
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the image
+        run: docker compose build
+
+      - name: Start the stack
+        env:
+          # No effect today: docker-compose.yml sets TRAIN_ON_BOOT=false itself and
+          # docker/entrypoint.sh does not read it. The `train` input only acts in the "Run the
+          # pipeline" step, through --train. Retraining stays off by default (ADR-0008).
+          TRAIN_ON_BOOT: ${{ inputs.train && 'true' || 'false' }}
+        run: docker compose up -d
+
+      # Waits for postgres only. The app container runs its own boot pipeline in parallel
+      # (docker/entrypoint.sh), and no step here waits for it to finish.
+      - name: Wait for the database
+        run: |
+          for i in $(seq 1 60); do
+            if docker compose exec -T postgres pg_isready -U dataops -d banking_dataops >/dev/null 2>&1; then
+              echo "database ready after ${i}s"; exit 0
+            fi
+            sleep 1
+          done
+          echo "database never became ready"; docker compose logs postgres; exit 1
+
+      # Same seed and size as the boot sequence. --train trains the model but does not score it:
+      # gold.predictions stays unfilled without ml.predict.
+      - name: Run the pipeline
+        run: |
+          docker compose exec -T app python run_pipeline.py \
+            --seed 42 --transactions 1500 ${{ inputs.train && '--train' || '' }}
+
+      - name: Run the pipeline a second time (--verify)
+        # run_pipeline.py accepts --verify but adds no check to it. This step shows that a second
+        # run completes on a database that is already loaded; it does not compare the state before
+        # and after. Idempotence rests on the TRUNCATE then INSERT of the load steps.
+        run: docker compose exec -T app python run_pipeline.py --verify
+
+      # Prints only: a FAIL verdict does not fail the job.
+      - name: Publication verdict
+        run: |
+          docker compose exec -T app python -c "
+          from banking_dataops.monitoring import load_latest_quality_results, summarize_quality_status
+          frame = load_latest_quality_results()
+          summary = summarize_quality_status(frame['status'].tolist())
+          print(f'verdict: {summary.overall_status}')
+          print(f'controls: {summary.passed_checks}/{summary.total_checks}')
+          "
+
+      # Always, so the trail is there when an earlier step failed.
+      - name: Audit trail
+        if: always()
+        run: |
+          docker compose exec -T postgres psql -U dataops -d banking_dataops -c \
+            "SELECT category, action, row_count, left(reason, 70) AS reason
+             FROM audit_events ORDER BY occurred_at DESC LIMIT 25;"
+
+      - name: Logs on failure
+        if: failure()
+        run: docker compose logs --tail=120
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v

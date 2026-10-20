@@ -1,0 +1,32 @@
+
+==> 1. Silver layer
+  PASS  transactions loaded  (1500 rows)
+  PASS  accounts loaded  (200 rows)
+  PASS  customers loaded  (100 rows)
+
+==> 2. Quality controls
+  PASS  7 controls persisted  (found 7)
+  PASS  no control in failure  (0 failing)
+
+==> 3. Gold layer
+  PASS  gold.fact_transactions populated  (1500 rows)
+  PASS  gold matches silver exactly  (gold 1500 vs silver 1500)
+  PASS  all 4 gold dimensions populated  (4/4)
+
+==> 4. Machine learning
+  PASS  model artefact present
+  PASS  gold.predictions populated  (1500 rows)
+  PASS  every suspicion score within [0, 1]  (0 outside)
+
+==> 5. Audit trail
+  PASS  audit journal populated  (699 events)
+  PASS  every event carries a business reason  (0 without)
+  PASS  no invariant was violated  (0 violations)
+
+==> 6. Publication verdict independence
+  PASS  verdict does not read model predictions (ADR-0002)
+
+======================================================
+  DEMO READY  -  15 checks passed
+======================================================
+
