@@ -54,7 +54,7 @@ POURQUOI
 - Le seuil est optimisé sur la validation et jamais sur le test non étiqueté : voir la
   cellule Markdown 25 du notebook (le seuil est une décision métier).
 - Référentiel RNCP35288, bloc 3 : https://www.francecompetences.fr/recherche/rncp/35288/ ;
-  F1-score imposé par le challenge de conversion : énoncé du challenge, source à joindre.
+  F1-score imposé par le challenge de conversion : énoncé du challenge, non redistribué.
 - Seuils de lecture des diagnostics (0,02 pour l'écart apprentissage − validation et pour la
   dispersion entre plis ; 0,99 et 0,01 pour la part de nouveaux visiteurs) : conventions de
   lecture du notebook, source : inconnue.

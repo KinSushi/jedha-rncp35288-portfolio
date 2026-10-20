@@ -41,7 +41,7 @@ POURQUOI
 - Les trois points d'appel sont `stripe_demo/dimensionnement.py:158`,
   `stripe_demo/generer_ddl.py:533` et `stripe_demo/pipeline.py:97`.
 - Source de la méthode `reconfigure` : documentation de la bibliothèque standard Python
-  (`io.TextIOWrapper.reconfigure`), source à joindre ; non rouverte dans cette session.
+  (`io.TextIOWrapper.reconfigure`).
 
 JOURNALISATION
 --------------

@@ -64,7 +64,7 @@ POURQUOI
   `livrables/aia2/05_pipeline.md:34-69`.
 - Les invariants de qualité : ceux de `tests/test_olap.py`, repris par
   `livrables/aia2/10_continuite_supervision_maintenance.md:120-122`.
-- L'API d'Airflow 2.10 : source à joindre (documentation d'Apache Airflow) ; le DAG a été
+- L'API d'Airflow 2.10 : voir la documentation d'Apache Airflow ; le DAG a été
   importé par Airflow 2.10.5 hors de ce dépôt (voir le document 05 § 2), pas exécuté par lui.
 
 JOURNALISATION

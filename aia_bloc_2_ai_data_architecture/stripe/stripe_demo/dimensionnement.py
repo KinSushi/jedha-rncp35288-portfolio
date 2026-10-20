@@ -62,7 +62,7 @@ POURQUOI
   par un banc d'essai ») sont à `livrables/aia2/09_dimensionnement_finops_greenops.md:59-73`.
 - Les mesures qui alimentent le calcul sont à `livrables/aia2/donnees/mesures_postgres.json:1-10`
   et `livrables/aia2/donnees/mesures_demo.json:1-12`.
-- Le choix de 365 / 12 jours par mois (moyenne annuelle) : source à joindre ; il n'est pas
+- Le choix de 365 / 12 jours par mois (moyenne annuelle) : convention de calcul ; il n'est pas
   discuté dans la note 09.
 
 JOURNALISATION

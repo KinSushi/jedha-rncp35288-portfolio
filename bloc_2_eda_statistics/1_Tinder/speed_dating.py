@@ -46,8 +46,8 @@ COMMENT
 POURQUOI
 --------
 - Erreurs standard groupées à deux voies : estimateur de Cameron, Gelbach et Miller (2011),
-  que statsmodels calcule quand on lui passe deux colonnes de groupes. Source : à joindre —
-  l'article n'est pas dans le référentiel ; le comportement est vérifié par
+  que statsmodels calcule quand on lui passe deux colonnes de groupes. L'article
+  n'est pas reproduit ici ; le comportement est vérifié par
   `tests/test_speed_dating.py` (mêmes coefficients, erreurs différentes d'un groupement à
   l'autre).
 - Minimisation des données (RGPD, article 5.1.c) et catégories particulières (article 9) :

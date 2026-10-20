@@ -70,7 +70,7 @@ POURQUOI
 - Le verdict de la cible vient de `vw_publication_verdict`, la même vue que celle de la source : le verdict de
   publication
   ne dépend que des contrôles déterministes (ADR-0002).
-- Neon et Supabase refusent les connexions en clair : source à joindre (documentation des deux fournisseurs, non
+- Neon et Supabase refusent les connexions en clair : voir la documentation des deux fournisseurs (non
   versionnée
   dans ce dépôt).
 
