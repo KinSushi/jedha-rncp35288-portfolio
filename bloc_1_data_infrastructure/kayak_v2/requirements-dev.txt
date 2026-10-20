@@ -1,0 +1,11 @@
+# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Outils de contrôle de la qualité du code : tout l'environnement d'exécution,
+# plus les types de mypy --strict, l'exécution du notebook par les tests, et mypy lui-même.
+# mutmut (mutation) s'installe à part, sous Linux ou WSL : il ne fonctionne pas sous Windows.
+-r requirements.txt
+
+mypy==2.4.0
+pandas-stubs==3.0.5.260914   # types de pandas pour mypy --strict
+types-requests==2.33.0.20261006   # types de requests pour mypy --strict
+nbclient==0.11.0         # test d'intégration : exécution du notebook
+nbformat==5.11.1         # lecture du notebook exécuté

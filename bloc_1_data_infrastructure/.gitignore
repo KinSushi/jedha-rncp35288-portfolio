@@ -1,0 +1,13 @@
+# Caches et environnements locaux
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+mutants/
+
+# Données et artefacts produits par une exécution locale : jamais publiés
+kayak_v2/datalake/
+kayak_v2/entrepot/*.db
+kayak_v2/sorties/*.png

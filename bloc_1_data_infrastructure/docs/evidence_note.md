@@ -1,27 +1,20 @@
-# Evidence Note — Bloc 1 — Data Infrastructure
+# Note de preuve — Bloc 1 — Construction et alimentation d'une infrastructure de gestion de données
 
-## Status
+## Statut
 
-Planned.
+Publié : le pipeline Kayak complet, présenté dans le [README du bloc](../README.md).
 
-## What this block should prove
+## Ce que le bloc démontre
 
-Ingestion, storage, sql schema, data quality and architecture.
+Collecte web conforme au RGPD (BeautifulSoup, Scrapy, API publiques), stockage dans un data lake, ETL distribué avec Spark, chargement dans un entrepôt SQL, contrôle de la qualité des données extraites et cartographie des résultats.
 
-## Candidate external evidence
+## Preuves
 
-- banking-dataops-monitoring;
-- fraud-mlops-control-tower;
-- database-migration-quality-lab;
-- secure-wealth-rag-assistant;
-- sovralys-infra-lab;
-- pty-flights-pricing.
-
-## Public-safety checklist
-
-- [ ] no private course material;
-- [ ] no exam material;
-- [ ] no grades;
-- [ ] no certificates with identifiers;
-- [ ] no real client/employer data;
-- [ ] no secrets.
+| Preuve | Chemin |
+|---|---|
+| Notebook exécuté du pipeline | [`kayak_v2/Kayak_Bloc1_CDSD.ipynb`](../kayak_v2/Kayak_Bloc1_CDSD.ipynb) |
+| Paquet du pipeline (collecte, stockage, ETL, cartes) | [`kayak_v2/kayak/`](../kayak_v2/kayak/) |
+| Tests | [`kayak_v2/tests/`](../kayak_v2/tests/) |
+| Requêtes d'exemple sur l'entrepôt | [`kayak_v2/entrepot/requetes_exemple.sql`](../kayak_v2/entrepot/requetes_exemple.sql) |
+| Cartes produites | [`kayak_v2/sorties/`](../kayak_v2/sorties/) et [`docs/figures/`](figures/) |
+| Obtention des données | [`OBTENIR_LES_DONNEES.md`](../OBTENIR_LES_DONNEES.md) |
