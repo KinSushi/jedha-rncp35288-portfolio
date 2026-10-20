@@ -71,7 +71,7 @@ COMMENT
   compte les archives de l'ancienne requête.
 - **Preuves directes** : la requête sans plafond (tests/test_osm.py:121), limitée à la France
   (tests/test_osm.py:108) ; la conversion d'un point et d'un contour (tests/test_osm.py:38) ; la
-  réponse rendue par ``interroger`` est déjà minimisée (tests/test_minimisation.py:207).
+  réponse rendue par ``interroger`` est déjà minimisée (test de minimisation, non publié).
 - **Refus** (tests inverses) : une réponse partielle est refusée (tests/test_osm.py:137) ; la
   reconversion n'ouvre jamais de session (tests/test_osm.py:245) ; le basculement sur le miroir
   suit les attentes prévues (tests/test_osm_inverses.py:472) ; une archive illisible lève une

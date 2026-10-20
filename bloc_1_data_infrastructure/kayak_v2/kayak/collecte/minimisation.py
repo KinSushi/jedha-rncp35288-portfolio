@@ -49,16 +49,16 @@ COMMENT
   ``minimiser_champs`` rend une copie sans clé de contact et aux textes masqués ;
   ``minimiser_reponse`` l'applique aux étiquettes de chaque élément d'une réponse Overpass ;
   ``minimiser_archives`` réécrit les ``ville_NN.json`` et ``hotels.jsonl`` d'une date.
-- **Preuves directes** : les clés de contact retirées et ``contact:website`` gardé
-  (tests/test_minimisation.py:100) ; les deux numéros d'une description masqués
-  (tests/test_minimisation.py:45) ; les archives d'une date réécrites sans contact, avec le bilan
-  exact (tests/test_minimisation.py:248).
-- **Refus** (tests inverses) : un SIRET, un SIREN, une date ou un identifiant ne sont pas masqués
-  (tests/test_minimisation.py:92) ; la réponse reçue n'est pas modifiée
-  (tests/test_minimisation.py:194) ; une date sans archive lève une erreur et n'écrit rien
-  (tests/test_minimisation.py:299) ; une date absente ou mal formée est refusée par la ligne de
-  commande (tests/test_minimisation.py:350) ; une seconde exécution ne réécrit rien
-  (tests/test_minimisation.py:284).
+- **Preuves directes** (tests de ``tests/test_minimisation.py``, fichier non inclus dans ce
+  dépôt) : les clés de contact retirées et ``contact:website`` gardé ; les deux numéros d'une
+  description masqués ; les archives d'une date réécrites sans contact, avec le bilan
+  exact.
+- **Refus** (tests inverses du même fichier, non inclus non plus) : un SIRET, un SIREN,
+  une date ou un identifiant ne sont pas masqués ; la réponse reçue n'est pas modifiée ;
+  une date sans archive lève une erreur et n'écrit rien ; une date absente ou mal formée
+  est refusée par la ligne de commande ; une seconde exécution ne réécrit rien. Les 61 cas
+  de ce fichier sont comptés dans la mesure de mutation que donne le README du projet
+  (section « Contrôle de la qualité »).
 
 POURQUOI
 --------
