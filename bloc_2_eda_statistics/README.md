@@ -15,9 +15,9 @@ Titre visé : Concepteur développeur en science des données (RNCP35288), bloc 
 
 ## 1. Problématiques
 
-**Speed dating.** Le scénario de l'étude de cas : l'équipe marketing de Tinder constate une baisse des matchs et dispose des données d'expériences de *speed dating* menées de 2002 à 2004 auprès d'étudiants d'une université américaine. Après chaque rendez-vous de quatre minutes, chacun dit s'il veut revoir la personne et la note sur six critères. Le « second rendez-vous » est mesuré par le **match** : les deux ont dit oui (cellule 0).
+**Speed dating.** Le scénario de l'étude de cas : l'équipe marketing d'une application de rencontre constate une baisse des matchs et dispose des données d'expériences de *speed dating* menées de 2002 à 2004 auprès d'étudiants d'une université américaine. Après chaque rendez-vous de quatre minutes, chacun dit s'il veut revoir la personne et la note sur six critères. Le « second rendez-vous » est mesuré par le **match** : les deux ont dit oui (cellule 0).
 
-**Steam.** Le scénario : un éditeur, Ubisoft, prépare un nouveau jeu et demande une analyse globale du catalogue Steam, aux niveaux du marché, des genres et des plateformes (cellule 0).
+**Steam.** Le scénario : un éditeur de jeux vidéo prépare un nouveau jeu et demande une analyse globale du catalogue Steam, aux niveaux du marché, des genres et des plateformes (cellule 0).
 
 ## 2. Données
 
