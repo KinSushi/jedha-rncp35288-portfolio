@@ -1,4 +1,4 @@
-# 00 — Cahier des charges : architecture de données de type Stripe
+# 00 - Cahier des charges : architecture de données de type Stripe
 
 > Bloc 2 de la certification AIA (RNCP41993) · énoncé « Stripe Business Case »
 > Données **synthétiques** uniquement. Les mots « hypothèse », « mesuré » et « non vérifié » ont un sens précis dans tout le dossier (voir § 7).
@@ -81,9 +81,9 @@ Le livrable est une **architecture de données** (OLTP, OLAP, NoSQL, flux), son 
 | 6. Plan de sécurité et conformité | 06 | modules Terraform `kms`, `iam`, `secrets`, `reseau` ; `livrables/aia2/checkov.txt` |
 | 7. Intégration du ML | 07 | `stripe/stripe_demo/fraude.py` |
 | 8. Requêtes SQL et NoSQL | 08 | `stripe/sql/requetes_olap.sql`, `stripe/nosql/requetes_mongo.js` |
-| Plan du ou des pipelines (plateforme) | 05 | — |
+| Plan du ou des pipelines (plateforme) | 05 | - |
 | Code de déploiement | `stripe/` | `terraform/`, `docker-compose.yml`, `Dockerfile` |
-| Capture vidéo du pipeline | 12 (script, non publié dans cette version) | — |
+| Capture vidéo du pipeline | 12 (script, non publié dans cette version) | - |
 
 La couverture des 27 indicateurs du référentiel est détaillée dans `13_couverture_et_limites.md`.
 

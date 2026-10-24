@@ -1,4 +1,4 @@
-# 11 — Interfaces entre composants et responsabilités (Data, Dev, Ops)
+# 11 - Interfaces entre composants et responsabilités (Data, Dev, Ops)
 
 > Répond à l'indicateur 9.1 (contrats d'interface et responsabilités formalisés) et complète l'indicateur 9.2 (documentation exploitable).
 > Un contrat d'interface dit : qui produit, qui consomme, par quel canal, sous quelle forme, avec quelles garanties, et comment il évolue. Quand un test du dépôt applique le contrat, il est cité.

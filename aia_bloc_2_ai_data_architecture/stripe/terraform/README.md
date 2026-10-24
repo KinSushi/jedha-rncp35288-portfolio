@@ -109,4 +109,6 @@ L'état contient des valeurs sensibles (mots de passe aléatoires du module `sec
 - Debezium sur MSK Connect, les tâches de calcul et les alarmes de supervision ne sont pas déclarés ici.
 - Pas de réplication inter-régions (choix documenté).
 
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*
+
 *Copyright © 2026 · voir le fichier LICENSE du dépôt*

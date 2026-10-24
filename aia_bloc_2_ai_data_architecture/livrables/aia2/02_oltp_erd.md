@@ -1,4 +1,4 @@
-# 02 — Modèle transactionnel (OLTP) : ERD, ACID, réplication, bascule, partitionnement
+# 02 - Modèle transactionnel (OLTP) : ERD, ACID, réplication, bascule, partitionnement
 
 > Répond au livrable 2 de l'énoncé (ERD OLTP) et aux indicateurs 6.1 et 6.2 pour la couche transactionnelle.
 > Source de vérité du modèle : `stripe/stripe_demo/modele_oltp.py` (SQLAlchemy). Le DDL PostgreSQL est **généré** : `stripe/sql/oltp_schema_postgresql.sql`.
@@ -226,7 +226,7 @@ sequenceDiagram
 |---|---|---|---|---|
 | Panne d'une instance ou d'une zone | 15 minutes | quasi nulle (écriture par quorum sur trois zones) | promotion d'un lecteur | **hypothèse H5** ; durée réelle de bascule à mesurer en préproduction |
 | Erreur humaine (suppression, mauvaise migration) | quelques heures | jusqu'au dernier point de restauration | restauration à un instant donné dans un **nouveau** cluster, puis bascule des applications | hypothèse H5 |
-| Perte de la région | non couverte | — | pas de réplication inter-régions | risque résiduel assumé (document 10 § 5) |
+| Perte de la région | non couverte | - | pas de réplication inter-régions | risque résiduel assumé (document 10 § 5) |
 
 ## 6. Indexation : mesures sur PostgreSQL 16
 
@@ -275,7 +275,7 @@ Définis dans le DDL généré et testés sur PostgreSQL 16 :
 | `role_application` | `SELECT`, `INSERT` sur les tables métier, `INSERT` sur `journal_audit` ; `UPDATE` limité à des colonnes (`paiements.statut`, `paiements.score_risque`, `statut` des marchands, litiges, abonnements ; `clients.email_hache` et `code_pays` pour l'effacement et la rectification) ; **aucun** `DELETE` | `svc_application` |
 | `role_cdc` | `SELECT` sur les 8 tables capturées ; droit de réplication | `svc_debezium` |
 | `role_extraction` | `SELECT` sur les 8 tables métier et les référentiels | `svc_extraction` (rôle IAM `etl`) |
-| `role_audit` | `SELECT` sur `journal_audit` | — |
+| `role_audit` | `SELECT` sur `journal_audit` | - |
 
 Constats vérifiés : `UPDATE paiements SET montant_mineur = …` et `DELETE FROM paiements` sont refusés au compte applicatif (`permission denied`) ; `UPDATE`, `DELETE` et `TRUNCATE` sur `journal_audit` sont refusés par déclencheur pour tout le monde (le propriétaire pourrait supprimer le déclencheur : la copie dans l'archive S3 verrouillée comble ce point, document 06).
 

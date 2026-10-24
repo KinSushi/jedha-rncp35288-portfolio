@@ -1,4 +1,4 @@
-# 03 — Entrepôt analytique (OLAP) : schéma en étoile, agrégats, optimisation
+# 03 - Entrepôt analytique (OLAP) : schéma en étoile, agrégats, optimisation
 
 > Répond au livrable 3 de l'énoncé (schéma OLAP : étoile ou flocon, agrégations, optimisation).
 > Spécification unique : `TABLES_OLAP` dans `stripe/stripe_demo/generer_ddl.py` → `stripe/sql/olap_schema.sql` (Redshift) ; version DuckDB de la démonstration : `stripe/stripe_demo/olap.py`.

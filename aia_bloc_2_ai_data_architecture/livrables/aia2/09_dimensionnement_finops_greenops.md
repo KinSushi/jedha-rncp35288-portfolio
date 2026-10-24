@@ -1,4 +1,4 @@
-# 09 — Dimensionnement, FinOps et GreenOps
+# 09 - Dimensionnement, FinOps et GreenOps
 
 > Répond aux indicateurs 1.1, 1.2, 1.3, 5.1, 5.2, 8.1 et 8.2.
 > **Méthode** : on part de **mesures** réelles (PostgreSQL 16, démonstration), on les multiplie par des **hypothèses** nommées H1, H2… dont le registre est au § 2. Aucun volume ni aucun coût n'est présenté comme un fait quand il est supposé. Les prix unitaires sont relevés, datés et sourcés au § 5.5 (liste publique d'AWS) ; ils changent : refaire le relevé le jour de la décision.
@@ -40,12 +40,12 @@ Le pic du conteneur est supérieur à celui du processus car il inclut le cache 
 
 | Réf. | Hypothèse | Valeur retenue | Pourquoi / comment la lever |
 |---|---|---|---|
-| H1 | Volume quotidien de paiements | S1 : 100 000 ; S2 : 1 000 000 ; S3 : 10 000 000 | **pédagogique, non issu d'un opérateur réel** ; trois ordres de grandeur pour voir quelles décisions changent |
+| H1 | Volume quotidien de paiements | S1 : 100 000 ; S2 : 1 000 000 ; S3 : 10 000 000 | **illustratif, non issu d'un opérateur réel** ; trois ordres de grandeur pour voir quelles décisions changent |
 | H2 | Facteur de pointe (débit de pointe ÷ débit moyen) | 5 | à remplacer par la courbe de trafic observée |
 | H3 | Durée de conservation des paiements dans l'OLTP | 13 mois | couvre un cycle annuel de comparaison et les délais de contestation ; à confirmer avec le métier et le DPO |
 | H4 | Région | eu-west-1 (Irlande) | Union européenne ; disponibilité de MSK Serverless et Redshift Serverless à confirmer |
 | H5 | Objectifs de reprise | OLTP : RTO 15 min, RPO quasi nul (panne de zone) ; erreur humaine : RTO quelques heures | à valider avec les parties prenantes puis à mesurer par un exercice |
-| H6 | Tailles d'instances et capacités | dev : `db.t4g.medium`, 1 instance, 8–16 RPU ; prod : `db.r6g.large` ×2 (Aurora), ×3 (DocumentDB), 32–128 RPU | point de départ raisonné ; à valider par un banc d'essai de charge |
+| H6 | Tailles d'instances et capacités | dev : `db.t4g.medium`, 1 instance, 8 à 16 RPU ; prod : `db.r6g.large` ×2 (Aurora), ×3 (DocumentDB), 32 à 128 RPU | point de départ raisonné ; à valider par un banc d'essai de charge |
 | H7 | Plafond mensuel de consommation de l'entrepôt | dev : 100 RPU-heures ; prod : 5 000 RPU-heures | garde-fou à fixer avec la direction financière |
 | H8 | Seuils d'alerte et objectifs applicatifs | PSI > 0,2 ; score ≥ 0,8 ; latence de notation de l'ordre de la dizaine de ms en mémoire | conventions ou valeurs de démonstration ; à régler avec les coûts réels |
 | H9 | Fraîcheur de l'entrepôt | quelques minutes (micro-lots) | à fixer avec les utilisateurs de tableaux de bord |
@@ -199,8 +199,8 @@ officiel). Prix à la demande, hors taxes, 730 heures par mois.
 | S3 Standard (50 premiers To) | 0,023 USD par Go-mois | liste AWS |
 | KMS (clé gérée par le client) ; Secrets Manager (secret) | 1 USD ; 0,40 USD par mois | liste AWS |
 
-Hypothèses (registre du § 2) : **H13** — 24 partitions Kafka, trafic sortant double de
-l'entrant (deux groupes de consommateurs) ; **H14** — 1 920 RPU-heures par mois ; **H15** —
+Hypothèses (registre du § 2) : **H13** : 24 partitions Kafka, trafic sortant double de
+l'entrant (deux groupes de consommateurs) ; **H14** : 1 920 RPU-heures par mois ; **H15** :
 110 Gio dans S3.
 
 | Poste, environnement `prod` (S2 : 1 million de paiements par jour) | USD par mois | Part |

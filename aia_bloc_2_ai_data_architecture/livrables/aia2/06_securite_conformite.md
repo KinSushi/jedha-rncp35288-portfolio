@@ -1,4 +1,4 @@
-# 06 — Sécurité et conformité : PCI-DSS v4.0.1, RGPD, CCPA
+# 06 - Sécurité et conformité : PCI-DSS v4.0.1, RGPD, CCPA
 
 > Répond au livrable 6 de l'énoncé (plan de sécurité et de conformité) et aux indicateurs 3.2, 7.1, 7.2 et 7.3.
 > Ce document décrit des mesures **techniques** et leur preuve dans le dépôt. Il ne remplace ni l'évaluation d'un évaluateur qualifié PCI (QSA), ni l'avis du délégué à la protection des données (DPO). Les numéros de sous-exigences PCI-DSS cités sont à vérifier dans le référentiel officiel par l'évaluateur.
@@ -56,7 +56,7 @@ flowchart LR
 | 6. Développement et maintenance sécurisés | analyse statique de l'IaC (checkov), tests automatisés, revue par branche, dépendances épinglées par plage | § 9 ; `checkov.txt` | réalisé (outils) ; analyse des dépendances à ajouter |
 | 7. Accès restreint selon le besoin d'en connaître | rôles IAM par fonction, aucun joker, clés KMS par domaine ; rôles de base de données ; colonnes modifiables restreintes | § 6 ; `test_droits_iam_sans_joker` | réalisé (code) |
 | 8. Identification et authentification | MFA pour les humains (condition `aws:MultiFactorAuthPresent`) ; authentification IAM aux bases ; aucun secret en dur (8.6.2) ; mots de passe de service gérés et renouvelables (8.6.3) | § 6 et 7 | réalisé (code) ; fonction de rotation à fournir |
-| 9. Accès physique | délégué au fournisseur de cloud (responsabilité partagée) | — | hors périmètre |
+| 9. Accès physique | délégué au fournisseur de cloud (responsabilité partagée) | - | hors périmètre |
 | 10. Journalisation et surveillance | journal d'audit en ajout seul, `pgaudit`, journaux de flux, journaux des bases en CloudWatch 365 jours (10.5.1), archive d'audit verrouillée | § 8 | réalisé (code) |
 | 11. Tests réguliers | analyse de configuration (checkov), tests automatisés ; analyses de vulnérabilités et tests d'intrusion à planifier | § 9 | partiel : à compléter par des essais d'intrusion |
 | 12. Politiques et organisation | procédure d'incident (§ 10), matrice de responsabilités (document 11) | documents 10 et 11 | décrit |
@@ -66,7 +66,7 @@ flowchart LR
 | Principe ou article | Application | Où |
 |---|---|---|
 | Art. 5 : minimisation, limitation de la conservation, intégrité et confidentialité | e-mail haché ; colonne exclue du flux CDC ; événements supprimés au bout de 90 jours (index TTL) ; chiffrement partout | `modele_oltp.py`, `debezium_connecteur.json`, `nosql.py` |
-| Art. 6 : licéité | hypothèse H11 : exécution du contrat de paiement pour les données transactionnelles ; intérêt légitime pour la prévention de la fraude, à documenter par le DPO | — |
+| Art. 6 : licéité | hypothèse H11 : exécution du contrat de paiement pour les données transactionnelles ; intérêt légitime pour la prévention de la fraude, à documenter par le DPO | - |
 | Art. 25 : protection dès la conception | pseudonymisation par défaut, aucune donnée de carte, droits minimaux | modèle de données |
 | Art. 28 : sous-traitants | le fournisseur de cloud est sous-traitant : accord de traitement à signer | juridique |
 | Art. 30 : registre des traitements | la liste des traitements (paiement, analytique, fraude, personnalisation) se tient à partir du § 1 et des tableaux de ce dossier | à tenir par le DPO |
@@ -115,10 +115,10 @@ Les seuils d'application de la loi, les délais de réponse et les motifs de ref
 | Journaux d'accès S3 | SSE-S3 (limite du service de journalisation) | idem |
 | MSK Serverless | clés gérées par le service (le service n'offre pas de clé du client) | TLS imposé par le service |
 | Secrets | KMS, clé `secrets` | API AWS en TLS |
-| Sauvegardes | clé `sauvegarde` (coffre AWS Backup) | — |
+| Sauvegardes | clé `sauvegarde` (coffre AWS Backup) | - |
 | Alertes de supervision (SNS) | clé `alertes`, utilisable par CloudWatch et par les événements RDS pour publier | API AWS en TLS |
-| Journaux des tâches ECS | clé `journaux` (groupes CloudWatch, sessions ECS Exec) | — |
-| Courriel client | haché SHA-256 salé (niveau applicatif) | — |
+| Journaux des tâches ECS | clé `journaux` (groupes CloudWatch, sessions ECS Exec) | - |
+| Courriel client | haché SHA-256 salé (niveau applicatif) | - |
 
 **Gestion des clés** : une clé par domaine, rotation annuelle activée, délai de 30 jours avant suppression effective (7 en développement), politique de clé déléguant à IAM. Désactiver une clé rend le domaine illisible : c'est aussi un levier de confinement en cas d'incident.
 
@@ -148,9 +148,9 @@ Voir document 02 § 8 : `role_application` (jamais de `DELETE`, montants non mod
 | Action | Dev | Data | Ops | Sécurité |
 |---|---|---|---|---|
 | Modifier le modèle de données (migration) | propose | valide l'impact analytique | applique | revoit les droits |
-| Appliquer `terraform apply` en production | — | — | exécute après revue | revoit le plan |
-| Lire les journaux d'audit | — | — | — | oui (`role_audit`) |
-| Désactiver une clé KMS | — | — | sur demande | décide |
+| Appliquer `terraform apply` en production | - | - | exécute après revue | revoit le plan |
+| Lire les journaux d'audit | - | - | - | oui (`role_audit`) |
+| Désactiver une clé KMS | - | - | sur demande | décide |
 | Consulter des données de paiement | via l'application uniquement | entrepôt (pseudonymisé) | non | non |
 
 ## 7. Gestion des secrets (indicateur 7.3)
@@ -176,7 +176,7 @@ Preuves : `test_aucun_secret_en_clair` (aucune clé d'accès, clé privée ni mo
 | Journaux de flux du VPC | trafic accepté et refusé | CloudWatch 365 jours | clé `journaux` |
 | Journaux d'accès S3 | accès au lac | bucket dédié, bascule en archivage | SSE-S3, versionnement |
 | Archive d'audit | export de `journal_audit` | verrouillage d'objets 365 jours (mode gouvernance) | WORM |
-| CloudTrail | appels d'API AWS | **hors dépôt** : à activer au niveau de l'organisation | — |
+| CloudTrail | appels d'API AWS | **hors dépôt** : à activer au niveau de l'organisation | - |
 
 Le déclencheur d'ajout seul est contournable par le propriétaire de la table : la copie dans l'archive verrouillée en est le complément. Le mode « gouvernance » permet à un rôle autorisé de lever le verrou ; le mode « conformité », irréversible, serait à retenir après validation de l'évaluateur.
 
@@ -190,12 +190,12 @@ La conformité est vérifiée par du code, à chaque modification, plutôt que p
 | Garanties critiques en tests | `tests/test_terraform.py` (214 cas) | régression silencieuse : base non chiffrée, ressource publique, joker IAM, secret littéral, journaux < 365 jours, `dev` et `prod` qui divergent |
 | Schéma sans donnée de carte | `test_oltp_contraintes.py` | ajout d'une colonne de type PAN |
 | DDL à jour | `generer_ddl.py --verifier` | script de déploiement qui s'écarte du modèle |
-| Style et erreurs | `ruff` | — |
+| Style et erreurs | `ruff` | - |
 
 ### Résultat de l'analyse checkov (fichier complet : `livrables/aia2/checkov.txt`)
 
 ```text
-checkov 3.3.28 — terraform scan results:
+checkov 3.3.28 - terraform scan results:
 Passed checks: 536, Failed checks: 0, Skipped checks: 18
 ```
 

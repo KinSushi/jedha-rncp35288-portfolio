@@ -1,4 +1,4 @@
-# 07 — Intégration du machine learning : fraude et personnalisation
+# 07 - Intégration du machine learning : fraude et personnalisation
 
 > Répond au livrable 7 de l'énoncé (caractéristiques, déploiement, surveillance).
 > Code : `stripe/stripe_demo/fraude.py` ; mesures : `livrables/aia2/donnees/mesures_demo.json` et `resultats_demo.json`.
@@ -37,11 +37,11 @@ flowchart LR
 | Variable | Définition | Source hors ligne | Source en ligne | Point d'attention |
 |---|---|---|---|---|
 | `montant_usd` | montant converti au taux du jour | `faits_paiements` | calculé à la volée | cohérence : même conversion à l'entraînement et en service |
-| `heure` | heure du paiement (0–23) | `faits_paiements.heure` | idem | fuseau horaire à fixer (UTC) |
+| `heure` | heure du paiement (0 à 23) | `faits_paiements.heure` | idem | fuseau horaire à fixer (UTC) |
 | `pays_different` | 1 si le pays de l'IP diffère du pays du client | `pays_ip` ≠ `dim_client.code_pays` | idem | **proxy possible d'une caractéristique protégée** (§ 6) |
-| `nuit` | 1 si l'heure < 6 | dérivée de `heure` | idem | — |
+| `nuit` | 1 si l'heure < 6 | dérivée de `heure` | idem | - |
 | `anciennete_jours` | ancienneté du client | `dim_client` | lue dans la dimension | calculée par rapport à une date fixe dans la démonstration |
-| `mobile` | 1 si l'appareil est un mobile | `faits_paiements.appareil` | idem | — |
+| `mobile` | 1 si l'appareil est un mobile | `faits_paiements.appareil` | idem | - |
 
 Aucune variable n'est un identifiant direct : ni e-mail, ni numéro, ni nom.
 

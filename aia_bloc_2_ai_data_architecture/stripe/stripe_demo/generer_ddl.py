@@ -110,7 +110,7 @@ COPYRIGHT = "Copyright © 2026 · voir le fichier LICENSE du dépôt"
 _dialecte_postgresql: Callable[[], PGDialect] = PGDialect
 
 # ---------------------------------------------------------------------------------------------
-# 1. OLTP — PostgreSQL
+# 1. OLTP : PostgreSQL
 # ---------------------------------------------------------------------------------------------
 
 # Tables dont les changements sont publiés vers Kafka par Debezium. Le journal d'audit, le
@@ -263,7 +263,7 @@ def ddl_oltp_postgresql() -> str:
 
 
 # ---------------------------------------------------------------------------------------------
-# 2. OLAP — étoile pour Amazon Redshift (et variante portable testée dans DuckDB)
+# 2. OLAP : étoile pour Amazon Redshift (et variante portable testée dans DuckDB)
 # ---------------------------------------------------------------------------------------------
 
 
@@ -444,7 +444,7 @@ def ddl_olap(cible: str = "redshift") -> str:
 
 
 # ---------------------------------------------------------------------------------------------
-# 3. NoSQL — script mongosh de création des collections
+# 3. NoSQL : script mongosh de création des collections
 # ---------------------------------------------------------------------------------------------
 
 # Index : les quatre premiers sont ceux de la démonstration (`nosql.base()`) ; les deux derniers

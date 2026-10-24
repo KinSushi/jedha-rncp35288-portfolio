@@ -1,4 +1,4 @@
-# 13 — Couverture du référentiel, vérifications et limites
+# 13 - Couverture du référentiel, vérifications et limites
 
 > Ce document dit ce qui est prouvé, par quelle commande, et ce qui ne l'est pas encore. Conventions « mesuré », « hypothèse », « non vérifié » : document 00, § 7.
 
@@ -9,7 +9,7 @@ Statuts : **Couvert** = livrable écrit et preuve fournie ; **Partiel** = livrab
 | Indicateur | Livrable / section | Preuve dans le dépôt | Statut |
 |---|---|---|---|
 | 1.1 Besoins de calcul CPU/GPU | 09 § 4.1 | mesures (entraînement 0,5 s, latence) ; extrapolation par scénario | Couvert |
-| 1.2 Dimensionnement du stockage | 09 § 1, 3, 4.2 | octets par ligne mesurés sur PostgreSQL 16 ; `dimensionnement.py` + tests | Couvert (hypothèses H1–H3) |
+| 1.2 Dimensionnement du stockage | 09 § 1, 3, 4.2 | octets par ligne mesurés sur PostgreSQL 16 ; `dimensionnement.py` + tests | Couvert (hypothèses H1 à H3) |
 | 1.3 Cohérence entraînement / inférence | 09 § 4.3 ; 07 | reproductibilité vérifiée ; tâches de notation par scénario | Couvert |
 | 2.1 Architecture logique | 01 § 2 | diagramme + tableau des composants | Couvert |
 | 2.2 Architecture physique | 01 § 3 | diagramme + modules Terraform | Couvert (non déployé) |
@@ -24,7 +24,7 @@ Statuts : **Couvert** = livrable écrit et preuve fournie ; **Partiel** = livrab
 | 5.1 Structuration du stockage | 09 § 4.4 | lac par date, compaction, séparation lecture / écriture | Couvert |
 | 5.2 Environnements d'exécution | 09 § 4.5 ; `docker-compose.yml`, `Dockerfile` ; module `calcul` | limite mesurée (52 %), conteneurs durcis, exécution réelle ; tâches Fargate de production dimensionnées (H16) et testées statiquement | Couvert (tâches de production non déployées) |
 | 6.1 Scalabilité | 01 § 6 ; 02 § 7 | partitionnement vérifié sur PostgreSQL 16 | Couvert |
-| 6.2 Failover | 02 § 4–5 ; 10 | tableau de promotion ; objectifs H5 | Couvert (mécanismes définis) ; bascule non exercée |
+| 6.2 Failover | 02 § 4 et 5 ; 10 | tableau de promotion ; objectifs H5 | Couvert (mécanismes définis) ; bascule non exercée |
 | 6.3 Continuité d'activité | 10 § 3 | 23 pannes → effet → parade | Couvert |
 | 7.1 Gestion des identités | 06 § 6 ; module `iam` | 6 rôles, aucun joker (test), rôle d'exécution ECS distinct, rôles de base de données testés | Couvert |
 | 7.2 Protection des données | 06 § 5 | chiffrement par domaine, TLS, segmentation | Couvert |
@@ -68,14 +68,14 @@ Sur PostgreSQL 16 réel, vérifiés par exécution : idempotence du DDL (rejeu s
 3. **La vidéo** n'est pas produite ; son script (document 12) n'est pas publié dans cette version.
 4. **Redshift** : le DDL Redshift (clés de distribution, vues matérialisées, `MERGE`) n'a pas été exécuté ; seule sa variante portable l'a été (DuckDB).
 5. **DocumentDB** : la prise en charge de `$jsonSchema` est à confirmer.
-6. ~~Python 3.12~~ : **vérifié depuis** — exécution du 10/10 sous Python 3.12.14, 666 tests réussis (669 depuis l'ajout de l'outil de relevé des prix, le 11/10 ; 802 depuis la porte de qualité du 12/10 ; 924 depuis celle du 19/10).
+6. ~~Python 3.12~~ : **vérifié depuis** : exécution du 10/10 sous Python 3.12.14, 666 tests réussis (669 depuis l'ajout de l'outil de relevé des prix, le 11/10 ; 802 depuis la porte de qualité du 12/10 ; 924 depuis celle du 19/10).
 7. **Airflow** : DAG codé (`stripe/dags/stripe_quotidien.py`), testé sans Airflow et chargé sans erreur par Airflow 2.10.5, jamais exécuté par un ordonnanceur. **Tâches de calcul** et **alarmes** : codées en Terraform (modules `calcul` et `supervision`), non déployées ; tableaux de bord non codés. **Fonction de rotation des secrets**, exécution de Debezium sur MSK Connect : décrites, non codées.
 8. **Isolation / concurrence** des transactions : non testée. Bascule Aurora et comportement de l'emplacement de réplication après bascule : non testés.
 9. **Prix** : chiffrage daté ajouté le 10/10/2026 (09 § 5.5), à partir de la liste de prix publique d'AWS ; c'est un plancher. Non chiffrés (liste du 09 § 5.5) : connecteur Debezium sur MSK Connect, tâches Fargate du score et de l'ETL, points de terminaison d'interface, stockage et entrées-sorties d'Aurora, stockage de DocumentDB, de Redshift et de MSK (prix relevés, volumes non estimés), CloudWatch Logs, AWS Backup, transferts réseau, hébergement de Redpanda dans la variante recommandée ; émissions de CO₂ non calculées.
 
 ## 4. Hypothèses
 
-Registre complet H1 à H17 dans `09_dimensionnement_finops_greenops.md` § 2 : volumes 100 000 / 1 000 000 / 10 000 000 paiements par jour (**pédagogiques**), facteur de pointe 5, rétention OLTP 13 mois, région `eu-west-1`, objectifs de reprise, tailles d'instances, plafonds de consommation, seuils d'alerte, fraîcheur, traitement du PAN hors périmètre, bases légales, absence de vente de données. Les chiffres de **mesure** (octets par paiement, journal de transactions, mémoire, taille Parquet, durée d'entraînement) viennent de `livrables/aia2/donnees/` et se refont avec `python -m stripe_demo.mesures`.
+Registre complet H1 à H17 dans `09_dimensionnement_finops_greenops.md` § 2 : volumes 100 000 / 1 000 000 / 10 000 000 paiements par jour (**illustratifs**), facteur de pointe 5, rétention OLTP 13 mois, région `eu-west-1`, objectifs de reprise, tailles d'instances, plafonds de consommation, seuils d'alerte, fraîcheur, traitement du PAN hors périmètre, bases légales, absence de vente de données. Les chiffres de **mesure** (octets par paiement, journal de transactions, mémoire, taille Parquet, durée d'entraînement) viennent de `livrables/aia2/donnees/` et se refont avec `python -m stripe_demo.mesures`.
 
 Les taux de fraude et corrélations des requêtes (par exemple 24,87 % de litiges quand le pays de l'IP diffère) sont **construits par le simulateur** ; les documents le disent.
 

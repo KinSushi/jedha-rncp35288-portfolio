@@ -1,4 +1,4 @@
-# 01 — Architecture globale : logique, physique, arbitrages
+# 01 - Architecture globale : logique, physique, arbitrages
 
 > Répond aux livrables 1 (diagramme d'architecture global) de l'énoncé et aux indicateurs 2.1, 2.2, 2.3, 2.4, 3.1, 3.2 et 3.3.
 > Les valeurs précédées de « H » sont des hypothèses déclarées (registre : document 09).
@@ -158,10 +158,10 @@ Le chemin chaud (paiement → score) ne traverse que l'OLTP, Kafka, le service d
 | Composant | Mécanisme | Sens | Déclencheur | Limite à connaître | État |
 |---|---|---|---|---|---|
 | Aurora | ajout de lecteurs ; changement de classe d'instance | horizontal (lectures) puis vertical (écritures) | CPU, connexions, retard de réplication | un seul écrivain ; au-delà, partitionner (document 02 § 7) | variable `nb_instances`, `classe_instance` |
-| Paiements (table) | partitionnement par mois | — | volume de l'index chaud > mémoire | la clé primaire doit contenir la date ; clé d'idempotence à extraire (vérifié sur PostgreSQL 16) | décrit, non appliqué |
+| Paiements (table) | partitionnement par mois | - | volume de l'index chaud > mémoire | la clé primaire doit contenir la date ; clé d'idempotence à extraire (vérifié sur PostgreSQL 16) | décrit, non appliqué |
 | MSK Serverless | capacité gérée par le service | horizontal automatique | débit | quotas du service | géré |
 | Entrepôt | `capacite_base_rpu` → `capacite_max_rpu` | horizontal automatique | file d'attente de requêtes | plafond de coût `plafond_rpu_heures_mensuel` | variables Terraform |
-| Lac S3 | stockage non borné, cycle de vie | — | — | coût de stockage | module `lac_s3` |
+| Lac S3 | stockage non borné, cycle de vie | - | - | coût de stockage | module `lac_s3` |
 | DocumentDB | réplicas supplémentaires | horizontal (lectures) | CPU lecture | un seul écrivain | variable `nb_instances` |
 | Notation de fraude | plusieurs tâches consommatrices d'un même groupe | horizontal | CPU moyen du service (codé) ; retard de consommation (lag) : recommandé, non codé | nombre de partitions du sujet | module `calcul` : `score_taches_min` à `score_taches_max` |
 
@@ -179,7 +179,7 @@ La linéarité du volume a été mesurée : stockage OLTP par paiement (index co
 | Documents | DocumentDB | PaaS | MongoDB Atlas (SaaS) ; DynamoDB | compatibilité d'API MongoDB, dans le même VPC | sous-ensemble de MongoDB : `$jsonSchema` à confirmer (document 04) |
 | Capture | Debezium (MSK Connect) | PaaS + logiciel libre | AWS DMS | lecture du WAL, format d'événement ouvert, sujets par table | un composant de plus à exploiter |
 | Calcul applicatif | conteneurs sans serveur (Fargate) | serverless | EKS (IaaS/PaaS) ; Lambda | pas de nœuds à patcher, mémoire/CPU déclarés par tâche | module Terraform `calcul` (non déployé) |
-| Modèle | scikit-learn dans le service de score | — | SageMaker | simplicité, latence en mémoire | pas de registre de modèles managé (recommandé : un registre) |
+| Modèle | scikit-learn dans le service de score | - | SageMaker | simplicité, latence en mémoire | pas de registre de modèles managé (recommandé : un registre) |
 
 ### 7.2 Coût et performance (indicateur 3.1)
 

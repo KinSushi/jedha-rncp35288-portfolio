@@ -1,4 +1,4 @@
-# Note de preuve — AIA bloc 2 — Architecture de données pour l'IA
+# Note de preuve : AIA bloc 2, architecture de données pour l'IA
 
 ## Statut
 
@@ -18,3 +18,7 @@ Conception et déploiement d'une plateforme de données prête pour l'IA : modè
 | Démonstration exécutable, infrastructure et tests | [`stripe/`](../stripe/) |
 
 Toutes les données sont synthétiques, générées par la démonstration.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

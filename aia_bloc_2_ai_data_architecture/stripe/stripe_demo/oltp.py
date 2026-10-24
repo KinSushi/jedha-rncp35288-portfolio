@@ -161,7 +161,7 @@ def paiements_synthetiques(engine: Engine, debut: datetime, nombre: int, graine:
     """Insère des paiements réalistes, avec un schéma de fraude connu ; renvoie le dernier id.
 
     Fraude simulée (environ 2 %) : plus probable la nuit, pour un pays IP différent du pays du
-    client, pour un montant élevé et un compte récent — signaux qu'un modèle doit retrouver.
+    client, pour un montant élevé et un compte récent : signaux qu'un modèle doit retrouver.
     """
     alea = random.Random(graine)
     lignes = []

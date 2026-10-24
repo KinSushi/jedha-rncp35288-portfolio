@@ -1,4 +1,4 @@
-# 10 — Continuité d'activité, supervision et maintenance
+# 10 - Continuité d'activité, supervision et maintenance
 
 > Répond aux indicateurs 6.1, 6.2, 6.3, 8.3 et 9.3.
 > Les objectifs de reprise (RTO, RPO) sont des **hypothèses** (H5). Ce document est une conception d'exploitation : seuls les éléments marqués « vérifié » ont été exécutés. Rien n'a été déployé sur AWS.
@@ -12,7 +12,7 @@
 | Bus, capture des changements | arrêt d'un composant | quelques minutes à quelques heures | aucun message perdu tant que la rétention couvre la panne |
 | Entrepôt | indisponibilité | quelques heures | reconstruction possible depuis le lac et l'OLTP |
 | Base de documents | perte d'une instance | quelques minutes | quasi nul |
-| Région entière | sinistre régional | **non couvert** (risque assumé, § 5) | — |
+| Région entière | sinistre régional | **non couvert** (risque assumé, § 5) | - |
 
 L'entrepôt et les agrégats sont **reconstructibles** : l'OLTP et le lac sont les sources. La criticité décroît donc de l'OLTP (irremplaçable) vers l'entrepôt (rejouable).
 
@@ -167,7 +167,7 @@ La coupure se réduit à l'étape 4. Non rejoué ici ; à répéter en préprodu
 |---|---|---|
 | 1 | **Ajouter** la colonne ou la table (nullable, sans changer l'existant) | l'ancien code continue de fonctionner |
 | 2 | Déployer le code qui écrit les deux formes | les deux versions coexistent |
-| 3 | Remplir l'historique par tranches | — |
+| 3 | Remplir l'historique par tranches | - |
 | 4 | Basculer les lectures | réversible |
 | 5 | **Retirer** l'ancienne colonne après observation | seul point irréversible |
 

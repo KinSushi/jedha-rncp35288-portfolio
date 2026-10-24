@@ -8,7 +8,7 @@ Le code est dans [`stripe/`](stripe/), les documents de conception dans [`livrab
 
 Projet réalisé pour le bloc 2 de la certification Architecte en intelligence artificielle (RNCP38777, renouvelée sous le RNCP41993), consacré à la conception et au déploiement d'architectures de données pour l'IA.
 
-> **Nature du travail.** Étude de cas réalisée sur l'énoncé « Stripe Business Case » ([document 00](livrables/aia2/00_cahier_des_charges.md)). L'architecture est une proposition : elle ne décrit pas l'infrastructure de l'entreprise et n'utilise aucune de ses données. Toutes les données sont synthétiques, et les volumes de dimensionnement sont des hypothèses pédagogiques ([document 09](livrables/aia2/09_dimensionnement_finops_greenops.md), H1).
+> **Nature du travail.** Étude de cas réalisée sur l'énoncé « Stripe Business Case » ([document 00](livrables/aia2/00_cahier_des_charges.md)). L'architecture est une proposition : elle ne décrit pas l'infrastructure de l'entreprise et n'utilise aucune de ses données. Toutes les données sont synthétiques, et les volumes de dimensionnement sont des hypothèses illustratives ([document 09](livrables/aia2/09_dimensionnement_finops_greenops.md), H1).
 
 ![Schéma de l'architecture : les paiements des marchands entrent dans une base PostgreSQL de 13 tables ; Debezium lit son journal et publie un sujet Kafka par table ; les micro-lots vont dans un lac S3 au format Parquet, chargé dans un entrepôt en étoile (Redshift) qui sert les requêtes et l'entraînement ; le score de fraude note chaque nouveau paiement, tient à jour les caractéristiques des clients dans une base de documents (4 collections), que la version 1.0 du modèle ne lit pas encore, et alerte au-delà du seuil](figures/schema_architecture.png)
 
@@ -159,3 +159,7 @@ aia_bloc_2_ai_data_architecture/
 ```
 
 Le code lit `livrables/aia2/` (mesures et documents vérifiés par les tests) : garder les deux dossiers côte à côte.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

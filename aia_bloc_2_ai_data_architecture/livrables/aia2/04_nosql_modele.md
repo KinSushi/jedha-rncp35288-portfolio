@@ -1,4 +1,4 @@
-# 04 — Modèle NoSQL (documents) : embedding, referencing, index, validation
+# 04 - Modèle NoSQL (documents) : embedding, referencing, index, validation
 
 > Répond au livrable 4 de l'énoncé (modèle NoSQL : embedding / referencing, index).
 > Sources : `stripe/stripe_demo/nosql.py` (comportement), `stripe/nosql/schemas/*.json` (validateurs), `stripe/nosql/creer_collections.js` (généré), `stripe/nosql/requetes_mongo.js`.

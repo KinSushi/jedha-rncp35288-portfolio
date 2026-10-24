@@ -1,4 +1,4 @@
-# 05 — Pipelines : batch, temps réel (CDC), cohérence et conflits
+# 05 - Pipelines : batch, temps réel (CDC), cohérence et conflits
 
 > Répond au livrable 5 de l'énoncé (architecture du pipeline) et au « plan du ou des pipelines » demandé par la plateforme.
 > Code : `stripe/stripe_demo/pipeline.py` (démonstration autonome), `stripe/docker-compose.yml` et `stripe/deploiement/debezium_connecteur.json` (production locale).
@@ -56,7 +56,7 @@ flowchart LR
 | `copier_vers_staging` | `COPY` dans `stg_faits_paiements` (sur un poste : `stg_paiements`, recréée depuis le fichier Parquet du jour) | la table d'étape est vidée avant chaque chargement | relancer |
 | `fusionner_faits` | `MERGE` sur `id_paiement` (voir `olap_schema.sql`) ; sur un poste, rechargement complet et transactionnel de l'étoile (`olap.charger_batch`) | rejouer remplace les mêmes lignes : aucun doublon (test `test_pas_de_doublon_de_cle_apres_plusieurs_rejeux` pour la logique équivalente) | relancer |
 | `rafraichir_agregats` | vues matérialisées | recalcul déterministe | relancer |
-| `controles_qualite` | mêmes invariants que `tests/test_olap.py` : faits du jour = paiements extraits dans la table d'étape, agrégats = faits, aucune clé orpheline ; un écart lève une exception : la tâche échoue et les suivantes ne partent pas | lecture seule | — |
+| `controles_qualite` | mêmes invariants que `tests/test_olap.py` : faits du jour = paiements extraits dans la table d'étape, agrégats = faits, aucune clé orpheline ; un écart lève une exception : la tâche échoue et les suivantes ne partent pas | lecture seule | - |
 | `publier_partition` | pose le marqueur `_PRET` dans `ds=AAAA-MM-JJ/` : les lecteurs du lac ne prennent que les partitions publiées | le marqueur est réécrit au même chemin | relancer |
 | `reentrainer_si_planifie` | le jour prévu (le lundi : **hypothèse**), entraînement sur l'entrepôt, version du modèle incrémentée | en production, produit un nouveau modèle versionné, n'écrase pas l'ancien ; sur un poste, rend les mesures du modèle (pas de registre de modèles dans ce dépôt, document 07) | relancer |
 

@@ -1,4 +1,4 @@
-# Résumé en une page — architecture de données de type Stripe
+# Résumé en une page : architecture de données de type Stripe
 
 **Contexte.** Une plateforme de paiement en ligne relie des marchands, leurs clients et des moyens de paiement. Elle doit enregistrer chaque transaction sans la perdre ni la dupliquer, analyser de gros volumes, ranger des données peu structurées et noter chaque paiement avec un modèle de fraude, sous PCI-DSS v4.0.1, RGPD et CCPA. Les données sont **synthétiques** (document 00 § 1).
 

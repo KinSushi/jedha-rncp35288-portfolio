@@ -1,4 +1,4 @@
-# 08 — Requêtes métier : SQL (entrepôt) et NoSQL (documents), avec résultats réels
+# 08 - Requêtes métier : SQL (entrepôt) et NoSQL (documents), avec résultats réels
 
 > Répond au livrable 8 de l'énoncé (requêtes SQL et NoSQL répondant à des questions métier).
 > Les **résultats ci-dessous sont ceux de la démonstration** (`python -m stripe_demo.pipeline`), copiés depuis `livrables/aia2/donnees/resultats_demo.json` par un script, non retapés.
@@ -20,7 +20,7 @@ La démonstration charge 48 000 paiements sur 60 jours (du 1er août au 29 septe
 
 Les 7 requêtes sont dans `stripe/sql/requetes_olap.sql` (DuckDB en démonstration ; SQL standard, exécutable sur Redshift sans changement de syntaxe attendu, **non testé** sur Redshift).
 
-### Q1 — Quel est le chiffre d'affaires mensuel et le nombre de paiements réussis ?
+### Q1 - Quel est le chiffre d'affaires mensuel et le nombre de paiements réussis ?
 
 ```sql
 SELECT d.annee, d.mois, round(sum(f.montant_usd), 2) AS chiffre_usd, count(*) AS nb_paiements
@@ -37,7 +37,7 @@ GROUP BY d.annee, d.mois ORDER BY d.annee, d.mois;
 
 **Lecture.** 43 975 paiements réussis pour 1 746 584,41 USD au total. Octobre ne contient que la fin du flux (288 paiements réussis) : la ligne est partielle. Le chiffre est converti en USD au taux du jour du paiement ; seuls les paiements au statut `reussi` comptent (un paiement remboursé ou contesté en est exclu). **Optimisation** : la clé de tri `cle_date` limite les blocs lus à la période demandée ; `dim_date` (copiée sur chaque nœud) évite toute redistribution.
 
-### Q2 — Quels sont les 5 marchands qui réalisent le plus de chiffre d'affaires ?
+### Q2 - Quels sont les 5 marchands qui réalisent le plus de chiffre d'affaires ?
 
 ```sql
 SELECT m.raison_sociale, round(sum(a.chiffre_usd), 2) AS chiffre_usd
@@ -55,7 +55,7 @@ GROUP BY m.raison_sociale ORDER BY chiffre_usd DESC LIMIT 5;
 
 **Lecture.** La requête lit l'agrégat `agr_chiffre_quotidien` (un enregistrement par jour et par marchand) et non les 49 000 faits. Les 40 marchands ont des volumes proches (données simulées de façon uniforme) : l'écart entre le premier et le cinquième est de 4 709,71 USD.
 
-### Q3 — Quels sont les taux de remboursement et de litige par catégorie d'activité (MCC) ?
+### Q3 - Quels sont les taux de remboursement et de litige par catégorie d'activité (MCC) ?
 
 ```sql
 SELECT m.code_mcc, count(*) AS nb_paiements,
@@ -76,7 +76,7 @@ GROUP BY m.code_mcc ORDER BY taux_litige_pct DESC;
 
 **Lecture.** Les taux de litige vont de 2,40 % à 2,67 % et ceux de remboursement de 2,46 % à 3,15 % : **aucune catégorie ne se détache**, ce qui est normal puisque le simulateur tire la fraude sans tenir compte du MCC. Sur de vraies données, cette requête servirait à repérer les catégories à risque. Elle rattache chaque fait à son marchand par la clé de substitution portée par le fait, c'est-à-dire la version du marchand valable au moment du chargement.
 
-### Q4 — La fraude est-elle plus fréquente quand le pays de l'adresse IP diffère du pays du client ?
+### Q4 - La fraude est-elle plus fréquente quand le pays de l'adresse IP diffère du pays du client ?
 
 ```sql
 SELECT (f.pays_ip <> c.code_pays) AS pays_different, count(*) AS nb_paiements,
@@ -92,7 +92,7 @@ GROUP BY pays_different ORDER BY pays_different;
 
 **Lecture.** Le taux de litige est environ 19 fois plus élevé quand le pays diffère (24,87 % contre 1,28 %). **Cet écart est construit par la simulation** (`oltp.paiements_synthetiques` ajoute 0,25 à la probabilité de fraude dans ce cas) : il valide que la chaîne d'analyse retrouve un signal connu, pas qu'il existe dans le monde réel. C'est ce signal que le modèle de fraude apprend (document 07).
 
-### Q5 — La fraude est-elle plus fréquente la nuit ?
+### Q5 - La fraude est-elle plus fréquente la nuit ?
 
 ```sql
 SELECT CASE WHEN f.heure < 6 THEN 'nuit (0-6 h)' ELSE 'journée' END AS tranche,
@@ -107,7 +107,7 @@ FROM faits_paiements f GROUP BY tranche ORDER BY tranche;
 
 **Lecture.** Le taux de litige est environ 3.6 fois plus élevé la nuit (5,47 % contre 1,50 %), là encore par construction (0,04 de probabilité ajoutée la nuit dans le simulateur). La variable `heure` du fait est utilisée telle quelle.
 
-### Q6 — Comment se répartissent les clients par segment, et quel est leur panier moyen ?
+### Q6 - Comment se répartissent les clients par segment, et quel est leur panier moyen ?
 
 ```sql
 SELECT c.segment, count(DISTINCT f.cle_client) AS clients, count(*) AS paiements,
@@ -124,7 +124,7 @@ GROUP BY c.segment ORDER BY paiements DESC;
 
 **Lecture.** Le segment est calculé au chargement par le nombre de paiements du client (30 ou plus : « fidèle » ; 10 à 29 : « régulier » ; sinon « occasionnel »). Les 49 000 paiements sont tous répartis : la somme des segments égale le nombre de faits. Le segment « occasionnel » (2 clients) est trop petit pour être interprété. Les paniers moyens des segments sont voisins : le simulateur ne lie pas le montant au segment.
 
-### Q7 — Quelle est la tendance du chiffre quotidien (moyenne mobile sur 7 jours) ?
+### Q7 - Quelle est la tendance du chiffre quotidien (moyenne mobile sur 7 jours) ?
 
 ```sql
 SELECT date, round(chiffre, 2) AS chiffre_usd,
@@ -152,7 +152,7 @@ Les 3 pipelines d'agrégation sont dans `stripe/stripe_demo/nosql.py` (exécuté
 
 Le jeu : 5 000 événements répartis sur 30 jours (du 1er au 30 septembre 2026, tirés au hasard à la minute près) et 400 avis. L'intitulé « (30 jours) » de la première requête est celui du code ; le pipeline ne filtre pas sur la date, et les données couvrent exactement cette période.
 
-### Q8 — Quelles erreurs de paiement sont les plus fréquentes ?
+### Q8 - Quelles erreurs de paiement sont les plus fréquentes ?
 
 ```js
 db.evenements.aggregate([
@@ -170,7 +170,7 @@ db.evenements.aggregate([
 
 **Lecture.** 1 249 événements d'erreur, répartis presque à parts égales entre trois causes (carte refusée, fonds insuffisants, carte expirée) : tirage uniforme du simulateur. En production, cette requête orienterait l'effort (relance de paiement, message d'erreur plus clair). L'accès aux sous-documents (`$erreur.code`) illustre l'intérêt de l'**imbrication**.
 
-### Q9 — Quelles sont les sessions mobiles abandonnées les plus longues ?
+### Q9 - Quelles sont les sessions mobiles abandonnées les plus longues ?
 
 ```js
 db.evenements.aggregate([
@@ -189,7 +189,7 @@ db.evenements.aggregate([
 
 **Lecture.** Trois clients sont restés environ 15 minutes (maximum du simulateur : 900 s) avant d'abandonner sur mobile : candidats à une relance ciblée. La requête filtre d'abord, puis trie et limite : seules les sessions utiles sont triées.
 
-### Q10 — Quels thèmes reviennent dans les avis négatifs ?
+### Q10 - Quels thèmes reviennent dans les avis négatifs ?
 
 ```js
 db.retours_clients.aggregate([
@@ -214,8 +214,8 @@ db.retours_clients.aggregate([
 
 | Question | Moteur | Pourquoi ce moteur |
 |---|---|---|
-| Q1–Q7 | entrepôt | agrégations sur de gros volumes, jointures en étoile, fonctions fenêtre |
-| Q8–Q10 | documents | schéma souple (le sous-document `erreur` n'existe que pour un type d'événement), tableaux à éclater |
+| Q1 à Q7 | entrepôt | agrégations sur de gros volumes, jointures en étoile, fonctions fenêtre |
+| Q8 à Q10 | documents | schéma souple (le sous-document `erreur` n'existe que pour un type d'événement), tableaux à éclater |
 | (hors liste) | OLTP | lectures et écritures unitaires (historique d'un client en 0,12 ms avec l'index, document 02 § 6) |
 
 Les 7 requêtes SQL sont exécutées sur chaque jeu de test (`test_toutes_les_requetes_du_fichier_sql_s_executent`) ; la cohérence des agrégats qu'elles lisent est vérifiée (document 03 § 4).

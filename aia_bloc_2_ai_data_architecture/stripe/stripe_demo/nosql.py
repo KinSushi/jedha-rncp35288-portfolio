@@ -6,7 +6,7 @@ la même API que le pilote officiel `pymongo` (mêmes requêtes, mêmes pipeline
 
 Collections et choix de modélisation :
 - `evenements` : flux de navigation et de session (schéma souple, un document par événement,
-  index composé client + date, durée de vie limitée à 90 jours — minimisation RGPD) ;
+  index composé client + date, durée de vie limitée à 90 jours, minimisation RGPD) ;
 - `retours_clients` : avis et réponses aux enquêtes ; le texte et son analyse (sentiment,
   thèmes) sont **imbriqués** dans le document, car toujours lus ensemble ;
 - `caracteristiques_clients` : magasin de caractéristiques « en ligne » pour le score de fraude

@@ -1,4 +1,4 @@
-# Mutants équivalents — Stripe (bloc 2)
+# Mutants équivalents : Stripe (bloc 2)
 
 Un mutant est **équivalent** quand aucun test ne peut le distinguer du code d'origine, parce que les
 deux programmes se comportent de la même façon pour toute entrée. Cette note dit ce que `mutmut` a
