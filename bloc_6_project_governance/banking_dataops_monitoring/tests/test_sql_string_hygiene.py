@@ -99,6 +99,7 @@ def _check_no_python_comment(path: Path) -> None:
     )
 
 
+@pytest.mark.limit(60)
 def test_no_python_comment_inside_sql_string_and_the_detector_refuses_a_bad_one_and_accepts_a_sql_comment(
     tmp_path: Path,
 ) -> None:
@@ -107,6 +108,10 @@ def test_no_python_comment_inside_sql_string_and_the_detector_refuses_a_bad_one_
     Le détecteur est lui-même éprouvé : il doit refuser un cas fautif fabriqué et laisser passer un commentaire SQL
     '--'. Sans cela, une régression du détecteur rendrait la vérification des fichiers du projet verte par
     accident, et le garde-fou ne garderait plus rien.
+
+    Limite de 60 s au lieu des 8 s de ``tests/conftest.py`` : le test analyse chaque fichier de ``src/``, et l'outil de
+    mutation le lance sur une copie où chaque fonction figure dans toutes ses versions mutées ; il y a pris 6,25 s
+    sur une machine peu chargée et dépassé 8 s sous charge, le 20/10/2026.
     """
     for path in _python_files():
         _check_no_python_comment(path)

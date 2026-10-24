@@ -132,9 +132,9 @@ Dans chaque projet, les calculs sont regroupés dans un module importé par le n
 
 | Contrôle | Walmart | Conversion | Uber |
 |---|---|---|---|
-| Tests (`pytest`) | 101 | 78 | 126 |
-| dont tests qui n'exigent aucune donnée (`-m "not notebook"`) | 93 | 71 | 119 |
-| Mutation (erreurs détectées sur erreurs introduites) | 556 / 556 | 314 / 316 | 670 / 673 |
+| Tests (`pytest`) | 101 | 104 | 126 |
+| dont tests qui n'exigent aucune donnée (`-m "not notebook"`) | 93 | 97 | 119 |
+| Mutation (erreurs détectées sur erreurs introduites) | 556 / 556 | 341 / 343 | 670 / 673 |
 
 - Les tests vérifient les résultats attendus et les **refus** : une colonne inconnue, un seuil hors de [0, 1] ou des données absentes arrêtent le calcul avec un message qui nomme la faute. Les tests marqués `notebook` réexécutent chaque notebook et vérifient qu'il retrouve ses sorties enregistrées.
 - Les 5 mutants non détectés ne changent pas le comportement du code ; chacun est justifié dans `MUTANTS_EQUIVALENTS.md` (Conversion et Uber).

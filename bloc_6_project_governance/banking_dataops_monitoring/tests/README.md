@@ -1,7 +1,7 @@
-# `tests/` — 549 cas
+# `tests/` — 551 cas
 
 ```bash
-pytest              # 545 passés, 3 ignorés, 1 échec attendu, 0 échec
+pytest              # 547 passés, 3 ignorés, 1 échec attendu, 0 échec
 ```
 
 La suite tourne **entièrement hors ligne** : aucun test n'exige de base de
@@ -10,15 +10,15 @@ données. Les 3 ignorés sont des conditionnels documentés (`E''` accepté dans
 l'entrypoint du conteneur s'arrête si le pipeline échoue au lieu de démarrer le tableau de bord
 (`test_reverse_paths.py`) ; corriger l'entrypoint fait échouer le test, qu'il faut alors durcir.
 
-Dernière exécution complète : 545 passés, 3 ignorés, 1 xfail en 25,92 s, avec
+Dernière exécution complète : 547 passés, 3 ignorés, 1 xfail en 38,93 s, avec
 `-W error::DeprecationWarning -W error::PendingDeprecationWarning` (`evidence/pytest_full.txt`).
 
 | Fichier | Cas | Objet |
 |---|---:|---|
 | `test_sql_splitter_edges.py` | 75 | The SQL statement splitter (``banking_dataops.db.split_sql_statements``) on small hostile texts |
 | `test_audit_journal.py` | 45 | The audit layer (``banking_dataops.audit``): fingerprints, events, the run frame, the invariants, the queries |
+| `test_ml_training_contract.py` | 44 | contrat de l'entraînement : chiffres rapportés, journal et publication (tests de mutation) |
 | `test_hostile_inputs.py` | 41 | Inputs the system must refuse or must not let through: improbable scores, forbidden API operations, hostile values |
-| `test_ml_training_contract.py` | 41 | contrat de l'entraînement : chiffres rapportés, journal et publication (tests de mutation) |
 | `test_api_refusals.py` | 36 | The decision API says no: writes, unknown routes, hostile parameters, cross-origin calls, database outages |
 | `test_smoke_check.py` | 26 | The end-to-end acceptance script (``scripts/smoke_check.py``): fifteen checks, one exit code |
 | `test_publish_to_cloud.py` | 21 | copie d'un lot vers un PostgreSQL managé (`scripts/publish_to_cloud.py`) |
@@ -26,8 +26,8 @@ Dernière exécution complète : 545 passés, 3 ignorés, 1 xfail en 25,92 s, av
 | `test_doc_vivante.py` | 18 | contrôleur de documentation en cinq sections (CHOIX, OÙ, COMMENT, POURQUOI, JOURNALISATION) |
 | `test_ingest.py` | 18 | Bronze to Silver load (``banking_dataops.ingest``): what is sent to PostgreSQL, what is journalled, what is refused |
 | `test_sql_splitter.py` | 18 | découpage des instructions SQL |
-| `test_equivalent_mutants_premises.py` | 16 | The premises on which the mutants listed in ``MUTANTS_EQUIVALENTS.md`` are called equivalent |
 | `test_monitoring_loaders.py` | 16 | The dashboard read side (`banking_dataops.monitoring`): exact SQL, limits, traces, verdict counts |
+| `test_equivalent_mutants_premises.py` | 15 | The premises on which the mutants listed in ``MUTANTS_EQUIVALENTS.md`` are called equivalent |
 | `test_gold_build.py` | 13 | Gold layer build (``banking_dataops.pipeline.gold``): load order, one transaction, invariants, refusals |
 | `test_reverse_paths.py` | 13 | chemins interdits — le fichier le plus important |
 | `test_cleaning.py` | 12 | nettoyage, quarantaine, invariants |

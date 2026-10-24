@@ -22,8 +22,11 @@ from banking_dataops.ml.train import _build_estimator
 from banking_dataops.pipeline import cleaning, gold
 from banking_dataops.quality_checks import run_quality_checks
 
+#: No ``limit(120)`` here (removed on 20/10/2026): these tests take at most 0.12 s, so the default limit of
+#: ``tests/conftest.py`` applies. One of them is the only test with a 120 s limit that reaches
+#: ``db.split_sql_statements``; when mutmut ran it first, a mutant that resets the index of the splitter exhausted
+#: its CPU budget (33 s) before the limit fired and was recorded as a time-out instead of a detection.
 pytestmark = [
-    pytest.mark.limit(120),
     pytest.mark.usefixtures("no_audit_database"),
 ]
 

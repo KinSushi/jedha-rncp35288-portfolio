@@ -636,6 +636,53 @@ def test_choose_threshold_prefers_the_lowest_threshold_among_equal_f1() -> None:
     assert _choose_threshold(y_true, scores) == 0.2
 
 
+@pytest.mark.parametrize(
+    ("y_true", "scores", "lowest_of_the_tie"),
+    [
+        # Threshold 0.1: TP 2, FP 6, FN 0, F1 = 4 / 10. Threshold 0.6: TP 1, FP 2, FN 1, F1 = 2 / 5. Same F1, 0.4.
+        ([0, 0, 1, 0, 0, 0, 0, 1], [0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1], 0.1),
+        # Thresholds 0.034 (TP 7, FP 7, FN 0), 0.11 (TP 6, FP 5, FN 1) and 0.433 (TP 4, FP 1, FN 3): F1 = 2 / 3
+        # for all three. Found by a random search (seed 0, draw 821) during the review of 19/10/2026.
+        (
+            [0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1],
+            [0.332, 0.42, 0.596, 0.249, 0.11, 0.05, 0.741, 0.656, 0.486, 0.324, 0.433, 0.084, 0.385, 0.034],
+            0.034,
+        ),
+    ],
+)
+def test_choose_threshold_returns_the_lowest_threshold_of_a_tie_whose_f1_is_not_exact_in_binary(
+    y_true: list[int], scores: list[float], lowest_of_the_tie: float
+) -> None:
+    """Several points of the curve have exactly the same best F1 (2/5, then 2/3), a value a float cannot hold exactly.
+
+    The tied points reach that F1 through different precisions and recalls (1/4 and 1, 1/3 and 1/2 in the first
+    case). With the factor 2 of the F1 formula, the original computes the same float for the lowest threshold of the
+    tie as for the highest value of the curve, so ``np.argmax``, which keeps the first maximum, returns the lowest
+    threshold of the tie. Multiplying by 2 is exact in binary, multiplying
+    by 3 is not: with ``3 * precision * recall`` (mutant ``_choose_threshold`` #18, wrongly listed as equivalent until
+    19/10/2026) the tied values differ in their last bit (0.6 and 0.6000000000000001 in the first case) and a higher
+    threshold wins (0.6, then 0.433). The tie of ``test_choose_threshold_prefers_the_lowest_threshold_among_equal_f1``
+    gives bit-identical values with either factor, so it could not see this.
+
+    These are inputs on which the original returns the lowest threshold of the tie; they do not show that it does so
+    for every exact tie, and it does not. The factor 2 does not make every exact tie bit-identical: in the second case
+    the point at 0.11, also at 2/3, is computed one bit lower than the other two, and on other inputs the bit that
+    differs can favour a higher threshold (see the docstring of ``_choose_threshold``).
+    """
+    assert _choose_threshold(np.array(y_true), np.array(scores)) == lowest_of_the_tie
+
+
+def test_choose_threshold_does_not_treat_a_slightly_better_f1_as_a_tie() -> None:
+    """The other side of the tie rule: a higher threshold with a strictly better F1 wins, even by a small margin.
+
+    Threshold 0.4: TP 4, FP 2, FN 1, F1 = 8 / 11 (0.727). Threshold 0.1: TP 5, FP 4, FN 0, F1 = 10 / 14 (0.714).
+    The lowest threshold is preferred only when the two F1 are equal, never when they are merely close.
+    """
+    y_true = np.array([1, 0, 1, 0, 1, 1, 0, 0, 1])
+    scores = np.array([0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1])
+    assert _choose_threshold(y_true, scores) == 0.4
+
+
 def test_choose_threshold_falls_back_to_one_half_when_the_curve_has_no_threshold(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:

@@ -41,5 +41,5 @@
 <text x="22" y="752" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    ith `starlette.testclient` is deprecated; install `httpx2` instead.</text>
 <text x="22" y="772" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    from starlette.testclient import TestClient as TestClient  # noqa</text>
 <text x="22" y="812" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html</text>
-<text x="22" y="832" font-size="13.5" fill="#ff5c5c" font-weight="600" xml:space="preserve">================== 12 passed, 1 xfailed, 1 warning in 0.50s ===================</text>
+<text x="22" y="832" font-size="13.5" fill="#ff5c5c" font-weight="600" xml:space="preserve">================== 12 passed, 1 xfailed, 1 warning in 0.68s ===================</text>
 </svg>

@@ -5,16 +5,16 @@
 <circle cx="20" cy="18" r="5.5" fill="#ff5f57"/>
 <circle cx="39" cy="18" r="5.5" fill="#febc2e"/>
 <circle cx="58" cy="18" r="5.5" fill="#28c840"/>
-<text x="78" y="23" font-size="12.5" fill="#8ba3bf">pytest  —  suite complète (549 cas)</text>
+<text x="78" y="23" font-size="12.5" fill="#8ba3bf">pytest  —  suite complète (551 cas)</text>
 <text x="22" y="52" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">$ pytest -q -rs</text>
 <text x="22" y="92" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">........................................................................ [ 13%]</text>
 <text x="22" y="112" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">........................................................................ [ 26%]</text>
 <text x="22" y="132" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">........................................................................ [ 39%]</text>
 <text x="22" y="152" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">........................................................................ [ 52%]</text>
 <text x="22" y="172" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">........................................................................ [ 65%]</text>
-<text x="22" y="192" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">.............................................x.......................... [ 78%]</text>
-<text x="22" y="212" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">.................................s...ss................................. [ 91%]</text>
-<text x="22" y="232" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">.............................................                            [100%]</text>
+<text x="22" y="192" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">...............................................x........................ [ 78%]</text>
+<text x="22" y="212" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">...................................s...ss............................... [ 91%]</text>
+<text x="22" y="232" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">...............................................                          [100%]</text>
 <text x="22" y="252" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">============================== warnings summary ===============================</text>
 <text x="22" y="272" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">&lt;venv&gt;\Lib\site-packages\fastapi\testclient.py:1</text>
 <text x="22" y="292" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">  &lt;venv&gt;\Lib\site-packages\fastapi\testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `sta</text>
@@ -27,5 +27,5 @@
 <text x="22" y="452" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">SKIPPED [1] tests\test_sql_splitter.py:62: E&#x27;&#x27; found in 06_powerbi_star_schema.sql - accepted for this p</text>
 <text x="22" y="472" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">    roject</text>
 <text x="22" y="492" font-size="13.5" fill="#e8edf4" font-weight="400" xml:space="preserve">SKIPPED [1] tests\test_sql_splitter.py:62: E&#x27;&#x27; found in 07_audit_journal.sql - accepted for this project</text>
-<text x="22" y="512" font-size="13.5" fill="#ff5c5c" font-weight="600" xml:space="preserve">545 passed, 3 skipped, 1 xfailed, 1 warning in 25.92s</text>
+<text x="22" y="512" font-size="13.5" fill="#ff5c5c" font-weight="600" xml:space="preserve">547 passed, 3 skipped, 1 xfailed, 1 warning in 38.93s</text>
 </svg>

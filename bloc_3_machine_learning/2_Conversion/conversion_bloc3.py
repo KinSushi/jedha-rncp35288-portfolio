@@ -16,8 +16,17 @@ CHOIX
 - Écarté : garder des variables globales (X_train, y_valid) lues par les fonctions. Chaque
   fonction reçoit ses données en paramètres : elle se teste seule et ne dépend pas de l'ordre
   d'exécution des cellules.
-- Écarté : avaler les entrées invalides. Une grille de seuils vide, des tailles incohérentes
-  ou un seuil hors de [0, 1] lèvent ValueError au lieu de rendre un résultat trompeur.
+- Écarté : avaler les entrées invalides. Une grille de seuils vide, des tailles incohérentes,
+  un seuil hors de [0, 1] ou une cible autre que 0 / 1 lèvent ValueError au lieu de rendre un
+  résultat trompeur.
+- Retenu (20/10/2026) : evaluate_classifier refuse elle-même, avant tout ajustement, une cible
+  y_train ou y_valid qui contient autre chose que 0 et 1, avec un message qui nomme l'argument
+  et les valeurs refusées (_refuser_cible_non_binaire), comme les autres refus du projet
+  (seuil hors de [0, 1], colonne absente). Écarté : laisser scikit-learn refuser plus loin.
+  Son refus dépendait du type des prédictions internes (« [0 2] » contre « [0. 2.] » pour une
+  cible sans classe 1, contrôle indépendant du 20/10/2026) et ne nommait ni l'argument ni la
+  faute. Écarté aussi : retirer la conversion astype(int) des prédictions (remède par
+  simplification) : le mutant disparaissait, mais la cible absurde restait acceptée.
 
 OÙ
 ---
@@ -39,6 +48,12 @@ COMMENT
 - evaluate_classifier ajuste le pipeline sur l'apprentissage, choisit le seuil sur la
   validation s'il n'est pas imposé, et rend les métriques train et validation. Preuves :
   test_evaluate_classifier_*.
+- Avant tout ajustement, evaluate_classifier refuse une cible autre que 0 / 1. Preuves :
+  test_evaluate_classifier_refuse_une_cible_autre_que_zero_ou_un (2, -1, 0,5, NaN, « 0 » / « 1 »
+  en texte, en apprentissage comme en validation, message exact),
+  test_evaluate_classifier_refuse_la_cible_avant_d_ajuster_le_modele (le modèle n'a rien vu)
+  et test_evaluate_classifier_accepte_toute_cible_zero_un (entiers, flottants, booléens,
+  Int64, catégories, une seule classe : mêmes métriques que la cible entière).
 - conversion_summary, resume_clusters, statut_visiteurs, lecture_ecart_apprentissage et
   lecture_stabilite chiffrent et décrivent les segments et les diagnostics. Preuves : tests du
   même nom.
@@ -55,6 +70,11 @@ POURQUOI
   cellule Markdown 25 du notebook (le seuil est une décision métier).
 - Référentiel RNCP35288, bloc 3 : https://www.francecompetences.fr/recherche/rncp/35288/ ;
   F1-score imposé par le challenge de conversion : énoncé du challenge, non redistribué.
+- Cible 0 / 1 : la colonne converted de conversion_data_train.csv ne contient que 0 et 1
+  (mesuré le 20/10/2026 sur les 284 580 lignes). Refus d'une autre étiquette : contrôle
+  indépendant de la mutation du 20/10/2026, qui a montré qu'une cible sans classe 1 faisait
+  dépendre le message d'erreur du type interne des prédictions (rapport de vérification hors
+  du dépôt, cité dans MUTANTS_EQUIVALENTS.md).
 - Seuils de lecture des diagnostics (0,02 pour l'écart apprentissage − validation et pour la
   dispersion entre plis ; 0,99 et 0,01 pour la part de nouveaux visiteurs) : conventions de
   lecture du notebook, source : inconnue.
@@ -65,6 +85,9 @@ JOURNALISATION
   affichages (print et tableaux) font office de journal. Aucune donnée personnelle n'est écrite.
 - Aucun avertissement n'est masqué : zero_division=0 est passé explicitement aux métriques quand
   un modèle ne prédit aucun positif (la précision n'est alors pas définie).
+- Un refus est une exception (ValueError), pas une ligne de journal : la cellule du notebook
+  s'arrête et affiche le message. Celui d'une cible hors {0, 1} nomme l'argument (y_train ou
+  y_valid) et les étiquettes refusées, jamais une ligne de données d'un visiteur.
 """
 
 from __future__ import annotations
@@ -224,6 +247,31 @@ def optimize_threshold(
     return float(grid[best_idx]), float(scores[best_idx])
 
 
+def _refuser_cible_non_binaire(nom: str, y: Any) -> None:
+    """Lève ValueError si la cible `y` contient une valeur autre que 0 et 1.
+
+    La cible du projet est `converted` : 1 si le visiteur s'abonne, 0 sinon. Les métriques de
+    evaluate_classifier (F1, précision, rappel) prennent 1 pour classe positive ; une autre
+    étiquette (2, -1, « 0 » écrit en texte, NaN) n'a pas de sens ici. On la refuse donc AVANT
+    tout ajustement, avec un message qui nomme l'argument (`nom`) et les valeurs refusées.
+
+    Domaine admis : toute valeur égale à 0 ou à 1 au sens de Python, donc les entiers, les
+    flottants 0.0 / 1.0, les booléens (True vaut 1) et les catégories 0 / 1. Une cible d'une
+    seule classe (que des 0, ou que des 1) reste admise : ce n'est pas une étiquette inconnue.
+
+    Comment : `unique().tolist()` donne les valeurs distinctes en scalaires Python (2 et non
+    np.int64(2), pour un message lisible) ; la différence d'ensembles avec {0, 1} garde les
+    intrus. NaN et pd.NA ne sont égaux ni à 0 ni à 1 : ils sont refusés. `repr` distingue le
+    texte « '0' » de l'entier 0 dans le message.
+    """
+    hors_domaine = set(pd.Series(y).unique().tolist()) - {0, 1}
+    if hors_domaine:
+        raise ValueError(
+            f"{nom} ne doit contenir que 0 (non converti) et 1 (converti) ; valeurs refusées : "
+            + ", ".join(sorted(map(repr, hors_domaine)))
+        )
+
+
 def evaluate_classifier(
     name: str,
     pipeline: Pipeline,
@@ -240,10 +288,15 @@ def evaluate_classifier(
     validation ; sinon les classes sont prédites directement et seuil, ROC-AUC et PR-AUC valent
     NaN. Rend (métriques, pipeline ajusté).
 
-    Lève ValueError si `threshold` n'est pas dans [0, 1].
+    Lève ValueError, avant tout ajustement, si `threshold` n'est pas dans [0, 1], ou si
+    `y_train` ou `y_valid` contient une valeur autre que 0 et 1 (_refuser_cible_non_binaire).
     """
     if threshold is not None and not 0.0 <= threshold <= 1.0:
         raise ValueError(f"le seuil doit être dans [0, 1], reçu {threshold}")
+    # Cible hors {0, 1} : refusée ici, avec un message qui nomme la faute. Sans ce refus,
+    # scikit-learn échouait plus loin, avec un message qui dépendait du type des prédictions.
+    _refuser_cible_non_binaire("y_train", y_train)
+    _refuser_cible_non_binaire("y_valid", y_valid)
     pipeline.fit(x_train, y_train)
 
     if hasattr(pipeline, "predict_proba"):
@@ -251,6 +304,8 @@ def evaluate_classifier(
         proba_valid = pipeline.predict_proba(x_valid)[:, 1]
         if threshold is None:
             threshold, _ = optimize_threshold(y_valid, proba_valid)
+        # Prédictions 0 / 1 (entiers). Le type n'a pas d'effet sur les métriques tant que la
+        # cible est 0 / 1 : voir MUTANTS_EQUIVALENTS.md et le test de la prémisse.
         pred_train = (proba_train >= threshold).astype(int)
         pred_valid = (proba_valid >= threshold).astype(int)
         valid_auc = roc_auc_score(y_valid, proba_valid)

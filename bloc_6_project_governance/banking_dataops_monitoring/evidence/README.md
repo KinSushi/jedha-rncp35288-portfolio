@@ -4,7 +4,7 @@ Chaque fichier de ce dossier est la sortie réelle d'une commande, jamais saisie
 donnés pour chacun. Heures en UTC (les journaux de la pile Docker sont en UTC).
 
 **État du code** : les preuves de la pile Docker ont été produites sur l'arbre de travail du commit `d5c40eb` (branche
-`certification-cdsd-bloc6`), le **11 octobre 2026** ; les preuves de la suite de tests ont été rejouées le **12 octobre 2026** sur le commit `ea68028` (section « Tests » ci-dessous).
+`certification-cdsd-bloc6`), le **11 octobre 2026** ; les preuves de la suite de tests ont été rejouées le **20 octobre 2026** sur le commit `538c5a4` (section « Tests » ci-dessous).
 
 **Pile** : `docker compose` (projet Compose nommé à part, option `-p`), PostgreSQL 16 (alpine), image construite par le `Dockerfile` (Python 3.12), ports
 d'hôte 55432, 18000 et 18501 (5432 était occupé par un PostgreSQL local). Ancre de date par défaut, **2026-07-27T00:00:00Z**
@@ -35,9 +35,9 @@ contrôles sur 7. Modèle : validation croisée 0,9748 et 0,9658, seuil 0,852, A
 
 | Fichier | Commande | Remarque |
 |---|---|---|
-| `pytest_full.txt`, `01_pytest_summary.txt` | `pytest -q -rs -W error::DeprecationWarning -W error::PendingDeprecationWarning` | **545 réussis, 3 ignorés, 1 xfail, 1 avertissement**, 25,92 s, le 12 octobre 2026 à 05 h 23 UTC, sur le commit `ea68028`. Sortie complète ; seuls les chemins absolus de la machine sont remplacés par `<venv>`. Les 3 ignorés sont des conditionnels documentés (`E''` dans trois fichiers SQL) |
-| `03_tests_par_fichier.txt` | `pytest --collect-only -q` | 549 cas collectés, par fichier (collecte seule, aucun test exécuté pour ce fichier) |
-| `reverse_full.txt`, `02_reverse_tests.txt` | `pytest tests/test_reverse_paths.py -v`, mêmes options | 12 réussis et 1 xfail strict (l'entrypoint ne démarre pas le tableau de bord si le pipeline échoue : écart connu, documenté par le test). Rejoué le 12/10/2026 05 h 23 UTC sur le commit `ea68028`, comme la suite complète de `pytest_full.txt`, qui contient ces cas |
+| `pytest_full.txt`, `01_pytest_summary.txt` | `pytest -q -rs -W error::DeprecationWarning -W error::PendingDeprecationWarning` | **547 réussis, 3 ignorés, 1 xfail, 1 avertissement**, 38,93 s, le 20 octobre 2026 à 10 h 22 UTC, sur le commit `538c5a4`. Sortie complète ; seuls les chemins absolus de la machine sont remplacés par `<venv>`. Les 3 ignorés sont des conditionnels documentés (`E''` dans trois fichiers SQL) |
+| `03_tests_par_fichier.txt` | `pytest --collect-only -q` | 551 cas collectés, par fichier (collecte seule, aucun test exécuté pour ce fichier) |
+| `reverse_full.txt`, `02_reverse_tests.txt` | `pytest tests/test_reverse_paths.py -v`, mêmes options | 12 réussis et 1 xfail strict (l'entrypoint ne démarre pas le tableau de bord si le pipeline échoue : écart connu, documenté par le test). Rejoué le 20/10/2026 10 h 23 UTC sur le commit `538c5a4`, comme la suite complète de `pytest_full.txt`, qui contient ces cas |
 
 L'avertissement restant vient de Starlette (`StarletteDeprecationWarning`, sous-classe de `UserWarning`) : il n'est pas un
 `DeprecationWarning`, donc les options `-W error::DeprecationWarning` ne l'élèvent pas.
@@ -54,4 +54,4 @@ version précédente, et suite de 178 tests réussis et 6 ignorés. Les doublons
 ## Ce qui n'est pas dans ce dossier
 
 - Les journaux de démarrage du conteneur : le serveur Streamlit y imprime l'adresse IP publique de la machine (« External URL »).
-- La sortie brute de la mesure de mutation (`mutmut` 3.8.0, sous WSL). Son résultat est consigné dans `MUTANTS_EQUIVALENTS.md` : 3 926 mutants tués sur 3 967, mesure du 12 octobre 2026 ; les 41 survivants y sont nommés et analysés.
+- La sortie brute de la mesure de mutation (`mutmut` 3.8.0, sous WSL). Son résultat est consigné dans `MUTANTS_EQUIVALENTS.md` : 3 927 mutants tués sur 3 967, mesure du 20 octobre 2026 ; les 40 survivants, tous équivalents, y sont nommés et analysés.

@@ -130,7 +130,7 @@ is dated the same day). No later measurement was kept.
 | Requirement coverage | Functional requirements delivered | 10 / 10 |
 | High-criticality risks treated | Risks rated 12 with a treatment in place | 3 rated 12 (R-01, R-04, R-07): 2 treated, 1 partial (R-07). R-12 is rated 8 |
 | Documentation debt | Known limitations left undocumented | 0 declared, not re-measured |
-| CI health | Lint and tests green | Green at the time; the suite is now <!--tests-en-->545 passed, 3 skipped, 1 xfail (549 cases)<!--/tests--> (`evidence/01_pytest_summary.txt`, 11 October 2026). The CI has no PostgreSQL |
+| CI health | Lint and tests green | Green at the time; the suite is now <!--tests-en-->547 passed, 3 skipped, 1 xfail (551 cases)<!--/tests--> (`evidence/01_pytest_summary.txt`, 20 October 2026). The CI has no PostgreSQL |
 
 ---
 

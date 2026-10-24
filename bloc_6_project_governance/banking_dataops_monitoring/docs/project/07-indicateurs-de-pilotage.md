@@ -54,7 +54,7 @@ Mesurés sur le jeu de test de 375 transactions (30 positives), évalué une seu
 | Indicateur | Outil | État |
 |---|---|---|
 | Conformité au style | `ruff check .` | Aucun avertissement |
-| Tests | `pytest` | **<!--tests-fr-->545 réussis, 3 ignorés, 1 échec attendu (xfail), soit 549 cas<!--/tests-->** dans <!--tests-fichiers-->48<!--/tests--> fichiers, preuves du 12 octobre 2026 (`evidence/01_pytest_summary.txt`). Les ignorés sautent sous condition (`tests/test_sql_splitter.py`) ; le *xfail* est un écart connu et déclaré de l'entrypoint ; la CI n'exécute pas les contrôles SQL sur une base |
+| Tests | `pytest` | **<!--tests-fr-->547 réussis, 3 ignorés, 1 échec attendu (xfail), soit 551 cas<!--/tests-->** dans <!--tests-fichiers-->48<!--/tests--> fichiers, preuves du 20 octobre 2026 (`evidence/01_pytest_summary.txt`). Les ignorés sautent sous condition (`tests/test_sql_splitter.py`) ; le *xfail* est un écart connu et déclaré de l'entrypoint ; la CI n'exécute pas les contrôles SQL sur une base |
 | Contrôles documentés | `docs/controls_matrix.md` | 10 contrôles décrits |
 | Exécution vérifiable | `evidence/` | Sorties réelles des commandes, avec leur date et leur commande (`evidence/README.md`) |
 

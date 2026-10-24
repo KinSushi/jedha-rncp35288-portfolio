@@ -26,8 +26,11 @@ from banking_dataops.ml import predict as P
 from banking_dataops.ml import train as T
 
 #: Seconds after which a test is failed instead of left to run: a loop whose index no longer advances would
-#: otherwise hang the suite (and be counted as a time-out, not as a detection, by the mutation tool, whose own
-#: limit is about fifteen seconds for fast tests). A heavy test says so with ``@pytest.mark.limit(seconds)``.
+#: otherwise hang the suite (and be counted as a time-out, not as a detection, by the mutation tool). mutmut 3.8.0
+#: gives each mutant ``ceil((t + 1) * 15 * 2)`` seconds of CPU, ``t`` being the measured duration of the tests that
+#: cover the function: at least 30 s. A heavy test says so with ``@pytest.mark.limit(seconds)``; a limit above 30 s
+#: belongs only to a test that needs it (the training tests), because a looping mutant reached first by such a test
+#: exhausts the CPU budget before the limit fires and is recorded as a time-out.
 DEFAULT_TIME_LIMIT_S = 8
 
 #: Columns of the SQL extract in banking_dataops/ml/features.py, in the same order.

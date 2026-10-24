@@ -72,8 +72,14 @@ def _exit_code(root: Path) -> int:
 # ---------------------------------------------------------------------------
 
 
+@pytest.mark.limit(60)
 def test_every_python_module_of_the_project_documents_itself() -> None:
-    """The real tree conforms: five sections each, and every citation resolves."""
+    """The real tree conforms: five sections each, and every citation resolves.
+
+    The test parses every module of the tree. It takes well under a second on the project, but the mutation tool
+    runs it on a copy where each function is present in all its mutated versions, and there it took 11 to 15 s on
+    20/10/2026, over the default limit of ``tests/conftest.py``: hence its own limit of 60 s.
+    """
     assert checker.check_tree(REPO_ROOT) == []
 
 

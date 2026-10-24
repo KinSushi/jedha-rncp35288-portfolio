@@ -95,8 +95,8 @@ La règle simple ignore le canal et la catégorie de marchand ; le gain du modè
 
 | Mesure | Résultat | Source |
 |---|---|---|
-| Suite de tests (12 octobre 2026) | 545 réussis, 3 ignorés, 1 échec attendu (`xfail`), soit 549 cas, en 25,92 s | [`evidence/01_pytest_summary.txt`](banking_dataops_monitoring/evidence/01_pytest_summary.txt), [`evidence/README.md`](banking_dataops_monitoring/evidence/README.md) |
-| Tests de mutation (12 octobre 2026) | 3 926 mutants tués sur 3 967 ; les 41 survivants sont nommés et analysés comme équivalents | [`MUTANTS_EQUIVALENTS.md`](banking_dataops_monitoring/MUTANTS_EQUIVALENTS.md) |
+| Suite de tests (20 octobre 2026) | 547 réussis, 3 ignorés, 1 échec attendu (`xfail`), soit 551 cas, en 38,93 s | [`evidence/01_pytest_summary.txt`](banking_dataops_monitoring/evidence/01_pytest_summary.txt), [`evidence/README.md`](banking_dataops_monitoring/evidence/README.md) |
+| Tests de mutation (20 octobre 2026) | 3 927 mutants tués sur 3 967 ; les 40 survivants sont nommés et analysés comme équivalents | [`MUTANTS_EQUIVALENTS.md`](banking_dataops_monitoring/MUTANTS_EQUIVALENTS.md) |
 
 Les 3 tests ignorés sautent sous une condition documentée ; l'échec attendu est un écart connu et déclaré du script de démarrage du conteneur ([`evidence/README.md`](banking_dataops_monitoring/evidence/README.md)).
 
@@ -161,7 +161,7 @@ Ce que le projet ne démontre pas, dit tel quel :
 - **La dérive du modèle n'est pas mesurée** ; le réentraînement est volontaire, jamais automatique (R-15).
 - **La suite de tests n'exécute pas les sept contrôles SQL sur une base** : ils ne s'exécutent que dans le pipeline lancé avec Docker et dans la vérification de démonstration.
 - **La pseudonymisation n'est pas réalisée** : les identifiants séquentiels des données synthétiques ne sont pas une pseudonymisation au sens de l'article 4, point 5, du RGPD ([`docs/project/06-conformite-rgpd.md`](banking_dataops_monitoring/docs/project/06-conformite-rgpd.md)).
-- **Preuves datées de deux exécutions** : la pile Docker le 11 octobre 2026, la suite de tests le 12 octobre 2026, sur deux états du code ([`evidence/README.md`](banking_dataops_monitoring/evidence/README.md)).
+- **Preuves datées de deux exécutions** : la pile Docker le 11 octobre 2026, la suite de tests le 20 octobre 2026, sur deux états du code ([`evidence/README.md`](banking_dataops_monitoring/evidence/README.md)).
 - **Limites de code connues** : l'option `--verify` de `run_pipeline.py` est acceptée mais ne vérifie rien ; `run_pipeline.py` n'appelle pas la prédiction ; l'ingestion charge les fichiers Bronze bruts et non les fichiers nettoyés ; la table de réconciliation est vidée à chaque exécution ; la tendance d'un contrôle repose sur un seul point ; le `Dockerfile` n'est pas multi-étapes.
 - **Périmètre** : ce n'est ni une plateforme de données de production, ni un système de contrôle prêt pour une banque, ni un moteur de décision de crédit.
 

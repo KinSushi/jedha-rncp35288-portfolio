@@ -67,7 +67,14 @@ COMMENT
    the report.
 Tests that prove it: tests/test_ml_training.py
 (``test_the_choices_use_the_training_rows_only_follow_the_margin_rule_and_the_threshold_is_out_of_fold``,
-``test_train_writes_a_consistent_artefact_and_publishes_nothing_for_a_bad_label_a_small_set_or_a_weak_model``).
+``test_train_writes_a_consistent_artefact_and_publishes_nothing_for_a_bad_label_a_small_set_or_a_weak_model``);
+for the ties of ``_choose_threshold`` (first maximum of the computed F1: the lowest threshold when the tied F1
+compute to the same float, which most exact ties do but not all; a strictly better F1 at a higher threshold wins),
+the tests below pin inputs on which the lowest threshold is returned, not the rule for every input:
+tests/test_ml_training_contract.py
+(``test_choose_threshold_prefers_the_lowest_threshold_among_equal_f1``,
+``test_choose_threshold_returns_the_lowest_threshold_of_a_tie_whose_f1_is_not_exact_in_binary``,
+``test_choose_threshold_does_not_treat_a_slightly_better_f1_as_a_tie``).
 
 POURQUOI
 --------
@@ -300,9 +307,19 @@ def _choose_threshold(y_true: np.ndarray, scores: np.ndarray) -> float:
     assumes balanced classes and equal error costs, and neither holds here. A
     false negative is a missed investigation, a false positive is wasted analyst
     time, and no cost matrix exists to weigh them, so F1 is the neutral
-    compromise. Among thresholds with the same F1 the lowest one is returned.
-    The threshold is stored with every prediction so that a past decision stays
-    readable after a retune.
+    compromise. The threshold is stored with every prediction so that a past
+    decision stays readable after a retune.
+
+    Ties: F1 is computed in floating point from the precision and recall of
+    ``precision_recall_curve``, and ``np.argmax`` keeps the first maximum, so
+    among points whose computed F1 values are identical the lowest threshold is
+    returned. Two points whose F1 are equal as fractions usually compute to the
+    same float, but not always: precision and recall are already rounded, and
+    the two values can differ in their last bit, in which case the larger one
+    wins whatever its threshold. The lowest threshold of an exact tie is
+    therefore the usual result, not a guarantee (``MUTANTS_EQUIVALENTS.md``,
+    section on ``_choose_threshold`` #18). A strictly better F1 at a higher
+    threshold always wins.
 
     The caller decides which scores are passed. They must never be scores of the
     test rows (ADR-0009).

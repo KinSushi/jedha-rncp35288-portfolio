@@ -4,6 +4,10 @@ A mutant is equivalent when no test can tell it from the original because the tw
 most of them the reason is a fact about a library or about Python (a default value, a codec alias, the
 truthiness of ``None``). Each such fact is checked here, so that the claim in the document does not rest on
 memory: if a library upgrade ever changes one of them, this test fails and the mutant has to be looked at again.
+
+A premise is a fact the proof uses, not the proof itself: a check that passes on a few sample values does not show
+that no input can tell the mutant from the original. The proof is the reading of the code written in
+``MUTANTS_EQUIVALENTS.md``, and the facts are checked in the environment of the measurement listed there.
 """
 
 from __future__ import annotations
@@ -14,7 +18,6 @@ import json
 import typing
 from collections.abc import Callable
 
-import numpy as np
 import pandas as pd
 import pytest
 from sklearn.compose import ColumnTransformer
@@ -24,22 +27,16 @@ from banking_dataops.pipeline.cleaning import CleaningReport
 from banking_dataops.quality_checks import QualityCheck
 
 
-def _factor_three_keeps_the_best_point() -> bool:
-    rng = np.random.default_rng(0)
-    for _ in range(200):
-        precision, recall = rng.random(30), rng.random(30)
-        denominator = precision + recall
-        two = np.divide(2 * precision * recall, denominator, out=np.zeros_like(precision), where=denominator > 0)
-        three = np.divide(3 * precision * recall, denominator, out=np.zeros_like(precision), where=denominator > 0)
-        if int(np.argmax(two)) != int(np.argmax(three)):
-            return False
-    return True
-
-
 def _falsy_values_fall_back_alike() -> bool:
     absent: object = None
     empty: object = ""
     return (absent or "-") == (empty or "-")
+
+
+def _duplicated_keeps_the_first_by_default() -> bool:
+    frame = pd.DataFrame({"k": [1, 2, 1, 1], "v": [10, 20, 30, 40]})
+    default = frame.duplicated(subset=["k"]).tolist()
+    return default == frame.duplicated(subset=["k"], keep="first").tolist() == [False, False, True, True]
 
 
 def _csv_text(index: object) -> str:
@@ -49,11 +46,20 @@ def _csv_text(index: object) -> str:
 
 
 #: premise -> a check that returns True when the fact still holds. One row per family of equivalent mutants.
+#:
+#: Removed on 19/10/2026: "numpy: a positive factor does not move the argmax of the F1 curve". It held for the
+#: random, continuous precisions and recalls it drew, which never tie, but not for a real curve, where two points
+#: often have exactly the same F1. Ties are decided by the last bit of the computed values, and that bit depends on
+#: the factor: on some inputs the original (factor 2) computes the tied values identically and returns the lowest
+#: threshold, while the factor 3 rounds them apart and returns a higher one. The original does not do this on every
+#: exact tie either (see the docstring of ``_choose_threshold``). The mutant it covered (``_choose_threshold`` #18)
+#: was not equivalent; it is now killed by
+#: ``test_choose_threshold_returns_the_lowest_threshold_of_a_tie_whose_f1_is_not_exact_in_binary``
+#: (``tests/test_ml_training_contract.py``).
 PREMISES: dict[str, Callable[[], bool]] = {
     "sklearn: ColumnTransformer drops the unlisted columns by default": (
         lambda: ColumnTransformer(transformers=[]).remainder == "drop"
     ),
-    "numpy: a positive factor does not move the argmax of the F1 curve": _factor_three_keeps_the_best_point,
     "sklearn: a 2x2 confusion matrix has four cells even for a single class": (
         lambda: confusion_matrix([False, False], [False, False], labels=[False, True]).ravel().size == 4
     ),
@@ -64,8 +70,8 @@ PREMISES: dict[str, Callable[[], bool]] = {
         lambda: pd.DataFrame({"a": [1]}).to_dict(orient="RECORDS") == pd.DataFrame({"a": [1]}).to_dict(orient="records")
     ),
     "pandas: to_csv(index=None) writes no index, like index=False": lambda: _csv_text(None) == _csv_text(False),
-    "pandas: drop_duplicates keeps the first row by default": (
-        lambda: pd.DataFrame({"k": [1, 1], "v": [10, 20]}).duplicated(subset=["k"]).tolist() == [False, True]
+    "pandas: duplicated marks every row but the first by default (keep='first')": (
+        _duplicated_keeps_the_first_by_default
     ),
     "python: codec names are case-insensitive (UTF-8, ASCII)": (
         lambda: "é".encode("UTF-8") == "é".encode("utf-8") and "abc".encode("ASCII") == "abc".encode("ascii")  # noqa: UP012

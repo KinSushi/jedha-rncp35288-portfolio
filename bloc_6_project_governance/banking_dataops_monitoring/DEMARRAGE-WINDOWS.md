@@ -97,9 +97,9 @@ Valable pour **cette session uniquement**, aucune modification permanente de la 
 | `reset` | Vide le volume et redémarre |
 | `logs` | Suit les journaux du pipeline |
 | `status` | État des deux conteneurs (`postgres` et `app`) |
-| `test` | La suite de tests : <!--tests-fr-->545 réussis, 3 ignorés, 1 échec attendu (xfail), soit 549 cas<!--/tests--> (preuves du 12 octobre 2026) |
+| `test` | La suite de tests : <!--tests-fr-->547 réussis, 3 ignorés, 1 échec attendu (xfail), soit 551 cas<!--/tests--> (preuves du 20 octobre 2026) |
 | `lint` | `ruff` |
-| `reverse-test` | Les chemins interdits et la reproductibilité, en détail (`test_reverse_paths.py` : 13 cas, dont 12 réussis et 1 xfail ; `test_reproducibility.py` : 7 cas) |
+| `reverse-test` | Les chemins interdits et la reproductibilité, en détail (`test_reverse_paths.py` : 13 cas, dont 12 réussis et 1 xfail ; `test_reproducibility.py` : 2 cas) |
 | `audit` | 25 derniers actes, avec leur motif métier |
 | `verdict` | Le verdict de publication |
 | `queue` | La file d'investigation du modèle |

@@ -420,16 +420,146 @@ def test_evaluate_classifier_refuse_un_seuil_ecrit_en_texte():
         c.evaluate_classifier("stub", pipe, X_TRAIN, Y_TRAIN, X_VALID, Y_VALID, threshold="0.5")
 
 
-def test_premisse_les_metriques_ne_dependent_pas_du_type_des_predictions():
-    """Preuve de MUTANTS_EQUIVALENTS.md : des prédictions 0/1 entières ou flottantes (0.0/1.0)
-    donnent les mêmes F1, précision, rappel et exactitude (astype(int) contre astype(None))."""
-    vrai = np.array([0, 1, 1, 0, 1])
-    proba = np.array([0.2, 0.9, 0.4, 0.1, 0.7])
+#: Types de cible admis par evaluate_classifier : tous ne portent que 0 et 1 (ou False / True).
+TYPES_DE_CIBLE_ZERO_UN = [
+    "int64",
+    "int8",
+    "uint8",
+    "float64",
+    "float32",
+    "bool",
+    "Int64",
+    "boolean",
+    "object",
+    "category",
+]
+
+
+@pytest.mark.parametrize("type_cible", TYPES_DE_CIBLE_ZERO_UN)
+def test_premisse_les_metriques_ne_dependent_pas_du_type_des_predictions(type_cible):
+    """Preuve de MUTANTS_EQUIVALENTS.md (astype(int) contre astype(None) sur les prédictions).
+
+    1. « probabilité >= seuil » rend toujours des booléens, que les probabilités soient des
+       flottants 64 ou 32 bits, des entiers ou des objets Python (tableau de type object) : les
+       deux versions convertissent donc les mêmes booléens, en 0 / 1 ou en 0.0 / 1.0.
+    2. Sur toute cible admise (0 / 1 de ce type ; deux classes, que des 0 ou que des 1), ces
+       prédictions entières ou flottantes donnent les mêmes F1, précision, rappel et exactitude,
+       ou le même refus de scikit-learn (même type, même message : cas d'une cible de type
+       object, que scikit-learn ne sait pas classer, « unknown »).
+    Une cible hors {0, 1}, seule capable de les distinguer (message d'erreur de scikit-learn),
+    est refusée avant : test_evaluate_classifier_refuse_une_cible_autre_que_zero_ou_un.
+    """
+
+    def issue(metrique, vrai, predit):
+        """Valeur rendue, ou type et message de l'exception levée."""
+        try:
+            return ("valeur", metrique(vrai, predit))
+        except ValueError as exc:
+            return ("refus", type(exc).__name__, str(exc))
+
+    probabilites = [
+        np.array([0.2, 0.9, 0.4, 0.1, 0.7]),
+        np.array([0.2, 0.9, 0.4, 0.1, 0.7], dtype="float32"),
+        np.array([0, 1, 0, 0, 1]),
+        np.array([0.2, 0.9, 0.4, 0, 1], dtype=object),
+    ]
+    for proba in probabilites:
+        assert (proba >= 0.5).dtype == np.bool_
+    proba = probabilites[0]
     entieres = (proba >= 0.5).astype(int)
     flottantes = (proba >= 0.5).astype(None)
+    assert entieres.dtype == np.int64
     assert flottantes.dtype == np.float64  # le mutant change bien le type
-    for metrique in (f1_score, precision_score, recall_score, accuracy_score):
-        assert metrique(vrai, entieres) == metrique(vrai, flottantes)
+    metriques = (
+        lambda vrai, predit: f1_score(vrai, predit, zero_division=0),
+        lambda vrai, predit: precision_score(vrai, predit, zero_division=0),
+        lambda vrai, predit: recall_score(vrai, predit, zero_division=0),
+        accuracy_score,
+    )
+    for vrai in ([0, 1, 1, 0, 1], [0, 0, 0, 0, 0], [1, 1, 1, 1, 1]):
+        cible = pd.Series(vrai).astype(type_cible)
+        for metrique in metriques:
+            assert issue(metrique, cible, entieres) == issue(metrique, cible, flottantes)
+
+
+@pytest.mark.parametrize(
+    ("argument", "cible", "refusees"),
+    [
+        # entrée du contrôle indépendant du 20/10/2026 : aucune classe 1, que des 2
+        ("y_train", pd.Series([2, 2, 2, 2]), "2"),
+        ("y_valid", pd.Series([2, 2, 2, 2, 2]), "2"),
+        # convention -1 / 1 d'autres outils : -1 ne veut pas dire « non converti » ici
+        ("y_train", pd.Series([-1, 1, 1, -1]), "-1"),
+        # une probabilité passée à la place de la cible
+        ("y_valid", pd.Series([0.0, 0.5, 1.0, 1.0, 0.0]), "0.5"),
+        # étiquettes manquantes : NaN d'un flottant, pd.NA d'un entier nullable
+        ("y_valid", pd.Series([0.0, math.nan, 1.0, 1.0, 1.0]), "nan"),
+        ("y_train", pd.Series([0, None, 1, 0], dtype="Int64"), "<NA>"),
+        # cible lue comme du texte : « 0 » n'est pas 0 ; les valeurs refusées sont triées
+        ("y_train", pd.Series(["1", "0", "1", "0"]), "'0', '1'"),
+    ],
+)
+def test_evaluate_classifier_refuse_une_cible_autre_que_zero_ou_un(argument, cible, refusees):
+    """Une cible qui contient autre chose que 0 et 1 est refusée, en apprentissage comme en
+    validation, avec un message qui nomme l'argument et les valeurs refusées.
+
+    Avant ce refus (contrôle du 20/10/2026), la cible [2, 2, 2, 2] au seuil 1 échouait dans
+    scikit-learn avec un message qui dépendait du type des prédictions (« [0 2] » ou « [0. 2.] »).
+    """
+    y_train = cible if argument == "y_train" else Y_TRAIN
+    y_valid = cible if argument == "y_valid" else Y_VALID
+    with pytest.raises(ValueError) as erreur:
+        c.evaluate_classifier(
+            "stub", Pipeline([("model", Score())]), X_TRAIN, y_train, X_VALID, y_valid,
+            threshold=1.0,
+        )
+    assert str(erreur.value) == (
+        f"{argument} ne doit contenir que 0 (non converti) et 1 (converti) ; "
+        f"valeurs refusées : {refusees}"
+    )
+
+
+def test_evaluate_classifier_refuse_la_cible_avant_d_ajuster_le_modele():
+    """Une cible refusée l'est AVANT l'ajustement : le modèle n'a rien vu (état inchangé)."""
+    pipe = Pipeline([("model", Memoire())])
+    with pytest.raises(ValueError, match="y_valid ne doit contenir que 0"):
+        c.evaluate_classifier(
+            "m", pipe, X_TRAIN, Y_TRAIN, X_VALID, pd.Series([0, 1, 2, 1, 0]), threshold=0.5
+        )
+    assert not hasattr(pipe.named_steps["model"], "vu_x_")
+
+
+@pytest.mark.parametrize("type_cible", [t for t in TYPES_DE_CIBLE_ZERO_UN if t != "object"])
+def test_evaluate_classifier_accepte_toute_cible_zero_un(type_cible):
+    """Une cible 0 / 1 est admise quel que soit son type numérique (booléens, flottants, Int64,
+    catégories...) : mêmes métriques que la cible entière. Une seule classe est admise aussi.
+    (Une cible de type object passe ce refus, mais scikit-learn ne sait pas la classer.)
+
+    Une seule classe : que des 1 en apprentissage ; au seuil 0,5, le stub prédit 0, 1, 1, 0 :
+    TP = 2, FN = 2, aucun faux positif, donc F1 = 2 / 3.
+    """
+    reference, _ = c.evaluate_classifier(
+        "ref", Pipeline([("model", Score())]), X_TRAIN, Y_TRAIN, X_VALID, Y_VALID
+    )
+    metriques, _ = c.evaluate_classifier(
+        "ref",
+        Pipeline([("model", Score())]),
+        X_TRAIN,
+        Y_TRAIN.astype(type_cible),
+        X_VALID,
+        Y_VALID.astype(type_cible),
+    )
+    assert metriques == reference
+    une_classe, _ = c.evaluate_classifier(
+        "un",
+        Pipeline([("model", Score())]),
+        X_TRAIN,
+        pd.Series([1, 1, 1, 1]).astype(type_cible),
+        X_VALID,
+        Y_VALID.astype(type_cible),
+        threshold=0.5,
+    )
+    assert une_classe["train_f1"] == pytest.approx(2 / 3)
 
 
 def test_evaluate_classifier_predit_positif_quand_la_probabilite_egale_le_seuil():

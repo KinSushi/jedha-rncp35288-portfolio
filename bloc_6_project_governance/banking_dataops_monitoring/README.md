@@ -73,7 +73,7 @@ Mesures de la pile Docker du **11 octobre 2026** (PostgreSQL 16, Python 3.12, `-
 
 | Vérification | Commande | Résultat |
 |---|---|---|
-| Suite de tests | `pytest` | **<!--tests-fr-->545 réussis, 3 ignorés, 1 échec attendu (xfail), soit 549 cas<!--/tests-->** |
+| Suite de tests | `pytest` | **<!--tests-fr-->547 réussis, 3 ignorés, 1 échec attendu (xfail), soit 551 cas<!--/tests-->** |
 | Chemins interdits | `pytest tests/test_reverse_paths.py` | 12 réussis, 1 xfail (13 cas) |
 | Pipeline de bout en bout | `python run_pipeline.py --train` | code de sortie 0 : Bronze, nettoyage, ingestion, contrôles, Gold, modèle |
 | Vérification de démonstration | `python scripts/smoke_check.py` | **DEMO READY, 15 sur 15** |
