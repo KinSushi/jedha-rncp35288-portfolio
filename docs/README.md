@@ -13,3 +13,7 @@
 ## Boundary
 
 This repository is a sanitized public evidence portfolio. It must not contain private Jedha files, exam content, grades, certificates with identifiers or application material.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

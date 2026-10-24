@@ -1,8 +1,8 @@
-# Evidence Note — <title>
+# Evidence Note: <title>
 
 ## Block
 
-Bloc X — <name>
+Bloc X - <name>
 
 ## Artifact
 
@@ -19,6 +19,6 @@ Bloc X — <name>
 ## Public-safety review
 
 - [ ] synthetic/open data only;
-- [ ] no private school material;
+- [ ] no private certification material;
 - [ ] no employer/client data;
 - [ ] no secrets.

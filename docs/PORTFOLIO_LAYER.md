@@ -5,8 +5,8 @@
 | Field | Value |
 |---|---|
 | Portfolio layer | Certification evidence |
-| Public evidence | public sanitized six-block evidence map for RNCP Level 6 track |
-| Review command path | verify README, evidence index, public-safety rules and six block folders |
+| Public evidence | public sanitized ten-block evidence map: RNCP35288 (six blocks) and RNCP38777 (four blocks) |
+| Review command path | verify README, evidence index, public-safety rules and ten block folders |
 | Target environment | Regulated and data-intensive systems |
 | Public-safety rule | Synthetic or public data only; no applications, no secrets, no private documents |
 
@@ -22,4 +22,8 @@
 
 ## Public-safety boundary
 
-This repository is technical evidence. It must not contain CVs, cover letters, job trackers, salary targets, private school documents, real client data, employer data, secrets or production decisioning claims.
+This repository is technical evidence. It must not contain CVs, cover letters, job trackers, salary targets, private certification documents, real client data, employer data, secrets or production decisioning claims.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

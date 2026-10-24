@@ -1,4 +1,4 @@
-# Evidence Note — Bloc 5 — Industrialization / MLOps
+# Evidence Note: Bloc 5 - Industrialization / MLOps
 
 ## Status
 
@@ -25,3 +25,7 @@ Api serving, docker, mlflow, ci/cd, monitoring and runbooks.
 - [ ] no certificates with identifiers;
 - [ ] no real client/employer data;
 - [ ] no secrets.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

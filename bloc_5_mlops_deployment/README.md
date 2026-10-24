@@ -1,4 +1,4 @@
-# Bloc 5 — Industrialization / MLOps
+# Bloc 5 - Industrialization / MLOps
 
 ## Purpose
 
@@ -23,3 +23,7 @@ This folder organizes public sanitized evidence for API serving, Docker, MLflow,
 ## Public-safety note
 
 Do not publish private Jedha material, exam content, grades, private certificates, administrative documents, CVs, applications, secrets or real client/employer data.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

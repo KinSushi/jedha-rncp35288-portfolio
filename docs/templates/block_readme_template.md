@@ -1,4 +1,4 @@
-# Bloc X — <Block Name>
+# Bloc X - <Block Name>
 
 ## Purpose
 

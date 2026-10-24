@@ -1,8 +1,8 @@
-# Portfolio Brief — jedha-rncp35288-portfolio
+# Portfolio Brief: jedha-rncp35288-portfolio
 
 ## One-line summary
 
-Public sanitized evidence repository mapping two Jedha certification tracks to technical artifacts: the RNCP35288 Data Science track (six blocks: data infrastructure, EDA, ML, NLP, MLOps, project governance) and the RNCP38777 AI Architect track (four blocks: data & AI governance, AI data architecture, data pipelines for AI, AI solutions deployment).
+Public, sanitized evidence repository that maps two Jedha certifications to technical artifacts: RNCP35288 Data Science (six blocks: data infrastructure, EDA, ML, NLP, MLOps, project governance) and RNCP38777 AI Architect (four blocks: data & AI governance, AI data architecture, data pipelines for AI, AI solutions deployment).
 
 ---
 
@@ -29,7 +29,7 @@ No input dataset is published: [DONNEES.md](DONNEES.md) (in French) explains whe
 
 | Evidence | Signal |
 |---|---|
-| Ten-block structure (6 + 4) | ability to organize certification evidence cleanly across two tracks |
+| Ten-block structure (6 + 4) | ability to organize certification evidence cleanly across two certifications |
 | Public-safety rules | discretion and professional confidentiality |
 | Evidence index | traceability and review readiness |
 | Model/data governance templates | regulated-data maturity |
@@ -39,7 +39,7 @@ No input dataset is published: [DONNEES.md](DONNEES.md) (in French) explains whe
 
 ## Recruiter-readable message
 
-> This repository organizes sanitized technical evidence for a Data Science and AI Architect training path. It avoids private school documents and focuses on public technical artifacts: architecture, SQL, code, analysis, ML evaluation, MLOps, model cards, data cards, data and AI governance.
+> This repository organizes sanitized technical evidence for two certifications, Data Science (RNCP35288) and AI Architect (RNCP38777). It leaves out private certification documents and focuses on public technical artifacts: architecture, SQL, code, analysis, ML evaluation, MLOps, model cards, data cards, data and AI governance.
 
 ---
 
@@ -66,4 +66,4 @@ No input dataset is published: [DONNEES.md](DONNEES.md) (in French) explains whe
 
 ---
 
-*Copyright © 2026 · see the LICENSE file*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

@@ -115,4 +115,8 @@ Expected review notes:
 
 ## Boundary
 
-Public technical evidence only. No CVs, cover letters, salary targets, private school documents, grades, exams, real client data, employer data, credentials or production decisioning claims.
+Public technical evidence only. No CVs, cover letters, salary targets, private certification documents, grades, exams, real client data, employer data, credentials or production decisioning claims.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

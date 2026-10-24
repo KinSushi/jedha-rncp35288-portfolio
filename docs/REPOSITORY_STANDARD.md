@@ -36,7 +36,7 @@ Never commit:
 - real insurance or health data;
 - real client or employer data;
 - CVs, cover letters or job trackers;
-- private school documents, grades or exam content;
+- private certification documents, grades or exam content;
 - secrets, tokens, private IPs or hostnames;
 - production decisioning claims.
 
@@ -47,7 +47,11 @@ Before merging or pushing:
 - [ ] README still renders cleanly;
 - [ ] banner renders;
 - [ ] CI structural check passes;
-- [ ] no private school material is present;
+- [ ] no private certification material is present;
 - [ ] no private/application material is present;
 - [ ] docs match actual evidence;
 - [ ] screenshots are sanitized.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

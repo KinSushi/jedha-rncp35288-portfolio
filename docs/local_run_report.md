@@ -41,3 +41,7 @@ No forbidden private folders found.
 ```text
 Evidence index references all six blocks.
 ```
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

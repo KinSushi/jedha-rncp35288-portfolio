@@ -6,7 +6,7 @@
 
 <br/>
 
-**Public, sanitized technical evidence portfolio for the Jedha Data Science & AI certification track**
+**Public, sanitized technical evidence portfolio for two Jedha certifications: Data Science and AI Architect**
 
 RNCP35288 (Level 6, six blocks) + RNCP38777 AI Architect (Level 7, four blocks) / Data Infrastructure / EDA / ML / NLP / MLOps / Governance / AI Architecture
 
@@ -23,9 +23,9 @@ RNCP35288 (Level 6, six blocks) + RNCP38777 AI Architect (Level 7, four blocks) 
 
 ## Executive summary
 
-This repository is a public sanitized evidence portfolio for two Jedha certification tracks: the RNCP35288 Data Science track (Level 6, six blocks) and the RNCP38777 AI Architect track (Level 7, four blocks; renewed as RNCP41993).
+This repository gathers public, sanitized evidence for two Jedha certifications: RNCP35288 Data Science (Level 6, six blocks) and RNCP38777 AI Architect (Level 7, four blocks; renewed as RNCP41993).
 
-It is designed to organize technical evidence without publishing private school documents, exam materials, grades, certificates with personal identifiers, CPF documents, contracts, invoices or application material.
+It organizes technical evidence without publishing private certification documents, exam materials, grades, certificates with personal identifiers, CPF documents, contracts, invoices or application material.
 
 The portfolio maps technical artifacts to ten competency blocks:
 
@@ -48,7 +48,7 @@ Eight of the ten blocks now hold the technical work of their certification proje
 | Bloc 2 - EDA / statistics | Speed dating (pandas) and Steam (PySpark) | [bloc_2_eda_statistics](bloc_2_eda_statistics/) | published |
 | Bloc 3 - Machine learning | Walmart, Conversion and Uber | [bloc_3_machine_learning](bloc_3_machine_learning/) | published |
 | Bloc 4 - NLP / deep learning | SMS spam detector with deep learning | [bloc_4_nlp_deep_learning](bloc_4_nlp_deep_learning/) | published |
-| Bloc 5 - Industrialization / MLOps | — | [bloc_5_mlops_deployment](bloc_5_mlops_deployment/) | not published in this version |
+| Bloc 5 - Industrialization / MLOps | - | [bloc_5_mlops_deployment](bloc_5_mlops_deployment/) | not published in this version |
 | Bloc 6 - Project governance | banking-dataops-monitoring: quality control of synthetic banking data, run as a project | [bloc_6_project_governance](bloc_6_project_governance/) | published |
 
 ### AI Architect (RNCP38777)
@@ -58,7 +58,7 @@ Eight of the ten blocks now hold the technical work of their certification proje
 | AIA Bloc 1 - Data & AI governance | Governance plan for a music-streaming platform (summary) | [aia_bloc_1_data_ai_governance](aia_bloc_1_data_ai_governance/) | published (summary) |
 | AIA Bloc 2 - AI data architecture | Data architecture of a payment platform | [aia_bloc_2_ai_data_architecture](aia_bloc_2_ai_data_architecture/) | published |
 | AIA Bloc 3 - Data pipelines for AI | Real-time fraud detection pipeline | [aia_bloc_3_data_pipelines_for_ai](aia_bloc_3_data_pipelines_for_ai/) | published |
-| AIA Bloc 4 - AI solutions deployment | — | [aia_bloc_4_ai_solutions_deployment](aia_bloc_4_ai_solutions_deployment/) | not published in this version |
+| AIA Bloc 4 - AI solutions deployment | - | [aia_bloc_4_ai_solutions_deployment](aia_bloc_4_ai_solutions_deployment/) | not published in this version |
 
 Each published folder opens with a README written in French: problem, data, method, results (each figure points to the notebook cell or file that produces it), how to reproduce, and limitations.
 
@@ -72,7 +72,7 @@ Generated validation artifacts are available in:
 - [docs/screenshots.md](docs/screenshots.md)
 - [docs/VALIDATION.md](docs/VALIDATION.md)
 
-Current public validation checks the core evidence files. Future hardening will also verify absence of private file extensions and forbidden private folders.
+The validation workflow checks that the core evidence files and the ten block folders exist, and that no private document extension (.pdf, .docx, .xlsx, .pptx) or forbidden private folder is present.
 
 ---
 
@@ -106,7 +106,7 @@ Allowed:
 
 ---
 
-## Six-block evidence map — Data Science (RNCP35288)
+## Six-block evidence map: Data Science (RNCP35288)
 
 | Block | Public evidence folder | Technical signal |
 |---|---|---|
@@ -117,7 +117,7 @@ Allowed:
 | Bloc 5 - Industrialization / MLOps | [`bloc_5_mlops_deployment/`](bloc_5_mlops_deployment/) | API, Docker, MLflow, tests, monitoring |
 | Bloc 6 - Project governance | [`bloc_6_project_governance/`](bloc_6_project_governance/) | project charter, risk register, model/data governance |
 
-## Four-block evidence map — AI Architect (RNCP38777)
+## Four-block evidence map: AI Architect (RNCP38777)
 
 | Block | Public evidence folder | Technical signal |
 |---|---|---|
@@ -169,7 +169,7 @@ jedha-rncp35288-portfolio/
 
 ## How to use this repo
 
-1. Keep private school/admin documents outside GitHub.
+1. Keep private certification and administrative documents outside GitHub.
 2. Add only sanitized technical evidence.
 3. Link to dedicated project repos when evidence belongs there.
 4. Update `docs/evidence_index.md` after every added artifact.
@@ -181,7 +181,7 @@ jedha-rncp35288-portfolio/
 
 This repository is not:
 
-- a dump of school files;
+- a dump of certification files;
 - a private certificate folder;
 - a place for applications;
 - a place for grades;
@@ -192,7 +192,7 @@ This repository is not:
 
 ## Portfolio signal
 
-This repo proves structure, traceability and documentation discipline across the complete Data / MLOps certification track, while keeping sensitive material private.
+This repository shows structure, traceability and documentation discipline across both certifications, while keeping sensitive material private.
 
 ---
 
@@ -208,4 +208,6 @@ Detailed cross-repository context: [docs/PORTFOLIO_LAYER.md](docs/PORTFOLIO_LAYE
 
 ---
 
-*Copyright © 2026 · see the LICENSE file*
+Code and documents are released under the MIT License: see [LICENSE](LICENSE).
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

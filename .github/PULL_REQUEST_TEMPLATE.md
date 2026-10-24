@@ -21,7 +21,7 @@ Describe the technical change.
 - [ ] No generated CSV/model/output artifacts committed
 - [ ] No real banking, insurance, health, client or employer data
 - [ ] No CV, cover letter, job tracker or application material
-- [ ] No private school documents, grades or exam content
+- [ ] No private certification documents, grades or exam content
 - [ ] No secrets, tokens, private IPs or hostnames
 - [ ] Screenshots, if any, are sanitized
 

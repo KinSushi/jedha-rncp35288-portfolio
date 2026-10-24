@@ -30,9 +30,13 @@
 
 ## Pre-push checklist
 
-- [ ] no private school material;
+- [ ] no private certification material;
 - [ ] no application material;
 - [ ] no personal identifiers in certificates/screenshots;
 - [ ] no real client or employer data;
 - [ ] no secrets;
 - [ ] public wording is conservative and accurate.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

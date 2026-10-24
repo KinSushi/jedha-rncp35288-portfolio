@@ -10,7 +10,7 @@
 
 ## Public-safety
 
-- [ ] no private school documents;
+- [ ] no private certification documents;
 - [ ] no exam material;
 - [ ] no grades;
 - [ ] no CV/application content;
@@ -23,3 +23,7 @@
 - [ ] each artifact maps to technical skills;
 - [ ] non-goals are explicit;
 - [ ] repository is readable in 60 seconds.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

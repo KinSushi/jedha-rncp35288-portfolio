@@ -9,7 +9,7 @@ venv/
 .ruff_cache/
 *.egg-info/
 
-# Private school/admin material
+# Private certification/admin material
 private/
 school_documents/
 certificates_private/
