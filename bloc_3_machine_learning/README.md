@@ -1,4 +1,4 @@
-# Bloc 3 — Analyse prédictive de données structurées
+# Bloc 3 - Analyse prédictive de données structurées
 
 Trois études de cas d'apprentissage automatique sur données tabulaires, réalisées pour le bloc 3 de la certification **Concepteur Développeur en Science des Données** (RNCP35288) : une classification sur données déséquilibrées, une régression sur un petit jeu de données, et un clustering géographique suivi d'une prévision horaire.
 
@@ -31,8 +31,8 @@ Aucun fichier de données n'est publié dans ce dépôt. [`DONNEES.md`](DONNEES.
 
 | Projet | Jeu de données | Taille | Pourquoi il n'est pas ici |
 |---|---|---|---|
-| Walmart | Ventes hebdomadaires de magasins, indicateurs économiques (température, prix du carburant, CPI, chômage) | 150 lignes, 8 colonnes, 20 magasins | Fourni avec l'énoncé du projet par l'organisme de formation |
-| Conversion | Visiteurs d'un site : pays, âge, nouveau visiteur ou non, canal d'arrivée, nombre de pages vues ; cible `converted` | 284 580 lignes d'apprentissage, 31 620 de test | Fourni avec l'énoncé du challenge par l'organisme de formation |
+| Walmart | Ventes hebdomadaires de magasins, indicateurs économiques (température, prix du carburant, CPI, chômage) | 150 lignes, 8 colonnes, 20 magasins | Fourni avec l'énoncé du projet |
+| Conversion | Visiteurs d'un site : pays, âge, nouveau visiteur ou non, canal d'arrivée, nombre de pages vues ; cible `converted` | 284 580 lignes d'apprentissage, 31 620 de test | Fourni avec l'énoncé du challenge |
 | Uber | Prises en charge à New York, avril à septembre 2014 : date et heure, latitude, longitude, base | 4 534 327 courses ; six fichiers CSV d'environ 210 Mo au total (archive compressée : environ 101 Mo) | Publiques (FiveThirtyEight), mais la source n'affiche pas de licence ; voir [`3_Uber/LIRE_DONNEES.md`](3_Uber/LIRE_DONNEES.md) |
 
 Sources des tailles : notebook Walmart, cellules 4 et 5 ; notebook Conversion, cellule 6 ; notebook Uber, cellule 4, et, pour les octets, le tableau des empreintes de [`3_Uber/LIRE_DONNEES.md`](3_Uber/LIRE_DONNEES.md) (six fichiers de 26 110 064 à 47 540 750 octets, 209 715 627 au total ; archive de 101 042 186 octets).
@@ -49,7 +49,7 @@ Restent affichés : les dimensions, les statistiques descriptives (Walmart, cell
 
 ---
 
-## 1. Conversion — qualifier les visiteurs qui vont s'abonner
+## 1. Conversion : qualifier les visiteurs qui vont s'abonner
 
 **Problème.** Prédire l'abonnement à une newsletter et comprendre les facteurs associés. La classe positive est rare : **3,23 %** de convertis sur 284 580 visiteurs (cellule 11 ; `summary_results.json`, `conversion_rate_train`). Une référence qui ne prédit jamais de conversion obtient déjà 96,77 % d'exactitude et un F1 nul (cellule 27) : l'exactitude n'est donc pas le critère, le F1 l'est.
 
@@ -74,7 +74,7 @@ Le F1 de 0,7768 est mesuré sur la validation qui a aussi servi à choisir le se
 
 ---
 
-## 2. Walmart — prévoir les ventes hebdomadaires d'un magasin
+## 2. Walmart : prévoir les ventes hebdomadaires d'un magasin
 
 **Problème.** Prédire `Weekly_Sales` à partir du magasin, du calendrier et du contexte économique, avec au moins une régression linéaire, un modèle régularisé et des prétraitements imposés : suppression des cibles manquantes, variables de date, retrait des valeurs hors de la moyenne ± 3 écarts-types.
 
@@ -102,7 +102,7 @@ Le F1 de 0,7768 est mesuré sur la validation qui a aussi servi à choisir le se
 
 ---
 
-## 3. Uber — localiser la demande et prévoir les courses
+## 3. Uber : localiser la demande et prévoir les courses
 
 **Problème.** Recommander aux chauffeurs les zones de forte demande selon le jour et l'heure : **où** (clustering en hot-zones) et **combien** (prévision par zone et par heure, comparée à la règle en place).
 
@@ -228,3 +228,7 @@ bloc_3_machine_learning/
     ├── tests/
     └── requirements.txt, requirements-dev.txt, pytest.ini, ruff.toml
 ```
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*
