@@ -1,10 +1,10 @@
 # Obtenir les données d'entrée
 
-Ce projet de gouvernance ne traite aucun jeu de données. Il s'appuie sur deux documents pédagogiques, qui ne sont pas redistribués ici :
+Ce projet de gouvernance ne traite aucun jeu de données. Il s'appuie sur deux documents fournis avec l'énoncé du projet, qui ne sont pas redistribués ici :
 
 | Document | Contenu | Accès |
 |---|---|---|
-| Étude de cas | Description d'une plateforme mondiale de streaming musical et de ses enjeux de données | Fournie aux apprenants inscrits au parcours, avec l'énoncé du projet |
+| Étude de cas | Description d'une plateforme mondiale de streaming musical et de ses enjeux de données | Fournie avec l'énoncé du projet |
 | Liste de conformité | Exigences à couvrir au titre du RGPD, du CCPA et de PCI-DSS | Fournie avec l'étude de cas |
 
 Les textes officiels cités dans le plan sont publics :

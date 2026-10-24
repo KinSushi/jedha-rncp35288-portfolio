@@ -1,8 +1,8 @@
-# AIA Bloc 1 — Gouvernance des données et des systèmes d'IA
+# AIA Bloc 1 - Gouvernance des données et des systèmes d'IA
 
 Plan de gouvernance des données et des systèmes d'intelligence artificielle pour une plateforme mondiale de streaming musical, réalisé pour le bloc 1 de la certification Architecte en intelligence artificielle (RNCP38777, renouvelée sous le RNCP41993) : « Concevoir et piloter la gouvernance des données et des systèmes d'IA ».
 
-> **Nature du travail.** Il s'agit d'une étude de cas pédagogique. Le plan ne décrit pas la gouvernance réelle de l'entreprise étudiée et ne s'appuie sur aucune donnée interne de cette entreprise. Les éléments de contexte viennent de l'étude de cas ; tout ce qui n'y figure pas est posé comme hypothèse numérotée (H1 à H13) et signalé comme tel.
+> **Nature du travail.** Il s'agit d'une étude de cas. Le plan ne décrit pas la gouvernance réelle de l'entreprise étudiée et ne s'appuie sur aucune donnée interne de cette entreprise. Les éléments de contexte viennent de l'étude de cas ; tout ce qui n'y figure pas est posé comme hypothèse numérotée (H1 à H13) et signalé comme tel.
 
 ## En bref
 
@@ -26,11 +26,11 @@ L'étude de cas décrit une entreprise dont le produit repose sur la recommandat
 
 Le projet ne traite aucun jeu de données. Ses entrées sont :
 
-- **l'étude de cas** (document pédagogique) ;
+- **l'étude de cas**, fournie avec l'énoncé du projet ;
 - **une liste de conformité** fournie avec l'étude de cas, qui couvre le RGPD, le CCPA et PCI-DSS ;
 - **les textes officiels** cités dans le plan (RGPD, AI Act, DSA, CCPA, lignes directrices et normes de sécurité des cartes de paiement).
 
-L'étude de cas et la liste de conformité appartiennent à l'organisme de formation : elles ne sont **pas redistribuées** ici. Le fichier [`OBTENIR_LES_DONNEES.md`](OBTENIR_LES_DONNEES.md) explique comment y accéder. Aucune donnée personnelle n'est utilisée.
+L'étude de cas et la liste de conformité ne sont **pas redistribuées** ici. Le fichier [`OBTENIR_LES_DONNEES.md`](OBTENIR_LES_DONNEES.md) explique comment y accéder. Aucune donnée personnelle n'est utilisée.
 
 ## 3. Méthode
 
@@ -106,7 +106,7 @@ Le travail est un raisonnement documenté ; ce qui se reproduit, ce sont ses cal
 | Livrable | Disponibilité |
 |---|---|
 | Ce résumé et ses deux figures | Dans ce dossier |
-| Plan de gouvernance complet et présentation de synthèse | Non publiés : ils reprennent des éléments de l'étude de cas et du support de formation, qui ne sont pas redistribuables |
+| Plan de gouvernance complet et présentation de synthèse | Non publiés : ils reprennent des éléments de l'étude de cas et d'autres documents de l'énoncé, qui ne sont pas redistribuables |
 
 ## Compétences démontrées
 
@@ -117,3 +117,7 @@ Le travail est un raisonnement documenté ; ce qui se reproduit, ce sont ses cal
 - conformité et IA responsable : RGPD, CCPA, PCI-DSS, AI Act, DSA, biais et transparence de la recommandation ;
 - formation inclusive, y compris pour les personnes en situation de handicap ;
 - indicateurs, audits, amélioration continue et veille.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*
