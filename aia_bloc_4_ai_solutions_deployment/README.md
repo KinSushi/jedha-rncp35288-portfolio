@@ -1,8 +1,8 @@
-# AIA Bloc 4 — AI Solutions: Industrialization, Deployment & Monitoring
+# AIA Bloc 4 - AI Solutions: Industrialization, Deployment & Monitoring
 
 ## Purpose
 
-This folder organizes public, sanitized evidence for the industrialization block of the AI Architect track (RNCP38777, renewed as RNCP41993): building, deploying and steering an AI solution in production.
+This folder organizes public, sanitized evidence for the industrialization block of the AI Architect certification (RNCP38777, renewed as RNCP41993): building, deploying and steering an AI solution in production.
 
 ## Evidence
 
@@ -10,7 +10,7 @@ This folder organizes public, sanitized evidence for the industrialization block
 |---|---|---|
 | Block README | `README.md` | Present |
 | Detailed evidence note | `docs/evidence_note.md` | Present |
-| End-to-end solution: daily data chain feeding a sentiment model on product reviews (Final Project, Data Lead, 25 Sept 2026) | Personal repository `reviewpulse-pipeline` — public link to be added once the repository is opened | In progress |
+| End-to-end solution: daily data chain feeding a sentiment model on product reviews | Personal repository `reviewpulse-pipeline` (public link to be added once the repository is opened) | In progress |
 | Solution presentation (infrastructure choices, deployment strategy, monitoring plan, technology note) | Link to be added | In progress |
 | Video capture of the solution running in production | Link to be added | In progress |
 
@@ -29,4 +29,4 @@ No private course, exam, grade, certificate or administrative material belongs h
 
 ---
 
-*Copyright © 2026 · see the LICENSE file*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

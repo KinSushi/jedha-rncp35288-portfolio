@@ -1,12 +1,12 @@
-# Evidence Note — AIA Bloc 4 — AI Solutions: Industrialization, Deployment & Monitoring
+# Evidence Note: AIA Bloc 4 - AI Solutions: Industrialization, Deployment & Monitoring
 
 ## Block
 
-AIA Bloc 4 — Design and steer the industrialization and deployment of AI solutions.
+AIA Bloc 4: design and steer the industrialization and deployment of AI solutions.
 
 ## Artifact
 
-`reviewpulse-pipeline` (personal repository, currently private): a daily data chain — ingestion, transformation with quality checks, scoring by a versioned model, API and dashboard — orchestrated and containerized, presented at the Data Lead Demo Day on 25 September 2026. The public link will be added here once the repository is opened.
+`reviewpulse-pipeline` (personal repository, currently private): a daily data chain (ingestion, transformation with quality checks, scoring by a versioned model, API and dashboard), orchestrated and containerized. The public link will be added here once the repository is opened.
 
 ## What this proves
 
@@ -19,10 +19,10 @@ Once published: README first, then the architecture document, the model card and
 ## Public-safety review
 
 - [ ] synthetic/open data only;
-- [ ] no private school material;
+- [ ] no private certification material;
 - [ ] no employer/client data;
 - [ ] no secrets.
 
 ---
 
-*Copyright © 2026 · see the LICENSE file*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*
