@@ -1,4 +1,4 @@
-# Note de preuve — Bloc 4 — Analyse prédictive de données non structurées
+# Note de preuve : bloc 4, analyse prédictive de données non structurées
 
 ## Statut
 
@@ -19,3 +19,7 @@ Préparation de textes courts, réseaux de neurones entraînés de zéro (TextCN
 | Obtention des données | [`README.md`](../README.md), section « Données » |
 
 Le corpus de SMS n'est pas redistribué : les sorties du notebook qui recopiaient un SMS du corpus sont remplacées par un marqueur.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

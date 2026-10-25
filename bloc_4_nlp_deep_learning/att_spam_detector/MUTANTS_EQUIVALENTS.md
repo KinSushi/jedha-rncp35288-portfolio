@@ -1,4 +1,4 @@
-# Mutants équivalents — paquet `att_spam`
+# Mutants équivalents : paquet `att_spam`
 
 Mesure : `mutmut` 3, sous Linux, sur les cinq modules du paquet
 (`donnees.py`, `reseaux.py`, `bert.py`, `gan.py`, `evaluation.py`), avec leurs tests

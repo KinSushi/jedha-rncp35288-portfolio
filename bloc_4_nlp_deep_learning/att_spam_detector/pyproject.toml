@@ -1,7 +1,7 @@
 [project]
 name = "att-spam"
 version = "1.0.0"
-description = "Détecteur de SMS indésirables (AT&T) — bloc 4 CDSD, apprentissage profond"
+description = "Détecteur de SMS indésirables (AT&T), bloc 4 CDSD, apprentissage profond"
 requires-python = ">=3.12"
 
 [tool.pytest.ini_options]

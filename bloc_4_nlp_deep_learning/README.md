@@ -20,7 +20,7 @@ Les classes sont déséquilibrées : un modèle qui répondrait toujours « lég
 
 ## 2. Données
 
-**Le fichier de données n'est pas publié ici.** Le corpus a été fourni par l'organisme de formation avec l'énoncé du projet ; le droit de le redistribuer n'est pas établi. Ni le fichier, ni son adresse de téléchargement ne figurent donc dans ce dépôt.
+**Le fichier de données n'est pas publié ici.** Le corpus a été fourni avec l'énoncé du projet ; le droit de le redistribuer n'est pas établi. Ni le fichier, ni son adresse de téléchargement ne figurent donc dans ce dépôt.
 
 | Élément | Valeur | Source |
 |---|---|---|
@@ -29,7 +29,7 @@ Les classes sont déséquilibrées : un modèle qui répondrait toujours « lég
 | Doublons exacts retirés **avant** tout découpage | 403 | idem |
 | SMS uniques | 5 169 : 4 516 légitimes, 653 spams (12,6 %) | idem |
 
-**Obtenir les données.** Le fichier se trouve parmi les ressources de l'énoncé du projet AT&T Spam Detector, fournies par l'organisme de formation à ses apprenants. Placer le fichier sous le nom `spam.csv` dans `att_spam_detector/`, à côté du notebook. Format attendu par `charger_sms` ([`att_spam/donnees.py`](att_spam_detector/att_spam/donnees.py)) : CSV encodé en `latin-1`, colonnes `v1` (étiquette) et `v2` (texte), plus trois colonnes `Unnamed: 2` à `Unnamed: 4` qui portent les morceaux de SMS coupés aux virgules. Pour vérifier que l'on a le même fichier que celui des résultats ci-dessous : 503 663 octets, empreinte SHA-256 `440e6ea9fa825578abfdd7b7932ef8393d72ef86c0c33f64676705ce40b1dfc2`. Le [`.gitignore`](att_spam_detector/.gitignore) du projet l'exclut, pour qu'il ne soit pas publié par erreur. Sans ce fichier, le notebook ne peut pas être rejoué ; ses sorties enregistrées restent lisibles.
+**Obtenir les données.** Le fichier se trouve parmi les ressources de l'énoncé du projet AT&T Spam Detector. Placer le fichier sous le nom `spam.csv` dans `att_spam_detector/`, à côté du notebook. Format attendu par `charger_sms` ([`att_spam/donnees.py`](att_spam_detector/att_spam/donnees.py)) : CSV encodé en `latin-1`, colonnes `v1` (étiquette) et `v2` (texte), plus trois colonnes `Unnamed: 2` à `Unnamed: 4` qui portent les morceaux de SMS coupés aux virgules. Pour vérifier que l'on a le même fichier que celui des résultats ci-dessous : 503 663 octets, empreinte SHA-256 `440e6ea9fa825578abfdd7b7932ef8393d72ef86c0c33f64676705ce40b1dfc2`. Le [`.gitignore`](att_spam_detector/.gitignore) du projet l'exclut, pour qu'il ne soit pas publié par erreur. Sans ce fichier, le notebook ne peut pas être rejoué ; ses sorties enregistrées restent lisibles.
 
 **Données personnelles.** Les SMS sont des communications privées ; le corpus contient des numéros, des adresses et des prénoms. Avant tout apprentissage, pour **tous** les modèles, la plupart des numéros, liens et montants sont remplacés par des jetons génériques ; les limites de cette minimisation sont écrites dans le notebook (§ 10).
 
@@ -211,3 +211,7 @@ att_spam_detector/
 ## 8. Licence
 
 Code, tests et notebook : licence du dépôt, voir le fichier [`LICENSE`](../LICENSE) à sa racine. Le corpus de SMS n'est pas couvert par cette licence et n'est pas publié ici ; DistilBERT, téléchargé à l'exécution, relève des conditions de son propre dépôt.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*
