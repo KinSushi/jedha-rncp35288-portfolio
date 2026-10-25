@@ -4,7 +4,8 @@
 - mention de droits d'auteur dans chaque fichier du livrable (en tête pour le code, en pied de
   page pour les documents Markdown) ;
 - aucun caractère d'encodage corrompu (les accents français doivent être intacts) ;
-- les documents demandés existent et chaque diagramme est suivi de sa description textuelle.
+- aucune mention d'outil d'intelligence artificielle ni de ligne de co-signature de commit ;
+- les treize documents demandés existent et chaque diagramme est suivi de sa description textuelle.
 
 Une règle qui ne sait rien refuser serait toujours verte : chacune est écrite comme une fonction
 `exiger_...` (elle lève `AssertionError` quand le texte la viole), appliquée aux vrais fichiers,
@@ -40,7 +41,7 @@ DOCUMENTS = [
     "03_olap_schema.md", "04_nosql_modele.md", "05_pipeline.md", "06_securite_conformite.md",
     "07_integration_ml.md", "08_requetes.md", "09_dimensionnement_finops_greenops.md",
     "10_continuite_supervision_maintenance.md", "11_interfaces_responsabilites.md",
-    "13_couverture_et_limites.md",
+    "13_couverture_et_limites.md",  # 12_script_video.md : non publié dans ce dépôt
 ]
 
 
@@ -62,6 +63,17 @@ def _id(chemin: Path) -> str:
     return str(chemin.relative_to(RACINE)).replace("\\", "/")
 
 
+def _motifs_interdits() -> list[re.Pattern]:
+    """Noms d'outils et lignes de co-signature interdits ; assemblés pour que ce fichier ne les
+    contienne pas lui-même en clair."""
+    morceaux = [
+        ("Cl", "aude"), ("Anthr", "opic"), ("Chat", "GPT"), ("Open", "AI"), ("Cop", "ilot"),
+        ("Gem", "ini"), ("Mist", "ral"), ("Llam", "a"), ("Co-Auth", "ored-By"),
+        ("Generat", "ed with"),
+    ]
+    return [re.compile(re.escape("".join(m)), re.I) for m in morceaux]
+
+
 # ---------------------------------------------------------------- règles
 
 
@@ -78,6 +90,11 @@ def exiger_mention_de_droits(suffixe: str, texte: str) -> None:
 def exiger_encodage_intact(texte: str) -> None:
     for corrompu in SEQUENCES_CORROMPUES:
         assert corrompu not in texte, f"caractère corrompu {corrompu!r}"
+
+
+def exiger_aucune_mention_d_outil_d_ia(texte: str) -> None:
+    for motif in _motifs_interdits():
+        assert not motif.search(texte), f"mention interdite : {motif.pattern}"
 
 
 def exiger_checkov_sans_echec(texte: str) -> None:
@@ -133,6 +150,16 @@ def test_encodage_et_accents_intacts(chemin):
     for sequence in SEQUENCES_CORROMPUES:
         with pytest.raises((AssertionError, KeyError, ValueError)):
             exiger_encodage_intact(texte + "\n" + sequence)
+
+
+@pytest.mark.parametrize("chemin", FICHIERS, ids=_id)
+def test_aucune_mention_d_outil_d_ia(chemin):
+    texte = chemin.read_text(encoding="utf-8")
+    exiger_aucune_mention_d_outil_d_ia(texte)
+
+    for outil in ("Cl" + "aude", "Chat" + "GPT", "Co-Auth" + "ored-By"):
+        with pytest.raises((AssertionError, KeyError, ValueError)):
+            exiger_aucune_mention_d_outil_d_ia(texte + "\n" + outil)
 
 
 # ---------------------------------------------------------------- les documents demandés
