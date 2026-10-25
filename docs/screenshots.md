@@ -4,7 +4,3 @@ Generated from public evidence validation in GitHub Actions.
 
 - [validation-preview.svg](screenshots/validation-preview.svg)
 - [validation-output.html](screenshots/validation-output.html)
-
----
-
-*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

@@ -3,5 +3,5 @@
 <rect width="1280" height="900" rx="26" fill="#07111F"/>
 <text x="60" y="52" class="title">jedha-rncp35288-portfolio</text>
 <text x="60" y="78" class="sub">Public evidence validation - six blocks and safety boundary</text>
-<text x="60" y="90" class="mono">required-file-checks: PASS exit=0</text><text x="60" y="116" class="mono">six-block-folder-checks: PASS exit=0</text><text x="60" y="142" class="mono">private-document-extension-scan: PASS exit=0</text><text x="60" y="168" class="mono">private-folder-scan: PASS exit=0</text><text x="60" y="194" class="mono">evidence-index-block-coverage: PASS exit=0</text>
+<text x="60" y="90" class="mono">required-file-checks: PASS exit=0</text><text x="60" y="116" class="mono">ten-block-folder-checks: PASS exit=0</text><text x="60" y="142" class="mono">private-document-extension-scan: PASS exit=0</text><text x="60" y="168" class="mono">private-folder-scan: PASS exit=0</text><text x="60" y="194" class="mono">evidence-index-block-coverage: PASS exit=0</text>
 </svg>
