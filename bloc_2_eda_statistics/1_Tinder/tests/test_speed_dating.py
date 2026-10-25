@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests des fonctions du notebook Tinder (`speed_dating.py`).
 
 Chaque test calcule le résultat attendu À LA MAIN (petit tableau, formule écrite en clair) :

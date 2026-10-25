@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Réglages communs des tests : à lire avant tout import de jupyter.
 
 jupyter_core 5.x émet un `DeprecationWarning` à l'import tant que la variable

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Bibliothèques du notebook Speed_Dating_Bloc2_CDSD.ipynb (imports de la cellule 2).
 # Versions épinglées : celles de l'environnement Python 3.12.14 (version inscrite dans les
 # métadonnées du notebook) qui a produit les sorties enregistrées. Réexécuté le 17/10/2026 dans

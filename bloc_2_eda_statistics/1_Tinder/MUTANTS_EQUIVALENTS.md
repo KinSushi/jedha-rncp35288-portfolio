@@ -1,9 +1,11 @@
 # Mutants équivalents : `speed_dating.py`
 
-**Aucun mutant équivalent.** Mesure du 19/10/2026 sur le module entier (mutmut 3,
-tests `tests/test_speed_dating.py`) : **328 mutants, 328 tués,
+**Aucun mutant équivalent.** Mesure du 19/10/2026 sur le module entier (mutmut 3, lancé sous WSL,
+le sous-système Windows pour Linux ; tests `tests/test_speed_dating.py`) : **328 mutants, 328 tués,
 aucun survivant**, aucun dépassement de délai. Le seul survivant nommé jusqu'ici (ci-dessous) est
 tué par un test depuis la reprise du 17/10/2026. La mesure en vigueur est celle du 19/10/2026.
+
+Un mutant est dit équivalent quand aucun test ne peut le distinguer du code d'origine.
 
 ## Historique : le mutant `disp=None`, d'abord tenu pour équivalent
 
@@ -19,3 +21,5 @@ Les quinze autres survivants de la première mesure du 17/10 (283 tués sur 299)
 disparu : tués par des tests ajoutés (index et type des préférences normalisées, covariance
 « cluster », d de Cohen sans unité, V de Cramér sur un tableau 3 × 3), ou supprimés avec le code
 inutile qu'ils mutaient (retrait de « .00 », conversion des identifiants en entiers).
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

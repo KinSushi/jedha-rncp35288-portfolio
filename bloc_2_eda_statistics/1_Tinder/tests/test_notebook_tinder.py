@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Test d'intégration : le notebook Tinder se rejoue en entier et redonne les chiffres du jury.
 
 Le notebook est copié avec son module et ses données dans un dossier temporaire, puis exécuté
@@ -90,7 +90,7 @@ def test_notebook_rejoue_les_chiffres_du_jury(notebook_execute: nbformat.Noteboo
         # ce qui fait dire oui (section 4) : rapports de cotes de l'attirance, femmes puis hommes
         "{'attr_z': 2.24,",
         "{'attr_z': 3.48,",
-        "Différence hommes - femmes du coefficient de l'attirance : "
+        "Différence hommes moins femmes du coefficient de l'attirance : "
         "+0.439 (log-cote), p = 1.03e-03",
         # le contre-exemple de la pseudo-réplication (test d)
         "Rendez-vous : 4105 ; écart-type de int_corr : 0.304",
