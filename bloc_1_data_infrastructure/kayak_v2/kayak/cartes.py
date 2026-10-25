@@ -18,7 +18,7 @@ CHOIX
 - **Retenu : une carte resserrée par destination pour le top 20.** *Écarté* : une vue France
   entière, où les hôtels tenaient dans quelques pixels.
 - **Retenu : calculer le zoom en pixels** (le monde mesure 512 × 2^z pixels, projection de
-  Mercator, marge de chaque côté). *Écarté* : l'ancien calcul ``log2(360 / étendue) − 1``, qui
+  Mercator, marge de chaque côté). *Écarté* : l'ancien calcul ``log2(360 / étendue) - 1``, qui
   laissait deux niveaux de zoom de trop (la moitié de l'Europe pour cinq villes du Sud).
 - **Retenu : écarter les pastilles qui se chevauchent** (``ecarter_marqueurs``) et relier chacune
   à la vraie position de l'hôtel par un trait. *Écarté* : laisser les pastilles se recouvrir, où
@@ -143,7 +143,7 @@ def cadrage(
     Le zoom est calculé en pixels : sur une carte web, à un zoom z le monde entier (2π radians de
     longitude) mesure 512 × 2^z pixels ; on prend le plus grand zoom pour lequel l'étendue des
     points, en projection de Mercator, tient dans la surface utile (taille de la carte moins la
-    marge de chaque côté). L'ancien calcul « log2(360 / étendue) − 1 » laissait deux niveaux de
+    marge de chaque côté). L'ancien calcul « log2(360 / étendue) - 1 » laissait deux niveaux de
     zoom de trop : la vue montrait la moitié de l'Europe pour cinq villes du Sud.
 
     ``marge`` : part de chaque côté laissée vide (0,12 = 12 %). ``zoom_max`` empêche un zoom

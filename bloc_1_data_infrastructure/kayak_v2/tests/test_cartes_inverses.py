@@ -455,7 +455,7 @@ def test_carte_destinations_contenu_exact_par_defaut():
     assert (legende.x, legende.y, legende.yanchor) == (0.01, 0, "top")
     assert (legende.bgcolor, legende.font.size) == ("rgba(255,255,255,0)", 14)
     assert disposition.map.style == "open-street-map"
-    attendu = cadrage(VILLES.head(5), 1100, 565)  # 750 − 50 (titre) − 135 (légende)
+    attendu = cadrage(VILLES.head(5), 1100, 565)  # 750 - 50 (titre) - 135 (légende)
     assert disposition.map.center.lat == pytest.approx(attendu["center"]["lat"])
     assert disposition.map.center.lon == pytest.approx(attendu["center"]["lon"])
     assert disposition.map.zoom == pytest.approx(attendu["zoom"])
@@ -521,7 +521,7 @@ def test_carte_destinations_options_top_taille_et_couleurs_cycliques():
         attendu = cadrage(VILLES.head(nombre), largeur, hauteur_carte)
         assert fig.layout.map.zoom == pytest.approx(attendu["zoom"]), options
         assert fig.layout.map.center.lat == pytest.approx(attendu["center"]["lat"]), options
-    # Villes alignées nord-sud : la hauteur de la carte (image − 50 de titre − 135 de légende)
+    # Villes alignées nord-sud : la hauteur de la carte (image - 50 de titre - 135 de légende)
     # limite alors le zoom.
     alignees = VILLES.head(3).assign(latitude=[42.0, 45.5, 49.0], longitude=2.0)
     for options, hauteur_carte in [({}, 565), ({"largeur": 900, "hauteur": 600}, 415)]:
@@ -901,7 +901,7 @@ def test_selection_cles_de_tri_dans_l_ordre_et_manquants_en_dernier():
 
 
 def test_selection_top_borne_les_hotels_et_numerote_de_1_a_n():
-    """``top`` borne le résultat (20 par défaut) ; les rangs vont de 1 à n et l'index de 0 à n−1."""
+    """``top`` borne le résultat (20 par défaut) ; les rangs vont de 1 à n et l'index de 0 à n-1."""
     hotels = _hotels()
     ordre_complet = selectionner_top_hotels(hotels, VILLES, top=25)["hotel_id"].tolist()
     attendus = [(None, 20), (1, 1), (3, 3), (20, 20), (25, 25), (30, 25)]
@@ -1315,7 +1315,7 @@ def test_carte_hotels_titre_sous_titre_et_dimensions():
     sous = fig.layout.annotations[-1]
     assert sous.text == sous_titre
     assert (sous.x, sous.xref, sous.yref, sous.yanchor) == (0.5, "paper", "paper", "bottom")
-    assert sous.y == pytest.approx(1 + 40 / 900)  # 1050 − 140 − 10 pixels utiles
+    assert sous.y == pytest.approx(1 + 40 / 900)  # 1050 - 140 - 10 pixels utiles
     assert (sous.showarrow, sous.align, sous.font.size, sous.font.color) == (
         False,
         "center",

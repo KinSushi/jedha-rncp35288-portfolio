@@ -154,6 +154,35 @@ def source(tmp_path: Path) -> Path:
 
 
 @pytest.fixture
+def encodage_implicite_non_utf8():
+    """Remplace l'encodage implicite par ASCII, comme sous Windows en cp1252.
+
+    ``Path.write_text(data, encoding=None)`` et ``Path.read_text(encoding=None)`` demandent
+    à ``io.text_encoding`` l'encodage par défaut. Sous Linux, Python 3.7+ active le mode UTF-8
+    (PEP 540) : l'encodage implicite y est toujours UTF-8, comme l'encodage explicite du
+    code, et une empreinte non ASCII s'écrit dans les deux cas de la même façon. Ce test
+    remet l'encodage implicite à une valeur qui ne sait pas écrire un accent, et vérifie
+    alors que la marque du cache est bien écrite en UTF-8.
+
+    Sans ce test, un mutant qui retire ``encoding="utf-8"`` de la lecture ou de l'écriture de
+    la marque est indiscernable de l'original, et la liste des mutants équivalents le déclare
+    équivalent à tort.
+    """
+    original = io.text_encoding
+
+    def text_encoding(encoding: str | None, *args: object, **kwargs: object) -> str:
+        if encoding is None:
+            return "ascii"
+        return original(encoding, *args, **kwargs)  # type: ignore[arg-type]
+
+    io.text_encoding = text_encoding  # type: ignore[assignment]
+    try:
+        yield
+    finally:
+        io.text_encoding = original  # type: ignore[assignment]
+
+
+@pytest.fixture
 def lake(racine: Path) -> DataLake:
     """Data lake local, sans bucket."""
     return DataLake(bucket=None, prefixe="kayak", racine_locale=racine)
@@ -728,6 +757,39 @@ def test_s3_chemin_local_cache_valide_reste_intact_et_n_est_pas_retelecharge(
     assert lake_s3.chemin_local("raw/a/f.csv") == cible
     assert faux_client.appels == [("head_object", "kayak/raw/a/f.csv")]
     assert cible.stat().st_mtime_ns == modifie_avant
+
+
+def test_s3_marque_du_cache_ecrite_en_utf8_meme_si_l_encodage_implicite_est_autre(
+    lake_s3, faux_client, encodage_implicite_non_utf8
+):
+    """La marque porte l'empreinte en UTF-8, quel que soit l'encodage implicite.
+
+    L'empreinte est « ETag sans guillemets|LastModified » : elle n'est ASCII que si l'en-tête
+    de l'objet l'est, et ``LastModified`` peut contenir un accent. Sans ``encoding="utf-8"``,
+    l'écriture suivrait l'encodage implicite, qui ne sait pas toujours écrire un accent.
+    """
+    lake_s3.ecrire("raw/a/f.csv", "a,b\n1,2\n")
+    faux_client.entetes_forces = {"ETag": '"abc"', "LastModified": "dimanche été"}
+    cible = lake_s3.chemin_local("raw/a/f.csv")
+    marque = cible.with_name(cible.name + ".empreinte")
+    assert marque.read_bytes() == "abc|dimanche été".encode()  # UTF-8 par defaut
+
+
+def test_s3_cache_reutilise_meme_si_l_encodage_implicite_est_autre(
+    lake_s3, faux_client, encodage_implicite_non_utf8
+):
+    """Objet inchangé, date non ASCII : le second appel réutilise le cache.
+
+    La marque relue avec un encodage implicite qui ne sait pas lire un accent ne serait pas
+    égale à l'empreinte : l'objet serait retéléchargé à chaque appel, sans message.
+    """
+    lake_s3.ecrire("raw/a/f.csv", "a,b\n1,2\n")
+    faux_client.entetes_forces = {"ETag": '"abc"', "LastModified": "dimanche été"}
+    premier = lake_s3.chemin_local("raw/a/f.csv")
+    faux_client.appels.clear()
+    second = lake_s3.chemin_local("raw/a/f.csv")
+    assert second == premier
+    assert faux_client.appels == [("head_object", "kayak/raw/a/f.csv")]
 
 
 def test_s3_chemin_local_deux_objets_gardent_chacun_leur_cache_intact(lake_s3, faux_client):

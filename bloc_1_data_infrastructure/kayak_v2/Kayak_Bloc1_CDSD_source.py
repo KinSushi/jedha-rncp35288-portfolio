@@ -443,7 +443,7 @@ hotels_osm[["ville", "nom", "etoiles", "commune", "adresse", "url"]].head(8)
 # (`explode`), agrège la météo par ville (`groupBy`), contrôle la qualité (coordonnées hors de
 # France, notes hors échelle, doublons : chaque anomalie est **comptée** avant d'être
 # corrigée) et calcule le score météo (moyenne de scores z : chaleur +, ensoleillement +,
-# pluie −). Pour les hôtels, il ajoute :
+# pluie -). Pour les hôtels, il ajoute :
 #
 # - la **distance au centre de la destination** (formule de haversine) ;
 # - le rattachement de chaque hôtel à la destination **la plus proche** quand il est sorti pour

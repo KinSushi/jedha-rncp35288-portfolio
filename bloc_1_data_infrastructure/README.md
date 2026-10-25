@@ -45,7 +45,7 @@ Licences des données : © les contributeurs d'OpenStreetMap (ODbL) ; Open-Meteo
 2. **Data lake** par source et par date (`raw/<source>/date=AAAA-MM-JJ/`), puis zone `curated/` (Parquet et CSV enrichi) : l'ETL se rejoue sans recollecter.
 3. **ETL Spark** (PySpark) : lecture, dépliage des prévisions (`explode`), agrégats par ville (`groupBy`), score météo, contrôles des hôtels, distance au centre (haversine), rattachement à la destination la plus proche (fenêtre), jointure. Chaque anomalie est **comptée avant d'être corrigée**.
 4. **Entrepôt SQL** : 3 tables reliées par des clés (`villes`, `meteo_quotidienne`, `hotels`), des index et la vue `vue_hotels_destinations`, chargés **par lots en une seule transaction** (un échec n'efface rien). Le code passe par SQLAlchemy : SQLite en local, PostgreSQL (RDS) en cible, seule l'URL change. Huit requêtes d'exemple : [`kayak_v2/entrepot/requetes_exemple.sql`](kayak_v2/entrepot/requetes_exemple.sql).
-5. **Score météo** : moyenne de scores centrés réduits (chaleur +, ensoleillement +, pluie −) sur la semaine. **Hôtels** : ceux d'une aire de 8 km autour du centre de la destination, classés par étoiles puis par proximité du centre.
+5. **Score météo** : moyenne de scores centrés réduits (chaleur +, ensoleillement +, pluie -) sur la semaine. **Hôtels** : ceux d'une aire de 8 km autour du centre de la destination, classés par étoiles puis par proximité du centre.
 
 ## 4. Résultats
 
@@ -73,7 +73,7 @@ Uzès, sixième, obtient 0,85 : les écarts sont minces (In[14]).
 
 **Capacité, mesurée puis extrapolée** (In[3], In[7]) : la zone brute de la collecte du 11/10 pèse 3,22 Mo, dont 94 % pour OpenStreetMap ; une année de collectes quotidiennes des 35 villes représenterait 1,18 Go. Pour 100 000 villes, l'extrapolation linéaire, **non mesurée**, donne 9,2 Go par collecte. Le facteur limitant est la collecte : une requête Overpass réussie dure en moyenne 41,7 s, soit 48,3 jours en séquentiel pour 100 000 villes.
 
-**Qualité du code** : les tests publiés comptent 1 227 cas (`pytest`, avertissements de dépréciation traités comme des erreurs), dont un ETL de bout en bout, l'atomicité du chargement et le mode S3 avec un faux client. Exécution du 19/10/2026 sur ce dépôt, sans data lake : 1 224 cas réussis, 3 ignorés (l'exécution du notebook et deux tests qui lisent une archive du data lake) ; `ruff` et `mypy --strict` : 0 constat. Mutation (mesure du 19/10/2026, avec la suite complète de 1 288 cas, dont 61 sur la minimisation des données OpenStreetMap qui ne sont pas inclus dans ce dépôt) : 5 844 mutants tués sur 5 946, les 102 autres justifiés un par un comme équivalents dans [`MUTANTS_EQUIVALENTS.md`](kayak_v2/MUTANTS_EQUIVALENTS.md).
+**Qualité du code** : les tests publiés comptent 1 229 cas (`pytest`, avertissements de dépréciation traités comme des erreurs), dont un ETL de bout en bout, l'atomicité du chargement et le mode S3 avec un faux client. Sans data lake, 3 de ces cas sont ignorés (l'exécution du notebook et deux tests qui lisent une archive du data lake) ; `ruff` et `mypy --strict` : 0 constat. Mutation (mesure du 21/10/2026, avec la suite complète de 1 290 cas, dont 61 sur la minimisation des données OpenStreetMap qui ne sont pas inclus dans ce dépôt) : 5 847 mutants tués sur 5 946, les 99 autres justifiés un par un comme équivalents dans [`MUTANTS_EQUIVALENTS.md`](kayak_v2/MUTANTS_EQUIVALENTS.md).
 
 ## 5. Reproduire
 

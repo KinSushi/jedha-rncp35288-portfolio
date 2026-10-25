@@ -2,7 +2,7 @@
 
 Un mutant est **équivalent** quand le code modifié se comporte exactement comme le code
 d'origine : aucun test ne peut le faire échouer. Chaque mutant ci-dessous a survécu à la
-mutation (mutmut 3, sous WSL, mesure du 19/10/2026), et
+mutation (mutmut 3, sous WSL, mesure du 21/10/2026, après le retrait de la famille U), et
 appartient à une famille dont la preuve est donnée : soit un fait de bibliothèque vérifié par
 un test de `tests/test_mutants_equivalents.py` (ces tests ne visent pas le code du projet et ne font pas partie
 de la sélection de la mutation), soit un raisonnement sur le code cité.
@@ -12,7 +12,7 @@ les mêmes octets (fichiers, tables et schéma de l'entrepôt, figures, requête
 messages). Seul le temps de calcul peut changer (familles D et P1 : un découpage plus
 long, ou des tours de boucle de plus, dont le résultat est jeté ou nul).
 
-Total : 102 mutants non tués, tous prouvés équivalents.
+Total : **99 mutants non tués, tous prouvés équivalents.** Les trois mutants de la famille U ont été retirés de la liste le 21 octobre 2026 : ils sont désormais tués par deux tests du projet.
 
 ## Familles et preuves
 
@@ -34,7 +34,7 @@ Total : 102 mutants non tués, tous prouvés équivalents.
 | O | Type de jointure Spark : en majuscules, ou « inner » remplacé par le défaut | Spark lit le type de jointure sans tenir compte de la casse, et une jointure sans type (ou de type None) est « inner » (tests/test_mutants_equivalents.py::test_spark_type_de_jointure_insensible_a_la_casse). | 5 |
 | R | Nom d'option de lecture CSV de Spark en majuscules (« HEADER ») | Spark lit le nom d'une option sans tenir compte de la casse (tests/test_mutants_equivalents.py::test_spark_options_de_lecture_csv_insensibles_a_la_casse). | 1 |
 | T | Type écrit dans `typing.cast` changé | cast rend son argument tel quel à l'exécution ; il ne sert qu'à mypy (tests/test_mutants_equivalents.py::test_typing_cast_ne_fait_rien_a_l_execution). | 4 |
-| U | Encodage de la marque du cache S3 (`chemin_local`) retiré ou mis à None | La marque contient l'ETag (hexadécimal) et la date de modification : du texte ASCII, écrit et relu avec les mêmes octets par tous les encodages courants (tests/test_mutants_equivalents.py::test_texte_ascii_identique_dans_tous_les_encodages_courants ; format : DataLake._empreinte_distante). | 3 |
+| U | Encodage de la marque du cache S3 (`chemin_local`) retiré ou mis à None | **Famille retirée le 21/10/2026** : les trois mutants ne sont pas équivalents. La marque contient l'ETag (hexadécimal) **et la date de modification, qui n'est pas ASCII** (`LastModified` peut contenir un accent : c'est le cas des tests du projet, « dimanche été »). L'encodage implicite n'est pas toujours UTF-8 : sous Windows en cp1252, et dès qu'on le force ailleurs. Le code écrit et relit la marque en UTF-8 explicitement, et deux tests du projet (`tests/test_data_lake_inverses.py`) le vérifient en forçant l'encodage implicite à ASCII. | 0 |
 | V | `strict` de `zip` retiré, False ou None au lieu de True (`publier_dossier`) | Les deux listes ont toujours la même longueur : la seconde est construite élément par élément depuis la première (`publies = [... for f in fichiers]`). Le contrôle de longueur ne se déclenche donc jamais, avec ou sans strict. | 6 |
 | X | Défauts de SQLAlchemy écrits autrement (`nullable=None`, type de la clé étrangère retiré, index sans nom) | nullable=None donne NOT NULL comme False ; une colonne de clé étrangère prend le type de la colonne visée ; un index sans nom reçoit « ix_<table>_<colonne> », le nom écrit dans le code : même schéma (tests/test_mutants_equivalents.py::test_sqlalchemy_valeurs_par_defaut_des_colonnes_et_des_index). | 9 |
 | Z | Casse de l'ordre `DROP VIEW IF EXISTS vue_hotels_destinations` | SQLite lit les mots-clés et le nom non cité de la vue sans tenir compte de la casse, et ne garde nulle part le texte d'une suppression : les deux écritures suppriment la même vue (ou ne font rien sur une base sans vue) et laissent le même schéma (tests/test_mutants_equivalents.py::test_sql_drop_view_insensible_a_la_casse_et_sans_trace). Ce fait ne vaut pas pour `CREATE VIEW`, dont SQLite garde le texte tel quel : sa casse est vérifiée par tests/test_spark_etl_hors_spark.py, et aucun mutant de ce texte ne survit. | 2 |
@@ -140,10 +140,10 @@ Total : 102 mutants non tués, tous prouvés équivalents.
 | `outils_notebook.x_image_allegee__mutmut_34` | `return Image(data=tampon.getvalue(), format="png", width=1000)  # type: ignore[no-untyped-call]` | `return Image(data=tampon.getvalue(), width=1000)  # type: ignore[no-untyped-call]` | M |
 | `outils_notebook.x_image_allegee__mutmut_37` | `return Image(data=tampon.getvalue(), format="png", width=1000)  # type: ignore[no-untyped-call]` | `return Image(data=tampon.getvalue(), format="PNG", width=1000)  # type: ignore[no-untyped-call]` | M |
 | `pipeline.x_main__mutmut_26` | `analyseur.add_argument("--date", default=None, help="date de collecte AAAA-MM-JJ")` | `analyseur.add_argument("--date", help="date de collecte AAAA-MM-JJ")` | H |
-| `stockage.data_lake.xǁDataLakeǁchemin_local__mutmut_25` | `if cible.exists() and marque.exists() and marque.read_text(encoding="utf-8") == empreinte:` | `if cible.exists() and marque.exists() and marque.read_text(encoding=None) == empreinte:` | U |
+| `stockage.data_lake.xǁDataLakeǁchemin_local__mutmut_25` | `marque.read_text(encoding="utf-8")` | `marque.read_text(encoding=None)` | **Tué** (21/10/2026) |
 | `stockage.data_lake.xǁDataLakeǁchemin_local__mutmut_27` | `if cible.exists() and marque.exists() and marque.read_text(encoding="utf-8") == empreinte:` | `if cible.exists() and marque.exists() and marque.read_text(encoding="UTF-8") == empreinte:` | A |
-| `stockage.data_lake.xǁDataLakeǁchemin_local__mutmut_47` | `marque.write_text(empreinte, encoding="utf-8")` | `marque.write_text(empreinte, encoding=None)` | U |
-| `stockage.data_lake.xǁDataLakeǁchemin_local__mutmut_49` | `marque.write_text(empreinte, encoding="utf-8")` | `marque.write_text(empreinte, )` | U |
+| `stockage.data_lake.xǁDataLakeǁchemin_local__mutmut_47` | `marque.write_text(empreinte, encoding="utf-8")` | `marque.write_text(empreinte, encoding=None)` | **Tué** (21/10/2026) |
+| `stockage.data_lake.xǁDataLakeǁchemin_local__mutmut_49` | `marque.write_text(empreinte, encoding="utf-8")` | `marque.write_text(empreinte, )` | **Tué** (21/10/2026) |
 | `stockage.data_lake.xǁDataLakeǁchemin_local__mutmut_51` | `marque.write_text(empreinte, encoding="utf-8")` | `marque.write_text(empreinte, encoding="UTF-8")` | A |
 | `stockage.data_lake.xǁDataLakeǁecrire__mutmut_6` | `donnees = contenu.encode("utf-8")` | `donnees = contenu.encode("UTF-8")` | A |
 | `stockage.data_lake.xǁDataLakeǁlister__mutmut_14` | `continuation_token = None` | `continuation_token = ""` | P5 |
@@ -156,4 +156,4 @@ Total : 102 mutants non tués, tous prouvés équivalents.
 
 ---
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

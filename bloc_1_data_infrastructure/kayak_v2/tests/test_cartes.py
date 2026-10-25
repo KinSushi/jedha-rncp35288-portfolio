@@ -67,7 +67,7 @@ def test_cadrage_englobe_les_points_avec_une_marge():
     assert all(abs(x) <= 1100 / 2 and abs(y) <= 700 / 2 for x, y in positions)
     # Le point le plus excentré touche la marge utile (12 % de chaque côté), pas moins.
     assert max(abs(x) for x, _ in positions) == pytest.approx(0.5 * 1100 * (1 - 2 * 0.12))
-    # L'ancien calcul (log2(360 / étendue) − 1) donnait ≈ 5,2 ici : deux niveaux de trop.
+    # L'ancien calcul (log2(360 / étendue) - 1) donnait ≈ 5,2 ici : deux niveaux de trop.
     assert cadre["zoom"] > 6.5
 
 

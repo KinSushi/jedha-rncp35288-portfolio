@@ -53,7 +53,7 @@ flowchart LR
 | Requêtes SQL d'exemple | `entrepot/requetes_exemple.sql` |
 | Dépendances d'exécution (versions figées) et outils de contrôle de la qualité | `requirements.txt`, `requirements-dev.txt` |
 | Mutants non tués par la mutation, tous équivalents au sens strict, avec la preuve de chacun | `MUTANTS_EQUIVALENTS.md` |
-| Tests (752 fonctions, 1 227 cas pytest en 30 fichiers : ETL de bout en bout, chargement atomique, mode S3, refus, exécution hors ligne du notebook, ignorée sans le data lake) | `tests/` |
+| Tests (754 fonctions, 1 229 cas pytest en 30 fichiers : ETL de bout en bout, chargement atomique, mode S3, refus, exécution hors ligne du notebook, ignorée sans le data lake) | `tests/` |
 | Cartes interactives (HTML) de la collecte du 11/10/2026 | `sorties/` |
 
 Le CSV enrichi (météo + hôtels) que demande l'énoncé est écrit par Spark dans
@@ -189,7 +189,7 @@ dépôt ; les cartes HTML de `sorties/` le sont.
 python -m venv .venv
 .venv/Scripts/activate            # Windows ; sous macOS/Linux : source .venv/bin/activate
 pip install -r requirements-dev.txt   # requirements.txt + outils de contrôle ; Java pour Spark : paquet jdk4py
-pytest -q -W error::DeprecationWarning -W error::PendingDeprecationWarning   # 1 227 cas
+pytest -q -W error::DeprecationWarning -W error::PendingDeprecationWarning   # 1 229 cas
 ruff check --select E,F,I,B,SLF,UP,W --line-length 100 .
 mypy --strict kayak               # 0 erreur
 # collecte complète du 11/10/2026, SANS Booking.com (refus anti-robot respecté), puis ETL et cartes :
@@ -229,8 +229,8 @@ OpenStreetMap (tuiles) depuis Internet ; le HTML interactif en fait autant à l'
   provoqué par le code du projet reste une erreur. Épingler pandas 2.x n'en supprimerait qu'un
   sur trois ; PySpark 4 les supprimerait, mais c'est un changement de version majeur (non essayé).
 - Mutation : mutmut 3, sous Linux ou WSL (il ne fonctionne pas sous Windows), sur tout le paquet
-  `kayak/` (15 modules, 5 946 mutants ; mesure du 19/10/2026 avec la suite complète de 1 288 cas,
-  dont les 61 de `tests/test_minimisation.py`, non inclus dans ce dépôt) : 5 844 tués ; les 102 autres sont équivalents au sens
+  `kayak/` (15 modules, 5 946 mutants ; mesure du 21/10/2026 avec la suite complète de 1 290 cas,
+  dont les 61 de `tests/test_minimisation.py`, non inclus dans ce dépôt) : 5 847 tués ; les 99 autres sont équivalents au sens
   strict (mêmes résultats, mêmes octets écrits ; aucun test ne peut les distinguer) et nommés,
   avec leur preuve, dans `MUTANTS_EQUIVALENTS.md`.
 - Chaque module Python et le notebook portent une fiche à cinq rubriques (CHOIX, OÙ, COMMENT,
