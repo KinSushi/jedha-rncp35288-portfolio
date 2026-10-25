@@ -31,7 +31,7 @@ def test_deux_distributions_identiques_donnent_zero():
 
 
 def test_calcul_a_la_main_sur_deux_classes():
-    """Référence 50/50 ; production 80/20 : PSI = Σ (p − r) × ln(p / r), calculé ici à la main."""
+    """Référence 50/50 ; production 80/20 : PSI = Σ (p - r) × ln(p / r), calculé ici à la main."""
     reference = np.arange(100, dtype=float)
     production = np.concatenate([np.full(80, 10.0), np.full(20, 90.0)])
     attendu = (0.8 - 0.5) * math.log(0.8 / 0.5) + (0.2 - 0.5) * math.log(0.2 / 0.5)
