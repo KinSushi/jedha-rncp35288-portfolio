@@ -164,6 +164,7 @@ Le code lit `livrables/aia2/` (mesures et documents vérifiés par les tests) : 
 
 - Le document `12_script_video.md` (script de la vidéo) n'est pas publié : la liste des documents attendus par `stripe/tests/test_conformite_depot.py` ne le contient donc pas. Le reste du test est celui du livrable.
 - Le modèle de variables de la démonstration s'appelle ici `stripe/modele.env.exemple` (`modele.env` dans le livrable), pour qu'aucun fichier publié ne ressemble à un fichier `.env` réel ; il ne contient aucun secret.
+- Les courriels fictifs des clients de la démonstration, hachés avant stockage, sont `client{i}@example.org` (domaine réservé) au lieu de `client{i}@exemple.org` : une ligne de `stripe/stripe_demo/oltp.py`, et dans `stripe/tests/test_oltp.py` le hachage attendu du client 1 et l'empreinte des tables de référentiel, qui couvre ces hachages.
 
 ---
 

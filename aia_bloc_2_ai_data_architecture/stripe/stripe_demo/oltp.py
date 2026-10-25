@@ -137,7 +137,7 @@ def referentiels(engine: Engine, jours: int = 60, debut: date = date(2026, 8, 1)
             pays_client = alea.choices([p[0] for p in PAYS],
                                        weights=[20, 15, 5, 30, 10, 8, 7, 5])[0]
             clients.append({"id_client": i, "id_marchand": alea.randint(1, 40),
-                            "email_hache": _hacher(f"client{i}@exemple.org"),
+                            "email_hache": _hacher(f"client{i}@example.org"),
                             "code_pays": pays_client,
                             "cree_le": datetime(2026, 1, 1, tzinfo=UTC)
                             + timedelta(days=alea.randint(0, 240))})

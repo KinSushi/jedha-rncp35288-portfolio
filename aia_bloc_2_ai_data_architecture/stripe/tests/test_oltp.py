@@ -29,7 +29,7 @@ DEBUT = datetime(2026, 8, 1, tzinfo=UTC)
 TABLES_REFERENTIELS = ("pays", "devises", "taux_change", "marchands", "clients",
                        "moyens_paiement", "produits")
 TABLES_PAIEMENTS = ("paiements", "litiges", "remboursements")
-EMPREINTE_REFERENTIELS = "89378d9a66910bba1456a2a8021260b2ce40d116c2d2cf2c1c80382a2120683a"
+EMPREINTE_REFERENTIELS = "aef5bfeb3ffeec47392f7a9d059e672709a3895bb63adc9e2cad973aef4d33ba"
 EMPREINTE_PAIEMENTS = "f5480d007bd20f991b37da73a8d71429e97357adcf8be22da05f66d49059faac"
 
 
@@ -179,7 +179,7 @@ def test_les_referentiels_ont_les_volumes_l_empreinte_et_les_hachages_de_la_note
         "moyens_paiement": 2000, "produits": 80}
     assert _empreinte(base_avec_referentiels, TABLES_REFERENTIELS) == EMPREINTE_REFERENTIELS
     # Courriel haché avec le sel de démonstration ; jeton du prestataire issu du hachage de l'id.
-    attendu = hashlib.sha256(b"sel-demo:client1@exemple.org").hexdigest()
+    attendu = hashlib.sha256(b"sel-demo:client1@example.org").hexdigest()
     assert _lignes(base_avec_referentiels,
                    "SELECT email_hache FROM clients WHERE id_client = 1") == [(attendu,)]
     jeton = "pm_" + hashlib.sha256(b"sel-demo:7").hexdigest()[:24]
