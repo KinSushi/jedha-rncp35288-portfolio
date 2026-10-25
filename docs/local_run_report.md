@@ -39,5 +39,9 @@ No forbidden private folders found.
 ### evidence-index-block-coverage - PASS
 
 ```text
-Evidence index references all six blocks.
+Evidence index references all ten blocks (6 CDSD + 4 AIA).
 ```
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

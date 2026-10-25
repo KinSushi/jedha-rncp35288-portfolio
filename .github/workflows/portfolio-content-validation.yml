@@ -140,12 +140,13 @@ jobs:
 
           evidence_index = root / "docs" / "evidence_index.md"
           evidence_text = evidence_index.read_text(encoding="utf-8", errors="replace") if evidence_index.exists() else ""
-          expected_blocks = ["Bloc 1", "Bloc 2", "Bloc 3", "Bloc 4", "Bloc 5", "Bloc 6"]
+          expected_blocks = ["Bloc 1", "Bloc 2", "Bloc 3", "Bloc 4", "Bloc 5", "Bloc 6",
+                             "AIA Bloc 1", "AIA Bloc 2", "AIA Bloc 3", "AIA Bloc 4"]
           missing_block_refs = [block for block in expected_blocks if block not in evidence_text]
           add_result(
               "evidence-index-block-coverage",
               "PASS" if not missing_block_refs else "FAIL",
-              "Evidence index references all six blocks."
+              "Evidence index references all ten blocks (6 CDSD + 4 AIA)."
               if not missing_block_refs
               else "Missing block references:\n" + "\n".join(missing_block_refs),
               0 if not missing_block_refs else 1,
@@ -175,6 +176,9 @@ jobs:
                       "",
                   ]
               )
+          # Mention de droits exacte en pied de chaque document généré.
+          mention = "*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*"
+          report_lines.extend(["---", "", mention, ""])
           (root / "docs" / "local_run_report.md").write_text("\n".join(report_lines), encoding="utf-8")
 
           summary_text = "\n".join(f"{r['name']}: {r['status']} exit={r['exit']}" for r in results)
@@ -187,8 +191,9 @@ jobs:
           <defs><style>.title{{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:42px;font-weight:750;fill:#fff}}.sub{{font-family:Inter,Segoe UI,Arial,sans-serif;font-size:20px;fill:#9FB3C8}}.mono{{font-family:Consolas,Menlo,monospace;font-size:18px;fill:#D8E2F0}}</style></defs>
           <rect width="1280" height="900" rx="26" fill="#07111F"/>
           <text x="60" y="52" class="title">jedha-rncp35288-portfolio</text>
-          <text x="60" y="78" class="sub">Public evidence validation - six blocks and safety boundary</text>
+          <text x="60" y="78" class="sub">Public evidence validation - ten blocks and safety boundary</text>
           {''.join(nodes)}
+          <text x="60" y="866" class="sub">{html.escape(mention.strip("*"))}</text>
           </svg>'''
           (screenshots / "validation-preview.svg").write_text(svg, encoding="utf-8")
           html_report = "<!doctype html><meta charset='utf-8'><pre>" + html.escape("\n".join(report_lines)) + "</pre>"
@@ -197,7 +202,8 @@ jobs:
               "# Screenshots and content previews\n\n"
               "Generated from public evidence validation in GitHub Actions.\n\n"
               "- [validation-preview.svg](screenshots/validation-preview.svg)\n"
-              "- [validation-output.html](screenshots/validation-output.html)\n",
+              "- [validation-output.html](screenshots/validation-output.html)\n"
+              "\n---\n\n" + mention + "\n",
               encoding="utf-8",
           )
 
