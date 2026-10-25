@@ -1,4 +1,4 @@
-# Mutants équivalents — `steam_analyse.py`
+# Mutants équivalents : `steam_analyse.py`
 
 Mesure en vigueur : mutmut 3, sur le module
 **entier** et le code du 19/10/2026 (refus du 18/10 compris), tests `tests/test_steam_analyse.py`.

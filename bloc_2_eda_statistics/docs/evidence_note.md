@@ -1,4 +1,4 @@
-# Note de preuve — Bloc 2 — Analyse exploratoire, descriptive et inférentielle de données
+# Note de preuve : bloc 2, analyse exploratoire, descriptive et inférentielle de données
 
 ## Statut
 
@@ -17,3 +17,7 @@ Analyse exploratoire d'une base non massive avec pandas et d'une base massive av
 | Modules de calcul et tests | `1_Tinder/speed_dating.py`, `2_Steam/steam_analyse.py`, et le dossier `tests/` de chaque étude |
 | Figures de l'étude Steam | [`2_Steam/captures/`](../2_Steam/captures/) |
 | Obtention des données | [`README.md`](../README.md), section « Données », et [`2_Steam/donnees/LIRE_DONNEES.md`](../2_Steam/donnees/LIRE_DONNEES.md) |
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

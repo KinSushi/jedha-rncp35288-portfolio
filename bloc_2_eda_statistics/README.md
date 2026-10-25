@@ -140,3 +140,7 @@ README.md                           cette page
 |-- tests/                          tests du module et du notebook
 `-- requirements.txt, pytest.ini, MUTANTS_EQUIVALENTS.md
 ```
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

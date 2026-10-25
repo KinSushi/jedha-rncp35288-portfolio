@@ -1,4 +1,4 @@
-# Mutants équivalents — `speed_dating.py`
+# Mutants équivalents : `speed_dating.py`
 
 **Aucun mutant équivalent.** Mesure du 19/10/2026 sur le module entier (mutmut 3,
 tests `tests/test_speed_dating.py`) : **328 mutants, 328 tués,

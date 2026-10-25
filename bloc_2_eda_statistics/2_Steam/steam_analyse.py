@@ -59,8 +59,8 @@ COMMENT
 POURQUOI
 --------
 - Borne de Wilson : intervalle de confiance d'une proportion, qui pénalise les petits effectifs
-  (un jeu à 100 % sur 50 avis ne passe pas devant un jeu à 98 % sur 100 000). Source : inconnue —
-  aucun manuel de statistique n'est joint au dossier ; la formule est recalculée à la main dans
+  (un jeu à 100 % sur 50 avis ne passe pas devant un jeu à 98 % sur 100 000). Source : inconnue.
+  Aucun manuel de statistique n'est joint au dossier ; la formule est recalculée à la main dans
   `tests/test_steam_analyse.py`.
 - `local[*]` et 8 partitions de brassage au lieu de 200 : réglages décrits dans le notebook
   (section 1) pour un volume de quelques dizaines de mégaoctets ; contrôlés par
@@ -321,7 +321,7 @@ def ajouter_champs_derives(jeux: DataFrame) -> DataFrame:
 
     - date : « yyyy/M/d » accepte un ou deux chiffres pour le mois et le jour ; « yyyy/M » rattrape
       les dates sans jour (fixées au 1er du mois) ;
-    - âge requis : les valeurs au-delà de 21 ans (180, 35 — vues dans l'audit) sont des erreurs
+    - âge requis : les valeurs au-delà de 21 ans (180, 35 : vues dans l'audit) sont des erreurs
       de saisie, aucune classification n'allant au-delà de 18 ou 21 ans ; elles deviennent NULL.
       La colonne brute `age_requis_brut` est conservée pour que l'appelant compte les aberrants.
     """
