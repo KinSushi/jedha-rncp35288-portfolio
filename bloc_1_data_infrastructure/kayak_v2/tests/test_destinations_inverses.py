@@ -214,10 +214,10 @@ def test_extraction_refuse_un_html_non_textuel(html):
     ("nom", "attendu"),
     [
         ("Uzès", "uzes"),
-        ("ÉCOLE", "ecole"),
+        ("ÉTRETAT", "etretat"),
         ("Besançon", "besancon"),
         ("Nîmes", "nimes"),
-        ("école", "ecole"),
+        ("étretat", "etretat"),
         ("ﬁnistère", "finistere"),
         ("Ａｒｌｅｓ", "arles"),
         ("Avignon (my favorite!)", "avignon my favorite"),

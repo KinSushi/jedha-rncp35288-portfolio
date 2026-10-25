@@ -469,7 +469,7 @@ def test_carte_destinations_contenu_exact_par_defaut():
     assert premiere.textposition == "middle center"
     assert (list(premiere.lat), list(premiere.lon)) == ([43.566], [4.192])
     assert premiere.name == (
-        "1. Aigues Mortes — score 0.92 (23.1 °C · 0.0 mm de pluie · 10.1 h de soleil/jour)"
+        "1. Aigues Mortes - score 0.92 (23.1 °C · 0.0 mm de pluie · 10.1 h de soleil/jour)"
     )
     assert premiere.hovertemplate == (
         "<b>1. Aigues Mortes</b><br>score 0.92<br>"
@@ -494,7 +494,7 @@ def test_carte_destinations_arrondis_des_textes_et_rang_decimal():
     fig = carte_destinations(villes)
     assert [list(t.text) for t in fig.data] == [["1"], ["2"]]
     assert fig.data[0].name == (
-        "1. Alpha — score 0.93 (23.2 °C · 1.3 mm de pluie · 10.0 h de soleil/jour)"
+        "1. Alpha - score 0.93 (23.2 °C · 1.3 mm de pluie · 10.0 h de soleil/jour)"
     )
     assert fig.data[1].hovertemplate == (
         "<b>2. Beta</b><br>score 0.82<br>20.0 °C · 0.0 mm de pluie · 10.0 h de soleil/jour"
@@ -1185,21 +1185,21 @@ def test_carte_hotels_contenu_exact_des_tableaux():
         assert tableau.header.align == "left"
         assert (tableau.cells.align, tableau.cells.height) == ("left", 28)
         assert tableau.cells.font.size == 13
-    # Première moitié (3 hôtels) : nom entier, nom coupé à 30, distance manquante « — ».
+    # Première moitié (3 hôtels) : nom entier, nom coupé à 30, distance manquante « - ».
     assert _valeurs(premier) == [
         ["1", "2", "3"],
         ["Hôtel Méditerranée", "A" * 29 + "…", "Hôtel 3"],
         ["Aigues Mortes"] * 3,
         ["5", "4", "3"],
-        ["1.0", "2.3", "—"],
+        ["1.0", "2.3", "-"],
         ["Aigues Mortes", "La Grande-Motte-s…", "?"],
     ]
-    # Seconde moitié (2 hôtels) : étoiles manquantes « — », commune manquante « ? ».
+    # Seconde moitié (2 hôtels) : étoiles manquantes « - », commune manquante « ? ».
     assert _valeurs(second) == [
         ["4", "5"],
         ["Hôtel 4", "Hôtel 5"],
         ["Aigues Mortes"] * 2,
-        ["2", "—"],
+        ["2", "-"],
         ["4.0", "5.0"],
         ["Nîmes", "?"],
     ]
@@ -1250,7 +1250,7 @@ def test_carte_hotels_moitie_des_hotels_dans_chaque_tableau():
 
 
 def test_carte_hotels_une_carte_par_destination_ayant_des_hotels(figure_hotels):
-    """Une carte, un titre « rang. ville — n hôtel(s) » et une couleur par destination du top.
+    """Une carte, un titre « rang. ville - n hôtel(s) » et une couleur par destination du top.
 
     La grille est celle de ``make_subplots`` : cartes en haut (60 % de la hauteur), deux tableaux
     en bas (40 %), 0,8 % d'écart entre colonnes et 6 % entre les deux rangées.
@@ -1258,15 +1258,15 @@ def test_carte_hotels_une_carte_par_destination_ayant_des_hotels(figure_hotels):
     hotels = _hotels()
     couleur_par_ville = dict(zip([26, 19, 31, 25, 20], COULEURS_ATTENDUES, strict=True))
     cas = [
-        ([26, 31], ["1. Aigues Mortes — 5 hôtel(s)", "3. Toulouse — 5 hôtel(s)"]),
+        ([26, 31], ["1. Aigues Mortes - 5 hôtel(s)", "3. Toulouse - 5 hôtel(s)"]),
         (
             [26, 19, 31, 25, 20],
             [
-                "1. Aigues Mortes — 4 hôtel(s)",
-                "2. Bormes les Mimosas — 4 hôtel(s)",
-                "3. Toulouse — 4 hôtel(s)",
-                "4. Nimes — 4 hôtel(s)",
-                "5. Cassis — 4 hôtel(s)",
+                "1. Aigues Mortes - 4 hôtel(s)",
+                "2. Bormes les Mimosas - 4 hôtel(s)",
+                "3. Toulouse - 4 hôtel(s)",
+                "4. Nimes - 4 hôtel(s)",
+                "5. Cassis - 4 hôtel(s)",
             ],
         ),
         ([], []),

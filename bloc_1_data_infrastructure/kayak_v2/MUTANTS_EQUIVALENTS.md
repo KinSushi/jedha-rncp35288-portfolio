@@ -129,8 +129,7 @@ Total : 102 mutants non tués, tous prouvés équivalents.
 | `etl.spark_etl.x_transformer__mutmut_523` | `.drop("_rang_proximite")` | `.drop("XX_rang_proximiteXX")` | P6 |
 | `etl.spark_etl.x_transformer__mutmut_524` | `.drop("_rang_proximite")` | `.drop("_RANG_PROXIMITE")` | P6 |
 | `etl.spark_etl.x_transformer__mutmut_723` | `"inner",` | `None,` | O |
-| `etl.spark_etl.x_transformer__mutmut_726` | `"inner",
--    ).orderBy(` | `).orderBy(` | O |
+| `etl.spark_etl.x_transformer__mutmut_726` | `"inner",` + `).orderBy(` | `).orderBy(` | O |
 | `etl.spark_etl.x_transformer__mutmut_762` | `"inner",` | `"INNER",` | O |
 | `outils_notebook.x_bilan_overpass__mutmut_21` | `reponse = json.loads(lake.lire(chemin).decode("utf-8"))` | `reponse = json.loads(lake.lire(chemin).decode("UTF-8"))` | A |
 | `outils_notebook.x_image_allegee__mutmut_23` | `image.quantize(colors=256, method=ImagePIL.Quantize.MEDIANCUT).save(` | `image.quantize(colors=256, method=None).save(` | L |

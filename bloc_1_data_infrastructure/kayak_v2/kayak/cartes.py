@@ -217,7 +217,7 @@ def carte_destinations(
                 text=[str(rang)],
                 textfont={"size": 22, "color": "white"},
                 textposition="middle center",
-                name=f"{rang}. {v['ville']} — score {v['score_meteo']:.2f} ({detail})",
+                name=f"{rang}. {v['ville']} - score {v['score_meteo']:.2f} ({detail})",
                 hovertemplate=f"<b>{rang}. {v['ville']}</b><br>score {v['score_meteo']:.2f}"
                 f"<br>{detail}<extra></extra>",
             )
@@ -399,7 +399,7 @@ def carte_hotels(
         + [None] * (n - 1),
     ]
     titres = [
-        f"{v['rang_meteo']:.0f}. {v['ville']} — {(hotels_top['id_ville'] == v['id_ville']).sum()} "
+        f"{v['rang_meteo']:.0f}. {v['ville']} - {(hotels_top['id_ville'] == v['id_ville']).sum()} "
         "hôtel(s)"
         for _, v in destinations
     ]
@@ -536,8 +536,8 @@ def carte_hotels(
                         bloc["rang_hotel"].astype(str),
                         bloc["nom"].map(_court),
                         bloc["ville"],
-                        bloc["etoiles"].map(lambda e: "—" if pd.isna(e) else f"{e:.0f}"),
-                        bloc["distance_km"].map(lambda d: "—" if pd.isna(d) else f"{d:.1f}"),
+                        bloc["etoiles"].map(lambda e: "-" if pd.isna(e) else f"{e:.0f}"),
+                        bloc["distance_km"].map(lambda d: "-" if pd.isna(d) else f"{d:.1f}"),
                         communes,
                     ],
                     "fill_color": [

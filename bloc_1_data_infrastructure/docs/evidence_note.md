@@ -1,4 +1,4 @@
-# Note de preuve — Bloc 1 — Construction et alimentation d'une infrastructure de gestion de données
+# Note de preuve : bloc 1, construction et alimentation d'une infrastructure de gestion de données
 
 ## Statut
 
@@ -18,3 +18,7 @@ Collecte web conforme au RGPD (BeautifulSoup, Scrapy, API publiques), stockage d
 | Requêtes d'exemple sur l'entrepôt | [`kayak_v2/entrepot/requetes_exemple.sql`](../kayak_v2/entrepot/requetes_exemple.sql) |
 | Cartes produites | [`kayak_v2/sorties/`](../kayak_v2/sorties/) et [`docs/figures/`](figures/) |
 | Obtention des données | [`OBTENIR_LES_DONNEES.md`](../OBTENIR_LES_DONNEES.md) |
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

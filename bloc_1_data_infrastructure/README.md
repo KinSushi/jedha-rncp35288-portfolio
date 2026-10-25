@@ -1,4 +1,4 @@
-# Bloc 1 — Infrastructure de données : le pipeline Kayak
+# Bloc 1 - Infrastructure de données : le pipeline Kayak
 
 *Certification RNCP35288 (Concepteur Développeur en Science des Données), bloc 1 : construction et alimentation d'une infrastructure de gestion de données.*
 
@@ -49,7 +49,7 @@ Licences des données : © les contributeurs d'OpenStreetMap (ODbL) ; Open-Meteo
 
 ## 4. Résultats
 
-**Qualité de l'ETL** (collecte du 11/10, In[12] et In[15]) : 4 128 hôtels lus ; 131 doublons, collectés pour deux villes voisines dont les aires se recouvrent (78 pour Bayonne–Biarritz, 53 pour Colmar–Eguisheim), gardés une fois pour la plus proche ; 0 hôtel hors de France ; **3 997 hôtels chargés**. Entrepôt : 35 villes, 245 prévisions, 3 997 hôtels. Le CSV enrichi compte 3 997 lignes et 23 colonnes, identique au Parquet (In[13]). L'ETL a pris 36 s dans le notebook (In[12]).
+**Qualité de l'ETL** (collecte du 11/10, In[12] et In[15]) : 4 128 hôtels lus ; 131 doublons, collectés pour deux villes voisines dont les aires se recouvrent (78 pour Bayonne et Biarritz, 53 pour Colmar et Eguisheim), gardés une fois pour la plus proche ; 0 hôtel hors de France ; **3 997 hôtels chargés**. Entrepôt : 35 villes, 245 prévisions, 3 997 hôtels. Le CSV enrichi compte 3 997 lignes et 23 colonnes, identique au Parquet (In[13]). L'ETL a pris 36 s dans le notebook (In[12]).
 
 **Top 5 de la semaine du 11 au 17/10/2026** (In[14]) :
 
@@ -104,3 +104,7 @@ Détail de chaque limite : [`kayak_v2/README.md`](kayak_v2/README.md), « Limite
 ## 7. Attributions
 
 Données et fonds de carte : © les contributeurs d'OpenStreetMap (ODbL) ; météo : Open-Meteo (CC BY 4.0).
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

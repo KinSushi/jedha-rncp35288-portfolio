@@ -2,8 +2,8 @@
 """Configuration centralisée du projet Kayak.
 
 Tous les paramètres sensibles ou modulables sont lus depuis les variables
-d'environnement ; les valeurs par défaut permettent une exécution locale
-purement pédagogique sans infrastructure cloud.
+d'environnement ; les valeurs par défaut permettent une exécution entièrement
+locale, sans infrastructure cloud.
 
 CHOIX
 -----

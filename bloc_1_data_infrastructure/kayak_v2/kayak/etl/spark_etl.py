@@ -670,7 +670,7 @@ def charger_entrepot(
 ) -> dict[str, int]:
     """Recrée les tables relationnelles et les charge, par lots, dans UNE transaction.
 
-    Paramètres : trois flux d'enregistrements (dictionnaires) — villes, météo, hôtels. Tout se
+    Paramètres : trois flux d'enregistrements (dictionnaires) : villes, météo, hôtels. Tout se
     passe dans la même transaction : suppression de la vue et des tables, création, insertion
     de chaque lot, création de la vue. Si une étape échoue (clé en double, valeur invalide), la
     transaction est annulée et l'entrepôt garde son contenu précédent : jamais de tables vides

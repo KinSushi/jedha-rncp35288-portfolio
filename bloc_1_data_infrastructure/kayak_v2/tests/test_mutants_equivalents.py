@@ -32,7 +32,7 @@ from plotly.subplots import make_subplots
 def test_le_nom_d_encodage_utf8_ne_depend_pas_de_la_casse():
     """``"UTF-8"`` et ``"utf-8"`` sont le même codec : mêmes octets à l'encodage et au décodage."""
     assert codecs.lookup("UTF-8").name == codecs.lookup("utf-8").name
-    texte = "Hôtel de l'été — œuvre"
+    texte = "Hôtel de l'été - œuvre"
     assert texte.encode("UTF-8") == texte.encode("utf-8")
     octets = texte.encode("utf-8")
     assert octets.decode("UTF-8") == octets.decode("utf-8") == texte

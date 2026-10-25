@@ -1,8 +1,8 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
 # %% [markdown]
-# # Kayak — collecter, stocker et préparer les données de destinations
+# # Kayak : collecter, stocker et préparer les données de destinations
 #
-# *Certification RNCP35288 (Concepteur Développeur en Science des Données), bloc 1 —
+# *Certification RNCP35288 (Concepteur Développeur en Science des Données), bloc 1 :
 # construction et alimentation d'une infrastructure de gestion de données.*
 #
 # **Objet** : recommander des destinations en France selon **la météo** et **les hôtels**.
@@ -167,7 +167,7 @@ for jour in (DATE_PREMIERE, DATE):
 # > métadonnées.
 
 # %% [markdown]
-# **Volume du data lake** — mesuré sur les fichiers eux-mêmes. C'est ce chiffre, et non une
+# **Volume du data lake** : mesuré sur les fichiers eux-mêmes. C'est ce chiffre, et non une
 # estimation, qui sert de base à l'étude d'architecture (`Etude_architecture_Kayak.pdf`).
 
 # %%
@@ -441,7 +441,7 @@ hotels_osm[["ville", "nom", "etoiles", "commune", "adresse", "url"]].head(8)
 #
 # `executer_etl` lit les fichiers bruts avec **Spark**, déplie les prévisions imbriquées
 # (`explode`), agrège la météo par ville (`groupBy`), contrôle la qualité (coordonnées hors de
-# France, notes hors échelle, doublons — chaque anomalie est **comptée** avant d'être
+# France, notes hors échelle, doublons : chaque anomalie est **comptée** avant d'être
 # corrigée) et calcule le score météo (moyenne de scores z : chaleur +, ensoleillement +,
 # pluie −). Pour les hôtels, il ajoute :
 #
@@ -505,7 +505,7 @@ villes[
 # %%
 enrichi = parquet_enrichi
 doubles = hotels_osm[hotels_osm.duplicated("hotel_id", keep=False)]
-couples = doubles.groupby("hotel_id")["ville"].apply(lambda s: " – ".join(sorted(s)))
+couples = doubles.groupby("hotel_id")["ville"].apply(lambda s: " - ".join(sorted(s)))
 print("Hôtels collectés pour deux villes, par couple de villes :")
 print(couples.value_counts().to_string())
 print(f"Hôtels en double retirés par l'ETL : {resultat['qualite']['hotels_en_double']}")
@@ -531,7 +531,7 @@ print(f"Distance moyenne au centre de la ville retenue : {retenus['distance_km']
 # ## 5. L'entrepôt SQL : des données accessibles aux équipes métier
 #
 # En local, l'entrepôt est une base SQLite ; sur AWS, une base **PostgreSQL RDS** (variable
-# `KAYAK_DB_URL`) — mêmes tables, même code. Les requêtes d'exemple sont dans
+# `KAYAK_DB_URL`) : mêmes tables, même code. Les requêtes d'exemple sont dans
 # `entrepot/requetes_exemple.sql` : écrites en SQL standard, exécutées ici sur SQLite, non
 # vérifiées sur PostgreSQL (aucune instance dans ce travail).
 

@@ -1,4 +1,4 @@
-# Kayak — pipeline de données des destinations (bloc 1, RNCP35288)
+# Kayak : pipeline de données des destinations (bloc 1, RNCP35288)
 
 Collecte de données web sur 35 destinations françaises (météo à 7 jours, hôtels), stockage dans
 un **data lake**, **ETL Spark**, chargement dans un **entrepôt SQL**, et deux cartes : les 5
@@ -111,7 +111,7 @@ massif ou un département) : le marquage est partiel, la **distance** est le cri
 commune. Avec une liste de contrôle (non utilisée par l'ETL), le notebook en identifie 6 :
 Annecy-le-Vieux et Seynod pour Annecy, Lomme (4 hôtels) pour Lille. Un hôtel sorti pour deux
 destinations voisines est rattaché à la **plus proche** (fenêtre sur la distance) : 131
-doublons, 78 pour Biarritz–Bayonne et 53 pour Colmar–Eguisheim. Option :
+doublons, 78 pour Biarritz et Bayonne, 53 pour Colmar et Eguisheim. Option :
 `selectionner_top_hotels(..., privilegier_commune=True)` fait reculer les hôtels d'une autre
 commune (17 hôtels communs sur 20 avec le classement par défaut, 0 hors commune au lieu de 3) ;
 elle n'est pas le défaut, car la définition retenue est l'aire entière.
@@ -240,11 +240,11 @@ OpenStreetMap (tuiles) depuis Internet ; le HTML interactif en fait autant à l'
 
 1. Créer un bucket S3 (région `eu-west-3`), chiffrement par défaut activé, accès public bloqué.
 2. Créer une instance **RDS PostgreSQL** `db.t4g.micro` (les conditions de l'offre gratuite
-   d'AWS dépendent de la date d'ouverture du compte — crédits d'accueil pour les comptes
+   d'AWS dépendent de la date d'ouverture du compte : crédits d'accueil pour les comptes
    récents : à vérifier à l'ouverture), accessible depuis le poste de travail (groupe de
    sécurité limité à son adresse IP).
 3. Fournir les identifiants AWS (profil `aws configure` ou variables `AWS_ACCESS_KEY_ID` /
-   `AWS_SECRET_ACCESS_KEY`) — **jamais dans le code**.
+   `AWS_SECRET_ACCESS_KEY`), **jamais dans le code**.
 4. `pip install psycopg2-binary`, puis `export KAYAK_S3_BUCKET=<bucket>` et
    `export KAYAK_DB_URL=postgresql+psycopg2://<utilisateur>:<mot_de_passe>@<hôte>:5432/kayak`
 5. `python -m kayak.pipeline --etapes ...` : mêmes étapes et mêmes tables ; le lac est écrit par
@@ -292,4 +292,4 @@ pas été exécuté contre un vrai bucket, faute de compte AWS dans ce travail. 
 
 ---
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*
