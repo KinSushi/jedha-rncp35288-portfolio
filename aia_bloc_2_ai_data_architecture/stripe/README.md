@@ -86,7 +86,7 @@ docker compose exec redpanda rpk topic consume stripe.public.paiements -o start 
 docker compose down -v                  # tout arrêter et effacer les volumes
 ```
 
-Si un port est déjà pris sur la machine : `POSTGRES_PORT_HOTE=5433 docker compose up` (idem `MONGO_PORT_HOTE`, `CONNECT_PORT_HOTE` ; voir `modele.env`). Sous PowerShell : `$env:POSTGRES_PORT_HOTE=5433`.
+Si un port est déjà pris sur la machine : `POSTGRES_PORT_HOTE=5433 docker compose up` (idem `MONGO_PORT_HOTE`, `CONNECT_PORT_HOTE` ; voir `modele.env.exemple`). Sous PowerShell : `$env:POSTGRES_PORT_HOTE=5433`.
 
 Démonstration autonome dans le conteneur contraint (1 Gio, système de fichiers en lecture seule) :
 
