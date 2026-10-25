@@ -1,4 +1,4 @@
-# Incident Runbook — banking-dataops-monitoring
+# Incident Runbook: banking-dataops-monitoring
 
 ## Detection
 
@@ -63,3 +63,7 @@ Additional control, test or documentation update.
 ## Public-safety note
 
 Do not paste real client, bank, insurance, health, account or employer data into incident notes.
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

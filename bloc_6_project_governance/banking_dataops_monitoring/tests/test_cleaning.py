@@ -17,7 +17,7 @@ WHY THESE TESTS MATTER
 ----------------------
 The decisive test is the last one. If cleaning removes a CHF 1 850 000 transaction,
 CTRL-003 can't fail on it. The dashboard stays green while invalid data flows
-downstream — the exact silent failure this project exists to prevent.
+downstream: the exact silent failure this project exists to prevent.
 
 SECURITY CONSIDERATIONS
 -----------------------
@@ -160,7 +160,7 @@ def test_report_counts_are_consistent() -> None:
 
 
 # ---------------------------------------------------------------------------
-# Business anomalies survive — the decisive property
+# Business anomalies survive: the decisive property
 # ---------------------------------------------------------------------------
 
 
@@ -168,7 +168,7 @@ def test_business_anomalies_reach_silver_untouched() -> None:
     """FORBIDDEN PATH: cleaning away what the controls are meant to catch.
 
     Each of these three rows breaks one control. If cleaning removed them, the
-    dashboard would stay green while invalid data flowed downstream — the exact
+    dashboard would stay green while invalid data flowed downstream: the exact
     silent failure this project exists to prevent.
     """
 

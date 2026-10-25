@@ -1,7 +1,7 @@
 # Dossier de gestion de projet
 
-Ces documents sont rédigés en français : ils s'adressent au jury de certification
-RNCP35288, alors que le code et la documentation technique du dépôt restent en
+Ces documents sont rédigés en français : ils s'adressent aux évaluateurs de la
+certification RNCP35288, alors que le code et la documentation technique du dépôt restent en
 anglais pour un lectorat professionnel international.
 
 | Document | Compétence couverte |
@@ -15,3 +15,7 @@ anglais pour un lectorat professionnel international.
 | `07-indicateurs-de-pilotage.md` | C6.4, C6.5 |
 
 Les décisions d'architecture sont consignées séparément dans `docs/adr/`.
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

@@ -67,7 +67,7 @@ def joined(bronze: Path) -> pd.DataFrame:
 
 
 def test_bronze_writes_both_a_stable_and_a_timestamped_copy(bronze: Path) -> None:
-    """The brief requires timestamped raw files; the pipeline needs a fixed name.
+    """Raw files are archived with a timestamp; the pipeline needs a fixed name.
 
     Both must exist: the archive answers "which extract produced this verdict",
     the stable name gives downstream steps an entry point that does not move.
@@ -97,7 +97,7 @@ def test_cleaning_preserves_the_whole_batch_on_clean_input(bronze: Path) -> None
     """Generated data is well-formed; cleaning must not quarantine any of it.
 
     If this ever fails, the cleaning rules have drifted into rejecting valid
-    business data — the failure mode that silently shrinks a batch.
+    business data: the failure mode that silently shrinks a batch.
     """
 
     raw = pd.read_csv(bronze / "synthetic_transactions.csv")
@@ -173,7 +173,7 @@ def test_target_remains_learnable_after_cleaning(joined: pd.DataFrame) -> None:
 
 
 def test_the_whole_chain_is_deterministic() -> None:
-    """Same seed, same anchor, same features — twice, in separate directories.
+    """Same seed, same anchor, same features: twice, in separate directories.
 
     Reproducibility is claimed by the dossier. This makes the claim mechanical
     across three modules rather than within one.

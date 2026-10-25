@@ -98,7 +98,7 @@ def new_run_id() -> str:
     """Start a new run and return its identifier.
 
     WHY a UUID rather than a timestamp: two runs can start within the same
-    second — a retry after a failure, typically — and a collision would merge
+    second (a retry after a failure, typically) and a collision would merge
     two distinct audit trails into one.
     """
     run_id = uuid.uuid4().hex[:16]

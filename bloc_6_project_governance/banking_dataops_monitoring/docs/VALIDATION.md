@@ -45,4 +45,8 @@ Expected review notes:
 
 ## Portfolio rule
 
-This repository is public technical evidence. It must not contain CVs, cover letters, salary targets, private school documents, real client data, employer data, credentials or any claim of connection to a production system.
+This repository is public technical evidence. It must not contain CVs, cover letters, salary targets, private third-party documents, real client data, employer data, credentials or any claim of connection to a production system.
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

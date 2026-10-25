@@ -6,3 +6,7 @@
 | R-002 | Overclaiming certification | Medium | conservative wording until validated | Open |
 | R-003 | Weak reproducibility | Medium | setup commands and tests | Open |
 | R-004 | Unclear model limitations | Medium | model card and risk assessment | Open |
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

@@ -11,7 +11,7 @@ __pycache__/
 venv/
 
 # ---------------------------------------------------------------------------
-# Secrets — ne doit JAMAIS partir sur un dépôt public
+# Secrets : ne doit JAMAIS partir sur un dépôt public
 #
 # NOTE : le motif ".env" ci-dessous ne correspond QU'AU fichier nommé
 # exactement ".env" (vos vraies valeurs : hôte, mot de passe). Il n'exclut pas
@@ -34,7 +34,7 @@ venv/
 # WHY: régénérables en une commande (run_pipeline.py --seed 42). Un CSV
 # versionné serait un artefact périmé du run local de quelqu'un, indiscernable
 # d'un vrai. La donnée est synthétique et déterministe : le seed suffit.
-# NOTE: le double astérisque est nécessaire — "data/*.csv" ne couvre PAS
+# NOTE: le double astérisque est nécessaire : "data/*.csv" ne couvre PAS
 # "data/silver/*.csv", une seule étoile ne traverse pas les sous-dossiers.
 # ---------------------------------------------------------------------------
 data/**/*.csv

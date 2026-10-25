@@ -17,7 +17,7 @@
 
 | Document | Purpose |
 |---|---|
-| [adr/](adr/) | Dated architecture decision records — context, options, decision, consequences |
+| [adr/](adr/) | Dated architecture decision records: context, options, decision, consequences |
 
 ## Power BI reporting
 
@@ -27,7 +27,7 @@
 
 ## Project management (French)
 
-Written in French for the RNCP35288 certification jury, while code and technical
+Written in French for the RNCP35288 certification assessment, while code and technical
 documentation remain in English.
 
 | Document | Purpose |
@@ -38,3 +38,7 @@ documentation remain in English.
 ## Boundary
 
 This repository is technical evidence built on synthetic data. It must not contain real banking, insurance, health, client or employer data, nor any secret.
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

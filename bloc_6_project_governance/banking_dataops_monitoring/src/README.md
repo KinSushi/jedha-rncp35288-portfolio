@@ -1,8 +1,8 @@
-# `src/` — code source
+# `src/` : code source
 
 Deux choses cohabitent ici, volontairement.
 
-## `banking_dataops/` — l'implémentation
+## `banking_dataops/` : l'implémentation
 
 Le package réel. Tout le code vit ici : un package donne un espace de noms, une
 importabilité et une testabilité qu'un dossier de scripts épars ne donne pas.
@@ -31,15 +31,19 @@ banking_dataops/
     └── predict.py             scoring, priorisation des analystes
 ```
 
-## `cleaning/`, `ingestion/`, `ml/`, `transformations/` — alias de chemins
+## `cleaning/`, `ingestion/`, `ml/`, `transformations/` : alias de chemins
 
-Le référentiel de certification nomme des chemins précis : `src/ingestion/ingest.py`,
+Ces dossiers donnent à chaque étape un chemin d'entrée à plat : `src/ingestion/ingest.py`,
 `src/cleaning/clean.py`, `src/transformations/`, `src/ml/predict.py`.
 
-Ces modules **ré-exportent** depuis `banking_dataops`. Ils ne dupliquent rien —
+Ces modules ré-exportent depuis `banking_dataops`. Ils ne dupliquent rien :
 une seconde copie de la logique divergerait en une semaine.
 
-Les deux exigences sont ainsi satisfaites : les chemins du référentiel se
+Les deux contraintes sont ainsi tenues : les chemins à plat se
 résolvent, et le code reste un package.
 
-**Ne pas supprimer ces dossiers.** Ils ne sont pas du code mort.
+Ne pas supprimer ces dossiers. Ils ne sont pas du code mort.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

@@ -1,4 +1,4 @@
-# Rejeu du modèle de priorisation — ancre du 27 juillet 2026
+# Rejeu du modèle de priorisation : ancre du 27 juillet 2026
 
 Ce fichier accompagne `evidence/rejeu_modele_2026-07-27.json`. Il dit ce que le rejeu est, comment il a été fait, et ce qu'il établit. Les chiffres du dossier de projet (§ 6.4) et de l'ADR-0008 qui ne figurent pas dans `evidence/pipeline_full.txt` viennent de ce rejeu.
 
@@ -17,7 +17,7 @@ Le script de rejeu n'est pas joint au dépôt. La commande équivalente du dép�
 
 ## Pourquoi le 27 juillet 2026
 
-`run_pipeline.py` ancre les horodatages à minuit UTC du jour d'exécution. L'empreinte du lot journalisée dans `evidence/pipeline_full.txt` est `89ac138fb9943f00`. Parmi les 911 dates d'ancre testées (du 1er janvier 2025 au 30 juin 2027), **une seule** reproduit cette empreinte : le **27 juillet 2026 à minuit UTC**. Le rejeu à cette date reproduit aussi les AUC du journal : 0,97 pour la régression logistique, 0,9573 pour la forêt aléatoire, et le choix du modèle.
+`run_pipeline.py` ancre les horodatages à minuit UTC du jour d'exécution. L'empreinte du lot journalisée dans `evidence/pipeline_full.txt` est `89ac138fb9943f00`. Parmi les 911 dates d'ancre testées (du 1er janvier 2025 au 30 juin 2027), une seule reproduit cette empreinte : le 27 juillet 2026 à minuit UTC. Le rejeu à cette date reproduit aussi les AUC du journal : 0,97 pour la régression logistique, 0,9573 pour la forêt aléatoire, et le choix du modèle.
 
 ## Résultats à l'ancre du 27 juillet 2026
 
@@ -25,7 +25,7 @@ Le script de rejeu n'est pas joint au dépôt. La commande équivalente du dép�
 |---|---|
 | Transactions, positives | 1 500, 121 (8,07 %) |
 | Entraînement, test | 1 125, 375 (30 positives) |
-| AUC logistique, forêt, écart | 0,9700 ; 0,9573 ; −0,0128 (marge exigée : +0,01) |
+| AUC logistique, forêt, écart | 0,9700 ; 0,9573 ; -0,0128 (marge exigée : +0,01) |
 | Modèle retenu | régression logistique |
 | Seuil (maximise le F1 sur le jeu de test) | 0,8335 (0,833 arrondi) |
 | Précision, rappel, F1 | 0,657 ; 0,767 ; 0,708 |
@@ -40,7 +40,7 @@ Le script de rejeu n'est pas joint au dépôt. La commande équivalente du dép�
 
 ## Dépendance à la date d'ancre
 
-Les variables « jour de la semaine » et « week-end » sont dérivées des horodatages, donc de l'ancre. Seul le **jour de la semaine de l'ancre** change le jeu vu par le modèle : les rejeux du 20 et du 27 juillet, ainsi que du 3 août 2026 (trois lundis) donnent des résultats identiques. Les sept variantes possibles, une par jour de la semaine :
+Les variables « jour de la semaine » et « week-end » sont dérivées des horodatages, donc de l'ancre. Seul le jour de la semaine de l'ancre change le jeu vu par le modèle : les rejeux du 20 et du 27 juillet, ainsi que du 3 août 2026 (trois lundis) donnent des résultats identiques. Les sept variantes possibles, une par jour de la semaine :
 
 | Jour de l'ancre | AUC logistique | AUC forêt | Écart (valeurs arrondies) | Seuil | VP / FP / FN / VN | Modèle retenu |
 |---|---|---|---|---|---|---|
@@ -61,3 +61,7 @@ Dates supplémentaires rejouées (AUC logistique / AUC forêt) : 20/07/2026 (lun
 ## Ce que ce rejeu ne prouve pas
 
 Les données sont synthétiques et la cible est une règle du générateur. Le seuil et le choix du modèle sont faits sur le jeu de test de 375 lignes (30 positives) : l'AUC de 0,970 n'est pas indépendante de la sélection. Voir le dossier de projet, § 6.4.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

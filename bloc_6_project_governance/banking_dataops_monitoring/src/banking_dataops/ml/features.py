@@ -92,7 +92,7 @@ from banking_dataops.logging_config import get_logger
 logger = get_logger("ml.features")
 #: Columns that must never reach the model.
 #:
-#: ``risk_score`` is the value the label is thresholded from — including it is
+#: ``risk_score`` is the value the label is thresholded from: including it is
 #: a target leak. ``is_suspicious`` is the label itself. The identifiers carry
 #: no signal and would let a tree memorise rows.
 FORBIDDEN_FEATURES: frozenset[str] = frozenset(
@@ -182,7 +182,9 @@ def build(frame: pd.DataFrame) -> pd.DataFrame:
     # Weekday. Kept as a categorical rather than a number so the model is not
     # forced to treat Monday-to-Sunday as an ordered scale.
     out["weekday_name"] = timestamps.dt.day_name()
-    out["is_weekend"] = timestamps.dt.dayofweek >= 5
+    # day_of_week (Monday = 0, Sunday = 6) rather than dayofweek, deprecated by pandas 3.1.0 in its favour. The
+    # pandas 2.0 documentation already gives dayofweek as an alias of day_of_week: same result over pandas>=2.0.
+    out["is_weekend"] = timestamps.dt.day_of_week >= 5
     # Cross-border: booked outside the customer's own country.
     out["is_cross_border"] = out["transaction_country"] != out["customer_country"]
     # Amount band. The raw amount is log-normal, so a linear model reads it

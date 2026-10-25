@@ -43,7 +43,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def _check_mirror(pyproject: str, requirements: str) -> None:
     """Raise ``AssertionError`` naming the dependencies that only one of the two files declares."""
     # Match up to a line that is exactly "]". A non-greedy [^]]* would stop at
-    # the first bracket inside "psycopg[binary]" and capture nothing usable —
+    # the first bracket inside "psycopg[binary]" and capture nothing usable:
     # which is exactly what this test caught on its first run.
     block = re.search(r"^dependencies = \[\n(.*?)^\]", pyproject, re.S | re.M)
     assert block, "no dependencies block in pyproject.toml"
@@ -74,8 +74,8 @@ def test_settings_defaults() -> None:
 def test_requirements_txt_matches_pyproject() -> None:
     """The two dependency declarations must not drift.
 
-    requirements.txt exists because the brief names it and because reviewers
-    type `pip install -r` first. pyproject.toml is the source of truth. Two
+    requirements.txt exists because readers type `pip install -r` first.
+    pyproject.toml is the source of truth. Two
     files declaring the same thing diverge silently unless something checks,
     and a check that cannot fail proves nothing: it is also given a requirements
     file with a line missing and one with a line too many, and must refuse both.

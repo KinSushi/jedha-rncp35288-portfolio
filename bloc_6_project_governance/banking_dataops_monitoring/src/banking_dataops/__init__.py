@@ -10,7 +10,7 @@ Retained: one importable package, ``banking_dataops``, with one module per conce
 scripts. It gives namespacing, importability and testability. The sub-packages are ``pipeline`` (cleaning and
 Gold build) and ``ml`` (features, training, prediction). The package is installed with ``pip install -e .``
 (``pyproject.toml``) and the version below is the package metadata version.
-Rejected: a flat folder of scripts, and installing the spec-path aliases (``src/ingestion``, ``src/cleaning``,
+Rejected: a flat folder of scripts, and installing the path aliases (``src/ingestion``, ``src/cleaning``,
 ``src/transformations``, ``src/ml``) as top-level packages (see ``src/ml/predict.py``).
 
 OÙ

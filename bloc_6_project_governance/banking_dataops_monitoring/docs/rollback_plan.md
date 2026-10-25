@@ -1,4 +1,4 @@
-# Rollback Plan — banking-dataops-monitoring
+# Rollback Plan: banking-dataops-monitoring
 
 ## Purpose
 
@@ -35,3 +35,7 @@ python -m banking_dataops.reconciliation
 ## Public-safety note
 
 Do not use this rollback pattern for a production system. It is a portfolio artifact for synthetic local data only.
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

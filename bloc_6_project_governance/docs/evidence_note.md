@@ -1,4 +1,4 @@
-# Note de preuve — Bloc 6 — Direction de projets de gestion de données
+# Note de preuve : bloc 6, direction de projets de gestion de données
 
 ## Statut
 
@@ -18,3 +18,7 @@ Conduite d'un projet de données de bout en bout : cahier des charges, veille, r
 | Tests | [`banking_dataops_monitoring/tests/`](../banking_dataops_monitoring/tests/) |
 | Sorties d'exécution datées | [`banking_dataops_monitoring/evidence/`](../banking_dataops_monitoring/evidence/) |
 | Données (synthétiques) | [`banking_dataops_monitoring/data/README.md`](../banking_dataops_monitoring/data/README.md) |
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

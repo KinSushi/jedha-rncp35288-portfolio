@@ -112,7 +112,7 @@ DEMO_VIOLATIONS: tuple[DemoViolation, ...] = (
         transaction_id=f"{DEMO_ID_PREFIX}0001",
         control_id="CTRL-003",
         control_name="invalid_amounts",
-        narrative="A transaction of CHF 1,850,000 — far above the plausibility ceiling.",
+        narrative="A transaction of CHF 1,850,000: far above the plausibility ceiling.",
         business_reason=(
             "An amount above the ceiling usually means a decimal shift or a "
             "currency applied twice upstream. Publishing it distorts every "

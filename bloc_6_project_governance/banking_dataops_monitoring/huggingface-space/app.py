@@ -1,4 +1,4 @@
-"""Tableau de bord de monitoring live — banking-dataops-monitoring.
+"""Tableau de bord de monitoring live : banking-dataops-monitoring.
 
 Application autonome, volontairement indépendante du package `banking_dataops`. Elle affiche, en lecture seule, le
 verdict de publication et les contrôles d'une base PostgreSQL cloud.
@@ -9,9 +9,9 @@ Retenu :
 
 - Un fichier unique, sans import relatif ni dépendance au package `banking_dataops`. Ce Space est un point de
   défaillance
-  public et visible (Demo Day) ; le package interne est riche, versionné avec le reste du dépôt, et n'est pas fait pour
+  public et visible ; le package interne est riche, versionné avec le reste du dépôt, et n'est pas fait pour
   être
-  installé isolément. La surface de risque d'un build cassé devant le jury se réduit à une chose : la connexion à la
+  installé isolément. La surface de risque d'un build cassé devant l'auditoire se réduit à une chose : la connexion à la
   base.
 - La lecture seule, jamais l'écriture : cohérent avec ADR-0002 (le verdict de publication ne dépend jamais d'un score de
   modèle) et avec ADR-0006 (API en lecture seule). Un Space public qui permettrait d'écrire dans la base serait une
@@ -55,7 +55,7 @@ COMMENT
 4. L'actualisation automatique, si elle est activée, attend 30 secondes puis relance la page.
 Tests qui le prouvent : aucun test automatisé ne couvre cette page, qui exige Streamlit et une base joignable. Elle se
 vérifie
-à la main sur le Space, par une capture du verdict en direct (dossier de preuves du Demo Day, non inclus dans
+à la main sur le Space, par une capture du verdict en direct (dossier de preuves de travail, non inclus dans
 l'archive de certification).
 
 POURQUOI
@@ -90,7 +90,7 @@ import streamlit as st
 # ---------------------------------------------------------------- configuration
 
 st.set_page_config(
-    page_title="banking-dataops-monitoring — Live",
+    page_title="banking-dataops-monitoring - Live",
     page_icon="🏦",
     layout="wide",
 )
@@ -108,7 +108,7 @@ GITHUB_URL = os.environ.get("BANKING_DATAOPS_GITHUB_URL", "")
 
 
 class ConfigurationError(RuntimeError):
-    """Levée quand les secrets requis sont absents ou vides — distincte d'une
+    """Levée quand les secrets requis sont absents ou vides : distincte d'une
     panne réseau, pour que le message affiché oriente vers la bonne action."""
 
 
@@ -181,7 +181,7 @@ def load_snapshot() -> dict[str, Any]:
 
     ttl=30 : les visiteurs multiples pendant la démonstration partagent le
     même résultat pendant 30 secondes plutôt que de rouvrir une connexion à
-    chaque rendu — la base cloud gratuite a un nombre de connexions limité.
+    chaque rendu : la base cloud gratuite a un nombre de connexions limité.
     """
     with psycopg.connect(_dsn(), connect_timeout=8) as conn:
 
@@ -245,7 +245,7 @@ def load_snapshot() -> dict[str, Any]:
 
 with st.sidebar:
     st.markdown("### banking-dataops-monitoring")
-    st.caption("Tableau de bord live — lecture seule")
+    st.caption("Tableau de bord live, lecture seule")
     st.markdown("---")
     auto = st.toggle("Actualisation automatique (30 s)", value=False)
     if st.button("Actualiser maintenant", use_container_width=True):
@@ -254,7 +254,7 @@ with st.sidebar:
     st.markdown("---")
     st.caption(
         "Données entièrement synthétiques (générateur déterministe, seed=42). "
-        "Ce tableau de bord ne fait que lire la base — aucune écriture n'est "
+        "Ce tableau de bord ne fait que lire la base : aucune écriture n'est "
         "possible depuis cette page."
     )
     if GITHUB_URL:
@@ -268,7 +268,7 @@ st.markdown(
       <div>
         <h1 style="margin-bottom:0;">banking-dataops-monitoring</h1>
         <p class="muted" style="margin-top:4px;">
-          Ce lot de données bancaires est-il publiable ? — verdict en direct
+          Ce lot de données bancaires est-il publiable ? Verdict en direct
         </p>
       </div>
     </div>
@@ -287,7 +287,7 @@ except ConfigurationError as exc:
     data = None
     connection_error = None
     config_error = exc
-except Exception as exc:  # noqa: BLE001 — toute panne réseau/DB est affichée, pas masquée
+except Exception as exc:  # noqa: BLE001 toute panne réseau/DB est affichée, pas masquée
     data = None
     connection_error = exc
     config_error = None
@@ -300,7 +300,7 @@ if connection_error is not None:
     st.error(
         "Base de données injoignable pour l'instant.\n\n"
         "Si elle tourne sur une offre gratuite (Neon, Supabase), elle peut être "
-        "en veille après une période d'inactivité — le premier réveil prend "
+        "en veille après une période d'inactivité : le premier réveil prend "
         "quelques secondes. Cliquez sur *Actualiser maintenant* dans la barre "
         "latérale.",
         icon="⚠️",
@@ -387,7 +387,7 @@ with col_ml:
     st.bar_chart(prio.set_index("Bande"), color=GOLD)
     st.caption(
         "Ce classement priorise la file des analystes. Il n'influence jamais "
-        "le verdict de publication ci-dessus — celui-ci ne dérive que des "
+        "le verdict de publication ci-dessus : celui-ci ne dérive que des "
         "7 contrôles déterministes (ADR-0002)."
     )
 

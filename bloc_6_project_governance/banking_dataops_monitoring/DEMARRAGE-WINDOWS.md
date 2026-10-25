@@ -1,6 +1,6 @@
 # Démarrage sous Windows
 
-Le projet fonctionne nativement sous Windows. Aucun `make`, aucun `chmod`, aucun script bash : uniquement **Docker Desktop**.
+Le projet fonctionne nativement sous Windows. Aucun `make`, aucun `chmod`, aucun script bash : uniquement Docker Desktop.
 
 ---
 
@@ -8,13 +8,13 @@ Le projet fonctionne nativement sous Windows. Aucun `make`, aucun `chmod`, aucun
 
 Un ingénieur data a presque toujours un PostgreSQL déjà en écoute sur 5432. Le script sonde les trois ports au démarrage et écrit un `.env` avec ceux qui sont libres.
 
-**Rien n'est tué, rien n'est désinstallé.** Le conteneur continue d'utiliser 5432 en interne ; seule la porte d'entrée côté machine change. Un PostgreSQL local n'est pas touché.
+Rien n'est tué, rien n'est désinstallé. Le conteneur continue d'utiliser 5432 en interne ; seule la porte d'entrée côté machine change. Un PostgreSQL local n'est pas touché.
 
 ---
 
 ## Premier démarrage
 
-Décompresser `04-Code-source.zip`, ouvrir l'explorateur dans le dossier `banking_dataops_monitoring`, puis **double-cliquer sur `DEMARRER-WINDOWS.bat`**.
+Décompresser `04-Code-source.zip`, ouvrir l'explorateur dans le dossier `banking_dataops_monitoring`, puis double-cliquer sur `DEMARRER-WINDOWS.bat`.
 
 Ou, depuis PowerShell :
 
@@ -66,7 +66,7 @@ Message typique : *l'exécution de scripts est désactivée sur ce système*.
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
 
-Valable pour **cette session uniquement**, aucune modification permanente de la machine. Le fichier `.bat` fait déjà ce contournement tout seul.
+Valable pour cette session uniquement, aucune modification permanente de la machine. Le fichier `.bat` fait déjà ce contournement tout seul.
 
 ---
 
@@ -86,9 +86,9 @@ Valable pour **cette session uniquement**, aucune modification permanente de la 
 |---|---|
 | `setup` | Sonde les ports, construit l'image. À faire une fois, avant d'avoir besoin de la pile |
 | `start` | Démarre tout depuis un volume vide, attend le tableau de bord |
-| `demoday` | Redémarre `postgres` et `app` **sans supprimer le volume** (contrairement à `start`) et attend le tableau de bord |
+| `soutenance` | Redémarre `postgres` et `app` sans supprimer le volume (contrairement à `start`) et attend le tableau de bord |
 | `train` | Relance le pipeline avec `--train` (le lot est régénéré, les lignes de démonstration disparaissent), puis `ml.predict` |
-| `smoke` | Vérification de bout en bout, doit afficher **DEMO READY** |
+| `smoke` | Vérification de bout en bout, doit afficher DEMO READY |
 | `verify` | Lance `run_pipeline.py --verify` : une exécution ordinaire, l'option ne vérifie rien (voir `docs/pipeline_architecture.md`) |
 | `demo-inject` | Injecte le lot dégradé |
 | `demo-reset` | Le retire et relance les contrôles |
@@ -110,7 +110,7 @@ Valable pour **cette session uniquement**, aucune modification permanente de la 
 ## Redémarrage sans remise à zéro
 
 ```powershell
-.\run.ps1 demoday
+.\run.ps1 soutenance
 ```
 
 Démarre `postgres` et `app` sans exécuter `docker compose down -v` : la base et les prédictions existantes sont conservées. L'API (`/verdict`) tourne dans le conteneur `app`, à côté du tableau de bord : elle est donc disponible dans ce mode. Pour entraîner le modèle sans régénérer le lot, utiliser `docker compose exec app python -m banking_dataops.ml.train` puis `... ml.predict`.
@@ -152,4 +152,4 @@ Les deux exposent les mêmes tâches. Sous Linux ou macOS, `make smoke` ; sous W
 
 ## Ce qui n'est pas nécessaire
 
-Ni Git Bash, ni WSL, ni `make`, ni `chmod`, ni Git : le code source est dans l'archive. Uniquement **Docker Desktop**.
+Ni Git Bash, ni WSL, ni `make`, ni `chmod`, ni Git : le code source est dans l'archive. Uniquement Docker Desktop.

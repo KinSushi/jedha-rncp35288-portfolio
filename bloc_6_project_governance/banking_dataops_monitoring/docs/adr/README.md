@@ -3,7 +3,7 @@
 Chaque décision structurante est consignée dans un document court et daté :
 le contexte, les options envisagées, la décision, ses conséquences.
 
-L'intérêt n'est pas documentaire. Devant un jury comme devant une équipe,
+L'intérêt n'est pas documentaire. Devant un comité de validation comme devant un auditeur,
 la question n'est jamais « qu'avez-vous construit ? » mais « pourquoi ce
 choix-là plutôt qu'un autre ? ». Un registre de décisions répond sans
 reconstitution a posteriori.
@@ -19,3 +19,7 @@ reconstitution a posteriori.
 | [ADR-0007](0007-tracabilite-et-reverse-tests.md) | Traçabilité par journal d'audit et reverse tests | Acceptée |
 | [ADR-0008](0008-classifieur-de-priorisation.md) | Classifieur de priorisation, jamais de blocage | Acceptée, complétée par ADR-0009 |
 | [ADR-0009](0009-selection-hors-test-bandes-et-ancre.md) | Sélection hors du jeu de test, bandes ancrées sur le seuil, ancre de date fixe | Acceptée |
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

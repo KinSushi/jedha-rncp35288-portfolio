@@ -230,7 +230,7 @@ def main() -> int:
             return 0 if ok else 1
 
         if args.dry_run:
-            print("MODE DRY-RUN — aucune écriture")
+            print("MODE DRY-RUN : aucune écriture")
             for table in SILVER_TABLES + GOLD_TABLES:
                 print(f"  copierait  {table:<30} {count_rows(src, table):>8} lignes")
             return 0
@@ -268,15 +268,15 @@ def main() -> int:
 
         print("=" * 66)
         if mismatches:
-            print(f"  ÉCHEC — {mismatches} table(s) en écart")
+            print(f"  ÉCHEC : {mismatches} table(s) en écart")
             return 1
-        print(f"  PUBLIÉ — {total} lignes, 8 vues, verdict {verdict[0]}")
+        print(f"  PUBLIÉ : {total} lignes, 8 vues, verdict {verdict[0]}")
         print("=" * 66)
         print()
         print("  Power BI Desktop : Obtenir les données > Base de données PostgreSQL")
         print("  Serveur  : l'hôte de la chaîne ci-dessus (port inclus)")
         print("  Base     : le nom de base de la chaîne")
-        print("  Connect. : Import (pas DirectQuery — les vues sont peu volumineuses)")
+        print("  Connect. : Import (pas DirectQuery : les vues sont peu volumineuses)")
         return 0
 
 

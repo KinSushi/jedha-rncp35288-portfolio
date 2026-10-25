@@ -6,7 +6,7 @@ Format : 16:9, 1280 × 720. Marges de 20 pixels.
 
 ---
 
-## Page 1 — Verdict
+## Page 1 : Verdict
 
 **Audience** : direction. **Objectif** : la décision en trois secondes.
 
@@ -21,13 +21,13 @@ Format : 16:9, 1280 × 720. Marges de 20 pixels.
 | Ligne 2, droite | Anneau | `[Controls Passed]` et `[Controls Failed]` par `control_family` | Palette limitée à vert et rouge |
 | Bas, pleine largeur | Zone de texte | Mention de démonstration sur données synthétiques | Police 10, gris |
 
-**Le bandeau est l'élément le plus important de tout le rapport.** Il doit être lisible depuis le fond d'une salle.
+Le bandeau est l'élément le plus important de tout le rapport. Il doit être lisible depuis le fond d'une salle.
 
 ---
 
-## Page 2 — Contrôles
+## Page 2 : Contrôles
 
-**Audience** : analyste qualité. **Objectif** : comprendre ce qui a échoué et pourquoi.
+Audience : analyste qualité. Objectif : comprendre ce qui a échoué et pourquoi.
 
 | Position | Visuel | Champs |
 |---|---|---|
@@ -38,13 +38,13 @@ Format : 16:9, 1280 × 720. Marges de 20 pixels.
 | Bas, gauche | Courbe | Axe `date_key`, valeur `[Control Pass Rate]` |
 | Bas, droite | Table | Incidents ouverts : `incident_id`, `title`, `severity`, `created_at` |
 
-**Le segment par famille de contrôle porte l'argument du projet.** Filtre sur « Structural » : aucun échec, jamais. Filtre sur « Business rule » : c'est là que tout se passe. La démonstration est visuelle, elle ne repose pas sur une affirmation.
+Le segment par famille de contrôle porte l'argument du projet. Filtre sur « Structural » : aucun échec, jamais. Filtre sur « Business rule » : c'est là que tout se passe. La démonstration est visuelle, elle ne repose pas sur une affirmation.
 
 ---
 
-## Page 3 — Volumétrie et réconciliation
+## Page 3 : Volumétrie et réconciliation
 
-**Audience** : métier. **Objectif** : ordres de grandeur et anomalies de volume.
+Audience : métier. Objectif : ordres de grandeur et anomalies de volume.
 
 | Position | Visuel | Champs |
 |---|---|---|
@@ -55,13 +55,13 @@ Format : 16:9, 1280 × 720. Marges de 20 pixels.
 | Bas, droite | Table | `status`, `[Transaction Count]`, `[Total Amount CHF]` |
 | Segment latéral | Segment de dates | `vw_dim_date[date_key]`, type intervalle |
 
-La courbe glissante sur sept jours révèle les décrochages de volume — un lot partiellement chargé se voit immédiatement.
+La courbe glissante sur sept jours révèle les décrochages de volume : un lot partiellement chargé se voit immédiatement.
 
 ---
 
-## Page 4 — Risque
+## Page 4 : Risque
 
-**Audience** : conformité. **Objectif** : où se concentre le risque.
+Audience : conformité. Objectif : où se concentre le risque.
 
 | Position | Visuel | Champs |
 |---|---|---|
@@ -71,7 +71,7 @@ La courbe glissante sur sept jours révèle les décrochages de volume — un lo
 | Bas, gauche | Barres | `merchant_category` par `[Average Risk Score]`, tri décroissant |
 | Bas, droite | Table | Vingt transactions les plus risquées, tri par `risk_score` décroissant |
 
-**Ne présente jamais cette page comme de la détection de fraude.** C'est de l'exploration de concentration de risque sur données synthétiques. La distinction est exactement ce que le référentiel attend en matière de prudence, et un jury la vérifiera.
+Ne présente jamais cette page comme de la détection de fraude. C'est de l'exploration de concentration de risque sur données synthétiques. La distinction est exactement ce que le référentiel attend en matière de prudence, et un auditeur la vérifiera.
 
 ---
 
@@ -95,7 +95,7 @@ La courbe glissante sur sept jours révèle les décrochages de volume — un lo
 | Ordre de tabulation | Défini page par page, du verdict vers le détail |
 | Texte de remplacement | Renseigné sur chaque visuel |
 
-L'accessibilité est au programme du PL-300. Le point décisif est le premier : **ne jamais faire porter une information par la couleur seule.**
+L'accessibilité est au programme du PL-300. Le point décisif est le premier : ne jamais faire porter une information par la couleur seule.
 
 ---
 
@@ -110,3 +110,7 @@ L'accessibilité est au programme du PL-300. Le point décisif est le premier : 
 - [ ] Chaque page a un titre explicite
 - [ ] Le rapport se rafraîchit sans erreur
 - [ ] Filtrer sur « Structural » ne montre aucun échec
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

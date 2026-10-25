@@ -9,3 +9,7 @@ Rendered from real command outputs kept in `evidence/` (see `tools/README.md`).
 - [test-reverse-paths.svg](screenshots/test-reverse-paths.svg)
 - [pipeline-run.svg](screenshots/pipeline-run.svg)
 - [powerbi-star-schema.svg](screenshots/powerbi-star-schema.svg)
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

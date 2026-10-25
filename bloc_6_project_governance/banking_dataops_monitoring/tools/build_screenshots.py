@@ -169,16 +169,16 @@ def nombre_de_cas() -> int:
 
 print("Génération des copies d'écran SVG :")
 
-# 1. Smoke check — le plus parlant pour un jury
+# 1. Smoke check : le plus parlant pour un lecteur
 make_svg(
-    "scripts/smoke_check.py  —  validation de bout en bout",
+    "scripts/smoke_check.py  :  validation de bout en bout",
     ["$ python scripts/smoke_check.py", ""] + read("smoke_check_full.txt"),
     OUT / "test-smoke-check.svg",
 )
 
 # 2. Suite de tests complète
 make_svg(
-    f"pytest  —  suite complète ({nombre_de_cas()} cas)",
+    f"pytest  :  suite complète ({nombre_de_cas()} cas)",
     ["$ pytest -q -rs", ""] + read("pytest_full.txt"),
     OUT / "test-suite-pytest.svg",
 )
@@ -188,13 +188,13 @@ rev = read("reverse_full.txt")
 rev_clean = [re.sub(r"^tests/test_reverse_paths\.py::", "", line_) for line_ in rev]
 rev_clean = [re.sub(r"\s+\[\s*\d+%\]$", "", line_) for line_ in rev_clean]
 make_svg(
-    "pytest tests/test_reverse_paths.py  —  chemins interdits",
+    "pytest tests/test_reverse_paths.py  :  chemins interdits",
     ["$ pytest tests/test_reverse_paths.py -v", ""] + rev_clean,
     OUT / "test-reverse-paths.svg",
     max_cols=96,
 )
 
-# 4. Pipeline complet — résumé final
+# 4. Pipeline complet : résumé final
 pipe = read("pipeline_full.txt")
 summary_idx = next((i for i, line_ in enumerate(pipe) if "Pipeline completed successfully" in line_), None)
 if summary_idx is not None:
@@ -212,7 +212,7 @@ if summary_idx is not None:
     body = ["$ python run_pipeline.py --seed 42 --transactions 1500 --train", ""]
     body += key[:18] + [""] + pipe[summary_idx:]
     make_svg(
-        "run_pipeline.py  —  exécution de bout en bout",
+        "run_pipeline.py  :  exécution de bout en bout",
         body,
         OUT / "pipeline-run.svg",
         max_cols=112,
@@ -220,7 +220,7 @@ if summary_idx is not None:
 
 # 5. Vues Power BI
 make_svg(
-    "banking_dataops.powerbi_views  —  schéma en étoile",
+    "banking_dataops.powerbi_views  :  schéma en étoile",
     ["$ python -m banking_dataops.powerbi_views", ""] + read("powerbi_views.txt"),
     OUT / "powerbi-star-schema.svg",
 )

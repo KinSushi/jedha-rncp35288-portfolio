@@ -8,18 +8,18 @@ Ce que ce dépôt exige de lui-même. Un standard qui n'est pas vérifié par un
 
 | Mode | Définition | Où il est fermé |
 |---|---|---|
-| **Fuite** | Une opération atteint des données hors de sa portée | `tests/test_reverse_paths.py` — section LEAK |
-| **Échec silencieux** | Une erreur est absorbée et l'appelant croit avoir réussi | section SILENT CRASH |
-| **Corruption d'état** | Un invariant est rompu et l'exécution continue | section STATE CORRUPTION |
-| **Anticipation** | Une décision utilise une information qu'elle ne devrait pas avoir | section LOOK-AHEAD |
+| Fuite | Une opération atteint des données hors de sa portée | `tests/test_reverse_paths.py`, section LEAK |
+| Échec silencieux | Une erreur est absorbée et l'appelant croit avoir réussi | section SILENT CRASH |
+| Corruption d'état | Un invariant est rompu et l'exécution continue | section STATE CORRUPTION |
+| Anticipation | Une décision utilise une information qu'elle ne devrait pas avoir | section LOOK-AHEAD |
 
-Un test avant prouve que le chemin nominal fonctionne. Un **reverse test** prouve que le chemin interdit ne peut pas être emprunté, et que le refus est explicite.
+Un test avant prouve que le chemin nominal fonctionne. Un reverse test prouve que le chemin interdit ne peut pas être emprunté, et que le refus est explicite.
 
 ---
 
 ## 2. Journalisation
 
-**Un contrôle qui échoue sans laisser de trace est pire que pas de contrôle du tout** : il produit une décision que personne ne peut justifier ensuite.
+Un contrôle qui échoue sans laisser de trace est pire que pas de contrôle du tout : il produit une décision que personne ne peut justifier ensuite.
 
 | Règle | Mise en œuvre |
 |---|---|
@@ -31,7 +31,7 @@ Un test avant prouve que le chemin nominal fonctionne. Un **reverse test** prouv
 
 Le dernier point mérite d'être explicité : une bibliothèque qui configure la journalisation confisque une décision qui appartient à l'application. Elle ne le fait pas.
 
-**Pourquoi le `SafeHandler` avale les exceptions.** C'est une entorse assumée à la règle « ne jamais avaler une exception ». Un tuyau rompu ou un disque plein ne doit pas interrompre un traitement de données : l'observabilité est subordonnée au travail qu'elle observe, jamais l'inverse. L'entorse est couverte par un test qui vérifie que l'absorption a bien lieu.
+Pourquoi le `SafeHandler` avale les exceptions. C'est une entorse assumée à la règle « ne jamais avaler une exception ». Un tuyau rompu ou un disque plein ne doit pas interrompre un traitement de données : l'observabilité est subordonnée au travail qu'elle observe, jamais l'inverse. L'entorse est couverte par un test qui vérifie que l'absorption a bien lieu.
 
 ---
 
@@ -46,21 +46,21 @@ La journalisation répond à « que se passe-t-il » pendant l'exécution. L'aud
 | `run_id` | Corrèle tous les événements d'une exécution | 16 caractères hexadécimaux |
 | `category` | Liste fermée de six valeurs | `CHECK` déclaratif en base |
 | `action` | Ce qui s'est produit, au passé | Non vide |
-| `reason` | **Pourquoi**, en termes métier | Non vide, refusé sinon |
+| `reason` | Pourquoi, en termes métier | Non vide, refusé sinon |
 | `row_count` | Combien de lignes affectées | Positif ou nul |
 | `details` | Contexte structuré libre | `jsonb` |
 
-**Le champ `reason` est refusé s'il est vide.** Un journal qui enregistre le quoi sans le pourquoi est un log, pas une piste d'audit. C'est la seule ligne du standard qui produit une exception à la construction.
+Le champ `reason` est refusé s'il est vide. Un journal qui enregistre le quoi sans le pourquoi est un log, pas une piste d'audit. C'est la seule ligne du standard qui produit une exception à la construction.
 
 ### Double écriture, délibérée
 
-L'événement part **toujours** dans le log structuré, qui survit à une panne de base. Il part **au mieux** dans la table `audit_events`, qui survit à un redémarrage de conteneur. Si l'écriture en base échoue, l'événement reste dans le log et le traitement continue.
+L'événement part toujours dans le log structuré, qui survit à une panne de base. Il part au mieux dans la table `audit_events`, qui survit à un redémarrage de conteneur. Si l'écriture en base échoue, l'événement reste dans le log et le traitement continue.
 
 L'inverse rendrait l'observabilité capable de casser le travail qu'elle observe.
 
 ### Invariants
 
-`assert_invariant` journalise **aussi les succès**. Un invariant vérifié en silence est indiscernable d'un invariant jamais exécuté : l'auditeur doit pouvoir prouver que le contrôle a eu lieu, pas seulement qu'il n'a pas échoué.
+`assert_invariant` journalise aussi les succès. Un invariant vérifié en silence est indiscernable d'un invariant jamais exécuté : l'auditeur doit pouvoir prouver que le contrôle a eu lieu, pas seulement qu'il n'a pas échoué.
 
 Une violation lève. Un état corrompu qui continue de circuler produit un verdict auquel personne ne peut se fier.
 
@@ -75,9 +75,9 @@ Une violation lève. Un état corrompu qui continue de circuler produit un verdi
 | L'empreinte ne dépend pas de l'ordre du système de fichiers | `test_the_directory_fingerprint_depends_on_names_not_on_order_and_the_anchor_removes_the_clock_leak` |
 | L'empreinte couvre les noms, pas seulement le contenu | le même test (`tests/test_reproducibility.py`) |
 
-**Un défaut réel trouvé par ces tests.** Le générateur appelait `datetime.now()` à trois endroits et écrivait l'horloge murale dans les données. Deux exécutions avec la même graine produisaient donc des fichiers différents, et la reproductibilité affirmée par le dossier était fausse.
+Un défaut réel trouvé par ces tests. Le générateur appelait `datetime.now()` à trois endroits et écrivait l'horloge murale dans les données. Deux exécutions avec la même graine produisaient donc des fichiers différents, et la reproductibilité affirmée par le dossier était fausse.
 
-Correction : un ancrage temporel injectable, `SyntheticConfig.generated_at`. Par défaut `None`, ce qui conserve le comportement antérieur ; renseigné, il rend la sortie identique à l'octet près. Deux tests verrouillent le défaut et sa correction — l'un assertant que la fuite existe sans ancrage, l'autre qu'elle disparaît avec.
+Correction : un ancrage temporel injectable, `SyntheticConfig.generated_at`. Par défaut `None`, ce qui conserve le comportement antérieur ; renseigné, il rend la sortie identique à l'octet près. Deux tests verrouillent le défaut et sa correction : l'un assertant que la fuite existe sans ancrage, l'autre qu'elle disparaît avec.
 
 Effet secondaire du correctif : une seule lecture d'horloge au lieu de trois. Trois lectures pouvaient enjamber minuit et produire un jeu de données dont la création de compte est postérieure à ses propres transactions.
 
@@ -90,11 +90,11 @@ Effet secondaire du correctif : une seule lecture d'horloge au lieu de trois. Tr
 | Toute valeur externe voyage en paramètre lié | `fetch_rows(..., params=...)` |
 | Aucune interpolation de chaîne dans une requête | Reverse test sur `_safe_run_id` |
 | La validation est une liste blanche | Un identifiant est hexadécimal, rien d'autre n'est accepté |
-| Validation **et** liaison | Les deux, dans cet ordre |
+| Validation et liaison | Les deux, dans cet ordre |
 
 Le dernier point est un choix. La validation seule serait une ligne de défense unique. La liaison seule accepterait un identifiant malformé et renverrait un résultat vide au lieu de le signaler. Les deux, en commençant par la validation.
 
-**Une faille réelle corrigée** : `fetch_rows` n'acceptait aucun paramètre, ce qui imposait l'interpolation à tout appelant. Le paramètre `params` a été ajouté de façon rétrocompatible.
+Une faille réelle corrigée : `fetch_rows` n'acceptait aucun paramètre, ce qui imposait l'interpolation à tout appelant. Le paramètre `params` a été ajouté de façon rétrocompatible.
 
 ---
 
@@ -104,16 +104,16 @@ Chaque module public répond à quatre questions, dans son docstring :
 
 | Question | Ce qu'elle recouvre |
 |---|---|
-| **POURQUOI** ce module existe | Le problème métier, pas la fonction technique |
-| **COMMENT** il s'y prend | Le mécanisme, et les alternatives écartées |
-| **OÙ** il est appelé | Les appelants légitimes, et les illégitimes |
-| **CE QUI EST GARANTI** | Les invariants que l'appelant peut tenir pour acquis |
+| POURQUOI ce module existe | Le problème métier, pas la fonction technique |
+| COMMENT il s'y prend | Le mécanisme, et les alternatives écartées |
+| OÙ il est appelé | Les appelants légitimes, et les illégitimes |
+| CE QUI EST GARANTI | Les invariants que l'appelant peut tenir pour acquis |
 
 Les chemins interdits sont énumérés dans le docstring du module, avec le renvoi vers le test qui les ferme. Un chemin interdit non testé n'est pas interdit, il est déconseillé.
 
 ### Ce qui est commenté et ce qui ne l'est pas
 
-Un commentaire explique **pourquoi**, jamais **quoi**. `# incrémente le compteur` au-dessus de `count += 1` est du bruit. `# une seule lecture d'horloge : trois pouvaient enjamber minuit` est de l'information.
+Un commentaire explique pourquoi, jamais quoi. `# incrémente le compteur` au-dessus de `count += 1` est du bruit. `# une seule lecture d'horloge : trois pouvaient enjamber minuit` est de l'information.
 
 Les seuils métier sont toujours commentés avec leur origine. Un `0.7` sans explication devient, en six mois, un nombre que personne n'ose changer.
 
@@ -156,23 +156,23 @@ make smoke           # 15 assertions de bout en bout
 Un standard qui prétend s'appliquer partout sans le mesurer n'est pas vérifiable.
 Voici l'état exact, mesuré, pas affirmé.
 
-### Modules journalisés — tout ce qui change un état
+### Modules journalisés : tout ce qui change un état
 
 | Module | Journal | Événements | Invariants |
 |---|---|---|---|
-| `ingest.py` | oui | oui | oui — silver non vide |
-| `quality_checks.py` | oui | un par contrôle, avec motif métier | oui — un résultat par contrôle déclaré |
-| `pipeline/cleaning.py` | oui | oui | oui — taux de quarantaine sous 5 % |
-| `pipeline/gold.py` | oui | oui | oui — Gold égal à Silver |
-| `ml/train.py` | oui | oui | oui — AUC minimale, équilibre des classes |
-| `ml/predict.py` | oui | oui | oui — un score par transaction |
-| `demo_scenario.py` | oui | oui | oui — reset n'atteint que les lignes marquées |
-| `monitoring.py` | traçage en lecture | non, délibérément | — |
+| `ingest.py` | oui | oui | oui, silver non vide |
+| `quality_checks.py` | oui | un par contrôle, avec motif métier | oui, un résultat par contrôle déclaré |
+| `pipeline/cleaning.py` | oui | oui | oui, taux de quarantaine sous 5 % |
+| `pipeline/gold.py` | oui | oui | oui, Gold égal à Silver |
+| `ml/train.py` | oui | oui | oui, AUC minimale, équilibre des classes |
+| `ml/predict.py` | oui | oui | oui, un score par transaction |
+| `demo_scenario.py` | oui | oui | oui, reset n'atteint que les lignes marquées |
+| `monitoring.py` | traçage en lecture | non, délibérément | - |
 
-**Pourquoi `monitoring.py` ne produit pas d'événement d'audit.** Lire n'est pas
+Pourquoi `monitoring.py` ne produit pas d'événement d'audit. Lire n'est pas
 un acte qui change l'état. Inonder `audit_events` de rendus de page noierait les
 événements qui comptent. Les requêtes sont en revanche tracées au niveau
-`DEBUG`, et une réponse vide déclenche un `WARNING` — un panneau vide a deux
+`DEBUG`, et une réponse vide déclenche un `WARNING` : un panneau vide a deux
 causes très différentes, et sans trace elles sont indiscernables.
 
 ### Modules non journalisés, et pourquoi
@@ -183,10 +183,10 @@ causes très différentes, et sans trace elles sont indiscernables.
 | `db.py` | Couche d'accès pure ; journaliser ici produirait une ligne par requête, sans contexte métier |
 | `generate_synthetic_data.py` | Appelé par `run_pipeline.py`, qui journalise l'étape et l'empreinte du résultat |
 | `powerbi_views.py` | Création de vues idempotente, sans effet de bord observable |
-| `reconciliation.py` | **Corrigé** — journal, invariant sur lot vide, événement nommé `coherence_summary` et non `reconciled`, pour que la piste d'audit ne prétende pas plus que le code |
-| `incident_report.py` | **Corrigé** — écrit un fichier, pas une table ; journalisé car un rapport dont personne ne sait qu'il existe n'est pas lu |
-| `powerbi_views.py` | **Corrigé** — journal et invariant : une vue manquante se manifeste par un panneau vide, jamais par une erreur |
-| `api.py` | **Corrigé** — middleware traçant chaque requête, identifiant d'exécution propre par appel, renvoyé au client dans `X-Run-Id` |
+| `reconciliation.py` | Corrigé : journal, invariant sur lot vide, événement nommé `coherence_summary` et non `reconciled`, pour que la piste d'audit ne prétende pas plus que le code |
+| `incident_report.py` | Corrigé : écrit un fichier, pas une table ; journalisé car un rapport dont personne ne sait qu'il existe n'est pas lu |
+| `powerbi_views.py` | Corrigé : journal et invariant : une vue manquante se manifeste par un panneau vide, jamais par une erreur |
+| `api.py` | Corrigé : middleware traçant chaque requête, identifiant d'exécution propre par appel, renvoyé au client dans `X-Run-Id` |
 
 Les quatre entrées listées en dette lors de la passe précédente ont été traitées.
 Nommer une dette n'est pas la traiter : le critère demandait des journaux
@@ -194,7 +194,7 @@ partout, pas un inventaire des endroits où il n'y en a pas.
 
 Restent exemptés, et c'est délibéré : `config.py`, chargé avant que la
 journalisation ne soit configurée, et `db.py`, couche d'accès pure où une ligne
-par requête produirait du bruit sans contexte métier — ces deux-là sont exclus
+par requête produirait du bruit sans contexte métier : ces deux-là sont exclus
 explicitement dans le garde-fou.
 
 ## 9. Ce que ce standard ne couvre pas
@@ -207,7 +207,7 @@ Par honnêteté, et parce qu'un standard qui prétend tout couvrir n'est pas cr�
 | Tests de charge | Aucun chiffre au-delà de 1 500 lignes |
 | Mesure de couverture | Le nombre de tests est connu, la couverture ne l'est pas |
 | Analyse de sécurité des dépendances | Aucun `pip-audit` en intégration continue |
-| Tests de mutation systématiques | Pratiqués ponctuellement — voir ci-dessous — mais pas automatisés |
+| Tests de mutation systématiques | Pratiqués ponctuellement (voir ci-dessous) mais pas automatisés |
 
 Les deux derniers sont les plus rentables à ajouter, dans cet ordre.
 
@@ -218,14 +218,18 @@ a été validé par mutation : `RunJournal` retiré de `pipeline/gold.py`, test 
 dans le test lui-même : le balayage est une fonction qui doit refuser des sources volontairement fautives
 (module sans journal, journal sans événement, écriture sans trace, import résiduel).
 
-**Première version : le test est resté vert.** Il acceptait `RunJournal` *ou*
+Première version : le test est resté vert. Il acceptait `RunJournal` *ou*
 `record_event`, et le module conservait le second. Un garde-fou qui ne voit pas
 la panne qu'il est censé voir.
 
-Corrigé pour exiger les deux — un module peut émettre des événements isolés tout
+Corrigé pour exiger les deux : un module peut émettre des événements isolés tout
 en ayant perdu son cadre d'exécution, et ces événements n'ont alors plus de run
 auquel se rattacher. Revérifié par mutation : le test échoue désormais, puis
 repasse au vert une fois le code restauré.
 
 C'est l'illustration littérale de la règle du dépôt : **un test qu'on n'a jamais
 vu échouer une fois n'est pas un test.**
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

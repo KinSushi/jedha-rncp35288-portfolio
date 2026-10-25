@@ -33,3 +33,7 @@
 ## Public-safety note
 
 Monitoring examples use synthetic data only.
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

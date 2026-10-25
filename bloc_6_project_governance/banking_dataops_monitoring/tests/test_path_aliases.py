@@ -1,6 +1,6 @@
-"""The path aliases of the brief (``src/ingestion``, ``src/cleaning``, ``src/transformations``, ``src/ml``).
+"""The path aliases (``src/ingestion``, ``src/cleaning``, ``src/transformations``, ``src/ml``).
 
-They exist so that the paths named by the brief resolve. They must re-export the real objects, never a copy,
+They exist so that these paths resolve. They must re-export the real objects, never a copy,
 and they must carry no logic: a second copy of a function would drift from the first within a week.
 """
 
@@ -55,7 +55,7 @@ def test_an_alias_re_exports_the_very_objects_of_the_real_module_defines_nothing
     assert ingestion.ingest_all is ingest_all
     assert sorted(ingestion.__all__) == ["SyntheticConfig", "generate", "ingest_all", "main"]
 
-    # The brief names these five paths and no other: a sixth does not resolve.
+    # The aliases cover these five paths and no other: a sixth does not resolve.
     with pytest.raises(ModuleNotFoundError):
         importlib.import_module("ingestion.not_in_the_brief")
 

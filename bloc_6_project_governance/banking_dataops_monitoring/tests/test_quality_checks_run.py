@@ -211,7 +211,7 @@ def test_a_clean_batch_passes_persists_and_journals_every_control_and_a_control_
     assert (invariant.details["declared"], invariant.details["produced"]) == (7, 7)
     assert verdict.reason == (
         "the publication decision for this batch, derived only from the deterministic controls "
-        "— never from a model score (ADR-0002)"
+        "- never from a model score (ADR-0002)"
     )
     assert (verdict.details["verdict"], verdict.details["controls_total"], verdict.details["controls_failed"]) == (
         "PASS",

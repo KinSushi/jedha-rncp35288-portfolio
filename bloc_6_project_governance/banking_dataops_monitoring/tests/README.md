@@ -1,10 +1,10 @@
-# `tests/` — 551 cas
+# `tests/` : 551 cas
 
 ```bash
 pytest              # 547 passés, 3 ignorés, 1 échec attendu, 0 échec
 ```
 
-La suite tourne **entièrement hors ligne** : aucun test n'exige de base de
+La suite tourne entièrement hors ligne : aucun test n'exige de base de
 données. Les 3 ignorés sont des conditionnels documentés (`E''` accepté dans trois fichiers de
 `sql/`, `test_sql_splitter.py`). L'échec attendu est un `xfail` strict qui consigne un écart connu :
 l'entrypoint du conteneur s'arrête si le pipeline échoue au lieu de démarrer le tableau de bord
@@ -29,7 +29,7 @@ Dernière exécution complète : 547 passés, 3 ignorés, 1 xfail en 38,93 s, av
 | `test_monitoring_loaders.py` | 16 | The dashboard read side (`banking_dataops.monitoring`): exact SQL, limits, traces, verdict counts |
 | `test_equivalent_mutants_premises.py` | 15 | The premises on which the mutants listed in ``MUTANTS_EQUIVALENTS.md`` are called equivalent |
 | `test_gold_build.py` | 13 | Gold layer build (``banking_dataops.pipeline.gold``): load order, one transaction, invariants, refusals |
-| `test_reverse_paths.py` | 13 | chemins interdits — le fichier le plus important |
+| `test_reverse_paths.py` | 13 | chemins interdits : le fichier le plus important |
 | `test_cleaning.py` | 12 | nettoyage, quarantaine, invariants |
 | `test_cleaning_run.py` | 11 | The cleaning step as a whole (``clean_bronze_to_silver``): files read and written, invariants, journal |
 | `test_generate_contract.py` | 10 | The Bronze generator (``generate_synthetic_data``): files, identifiers, windows, the risk rule, refusals |
@@ -57,7 +57,7 @@ Dernière exécution complète : 547 passés, 3 ignorés, 1 xfail en 38,93 s, av
 | `test_demo_scenario.py` | 1 | injection et reset |
 | `test_entrypoint_anchor.py` | 1 | ancre de date dans le point d'entrée du conteneur |
 | `test_monitoring.py` | 1 | indicateurs |
-| `test_path_aliases.py` | 1 | The path aliases of the brief (``src/ingestion``, ``src/cleaning``, ``src/transformations``, ``src/ml``) |
+| `test_path_aliases.py` | 1 | The path aliases (``src/ingestion``, ``src/cleaning``, ``src/transformations``, ``src/ml``) |
 | `test_quality_checks.py` | 1 | contrôles de qualité |
 | `test_reconciliation.py` | 1 | rapprochement |
 | `test_sql_files_exist.py` | 1 | présence des fichiers SQL |
@@ -67,7 +67,7 @@ Dernière exécution complète : 547 passés, 3 ignorés, 1 xfail en 38,93 s, av
 ## Les reverse tests
 
 Un test classique vérifie que le chemin nominal fonctionne. Un reverse test
-vérifie que le **chemin interdit échoue proprement** — sans plantage silencieux,
+vérifie que le chemin interdit échoue proprement : sans plantage silencieux,
 sans fuite de ressource, sans corruption d'état.
 
 Quelques exemples réels :
@@ -85,5 +85,9 @@ le reset ne touche que les lignes marquées demo_scenario
 aucun module ne modifie l'état sans laisser de trace
 ```
 
-C'est la partie de la suite qui répond à la question d'un jury : « et quand ça
+C'est la partie de la suite qui répond à la question d'un auditeur : « et quand ça
 se passe mal ? »
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

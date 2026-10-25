@@ -4,8 +4,8 @@
 
 The most important test in this file is the target-leak guard. A model trained
 on ``risk_score`` would score a perfect AUC and prove nothing, because the label
-is thresholded from that very column. That failure mode is silent — the metrics
-look excellent — which is exactly why it needs a test rather than a comment.
+is thresholded from that very column. That failure mode is silent: the metrics
+look excellent, which is exactly why it needs a test rather than a comment.
 
 The bands are tested by their boundaries and by the property that failed in the
 first version: whatever the threshold, a score of 1.0 must be reachable as ``high``.
@@ -50,7 +50,7 @@ def _frame(rows: int = 40) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
-# Target leak — the failure mode that looks like success
+# Target leak: the failure mode that looks like success
 # ---------------------------------------------------------------------------
 
 

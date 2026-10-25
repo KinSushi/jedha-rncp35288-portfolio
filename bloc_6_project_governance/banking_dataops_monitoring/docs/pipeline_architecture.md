@@ -1,12 +1,21 @@
 # Architecture du pipeline
 
-`banking-dataops-monitoring` — pipeline médaillon avec couche de contrôle
+`banking-dataops-monitoring` : pipeline médaillon avec couche de contrôle
 déterministe et verdict de publication.
 
 Les chiffres ci-dessous sont relevés d'une exécution réelle de la pile Docker, le 11 octobre 2026
 (`evidence/pipeline_full.txt`, `--seed 42 --transactions 1500 --customers 100 --train`, ancre de date par défaut du
 27 juillet 2026). À cette ancre, le contrôle de fraîcheur CTRL-007 avertit : le verdict est WARN et `can_publish` reste
 vrai. Avec `--generated-at today`, les sept contrôles passent (`evidence/variante_ancre_aujourdhui/`).
+Deux résultats dépendent donc du jour de l'exécution : le verdict, par CTRL-007, et le nombre de dates, car la
+dimension date s'étend jusqu'au jour du run (`sql/06_powerbi_star_schema.sql`, l. 24 à 28), d'où 107 dates le
+11 octobre 2026 et 120 le 24 octobre.
+
+Le flux suit le code. Le générateur écrit Bronze ; de Bronze partent le nettoyage, qui n'alimente pas encore la
+base, et le chargement `COPY` des fichiers bruts vers Silver (`src/banking_dataops/ingest.py`). Depuis Silver
+partent trois branches : les contrôles et la réconciliation ; le modèle, qui lit Silver et écrit
+`gold.predictions` (`src/banking_dataops/ml/features.py`) ; les 8 vues `vw_`, importées par Power BI, dont
+Gold reprend les dimensions et les résultats des contrôles (`src/banking_dataops/pipeline/gold.py`).
 
 ---
 
@@ -14,58 +23,80 @@ vrai. Avec `--generated-at today`, les sept contrôles passent (`evidence/varian
 
 ```
                           BANKING-DATAOPS-MONITORING
-        données synthétiques -> contrôlées -> publiables -> priorisées
+      données synthétiques -> chargées -> contrôlées -> publiables -> priorisées
 
-  +--------------+   +--------------+   +--------------+   +------------------+
-  |   BRONZE     |   |   SILVER     |   |    GOLD      |   |  ML PRIORISATION |
-  |              |-->|              |-->|              |-->|                  |
-  | CSV bruts    |   | typé,        |   | schéma       |   | 13 variables     |
-  | déterministe |   | contraint    |   | en étoile    |   | logist. AUC 0.970|
-  |              |   |              |   |              |   | forêt    0.957 X |
-  | 1 500 txn    |   | 1 500 lignes |   | 4 dim/2 faits|   |                  |
-  | 100 clients  |   | 0 doublon    |   | 1 500 faits  |   | le simple gagne  |
-  | 200 comptes  |   | 0 quarantaine|   | 107 dates    |   | et c'est tracé   |
-  +--------------+   +------+-------+   +--------------+   +------------------+
-   fingerprint              |             truncate-then-insert
-   89ac138fb9943f00         |             (idempotent)
-                            |
-                            v
-  +-----------------------------------------------------+ : ADR-0002
-  |        COUCHE DE CONTRÔLE — DÉTERMINISTE            | :
-  |                                                     | : Le score du modèle
-  |  CTRL-001  nuls critiques           high    PASS    | : ne touche JAMAIS
-  |  CTRL-002  doublons                 high    PASS    | : le verdict.
-  |  CTRL-003  montants implausibles    high    PASS    | :
-  |  CTRL-004  transactions orphelines  high    PASS    | : Le ML priorise,
-  |  CTRL-005  score de risque hors[0,1] med    PASS    | : il ne décide pas.
-  |  CTRL-006  statut hors référentiel  med     PASS    | :
-  |  CTRL-007  fraîcheur des données    low     WARN    | : Vérifié par un test
-  |                                                     | : qui lit la source
-  |            +---------------------------+            | : de l'endpoint, pas
-  |            |  VERDICT : WARN           |            | : la documentation.
-  |            |  can_publish = true       |            | :
-  |            |  0 ligne en violation     |            | :
-  |            +---------------------------+            | :
-  +--------------------------+--------------------------+ :
-                             |
-         +-------------------+--------------------+
-         v                   v                    v
-  +-------------+    +--------------+    +------------------+
-  | API FastAPI |    |  Streamlit   |    |    Power BI      |
-  | lecture     |    |  tableau de  |    |  8 vues étoile   |
-  | seule       |    |  bord        |    |  (rapport .pbix) |
-  +-------------+    +--------------+    +------------------+
+  +---------------------+                          +-------------------------------+
+  | GÉNÉRATEUR          |                          | JOURNAL D'AUDIT : transversal |
+  | seed=42             |                          | toutes les étapes y écrivent  |
+  | ancre 2026-07-27    |                          | raison métier exigée en base  |
+  +---------------------+                          | 267 événements, 0 sans raison |
+             |                                     +-------------------------------+
+             v
+  +---------------------+      +---------------------+
+  | BRONZE              |      | SILVER              |
+  | fichiers CSV bruts  | COPY | PostgreSQL 16       |
+  | 1 500 transactions  |----->| 3 tables typées,    |
+  | 100 clients         |bruts | clés primaires et   |
+  | 200 comptes         |      | étrangères          |
+  | 89ac138fb9943f00    |      | 1 500 transactions  |
+  +---------------------+      | anomalies métier    |
+             |                 | conservées          |
+             v                 +---------------------+
+  +---------------------+                 |
+  | NETTOYAGE           |                 |
+  | fichiers nettoyés   |                 |
+  | et quarantaine      |                 |
+  | 0 doublon           |                 |
+  | 0 quarantaine       |                 |
+  | n'alimente pas      |                 | depuis SILVER :
+  | encore la base      |                 | trois branches
+  +---------------------+                 |
+                                          |
+              +---------------------------+---------------------------+
+              v                           v                           v
+  +------------------------+: +------------------------+  +------------------------+
+  | 7 CONTRÔLES            |: | MODÈLE : PRIORISATION  |  | 8 VUES vw_             |
+  | et réconciliation      |: | lit SILVER, jamais     |  | schéma public, sur     |
+  | CTRL-001 à 006 : PASS  |: | GOLD ; 13 variables    |  | Silver et les tables   |
+  | CTRL-007 : WARN        |: | logistique, AUC 0,970  |  | de contrôle            |
+  +------------------------+: +------------------------+  +------------------------+
+              | écrivent    :             | écrit                     | build
+              v             :             v                           v
+  +------------------------+: +------------------------+  +------------------------+
+  | quality_check_results  |: | gold.predictions       |  | GOLD : étoile          |
+  | incident_reports       |: | file d'investigation   |  | 4 dimensions, 2 faits  |
+  | reconciliation_results |: | 1 500 lignes           |  | 1 500 transactions     |
+  |                        |: | 126 high, 99 medium    |  | 107 dates              |
+  |                        |: | 1 275 low              |  | dim. et contrôles :    |
+  |                        |: |                        |  |   par les vues         |
+  |                        |: |                        |  | transactions : SILVER  |
+  +------------------------+: +------------------------+  +------------------------+
+              |             :
+              v             :
+  +------------------------+:
+  | VERDICT : WARN         |:  ADR-0002 : le score du
+  | can_publish = true     |:  modèle ne touche JAMAIS
+  | 6 PASS, 1 WARN, 0 FAIL |:  le verdict. Le modèle
+  | dérivé de              |:  priorise, il ne décide pas.
+  | quality_check_results  |:
+  | seul                   |:
+  +------------------------+:
 
-  +----------------------------------------------------------------------+
-  |  JOURNAL D'AUDIT  —  transversal à toutes les étapes                 |
-  |  run_id corrélé · append-only · toute entrée porte une raison métier |
-  |  (contrainte en base, pas une convention) · invariants vérifiés      |
-  +----------------------------------------------------------------------+
+  RESTITUTION : CE QUE LIT CHAQUE CONSOMMATEUR
+  +------------------------+  +------------------------+  +------------------------+
+  | API FastAPI            |  | Streamlit              |  | Power BI (.pbix)       |
+  | lecture seule          |  | Silver                 |  | importe les 8 vues     |
+  | /verdict, /controls :  |  | quality_check_results  |  | vw_, aucune table      |
+  | quality_check_results  |  | reconciliation_results |  | incidents : vue        |
+  | /incidents :           |  | Gold                   |  | vw_fact_incidents      |
+  | incident_reports       |  | gold.predictions       |  |                        |
+  |                        |  | pas incident_reports   |  |                        |
+  +------------------------+  +------------------------+  +------------------------+
 ```
 
 ### Version graphique
 
-<img src="screenshots/architecture-pipeline.svg" alt="Architecture du pipeline" width="100%"/>
+<img src="screenshots/architecture-pipeline.svg" alt="Architecture : le générateur écrit Bronze ; le nettoyage et le chargement COPY en partent séparément ; depuis Silver, les contrôles et le verdict, le modèle et gold.predictions, les vues vw_ et Gold" width="100%"/>
 
 Source vectorielle : [`screenshots/architecture-pipeline.svg`](screenshots/architecture-pipeline.svg)
 
@@ -73,19 +104,27 @@ Source vectorielle : [`screenshots/architecture-pipeline.svg`](screenshots/archi
 
 ## Le point d'architecture qui compte
 
-La séquence Bronze → Silver → Gold est standard. Ce qui l'est moins :
+Le découpage en couches est standard. Ce qui l'est moins :
 
-**Le nettoyage ne corrige pas les anomalies métier.** Il répare ce qui relève de
-la forme — types, formats, doublons, dates impossibles — et laisse passer ce qui
-relève du fond. Un montant à 1 850 000 CHF traverse la couche de nettoyage
-intact, pour que la couche de contrôle puisse le juger et le compter.
-
-Si le nettoyage corrigeait les anomalies, les contrôles passeraient toujours et
+Le nettoyage ne corrige pas les anomalies métier. Il répare ce qui relève de
+la forme (types, formats, doublons, dates impossibles) et laisse passer ce qui
+relève du fond : un montant implausible le traverse intact. Si le nettoyage
+corrigeait les anomalies, des contrôles placés après lui passeraient toujours et
 ne mesureraient plus rien.
 
-**Le verdict de publication est déterministe.** Il découle des 7 contrôles, jamais
-d'un score de modèle (ADR-0002). Un modèle qui dérive ne peut pas rendre publiable
-un lot qui ne l'est pas.
+Aujourd'hui, le nettoyage n'alimente pas encore la base : le chargement lit les
+fichiers Bronze bruts (`src/banking_dataops/ingest.py`), et c'est ce lot brut que
+les contrôles jugent dans Silver. Le schéma n'impose que des garanties
+structurelles (`NOT NULL`, clés primaires et étrangères), sans contrainte `CHECK`
+sur le montant, le score ou le statut (ADR-0004) : une ligne fautive est chargée,
+puis vue et comptée par les contrôles. Le montant de 1 850 000 CHF du scénario de
+démonstration est inséré directement dans Silver
+(`src/banking_dataops/demo_scenario.py`).
+
+Le verdict de publication est déterministe. Il ne dérive que de
+`quality_check_results`, c'est-à-dire des 7 contrôles, jamais d'un score de
+modèle (ADR-0002). Un modèle qui dérive ne peut pas rendre publiable un lot qui
+ne l'est pas.
 
 ---
 
@@ -93,31 +132,39 @@ un lot qui ne l'est pas.
 
 | Étape | Module | Entrée | Sortie | Garantie |
 |---|---|---|---|---|
-| Bronze | `generate_synthetic_data` | seed | CSV | déterministe, empreinte stable |
-| Cleaning | `pipeline.cleaning` | CSV bruts | CSV nettoyés (`data/silver/`) | ≥ 1 ligne, quarantaine < 5 % |
-| Ingest | `ingest` | **CSV bruts** (Bronze) | PostgreSQL | truncate-then-insert, idempotent |
-| Contrôles | `quality_checks` | silver | `quality_check_results` | 1 résultat par contrôle déclaré |
-| Gold | `pipeline.gold` | silver | schéma étoile | `count(gold) == count(silver)` |
-| ML | `ml.train` | silver | `.joblib` | AUC ≥ 0,70, sinon rejet |
-| ML | `ml.predict` | silver + `.joblib` | `gold.predictions` | un score par transaction ; **commande séparée**, `run_pipeline.py` ne l'appelle pas |
-| Power BI | `powerbi_views` | gold | 8 vues | `CREATE OR REPLACE`, rejouable |
+| Bronze | `generate_synthetic_data` | graine, ancre de date | CSV bruts (`data/synthetic_*.csv`) | déterministe, empreinte stable |
+| Nettoyage | `pipeline.cleaning` | CSV bruts | CSV nettoyés et quarantaine (`data/silver/`), que l'ingestion ne lit pas | ≥ 1 ligne, quarantaine < 5 % |
+| Ingestion | `ingest` | CSV bruts (Bronze) | tables Silver (PostgreSQL) | truncate-then-insert, idempotent ; ≥ 1 transaction |
+| Contrôles | `quality_checks` | Silver | `quality_check_results`, `incident_reports` | 1 résultat par contrôle déclaré |
+| Réconciliation | `reconciliation` | Silver | `reconciliation_results` | lot non vide ; lancée par l'entrypoint Docker ou à la main, pas par `run_pipeline.py` |
+| Gold | `pipeline.gold` | vues `vw_` (dimensions, résultats des contrôles) et Silver (transactions) | schéma en étoile | `count(gold) == count(silver)` |
+| ML | `ml.train` | Silver | `.joblib` | AUC ≥ 0,70, sinon rejet |
+| ML | `ml.predict` | Silver + `.joblib` | `gold.predictions` | un score par transaction ; commande séparée, `run_pipeline.py` ne l'appelle pas |
+| Power BI | `powerbi_views` | Silver et tables de contrôle | 8 vues | `CREATE OR REPLACE`, rejouable |
 
 ---
 
 ## Invariants vérifiés à l'exécution
 
-Ce ne sont pas des tests : ce sont des assertions qui tournent pendant le run et
-qui écrivent dans le journal d'audit.
+Ce ne sont pas des tests : ce sont des assertions qui tournent pendant l'exécution
+de chaque commande et qui écrivent dans le journal d'audit (`assert_invariant`).
 
 ```
-cleaning    >= 1 ligne en sortie          sinon tout contrôle passerait sur du vide
-cleaning    taux de quarantaine < 5 %     sinon les règles sont mal calibrées
-ingest      >= 1 transaction en silver    sinon verdict vert sur un lot vide
-contrôles   1 résultat par contrôle       sinon verdict complet sur évaluation partielle
-gold        count(gold) == count(silver)  sinon une jointure a perdu des lignes
-ML          0,01 < taux positif < 0,5     sinon le label est cassé
-ML          AUC >= 0,70                   sinon modèle au niveau du hasard publié
-demo reset  ne touche que les lignes marquées demo_scenario
+nettoyage       >= 1 ligne en sortie                 sinon tout contrôle passerait sur du vide
+nettoyage       taux de quarantaine < 5 %            sinon les règles sont mal calibrées
+ingestion       >= 1 transaction en Silver           sinon verdict vert sur un lot vide
+contrôles       1 résultat par contrôle déclaré      sinon verdict complet sur évaluation partielle
+réconciliation  lot réconcilié non vide              sinon un résumé qui ne prouve rien
+gold            fact_transactions non vide           sinon la jointure a perdu toutes les lignes
+gold            count(gold) == count(silver)         sinon une jointure a perdu des lignes
+vues Power BI   les 8 vues existent après création   sinon un panneau vide au lieu d'une erreur
+ML, train       >= 200 lignes                        sinon trop peu de positifs pour mesurer
+ML, train       0,01 < taux positif < 0,5            sinon le label est cassé
+ML, train       AUC >= 0,70                          sinon modèle au niveau du hasard publié
+ML, predict     >= 1 transaction à noter             sinon une file vide sans le dire
+ML, predict     un score par transaction             sinon un score sur la mauvaise ligne
+démo, injection lignes injectées == lignes prévues   sinon la remise à zéro serait inexacte
+démo, reset     ne touche que les lignes marquées demo_scenario
 ```
 
 ---
@@ -128,8 +175,9 @@ demo reset  ne touche que les lignes marquées demo_scenario
 python run_pipeline.py --seed 42 --transactions 1500 --customers 100 --train
 # démonstration : ajouter --generated-at today (lot daté du jour, verdict PASS)
 python -m banking_dataops.ml.predict   # indispensable : --train entraîne, il ne score pas
+python -m banking_dataops.reconciliation  # le chargement vide reconciliation_results sans la remplir
 python -m banking_dataops.powerbi_views
-python scripts/smoke_check.py          # attendu : DEMO READY — 15 checks passed
+python scripts/smoke_check.py          # attendu : DEMO READY - 15 checks passed
 ```
 
 ---
@@ -141,26 +189,34 @@ python scripts/smoke_check.py          # attendu : DEMO READY — 15 checks pass
 
 ```mermaid
 flowchart LR
-    subgraph BRONZE["BRONZE — raw"]
+    subgraph BRONZE["BRONZE: raw"]
         B1["synthetic_customers.csv"]
         B2["synthetic_accounts.csv"]
         B3["synthetic_transactions.csv"]
     end
 
-    subgraph CLEAN["CLEANING — form repaired"]
+    subgraph CLEAN["CLEANING: form repaired, not loaded yet"]
         C1["types, dates, whitespace"]
         C2["duplicates quarantined"]
         C3["business anomalies untouched"]
     end
 
-    subgraph SILVER["SILVER — validated"]
+    subgraph SILVER["SILVER: typed, constrained"]
         S1[("customers")]
         S2[("accounts")]
         S3[("transactions")]
-        S4["7 quality controls"]
     end
 
-    subgraph GOLD["GOLD — analytical"]
+    subgraph CONTROL["CONTROL LAYER"]
+        Q1["7 quality controls"]
+        Q2["reconciliation"]
+        Q3[("quality_check_results")]
+        Q4[("incident_reports")]
+        Q5[("reconciliation_results")]
+        V{{"publication verdict"}}
+    end
+
+    subgraph GOLD["GOLD: analytical"]
         G1[("dim_date / dim_customer<br/>dim_account / dim_control")]
         G2[("fact_transactions<br/>fact_quality_results")]
         G3[("predictions")]
@@ -172,17 +228,38 @@ flowchart LR
         M3["predict.py"]
     end
 
+    W["8 vw_ views, public schema"]
+
     BRONZE --> CLEAN
-    BRONZE -->|"COPY, typed"| SILVER
-    S3 --> S4
-    S4 -->|"only validated data"| GOLD
-    S3 --> M1 --> M2 --> M3 --> G3
-    GOLD --> D["Streamlit :8501"]
-    GOLD --> P["Power BI"]
-    S4 --> A["FastAPI :8000/verdict"]
+    BRONZE -->|"COPY of the raw files"| SILVER
+    SILVER --> Q1
+    SILVER --> Q2
+    Q1 --> Q3
+    Q1 --> Q4
+    Q2 --> Q5
+    Q3 -->|"quality_check_results only"| V
+    SILVER --> W
+    Q3 --> W
+    Q4 --> W
+    W --> P["Power BI"]
+    W -->|"dimensions, control results"| G1
+    W --> G2
+    S3 -->|"transactions"| G2
+    SILVER --> M1 --> M2 --> M3 --> G3
+    S3 --> D["Streamlit :8501"]
+    Q3 --> D
+    Q5 --> D
+    GOLD --> D
+    Q3 --> A["FastAPI :8000, read-only"]
+    Q4 --> A
 ```
 
-**One command:** `python run_pipeline.py`
+The cleaning has no edge to Silver: the load reads the raw Bronze files. The model has no edge from Gold, and
+nothing goes from the model to the verdict. Streamlit does not read `incident_reports`
+(`src/banking_dataops/monitoring.py`); the API serves them on `/incidents`.
+
+One command for the batch: `python run_pipeline.py`. Scoring and reconciliation are separate commands
+(`python -m banking_dataops.ml.predict`, `python -m banking_dataops.reconciliation`).
 
 ---
 
@@ -192,13 +269,13 @@ flowchart LR
 |---|---|---|
 | Bronze → Cleaning | Form only: types, formats, duplicates | Cleaning a business anomaly hides what the controls must catch |
 | Bronze → Silver | Typing and loading by `COPY`, no business logic. The load reads the raw Bronze files: the cleaned files are produced but not yet read by it | A transformation hidden in a load is untestable |
-| Silver → Gold | **Only after the controls have run** | A clean-looking dashboard over invalid data |
-| Silver → ML | Features read Silver, never Gold | Gold is denormalised; training on it duplicates rows |
+| Silver → Gold | After the controls, whatever the verdict: `dim_control` and `fact_quality_results` are read from the control results, through the views | Built earlier, they would be empty: the Silver load truncates `quality_check_results` (`db.reset_tables`) |
+| Silver → ML | Features read Silver, never Gold (`ml/features.py`) | The reason is not recorded (`pipeline/gold.py`: source : inconnue). The cost of the rule is known: the derived columns exist twice, in SQL (`pipeline/gold.py`) and in Python (`ml/features.py`), and no test compares them |
 | ML → Gold | Predictions land in `gold.predictions` | A score outside the model must never overwrite a control result |
 
 ---
 
-## Entity relationship — OLTP (Silver)
+## Entity relationship: OLTP (Silver and control tables)
 
 ```mermaid
 erDiagram
@@ -255,11 +332,11 @@ erDiagram
     }
 ```
 
-Normalised, third normal form. It is the source of truth: integrity is enforced declaratively — `NOT NULL`, primary keys, foreign keys.
+Normalised, third normal form. It is the source of truth: integrity is enforced declaratively: `NOT NULL`, primary keys, foreign keys. There is no `CHECK` constraint on amount, score or status (ADR-0004), so that the controls see and count a faulty row instead of the insert refusing it. Among these tables, only `audit_events` carries `CHECK` constraints (`sql/07_audit_journal.sql`).
 
 ---
 
-## Star schema — OLAP (Gold)
+## Star schema: OLAP (Gold)
 
 ```mermaid
 erDiagram
@@ -296,7 +373,7 @@ erDiagram
     }
 ```
 
-Denormalised for reading. Two fact tables share `dim_date`, which is why every relationship is single-direction — a bidirectional filter would create an ambiguous path.
+Denormalised for reading. The relationships are logical: `sql/08_gold_layer.sql` declares no foreign key, and the load order, dimensions first, keeps them consistent (`pipeline/gold.py`). In the Power BI model, two fact tables share the date dimension, which is why every relationship is single-direction: a bidirectional filter would create an ambiguous path.
 
 `dim_control.control_family` separates what the schema enforces structurally from what only the control layer can see. It makes the project's central argument sliceable in a report rather than merely stated.
 
@@ -304,10 +381,13 @@ Denormalised for reading. Two fact tables share `dim_date`, which is why every r
 
 ## Idempotence
 
-Every load step is TRUNCATE-then-INSERT. Running the pipeline twice leaves the database in the same state, and the
-same seed and the same date anchor give the same files (same batch fingerprint, `89ac138fb9943f00` at the default anchor).
+The Silver load, the Gold build and the scoring are TRUNCATE-then-INSERT. The control results are upserted on
+`check_id`, after the Silver load has emptied their table; reconciliation adds one row per run, and the Silver load
+empties that table too (`db.reset_tables`). Running the pipeline twice therefore leaves the same rows in Silver, in
+the control tables and in Gold, timestamps aside; only the audit journal grows, by design (append-only). The same
+seed and the same date anchor give the same files (same batch fingerprint, `89ac138fb9943f00` at the default anchor).
 
-The `--verify` option of `run_pipeline.py` is **not a proof of idempotence**: it is accepted for compatibility with
+The `--verify` option of `run_pipeline.py` is not a proof of idempotence: it is accepted for compatibility with
 the Makefile, `run.ps1` and the scheduled workflow, but no code reads it, so it runs the same single pipeline and
 checks nothing. Idempotence comes from the truncate-then-insert pattern itself.
 
@@ -326,6 +406,10 @@ the signal that tells downstream consumers not to use the batch.
 
 ## Why not Airflow
 
-Five sequential steps, no branching, no backfill, no cross-DAG dependency. Airflow would add a scheduler, a metadata database and a web server to call five functions in order.
+Five sequential steps (Bronze, cleaning, Silver with the controls, Gold, optional training), no backfill, no cross-DAG dependency. Airflow would add a scheduler, a metadata database and a web server to call five functions in order.
 
-What it would genuinely bring, and what this script lacks: retry-on-failure and calendar scheduling. Both are in the roadmap. The honest answer to "why not Airflow" is "not yet, and here is what I lose" — not "it is unnecessary".
+What it would genuinely bring, and what this script lacks: retry on failure, and scheduling inside the orchestrator. The daily run exists, but outside the script: a cron of the GitHub Actions workflow `.github/workflows/scheduled-pipeline.yml` (05:00 UTC). Airflow is set aside and kept in the roadmap (`docs/project/02-veille-technologique.md`). The honest answer to "why not Airflow" is "not yet, and here is what I lose", not "it is unnecessary".
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

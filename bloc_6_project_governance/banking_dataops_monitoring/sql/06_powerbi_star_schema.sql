@@ -44,7 +44,7 @@ SELECT
     EXTRACT(ISODOW  FROM d)::int                         AS weekday_number,
     TO_CHAR(d, 'TMDay')                                  AS weekday_name,
     -- ISODOW runs from Monday = 1 to Sunday = 7. Same weekend as ml/features.py, where
-    -- is_weekend is dayofweek >= 5 with Monday = 0.
+    -- is_weekend is day_of_week >= 5 with Monday = 0.
     (EXTRACT(ISODOW FROM d) >= 6)                        AS is_weekend
 FROM bounds, generate_series(bounds.date_from, bounds.date_to, INTERVAL '1 day') AS d;
 

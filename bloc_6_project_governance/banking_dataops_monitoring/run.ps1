@@ -32,7 +32,7 @@ param(
     [Parameter(Position = 0)]
     [string]$Task = "help",
 
-    # Date anchor of the generated batch (ADR-0009), an ISO date or `today`. `start`, `demoday` and
+    # Date anchor of the generated batch (ADR-0009), an ISO date or `today`. `start`, `soutenance` and
     # `reset` hand it to the containers as BANKING_DATAOPS_GENERATED_AT. Left empty, the variable
     # already set in the session or in .env applies, and otherwise the fixed default date.
     [string]$GeneratedAt = ""
@@ -220,7 +220,7 @@ function Task-Help {
     .\run.ps1 reset           wipe the volume and restart
     .\run.ps1 logs            follow the pipeline logs
     .\run.ps1 status          state of the two containers (postgres and app)
-    .\run.ps1 demoday         presentation-day start: database and application only
+    .\run.ps1 soutenance      presentation-day start: database and application only
 
   QUALITY
     .\run.ps1 test            the full suite
@@ -339,7 +339,7 @@ function Task-Start {
     Write-Host "`n  Next: .\run.ps1 train`n" -ForegroundColor White
 }
 
-function Task-DemoDay {
+function Task-Soutenance {
     <#
       Presentation-day start: postgres and app, without removing the volume, then waits for the
       dashboard.
@@ -445,7 +445,7 @@ switch ($Task.ToLower()) {
     "doctor"        { Task-Doctor }
     "setup"         { Task-Setup }
     "start"         { Task-Start }
-    "demoday"       { Task-DemoDay }
+    "soutenance"    { Task-Soutenance }
     "train"         { Task-Train }
     "smoke"         { Task-Smoke }
     "verify"        { Task-Verify }

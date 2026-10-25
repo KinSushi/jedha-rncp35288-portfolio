@@ -77,7 +77,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 try:
-    import psycopg  # noqa: F401  — l'import *est* le test de disponibilité
+    import psycopg  # noqa: F401  l'import *est* le test de disponibilité
 except ModuleNotFoundError:
     st.error("**Dépendance manquante : psycopg**\nExécute : `pip install -e .`")
     st.stop()
@@ -157,11 +157,13 @@ else:
     total_amount = float(volume["total_amount_chf"].sum()) if not volume.empty else 0.0
     last_run = quality["executed_at"].max()
     kpi_1, kpi_2, kpi_3, kpi_4 = st.columns(4)
+    # The delta is negative ("-3 failed"): fewer controls passed is bad news. "normal" shows a negative delta in red;
+    # "inverse", used before, showed it in green, a reassuring colour on a blocked batch.
     kpi_1.metric(
         "Controls passed",
         f"{summary.passed_checks}/{summary.total_checks}",
         delta=None if summary.failed_checks == 0 else f"-{summary.failed_checks} failed",
-        delta_color="inverse",
+        delta_color="normal",
     )
     kpi_2.metric("Rows in violation", f"{rows_in_violation:,}".replace(",", " "))
     kpi_3.metric(
@@ -238,7 +240,11 @@ try:
     top = load_top_predictions()
     metrics = load_model_metrics()
 except Exception as exc:  # pragma: no cover - dashboard runtime path
-    st.info("No predictions yet. Run the pipeline with the ML step: `python run_pipeline.py --train`")
+    st.info(
+        "No predictions yet. Train the model, then score the batch: "
+        "`python -m banking_dataops.ml.train`, then `python -m banking_dataops.ml.predict` "
+        "(or `make ml-train`, then `make ml-predict`). `run_pipeline.py --train` trains but does not score."
+    )
     st.caption(str(exc))
 else:
     if metrics:
@@ -391,7 +397,7 @@ else:
     left, right = st.columns(2)
     with left:
         if not cohorts.empty:
-            st.markdown("**Risk cohorts — segment by category**")
+            st.markdown("**Risk cohorts: segment by category**")
             st.dataframe(cohorts.head(12), use_container_width=True, hide_index=True)
             st.caption("Sorted by suspicion rate: where to tighten controls first.")
     with right:

@@ -6,10 +6,17 @@
     <marker id="arwg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#e8b64c"/>
     </marker>
+    <marker id="arwv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#3ddc84"/>
+    </marker>
     <marker id="arwm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#8ba3bf"/>
     </marker>
   </defs>
+
+  <!-- Flux d'après le code : ingest.py (COPY des CSV bruts), pipeline/cleaning.py (n'alimente pas la base),
+       sql/06_powerbi_star_schema.sql (8 vues vw_), pipeline/gold.py (Gold depuis les vues et Silver),
+       ml/features.py (le modèle lit Silver), monitoring.py et api.py (lectures). Chiffres : evidence/. -->
 
   <rect width="1180" height="700" fill="#0d1b2a"/>
 
@@ -17,113 +24,143 @@
   <text x="40" y="70" font-size="14" fill="#8ba3bf">Pipeline médaillon · contrôle qualité · verdict de publication</text>
   <text x="1140" y="46" font-size="12.5" fill="#e8b64c" text-anchor="end">seed=42 · déterministe · idempotent</text>
 
-  <!-- ============ COUCHES MEDAILLON ============ -->
-  <text x="40" y="116" font-size="12" font-weight="700" fill="#8ba3bf" letter-spacing="1.6">COUCHES DE DONNÉES</text>
+  <text x="40" y="106" font-size="12" font-weight="700" fill="#8ba3bf" letter-spacing="1.6">INGESTION</text>
+  <text x="550" y="106" font-size="12" font-weight="700" fill="#8ba3bf" letter-spacing="1.6">DEPUIS SILVER : TROIS BRANCHES</text>
 
-  <!-- BRONZE -->
-  <rect x="40" y="132" width="228" height="132" rx="10" fill="#1a2f45" stroke="#cd7f32" stroke-width="2"/>
-  <circle cx="66" cy="160" r="9" fill="#cd7f32"/>
-  <text x="84" y="165" font-size="16.5" font-weight="700" fill="#e8edf4">BRONZE</text>
-  <text x="58" y="190" font-size="12.5" fill="#8ba3bf">Données synthétiques brutes</text>
-  <text x="58" y="211" font-size="12.5" fill="#e8edf4">CSV · 1 500 transactions</text>
-  <text x="58" y="230" font-size="12.5" fill="#e8edf4">100 clients · 200 comptes</text>
-  <text x="58" y="251" font-size="11.5" fill="#e8b64c">fingerprint 89ac138fb9943f00</text>
+  <!-- ============ GÉNÉRATEUR ============ -->
+  <rect x="40" y="120" width="210" height="76" rx="10" fill="#16283c" stroke="#2c4159" stroke-width="1.6"/>
+  <text x="58" y="144" font-size="14.5" font-weight="700" fill="#e8edf4">GÉNÉRATEUR</text>
+  <text x="58" y="164" font-size="12" fill="#8ba3bf">données synthétiques</text>
+  <text x="58" y="184" font-size="11.5" fill="#e8b64c">seed=42 · ancre 2026-07-27</text>
+  <line x1="145" y1="199" x2="145" y2="226" stroke="#4da6ff" stroke-width="2.2" marker-end="url(#arw)"/>
 
-  <!-- SILVER -->
-  <rect x="316" y="132" width="228" height="132" rx="10" fill="#1a2f45" stroke="#aab7c4" stroke-width="2"/>
-  <circle cx="342" cy="160" r="9" fill="#aab7c4"/>
-  <text x="360" y="165" font-size="16.5" font-weight="700" fill="#e8edf4">SILVER</text>
-  <text x="334" y="190" font-size="12.5" fill="#8ba3bf">Typé, contraint, contrôlé</text>
-  <text x="334" y="211" font-size="12.5" fill="#e8edf4">PostgreSQL · 1 500 lignes</text>
-  <text x="334" y="230" font-size="12.5" fill="#e8edf4">0 doublon · 0 quarantaine</text>
-  <text x="334" y="251" font-size="11.5" fill="#8ba3bf">anomalies métier conservées</text>
+  <!-- ============ BRONZE ============ -->
+  <rect x="40" y="230" width="210" height="122" rx="10" fill="#1a2f45" stroke="#cd7f32" stroke-width="2"/>
+  <circle cx="64" cy="256" r="9" fill="#cd7f32"/>
+  <text x="82" y="261" font-size="16.5" font-weight="700" fill="#e8edf4">BRONZE</text>
+  <text x="58" y="282" font-size="12.5" fill="#8ba3bf">fichiers CSV bruts</text>
+  <text x="58" y="301" font-size="12.5" fill="#e8edf4">1 500 transactions</text>
+  <text x="58" y="319" font-size="12.5" fill="#e8edf4">100 clients · 200 comptes</text>
+  <text x="58" y="340" font-size="11.5" fill="#e8b64c">empreinte 89ac138fb9943f00</text>
 
-  <!-- GOLD -->
-  <rect x="592" y="132" width="228" height="132" rx="10" fill="#1a2f45" stroke="#e8b64c" stroke-width="2"/>
-  <circle cx="618" cy="160" r="9" fill="#e8b64c"/>
-  <text x="636" y="165" font-size="16.5" font-weight="700" fill="#e8edf4">GOLD</text>
-  <text x="610" y="190" font-size="12.5" fill="#8ba3bf">Schéma en étoile</text>
-  <text x="610" y="211" font-size="12.5" fill="#e8edf4">4 dimensions · 2 faits</text>
-  <text x="610" y="230" font-size="12.5" fill="#e8edf4">1 500 faits · 107 dates</text>
-  <text x="610" y="251" font-size="11.5" fill="#8ba3bf">truncate-then-insert</text>
-
-  <!-- ML -->
-  <rect x="868" y="132" width="272" height="132" rx="10" fill="#1a2f45" stroke="#4da6ff" stroke-width="2"/>
-  <circle cx="894" cy="160" r="9" fill="#4da6ff"/>
-  <text x="912" y="165" font-size="16.5" font-weight="700" fill="#e8edf4">ML — PRIORISATION</text>
-  <text x="886" y="190" font-size="12.5" fill="#8ba3bf">13 variables dérivées</text>
-  <text x="886" y="211" font-size="12.5" fill="#3ddc84">régression logistique · AUC 0,970</text>
-  <text x="886" y="230" font-size="12.5" fill="#8ba3bf">forêt tunée rejetée · AUC 0,957</text>
-  <text x="886" y="251" font-size="11.5" fill="#e8b64c">le simple gagne, et c'est tracé</text>
-
-  <!-- Flèches entre couches -->
-  <line x1="272" y1="198" x2="310" y2="198" stroke="#4da6ff" stroke-width="2.5" marker-end="url(#arw)"/>
-  <line x1="548" y1="198" x2="586" y2="198" stroke="#4da6ff" stroke-width="2.5" marker-end="url(#arw)"/>
-  <line x1="824" y1="198" x2="862" y2="198" stroke="#4da6ff" stroke-width="2.5" marker-end="url(#arw)"/>
-  <text x="291" y="190" font-size="10.5" fill="#8ba3bf" text-anchor="middle">COPY</text>
-  <text x="567" y="190" font-size="10.5" fill="#8ba3bf" text-anchor="middle">build</text>
-  <text x="843" y="190" font-size="10.5" fill="#8ba3bf" text-anchor="middle">train</text>
-
-  <!-- ============ COUCHE DE CONTROLE ============ -->
-  <text x="40" y="316" font-size="12" font-weight="700" fill="#8ba3bf" letter-spacing="1.6">COUCHE DE CONTRÔLE — DÉTERMINISTE</text>
-
-  <rect x="40" y="332" width="780" height="104" rx="10" fill="#16283c" stroke="#3ddc84" stroke-width="2"/>
-  <text x="62" y="360" font-size="15.5" font-weight="700" fill="#e8edf4">7 contrôles qualité</text>
-  <text x="62" y="381" font-size="12" fill="#8ba3bf">CTRL-001 nuls critiques · CTRL-002 doublons · CTRL-003 montants</text>
-  <text x="62" y="399" font-size="12" fill="#8ba3bf">CTRL-004 orphelins · CTRL-005 score de risque · CTRL-006 statut</text>
-  <text x="62" y="420" font-size="12" fill="#e8b64c">CTRL-007 fraîcheur : WARN · 6 PASS · 0 ligne en violation</text>
-
-  <rect x="560" y="344" width="242" height="80" rx="8" fill="#0d1b2a" stroke="#e8b64c" stroke-width="1.5"/>
-  <text x="681" y="367" font-size="12" fill="#8ba3bf" text-anchor="middle">VERDICT DE PUBLICATION</text>
-  <text x="681" y="396" font-size="20" font-weight="700" fill="#e8b64c" text-anchor="middle">WARN · can_publish</text>
-  <text x="681" y="415" font-size="10.5" fill="#8ba3bf" text-anchor="middle">7/7 PASS avec --generated-at today</text>
-
-  <!-- Barrière ADR-0002 -->
-  <line x1="868" y1="300" x2="868" y2="452" stroke="#ff5c5c" stroke-width="2" stroke-dasharray="7 5"/>
-  <text x="884" y="338" font-size="12.5" font-weight="700" fill="#ff5c5c">ADR-0002</text>
-  <text x="884" y="358" font-size="11.5" fill="#e8edf4">Le score du modèle</text>
-  <text x="884" y="375" font-size="11.5" fill="#e8edf4">ne touche JAMAIS</text>
-  <text x="884" y="392" font-size="11.5" fill="#e8edf4">le verdict.</text>
-  <text x="884" y="414" font-size="11" fill="#8ba3bf">Le ML priorise,</text>
-  <text x="884" y="430" font-size="11" fill="#8ba3bf">il ne décide pas.</text>
-
-  <!-- Silver -> controles -->
-  <path d="M 430 270 L 430 326" stroke="#3ddc84" stroke-width="2.5" fill="none" marker-end="url(#arw)"/>
+  <!-- Bronze -> nettoyage : sortie distincte, qui n'alimente pas la base -->
+  <line x1="145" y1="355" x2="145" y2="374" stroke="#4da6ff" stroke-width="2.2" marker-end="url(#arw)"/>
+  <rect x="40" y="378" width="210" height="96" rx="10" fill="#16283c" stroke="#cd7f32" stroke-width="1.6" stroke-dasharray="6 4"/>
+  <text x="58" y="400" font-size="14.5" font-weight="700" fill="#e8edf4">NETTOYAGE</text>
+  <text x="58" y="419" font-size="11.5" fill="#8ba3bf">fichiers nettoyés, quarantaine</text>
+  <text x="58" y="437" font-size="11.5" fill="#e8edf4">0 doublon · 0 quarantaine</text>
+  <text x="58" y="458" font-size="11.5" fill="#e8b64c">n'alimente pas encore la base</text>
 
   <!-- ============ JOURNAL D'AUDIT ============ -->
-  <rect x="40" y="466" width="382" height="94" rx="10" fill="#16283c" stroke="#e8b64c" stroke-width="2"/>
-  <text x="62" y="494" font-size="15.5" font-weight="700" fill="#e8edf4">Journal d'audit</text>
-  <text x="62" y="516" font-size="12" fill="#8ba3bf">Tout événement porte une raison métier — contrainte en base</text>
-  <text x="62" y="537" font-size="12" fill="#e8edf4">run_id corrélé · append-only · invariants vérifiés</text>
-  <text x="62" y="554" font-size="11.5" fill="#e8b64c">267 événements · 0 sans raison</text>
+  <rect x="290" y="120" width="210" height="98" rx="10" fill="#16283c" stroke="#e8b64c" stroke-width="1.6"/>
+  <text x="308" y="142" font-size="13.5" font-weight="700" fill="#e8edf4">JOURNAL D'AUDIT</text>
+  <text x="308" y="160" font-size="11" fill="#8ba3bf">toutes les étapes y écrivent</text>
+  <text x="308" y="176" font-size="11" fill="#e8edf4">raison métier exigée en base</text>
+  <text x="308" y="192" font-size="11" fill="#8ba3bf">run_id corrélé · append-only</text>
+  <text x="308" y="208" font-size="11" fill="#e8b64c">267 événements · 0 sans raison</text>
 
-  <path d="M 430 442 L 430 462 L 240 462" stroke="#e8b64c" stroke-width="2" fill="none" marker-end="url(#arwg)"/>
+  <!-- ============ SILVER ============ -->
+  <rect x="290" y="230" width="210" height="122" rx="10" fill="#1a2f45" stroke="#aab7c4" stroke-width="2"/>
+  <circle cx="314" cy="256" r="9" fill="#aab7c4"/>
+  <text x="332" y="261" font-size="16.5" font-weight="700" fill="#e8edf4">SILVER</text>
+  <text x="308" y="282" font-size="12.5" fill="#8ba3bf">PostgreSQL 16 · 3 tables</text>
+  <text x="308" y="301" font-size="12.5" fill="#e8edf4">1 500 transactions</text>
+  <text x="308" y="319" font-size="12.5" fill="#e8edf4">clés primaires, étrangères</text>
+  <text x="308" y="340" font-size="11.5" fill="#8ba3bf">anomalies métier conservées</text>
 
-  <!-- ============ CONSOMMATEURS ============ -->
-  <text x="470" y="482" font-size="12" font-weight="700" fill="#8ba3bf" letter-spacing="1.6">RESTITUTION</text>
+  <!-- Bronze -> Silver : COPY des fichiers bruts (ingest.py) -->
+  <line x1="253" y1="291" x2="287" y2="291" stroke="#4da6ff" stroke-width="2.5" marker-end="url(#arw)"/>
+  <text x="270" y="283" font-size="10.5" fill="#8ba3bf" text-anchor="middle">COPY</text>
+  <text x="270" y="306" font-size="10.5" fill="#8ba3bf" text-anchor="middle">bruts</text>
 
-  <rect x="470" y="496" width="206" height="64" rx="9" fill="#1a2f45" stroke="#4da6ff" stroke-width="1.6"/>
-  <text x="490" y="521" font-size="14" font-weight="700" fill="#e8edf4">API FastAPI</text>
-  <text x="490" y="542" font-size="11.5" fill="#8ba3bf">lecture seule · /verdict /health</text>
+  <!-- Silver -> trois branches -->
+  <line x1="503" y1="291" x2="522" y2="291" stroke="#4da6ff" stroke-width="2.2"/>
+  <line x1="522" y1="178" x2="522" y2="423" stroke="#4da6ff" stroke-width="2.2"/>
+  <line x1="522" y1="178" x2="547" y2="178" stroke="#3ddc84" stroke-width="2.2" marker-end="url(#arwv)"/>
+  <line x1="522" y1="311" x2="547" y2="311" stroke="#4da6ff" stroke-width="2.2" marker-end="url(#arw)"/>
+  <line x1="522" y1="423" x2="547" y2="423" stroke="#4da6ff" stroke-width="2.2" marker-end="url(#arw)"/>
 
-  <rect x="694" y="496" width="206" height="64" rx="9" fill="#1a2f45" stroke="#4da6ff" stroke-width="1.6"/>
-  <text x="714" y="521" font-size="14" font-weight="700" fill="#e8edf4">Streamlit</text>
-  <text x="714" y="542" font-size="11.5" fill="#8ba3bf">tableau de bord opérationnel</text>
+  <!-- ============ BRANCHE 1 : CONTRÔLES ET VERDICT ============ -->
+  <rect x="550" y="120" width="280" height="116" rx="10" fill="#16283c" stroke="#3ddc84" stroke-width="2"/>
+  <text x="568" y="144" font-size="15" font-weight="700" fill="#e8edf4">7 contrôles · réconciliation</text>
+  <text x="568" y="164" font-size="12" fill="#8ba3bf">CTRL-001 à CTRL-006 : PASS</text>
+  <text x="568" y="182" font-size="12" fill="#e8b64c">CTRL-007 fraîcheur : WARN</text>
+  <text x="568" y="203" font-size="11" fill="#e8edf4">écrivent quality_check_results,</text>
+  <text x="568" y="220" font-size="11" fill="#e8edf4">incident_reports, reconciliation_results</text>
 
-  <rect x="918" y="496" width="222" height="64" rx="9" fill="#1a2f45" stroke="#e8b64c" stroke-width="1.6"/>
-  <text x="938" y="521" font-size="14" font-weight="700" fill="#e8edf4">Power BI</text>
-  <text x="938" y="542" font-size="11.5" fill="#8ba3bf">8 vues étoile · rapport .pbix</text>
+  <line x1="833" y1="178" x2="867" y2="178" stroke="#e8b64c" stroke-width="2.2" marker-end="url(#arwg)"/>
 
-  <path d="M 681 442 L 681 490" stroke="#4da6ff" stroke-width="2" fill="none" marker-end="url(#arw)"/>
-  <path d="M 706 270 L 706 290 L 846 290 L 846 466 L 797 466 L 797 490" stroke="#8ba3bf" stroke-width="1.6" fill="none" stroke-dasharray="4 4" marker-end="url(#arwm)"/>
-  <path d="M 1004 270 L 1029 270 L 1029 490" stroke="#8ba3bf" stroke-width="1.6" fill="none" stroke-dasharray="4 4" marker-end="url(#arwm)"/>
+  <rect x="870" y="120" width="270" height="116" rx="10" fill="#1a2f45" stroke="#e8b64c" stroke-width="2"/>
+  <text x="1005" y="142" font-size="12" fill="#8ba3bf" text-anchor="middle">VERDICT DE PUBLICATION</text>
+  <text x="1005" y="170" font-size="17" font-weight="700" fill="#e8b64c" text-anchor="middle">WARN · can_publish = true</text>
+  <text x="1005" y="192" font-size="11.5" fill="#e8edf4" text-anchor="middle">6 PASS · 1 WARN (CTRL-007) · 0 FAIL</text>
+  <text x="1005" y="210" font-size="11" fill="#8ba3bf" text-anchor="middle">dérivé de quality_check_results seul</text>
+  <text x="1005" y="226" font-size="10.5" fill="#8ba3bf" text-anchor="middle">exécution de référence, 11/10/2026</text>
+
+  <!-- Barrière ADR-0002 : rien en dessous n'entre dans le verdict -->
+  <line x1="550" y1="253" x2="1140" y2="253" stroke="#ff5c5c" stroke-width="2" stroke-dasharray="7 5"/>
+  <rect x="682" y="243" width="326" height="20" fill="#0d1b2a"/>
+  <text x="845" y="257" font-size="11.5" fill="#e8edf4" text-anchor="middle"><tspan font-weight="700" fill="#ff5c5c">ADR-0002</tspan> : le score du modèle ne touche JAMAIS le verdict</text>
+
+  <!-- ============ BRANCHE 2 : MODÈLE ============ -->
+  <rect x="550" y="270" width="280" height="82" rx="10" fill="#1a2f45" stroke="#4da6ff" stroke-width="2"/>
+  <circle cx="574" cy="290" r="8" fill="#4da6ff"/>
+  <text x="590" y="295" font-size="15" font-weight="700" fill="#e8edf4">MODÈLE : PRIORISATION</text>
+  <text x="568" y="314" font-size="11.5" fill="#e8edf4">lit Silver, jamais Gold · 13 variables</text>
+  <text x="568" y="330" font-size="11.5" fill="#3ddc84">régression logistique · AUC test 0,970</text>
+  <text x="568" y="345" font-size="10.5" fill="#8ba3bf">forêt écartée en validation croisée : 0,9661 &lt; 0,9748</text>
+
+  <line x1="833" y1="311" x2="867" y2="311" stroke="#4da6ff" stroke-width="2.2" marker-end="url(#arw)"/>
+  <text x="850" y="303" font-size="10.5" fill="#8ba3bf" text-anchor="middle">écrit</text>
+
+  <rect x="870" y="270" width="270" height="82" rx="10" fill="#1a2f45" stroke="#4da6ff" stroke-width="1.6"/>
+  <text x="888" y="293" font-size="14.5" font-weight="700" fill="#e8edf4">gold.predictions</text>
+  <text x="888" y="312" font-size="11.5" fill="#8ba3bf">file d'investigation · 1 500 lignes</text>
+  <text x="888" y="329" font-size="11.5" fill="#e8edf4">126 high · 99 medium · 1 275 low</text>
+  <text x="888" y="345" font-size="11" fill="#e8b64c">il priorise, il ne décide pas</text>
+
+  <!-- ============ BRANCHE 3 : VUES, POWER BI ET GOLD ============ -->
+  <rect x="550" y="372" width="280" height="102" rx="10" fill="#1a2f45" stroke="#8ba3bf" stroke-width="1.8"/>
+  <text x="568" y="396" font-size="14.5" font-weight="700" fill="#e8edf4">8 vues vw_ (schéma public)</text>
+  <text x="568" y="416" font-size="11.5" fill="#e8edf4">sur Silver et les tables de contrôle</text>
+  <text x="568" y="434" font-size="11.5" fill="#e8edf4">importées par Power BI, aucune table</text>
+  <text x="568" y="455" font-size="10.5" fill="#8ba3bf">sql/06_powerbi_star_schema.sql</text>
+
+  <line x1="833" y1="423" x2="867" y2="423" stroke="#e8b64c" stroke-width="2.2" marker-end="url(#arwg)"/>
+  <text x="850" y="415" font-size="10.5" fill="#8ba3bf" text-anchor="middle">build</text>
+
+  <rect x="870" y="372" width="270" height="102" rx="10" fill="#1a2f45" stroke="#e8b64c" stroke-width="2"/>
+  <circle cx="894" cy="392" r="9" fill="#e8b64c"/>
+  <text x="912" y="397" font-size="16.5" font-weight="700" fill="#e8edf4">GOLD</text>
+  <text x="888" y="418" font-size="11.5" fill="#e8edf4">schéma en étoile · 4 dimensions · 2 faits</text>
+  <text x="888" y="435" font-size="11.5" fill="#e8edf4">1 500 transactions · 107 dates</text>
+  <text x="888" y="452" font-size="10.5" fill="#8ba3bf">dimensions et contrôles : par les vues</text>
+  <text x="888" y="467" font-size="10.5" fill="#8ba3bf">fact_transactions : requête sur Silver</text>
+
+  <!-- ============ RESTITUTION ============ -->
+  <text x="40" y="496" font-size="12" font-weight="700" fill="#8ba3bf" letter-spacing="1.6">RESTITUTION : CE QUE LIT CHAQUE CONSOMMATEUR</text>
+
+  <rect x="40" y="506" width="352" height="68" rx="9" fill="#1a2f45" stroke="#4da6ff" stroke-width="1.6"/>
+  <text x="58" y="528" font-size="14" font-weight="700" fill="#e8edf4">API FastAPI · lecture seule</text>
+  <text x="58" y="548" font-size="11.5" fill="#8ba3bf">/verdict, /controls : quality_check_results</text>
+  <text x="58" y="565" font-size="11.5" fill="#8ba3bf">/incidents : incident_reports · /health, /ready</text>
+
+  <rect x="414" y="506" width="352" height="68" rx="9" fill="#1a2f45" stroke="#4da6ff" stroke-width="1.6"/>
+  <text x="432" y="528" font-size="14" font-weight="700" fill="#e8edf4">Streamlit · tableau de bord</text>
+  <text x="432" y="548" font-size="11" fill="#8ba3bf">Silver, quality_check_results, reconciliation_results,</text>
+  <text x="432" y="565" font-size="11" fill="#8ba3bf">Gold, gold.predictions · pas incident_reports</text>
+
+  <rect x="788" y="506" width="352" height="68" rx="9" fill="#1a2f45" stroke="#e8b64c" stroke-width="1.6"/>
+  <text x="806" y="528" font-size="14" font-weight="700" fill="#e8edf4">Power BI · rapport .pbix</text>
+  <text x="806" y="548" font-size="11.5" fill="#8ba3bf">importe les 8 vues vw_, aucune table</text>
+  <text x="806" y="565" font-size="11.5" fill="#8ba3bf">incidents : vue vw_fact_incidents</text>
 
   <!-- ============ SOCLE ============ -->
   <rect x="40" y="590" width="1100" height="76" rx="10" fill="#16283c" stroke="#2c4159" stroke-width="1.6"/>
   <text x="62" y="616" font-size="12" font-weight="700" fill="#8ba3bf" letter-spacing="1.4">SOCLE TECHNIQUE &amp; GARANTIES</text>
-  <text x="62" y="640" font-size="12.5" fill="#e8edf4">Python 3.12 · PostgreSQL 16 · Docker · psycopg 3 · scikit-learn · pytest</text>
-  <text x="62" y="659" font-size="12.5" fill="#3ddc84">33 tests de chemins interdits · smoke check 15/15 · chargement rejouable (truncate puis insert)</text>
+  <text x="62" y="640" font-size="12.5" fill="#e8edf4">Python 3.12 · PostgreSQL 16 · Docker Compose, 2 services · psycopg 3 · scikit-learn · pytest</text>
+  <text x="62" y="659" font-size="12.5" fill="#3ddc84">chemins interdits : 12 réussis, 1 xfail · smoke check 15/15 · chargement rejouable (truncate puis insert)</text>
 
-  <text x="1120" y="640" font-size="11.5" fill="#8ba3bf" text-anchor="end">Preuves : evidence/, 11 octobre 2026</text>
+  <text x="1120" y="640" font-size="11.5" fill="#8ba3bf" text-anchor="end">Preuves : evidence/, 11 et 20 octobre 2026</text>
   <text x="1120" y="659" font-size="11.5" fill="#e8b64c" text-anchor="end">RNCP35288 · Bloc 6</text>
 </svg>

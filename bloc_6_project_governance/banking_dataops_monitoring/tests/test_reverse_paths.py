@@ -146,7 +146,7 @@ def _results(*rows: tuple[str, str, int, str]) -> pd.DataFrame:
 
 
 # ===========================================================================
-# LEAK — an operation must not reach data outside its scope
+# LEAK: an operation must not reach data outside its scope
 # ===========================================================================
 
 
@@ -206,7 +206,7 @@ def test_a_run_identifier_is_sixteen_hexadecimal_characters_unique_per_run_and_a
 
 
 # ===========================================================================
-# SILENT CRASH — an error must never be mistaken for a success
+# SILENT CRASH: an error must never be mistaken for a success
 # ===========================================================================
 
 
@@ -302,7 +302,7 @@ def test_the_verdict_blocks_on_a_failure_not_on_a_warning_is_503_when_it_cannot_
 
 
 # ===========================================================================
-# STATE CORRUPTION — an invariant must stop execution, not degrade it
+# STATE CORRUPTION: an invariant must stop execution, not degrade it
 # ===========================================================================
 
 
@@ -361,7 +361,7 @@ def test_every_demo_violation_breaks_its_control_fits_the_schema_carries_a_reaso
 
 
 # ===========================================================================
-# REPRODUCIBILITY — an identical input must produce an identical output
+# REPRODUCIBILITY: an identical input must produce an identical output
 # ===========================================================================
 
 
@@ -382,7 +382,7 @@ def test_the_audit_categories_are_a_closed_list_shared_with_the_sql_check_and_an
 
 
 # ===========================================================================
-# TRACEABILITY — a standard that is not enforced is an intention
+# TRACEABILITY: a standard that is not enforced is an intention
 # ===========================================================================
 
 

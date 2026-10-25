@@ -401,7 +401,7 @@ def run_quality_checks(settings: Settings | None = None) -> list[QualityCheckRes
             "verdict_issued",
             reason=(
                 "the publication decision for this batch, derived only from the "
-                "deterministic controls — never from a model score (ADR-0002)"
+                "deterministic controls - never from a model score (ADR-0002)"
             ),
             row_count=sum(r.failed_rows for r in results if r.status == "FAIL"),
             settings=runtime,

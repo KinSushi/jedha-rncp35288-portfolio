@@ -1,6 +1,6 @@
-# Mutants équivalents — bloc 6
+# Mutants équivalents : bloc 6
 
-Un mutant est **équivalent** quand aucun test ne peut le distinguer de l'original, parce que les deux programmes
+Un mutant est équivalent quand aucun test ne peut le distinguer de l'original, parce que les deux programmes
 se comportent de la même façon pour toute entrée. Cette liste nomme chacun des mutants que `mutmut 3.8.0` laisse
 survivre sur `src/banking_dataops/`, avec la preuve. Chaque entrée porte un numéro d'ordre (N°, de 1 à 40) et le
 numéro de `mutmut` (`#N`), qui est celui de la version du code mesurée : il change si le code de la fonction
@@ -8,7 +8,7 @@ change, le texte du changement permet alors de le retrouver. Le nom complet d'un
 `banking_dataops.<module>.x_<fonction>__mutmut_<N>` (`xǁ<Classe>ǁ<méthode>__mutmut_<N>` pour une méthode).
 
 La preuve est la lecture du code, écrite dans la dernière colonne. Certaines preuves s'appuient sur un fait (une valeur
-par défaut, un alias de codec, la valeur de vérité de `None`) : chacun de ces faits est une **prémisse**, vérifiée par un
+par défaut, un alias de codec, la valeur de vérité de `None`) : chacun de ces faits est une prémisse, vérifiée par un
 cas de `tests/test_equivalent_mutants_premises.py`. La colonne « Prémisse vérifiée » donne, mot pour mot, la clé de ce
 cas ; si une mise à jour change l'un de ces faits, ce cas échoue et les mutants qui s'y appuient sont à réexaminer. Une
 prémisse vérifiée n'est pas une preuve : celle qui couvrait `_choose_threshold` #18 était vraie sur ses tirages et le
@@ -29,11 +29,11 @@ fichier (le commit mesuré est consigné avec la mesure).
 `requirements.txt` ne fixe que des bornes basses (`pandas>=2.0`, `scikit-learn>=1.4`, numpy sans borne propre). La
 colonne « Repose sur » dit de quoi dépend chaque équivalence :
 
-- **scikit-learn** ou **pandas** : un comportement de la bibliothèque (N° 1 à 4, 6, 27, 29 à 31). Établi pour les
+- scikit-learn ou pandas : un comportement de la bibliothèque (N° 1 à 4, 6, 27, 29 à 31). Établi pour les
   versions ci-dessus seulement.
-- **Python** : un comportement du langage ou de sa bibliothèque standard (N° 2 à 5, 7 à 9, 17 à 22, 32 à 34). Établi
+- Python : un comportement du langage ou de sa bibliothèque standard (N° 2 à 5, 7 à 9, 17 à 22, 32 à 34). Établi
   pour Python 3.12.
-- **code du projet** : la lecture du code de la fonction seule, ou une valeur par défaut déclarée dans le projet (N° 10 à
+- code du projet : la lecture du code de la fonction seule, ou une valeur par défaut déclarée dans le projet (N° 10 à
   16, 23 à 26, 28, 35 à 40).
 
 Sur une autre version, relancer `tests/test_equivalent_mutants_premises.py`, puis la mesure.
@@ -43,7 +43,7 @@ test, et le mutant est tué.
 
 ## Comptes
 
-Nombre de mutants équivalents : **40** sur 3 967 mutants (3 927 tués, 40 survivants, tous listés ci-dessous),
+Nombre de mutants équivalents : 40 sur 3 967 mutants (3 927 tués, 40 survivants, tous listés ci-dessous),
 mesure du 20 octobre 2026 sur tout `src/banking_dataops/` (18 modules). Un outil de mutation compte ces 40 survivants comme
 non tués : il n'a pas de mécanisme pour exclure un mutant équivalent, d'où un score de 3 927 sur 3 967 et non de 100 %.
 
@@ -66,7 +66,7 @@ Changement : `2 * precision * recall` devient `3 * precision * recall` dans le c
 
 La preuve donnée jusqu'au 12 octobre (« un facteur positif ne change pas l'ordre, donc pas l'indice du maximum ») est
 vraie en arithmétique exacte, pas en virgule flottante. Deux points d'une vraie courbe ont souvent exactement le même F1
-(F1 = 2 VP / (2 VP + FP + FN)), et `np.argmax` garde le premier des maximums **calculés**, c'est-à-dire le seuil le plus
+(F1 = 2 VP / (2 VP + FP + FN)), et `np.argmax` garde le premier des maximums calculés, c'est-à-dire le seuil le plus
 bas parmi les points dont les valeurs calculées sont identiques. Or le F1 est calculé à partir de la précision et du
 rappel, déjà arrondis : deux F1 égaux en valeur exacte peuvent différer d'un bit, et ce bit dépend du facteur. Sur
 certaines entrées, l'original (facteur 2) calcule les valeurs de l'égalité à l'identique et rend le seuil le plus bas,
@@ -74,7 +74,7 @@ alors que le mutant (facteur 3) les arrondit différemment (0,6 contre 0,6000000
 le mutant est donc distinguable. La prémisse « numpy : un facteur positif… » ne tirait que des valeurs continues, qui ne
 sont jamais à égalité ; elle est retirée de `tests/test_equivalent_mutants_premises.py`.
 
-**Limite de l'original, connue et non corrigée.** Le facteur 2 ne rend pas identiques toutes les égalités exactes :
+Limite de l'original, connue et non corrigée. Le facteur 2 ne rend pas identiques toutes les égalités exactes :
 l'original lui-même ne rend pas toujours le seuil le plus bas d'une égalité exacte de F1. Sur des courbes tirées au
 hasard (4 à 39 lignes, scores à trois décimales), le seuil rendu n'était pas le plus bas des F1 exactement égaux dans
 141 cas sur 19 874 (graine 0, mesure du 20 octobre 2026) et dans 35 cas sur 4 966 (graine 12345, contrôle indépendant
@@ -111,17 +111,17 @@ tests fixent des entrées, pas la règle pour toute entrée.
 | 8 | `fingerprint_directory` #14 | `.encode("ascii")` devient `.encode("ASCII")` | Python (codecs) | même prémisse que N° 7 | Même raisonnement que N° 7. |
 | 9 | `_as_json` #3 | `ensure_ascii=False` devient `ensure_ascii=None` | Python (json) | « json: ensure_ascii=None behaves as False » | `json.dumps` teste `ensure_ascii` comme un booléen : `None` est faux, comme `False`. |
 
-## `db.py` (7) — `split_sql_statements`
+## `db.py` (7) : `split_sql_statements`
 
 | N° | Mutant | Changement | Repose sur | Prémisse vérifiée | Pourquoi il est identique |
 |---|---|---|---|---|---|
-| 10 | #5 | `in_single = False` devient `None` | code du projet | — | Le drapeau n'est lu que dans des contextes booléens (`and in_single`, `not in_single`) ; `None` et `False` y sont tous deux faux et `not None` est vrai, comme `not False`. |
-| 11 | #7 | `in_line = False` devient `None` | code du projet | — | Même raisonnement : `if in_line:` seulement. |
-| 12 | #9 | `in_block = False` devient `None` | code du projet | — | Même raisonnement : `if in_block:` seulement. |
-| 13 | #20 | `in_line = False` devient `None` en fin de commentaire de ligne | code du projet | — | Même raisonnement que N° 11. |
-| 14 | #32 | `in_block = False` devient `None` en fin de commentaire de bloc | code du projet | — | Même raisonnement que N° 12. |
-| 15 | #74 | `tag_start = i + 1 < len(...)` devient `i + 2 < len(...)` | code du projet | — | Les deux ne diffèrent que si le texte finit juste après le premier caractère d'une balise (`... $a`). Dans les deux cas, la balise n'a pas de dollar fermant : elle n'ouvre rien, le `$` est copié comme un caractère ordinaire et le résultat est le même (cas `"SELECT $a"` et `"SELECT $abc"` dans `tests/test_sql_splitter_edges.py`, qui passent avec l'original). |
-| 16 | #90 | `j = i + 1` devient `j = i + 2` au début de la lecture du nom de balise | code du projet | — | La lecture avance tant que le caractère est alphanumérique ou `_`. Le caractère d'indice `i + 1` est déjà vérifié alphabétique ou `_` par `tag_start` : le sauter ne change pas l'indice où la lecture s'arrête. |
+| 10 | #5 | `in_single = False` devient `None` | code du projet | - | Le drapeau n'est lu que dans des contextes booléens (`and in_single`, `not in_single`) ; `None` et `False` y sont tous deux faux et `not None` est vrai, comme `not False`. |
+| 11 | #7 | `in_line = False` devient `None` | code du projet | - | Même raisonnement : `if in_line:` seulement. |
+| 12 | #9 | `in_block = False` devient `None` | code du projet | - | Même raisonnement : `if in_block:` seulement. |
+| 13 | #20 | `in_line = False` devient `None` en fin de commentaire de ligne | code du projet | - | Même raisonnement que N° 11. |
+| 14 | #32 | `in_block = False` devient `None` en fin de commentaire de bloc | code du projet | - | Même raisonnement que N° 12. |
+| 15 | #74 | `tag_start = i + 1 < len(...)` devient `i + 2 < len(...)` | code du projet | - | Les deux ne diffèrent que si le texte finit juste après le premier caractère d'une balise (`... $a`). Dans les deux cas, la balise n'a pas de dollar fermant : elle n'ouvre rien, le `$` est copié comme un caractère ordinaire et le résultat est le même (cas `"SELECT $a"` et `"SELECT $abc"` dans `tests/test_sql_splitter_edges.py`, qui passent avec l'original). |
+| 16 | #90 | `j = i + 1` devient `j = i + 2` au début de la lecture du nom de balise | code du projet | - | La lecture avance tant que le caractère est alphanumérique ou `_`. Le caractère d'indice `i + 1` est déjà vérifié alphabétique ou `_` par `tag_start` : le sauter ne change pas l'indice où la lecture s'arrête. |
 
 ## `generate_synthetic_data.py` (1)
 
@@ -138,8 +138,8 @@ tests fixent des entrées, pas la règle pour toute entrée.
 | 20 | `HumanFormatter.format` #27 | `getattr(record, "step", "")` devient `getattr(record, "step", None)` | Python | même prémisse que N° 18 | Même raisonnement que N° 18, avec `or "-"`. |
 | 21 | `JsonFormatter.format` #48 | `ensure_ascii=False` devient `None` | Python (json) | même prémisse que N° 9 | Même fait que N° 9. |
 | 22 | `configure_logging` #9 | `"INFO"` devient `"info"` | Python | « python: str.upper() makes 'info' and 'INFO' the same level name » | La chaîne passe par `.upper()` juste après : `"info".upper() == "INFO"`. |
-| 23 | `configure_logging` #17 | `"human"` devient `"XXhumanXX"` | code du projet | — | Le format n'est comparé qu'à `"json"` : toute autre valeur donne le format lisible. |
-| 24 | `configure_logging` #18 | `"human"` devient `"HUMAN"` | code du projet | — | Même raisonnement que N° 23, après `.lower()`. |
+| 23 | `configure_logging` #17 | `"human"` devient `"XXhumanXX"` | code du projet | - | Le format n'est comparé qu'à `"json"` : toute autre valeur donne le format lisible. |
+| 24 | `configure_logging` #18 | `"human"` devient `"HUMAN"` | code du projet | - | Même raisonnement que N° 23, après `.lower()`. |
 
 ## `pipeline/cleaning.py` (7)
 
@@ -148,7 +148,7 @@ tests fixent des entrées, pas la règle pour toute entrée.
 | 25 | `clean_transactions` #67 | `report.currency_normalised += n` devient `= n` | code du projet | « dataclass: a fresh cleaning report starts every counter at zero » | Le rapport est créé neuf dans la même fonction et le compteur part de 0 ; il n'est incrémenté qu'une fois. |
 | 26 | `clean_transactions` #83 | `report.status_normalised += n` devient `= n` | code du projet | même prémisse que N° 25 | Même raisonnement que N° 25. |
 | 27 | `clean_transactions` #97 | `keep="first"` retiré de `duplicated(...)` | pandas | « pandas: duplicated marks every row but the first by default (keep='first') » | `"first"` est la valeur par défaut de l'argument `keep` de `DataFrame.duplicated` : sans lui, les mêmes lignes sont marquées. |
-| 28 | `clean_bronze_to_silver` #47 | `max(report.rows_in, 1)` devient `max(report.rows_in, 2)` | code du projet | — | Les deux ne diffèrent que si `rows_in` vaut 0 ou 1. Avec 0, l'invariant précédent (`rows_out > 0`) arrête le run avant. Avec 1, il impose `rows_out == 1`, donc zéro ligne en quarantaine : le taux vaut 0 dans les deux cas. |
+| 28 | `clean_bronze_to_silver` #47 | `max(report.rows_in, 1)` devient `max(report.rows_in, 2)` | code du projet | - | Les deux ne diffèrent que si `rows_in` vaut 0 ou 1. Avec 0, l'invariant précédent (`rows_out > 0`) arrête le run avant. Avec 1, il impose `rows_out == 1`, donc zéro ligne en quarantaine : le taux vaut 0 dans les deux cas. |
 | 29 | `clean_bronze_to_silver` #72 | `to_csv(..., index=False)` devient `index=None` (transactions) | pandas | « pandas: to_csv(index=None) writes no index, like index=False » | pandas traite `None` comme faux : aucun index n'est écrit. |
 | 30 | `clean_bronze_to_silver` #80 | idem pour `quarantine.csv` | pandas | même prémisse que N° 29 | Même raisonnement que N° 29. |
 | 31 | `clean_bronze_to_silver` #102 | idem pour `customers_clean.csv` et `accounts_clean.csv` | pandas | même prémisse que N° 29 | Même raisonnement que N° 29. |
@@ -184,4 +184,4 @@ identique. L'argument explicite dit au lecteur que le contrôle bloque. Le test
   décorée, que `mutmut` ne mute pas ; `load_settings` n'a rien à muter).
 - Le code hors de `src/banking_dataops/` : `src/ingestion`, `src/cleaning`, `src/transformations`, `src/ml` ne contiennent que
   des réexportations (`tests/test_path_aliases.py`) ; `run_pipeline.py`, `scripts/`, `dashboard/` et `huggingface-space/`
-  ne sont pas dans le périmètre `src/` demandé.
+  ne sont pas dans le périmètre `src/` mesuré.

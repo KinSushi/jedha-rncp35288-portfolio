@@ -1,4 +1,4 @@
-# Architecture — banking-dataops-monitoring
+# Architecture: banking-dataops-monitoring
 
 ## Purpose
 
@@ -28,7 +28,7 @@ flowchart LR
 
 ## Container topology
 
-`docker-compose.yml` declares **two services**, `postgres` and `app`. There is no third
+`docker-compose.yml` declares two services, `postgres` and `app`. There is no third
 container: the API and the dashboard run inside `app`, started by `docker/entrypoint.sh`.
 
 ```mermaid
@@ -71,7 +71,7 @@ The verdict has two audiences, and they need different interfaces.
 | A data quality analyst | Streamlit dashboard | A verdict readable in three seconds, then drill-down |
 | A downstream pipeline | `GET /verdict` | A boolean to branch on, before consuming the batch |
 
-The API is deliberately **read-only**. It reports a decision, it does not make
+The API is deliberately read-only. It reports a decision, it does not make
 or change one. That removes the entire authentication and authorisation surface
 a control plane would require, and keeps responsibility where it belongs: the
 controls decide, the API reports.
@@ -80,7 +80,7 @@ controls decide, the API reports.
 |---|---|
 | `GET /health` | Liveness, no database access |
 | `GET /ready` | Readiness, database reachable |
-| `GET /verdict` | `can_publish` plus the summary — the field to branch on |
+| `GET /verdict` | `can_publish` plus the summary: the field to branch on |
 | `GET /controls` | Every control with its outcome |
 | `GET /incidents` | Open incidents |
 | `GET /docs` | OpenAPI, generated |
@@ -103,7 +103,7 @@ The schema and the control layer share the work explicitly.
 
 Structural integrity is a database concern and costs nothing at runtime.
 Business rules belong to the control layer, because freezing a business
-threshold into a schema is a design error — thresholds change, schemas should not.
+threshold into a schema is a design error: thresholds change, schemas should not.
 
 See `docs/adr/0004-contraintes-en-base.md`.
 
@@ -152,3 +152,7 @@ sequenceDiagram
 ## Public-safety boundary
 
 No real banking, insurance, health, client, employer or private data belongs in this project.
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

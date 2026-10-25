@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
-"""Gold layer: rebuild the star schema tables that the dashboard, Power BI and the model read.
+"""Gold layer: rebuild the star schema tables that the dashboard reads.
 
 Silver is the validated source, normalised for integrity. Gold is shaped for reading: dimension and
-fact tables that the dashboard, the Power BI report and the scoring step query several times per
-session.
+fact tables that the dashboard queries several times per session. Power BI imports the views of
+``sql/06_powerbi_star_schema.sql``, not these tables, and the model reads Silver; the scoring step
+only writes its scores to ``gold.predictions``.
 
 CHOIX
 -----
 Retained:
 
-- Materialised tables, not views. The readers query Gold repeatedly; views would recompute on every
-  read and make latency unpredictable, and a view could shift between the moment features are built
-  and the moment predictions are written, while a table is a snapshot of the last build.
+- Materialised tables, not views. The dashboard queries Gold repeatedly; views would recompute on
+  every read and make latency unpredictable, and a view could change between two reads of the same
+  page, while a table is a snapshot of the last build. The model does not read Gold: its features
+  come from Silver (``banking_dataops.ml.features``), and only its scores are written to
+  ``gold.predictions``.
 - Truncate then insert, in a single transaction, in a fixed order: dimensions first, then facts.
   Gold is derived and holds no state worth preserving, so rebuilding is always safe, and an UPSERT
   would be more complex and would keep rows whose transaction disappeared upstream.
@@ -37,8 +40,8 @@ pipeline, it changes the verdict), ``python -m banking_dataops.pipeline.gold``, 
 ``src/transformations/build_gold.py``. Depends on ``banking_dataops.db``, ``banking_dataops.audit`` and,
 for the project root path only, ``banking_dataops.powerbi_views``. Reads the Silver tables and the
 views of ``sql/06_powerbi_star_schema.sql``; writes the tables of ``sql/08_gold_layer.sql``. Read by
-the dashboard (``monitoring``), by Power BI and by ``scripts/smoke_check.py``;
-``gold.predictions`` is filled by ``banking_dataops.ml.predict``, not here.
+the dashboard (``monitoring``) and by ``scripts/smoke_check.py``; Power BI reads the views, not these
+tables. ``gold.predictions`` is filled by ``banking_dataops.ml.predict``, not here.
 
 COMMENT
 -------

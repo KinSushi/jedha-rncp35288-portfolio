@@ -10,7 +10,7 @@ mechanically verified.
 
 WHAT IS TESTED WITHOUT A DATABASE
 ---------------------------------
-The queries cannot be executed here — no PostgreSQL. What *can* be verified,
+The queries cannot be executed here: no PostgreSQL. What *can* be verified,
 and matters most, is that every column and table they reference actually exists
 in the schema. A query naming a dropped column fails at runtime, in front of an
 audience, and never at lint time.
@@ -100,7 +100,7 @@ def _check_gold_build(loads: list[tuple[str, str]], build_source: str) -> None:
 
 
 # ---------------------------------------------------------------------------
-# Schema conformance — the failure that only appears at runtime
+# Schema conformance: the failure that only appears at runtime
 # ---------------------------------------------------------------------------
 
 
@@ -155,8 +155,8 @@ def test_every_analytics_query_follows_the_four_rules_and_the_check_refuses_a_qu
 def test_the_tracer_warns_on_an_empty_result_and_returns_the_frame_unchanged() -> None:
     """The tracer must escalate an empty frame to WARNING, not stay silent, and must not alter what it observes.
 
-    WHY caplog is not used here: the project logger sets ``propagate = False`` on purpose — the root logger is
-    not ours to pollute — and ``api.py`` calls ``configure_logging()`` at import. Together they make caplog blind
+    WHY caplog is not used here: the project logger sets ``propagate = False`` on purpose: the root logger is
+    not ours to pollute, and ``api.py`` calls ``configure_logging()`` at import. Together they make caplog blind
     to these records. Attaching a handler directly tests the real logger rather than a convenient stand-in.
     """
     captured: list[logging.LogRecord] = []

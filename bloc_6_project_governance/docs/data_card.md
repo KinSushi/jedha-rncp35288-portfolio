@@ -10,3 +10,7 @@ Required sections:
 - privacy;
 - usage boundaries;
 - public-safety note.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

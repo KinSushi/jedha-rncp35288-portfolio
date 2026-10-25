@@ -1,6 +1,6 @@
 # Mesures DAX
 
-À coller dans une table `_Measures` dédiée. Chaque mesure porte un commentaire expliquant son intention — un jury PL-300 demande systématiquement pourquoi une mesure est écrite ainsi.
+À coller dans une table `_Measures` dédiée. Chaque mesure porte un commentaire expliquant son intention : un relecteur du modèle demande systématiquement pourquoi une mesure est écrite ainsi.
 
 ---
 
@@ -106,7 +106,7 @@ CALCULATE (
 
 ## Time Intelligence
 
-Ces mesures exigent que `vw_dim_date` soit marquée comme table de dates. Sans cela, elles renvoient des résultats faux **sans lever d'erreur**.
+Ces mesures exigent que `vw_dim_date` soit marquée comme table de dates. Sans cela, elles renvoient des résultats faux sans lever d'erreur.
 
 ```dax
 Transactions MTD =
@@ -167,7 +167,7 @@ Average Risk Score = AVERAGE ( vw_fact_transactions[risk_score] )
 
 ```dax
 -- Montant exposé sur les transactions à risque élevé.
--- Le seuil de 0,7 est un paramètre métier, à calibrer avec les équipes.
+-- Le seuil de 0,7 est un paramètre métier, à calibrer avec les directions métier.
 High Risk Amount =
 CALCULATE (
     [Total Amount CHF],
@@ -238,13 +238,17 @@ CALCULATE ( [Open Incidents], vw_fact_incidents[severity] = "high" )
 
 ---
 
-## Trois questions que le jury posera
+## Trois questions qu'un relecteur posera
 
-**« Pourquoi `DIVIDE` plutôt que l'opérateur `/` ? »**
+« Pourquoi `DIVIDE` plutôt que l'opérateur `/` ? »
 > Parce que `DIVIDE` gère la division par zéro sans produire d'erreur. Avant la première exécution des contrôles, le dénominateur est nul : avec `/`, le visuel afficherait une erreur au lieu d'un blanc.
 
-**« Pourquoi une table de dates séparée ? »**
+« Pourquoi une table de dates séparée ? »
 > Parce que les fonctions de Time Intelligence exigent un calendrier continu et sans trou. Une colonne de date issue d'une table de faits comporte des jours manquants, et les fonctions renvoient alors des résultats faux sans le signaler.
 
-**« Pourquoi aucune relation bidirectionnelle ? »**
+« Pourquoi aucune relation bidirectionnelle ? »
 > Parce que le modèle comporte deux tables de faits reliées à la même dimension de dates. Un filtre bidirectionnel y créerait un chemin ambigu, que le moteur résout de façon non déterministe.
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

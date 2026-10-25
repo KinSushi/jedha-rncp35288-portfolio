@@ -307,7 +307,7 @@ def test_dry_run_lists_what_would_be_copied_and_writes_nothing(publish: ModuleTy
         "--dry-run", source=FakeSource(_same_counts(publish, 7)), target=FakeConnection({})
     )
     assert exit_code == 0
-    assert "MODE DRY-RUN — aucune écriture\n" in printed
+    assert "MODE DRY-RUN : aucune écriture\n" in printed
     assert f"  copierait  {'customers':<30} {7:>8} lignes\n" in printed
     assert target.statements == ["SELECT version()"]
     assert (target.copies_in, target.commits) == ([], 0)
@@ -335,7 +335,7 @@ def test_publication_copies_every_table_in_the_documented_order_and_reports_the_
     first_view = next(i for i, s in enumerate(target.statements) if "CREATE OR REPLACE VIEW vw_dim_control AS" in s)
     last_truncate = max(i for i, s in enumerate(target.statements) if s.startswith("TRUNCATE "))
     assert last_truncate < first_view, "the star-schema views are recreated after the data is loaded"
-    assert f"  PUBLIÉ — {2 * len(_tables(publish))} lignes, 8 vues, verdict WARN\n" in printed
+    assert f"  PUBLIÉ : {2 * len(_tables(publish))} lignes, 8 vues, verdict WARN\n" in printed
     assert "  ok   verdict publié sur la cible : WARN (can_publish=True)\n" in printed
 
 
@@ -355,5 +355,5 @@ def test_publication_exits_with_a_failure_when_a_copied_table_does_not_match(pub
     exit_code, printed, _, _ = run_main(source=FakeSource(counts, copy_out=_copy_out(publish)), target=target)
     assert exit_code == 1
     assert f"  ERR  {'customers':<30} source=10 cible=3\n" in printed
-    assert "  ÉCHEC — 1 table(s) en écart\n" in printed
+    assert "  ÉCHEC : 1 table(s) en écart\n" in printed
     assert "PUBLIÉ" not in printed

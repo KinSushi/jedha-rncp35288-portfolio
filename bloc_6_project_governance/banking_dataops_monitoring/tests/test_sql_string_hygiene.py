@@ -2,7 +2,7 @@
 
 POURQUOI CE TEST EXISTE
     Un bloc de commentaires écrit avec '#' à l'intérieur d'une chaîne SQL
-    triple-quotée est du Python valide, il compile, il passe la revue de code —
+    triple-quotée est du Python valide, il compile, il passe la revue de code :
     et PostgreSQL le rejette à l'exécution avec « syntax error at or near "#" ».
 
     Le défaut est resté invisible parce que le module concerné
@@ -15,7 +15,7 @@ POURQUOI CE TEST EXISTE
 POURQUOI UN AST ET PAS UN GREP
     Un grep ne distingue pas un vrai commentaire Python d'un '#' situé dans une
     chaîne. Ce test ne regarde que des littéraux ``str`` repérés par l'AST, et
-    ignore les docstrings — un exemple de code commenté y est légitime.
+    ignore les docstrings : un exemple de code commenté y est légitime.
 """
 
 from __future__ import annotations
@@ -94,7 +94,7 @@ def _check_no_python_comment(path: Path) -> None:
     """Lève ``AssertionError`` si une chaîne SQL du fichier contient une ligne commençant par '#'."""
     problems = _offenders(path)
     assert not problems, (
-        "Commentaire Python trouvé dans une chaîne SQL — PostgreSQL rejettera "
+        "Commentaire Python trouvé dans une chaîne SQL : PostgreSQL rejettera "
         "la requête à l'exécution. Utiliser '--' :\n  " + "\n  ".join(problems)
     )
 

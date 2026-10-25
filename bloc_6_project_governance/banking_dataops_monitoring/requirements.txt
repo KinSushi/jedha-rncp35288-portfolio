@@ -6,9 +6,8 @@
 # WHAT: This file specifies what packages are needed to run the application
 # MEANING: "Runtime dependencies for pip installation"
 # NOTE: This file exists alongside pyproject.toml because:
-#       1. The training brief names requirements.txt explicitly
-#       2. Most reviewers will type 'pip install -r requirements.txt' first
-#       3. It mirrors the runtime subset of dependencies from pyproject.toml
+#       1. Most readers will type 'pip install -r requirements.txt' first
+#       2. It mirrors the runtime subset of dependencies from pyproject.toml
 #       
 #       IMPORTANT: If you edit pyproject.toml dependencies, edit this file too.
 #       A test asserts they cannot drift apart.

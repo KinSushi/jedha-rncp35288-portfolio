@@ -43,7 +43,8 @@ Depends on: ``banking_dataops.ml.features`` (same transformation as training, to
 training/serving skew), ``banking_dataops.db`` (connection), ``banking_dataops.audit``,
 ``banking_dataops.logging_config``.
 Read by: the dashboard and ``monitoring.load_prediction_summary`` through
-``gold.vw_prediction_summary``, ``scripts/smoke_check.py``, the Power BI views.
+``gold.vw_prediction_summary``, and ``scripts/smoke_check.py``. The Power BI views do not expose
+the scores (``sql/06_powerbi_star_schema.sql``).
 
 COMMENT
 -------

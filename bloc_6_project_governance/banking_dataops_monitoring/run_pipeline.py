@@ -182,7 +182,10 @@ def step_cleaning() -> StepResult:
 
 
 def step_silver() -> StepResult:
-    """Load the cleaned files into PostgreSQL, then evaluate the quality controls.
+    """Load the raw Bronze files into PostgreSQL, then evaluate the quality controls.
+
+    The load reads ``data/synthetic_*.csv``, not the files written by the cleaning step
+    (``banking_dataops.ingest``, module docstring).
 
     The return value of ``run_quality_checks`` is ignored on purpose: its effects are
     what matters (controls evaluated, results persisted, verdict journalled).

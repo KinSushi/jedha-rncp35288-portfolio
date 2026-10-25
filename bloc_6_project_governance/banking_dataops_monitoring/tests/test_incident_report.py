@@ -32,8 +32,8 @@ Synthetic local portfolio environment. No real client, bank, insurance or health
 
 | Control | Status | Severity | Failed rows |
 |---|---|---:|---:|
-| CTRL-003 — invalid_amounts | FAIL | high | 3 |
-| CTRL-007 — stale_data | WARN | low | 1 |
+| CTRL-003 : invalid_amounts | FAIL | high | 3 |
+| CTRL-007 : stale_data | WARN | low | 1 |
 
 ## Triage steps
 
@@ -68,7 +68,7 @@ def test_the_report_lists_failed_and_warning_controls_only_is_written_in_utf_8_a
 
     # Writing creates the missing folders and logs where and how big.
     target = tmp_path / "output" / "reports" / "incident_report.md"
-    markdown = "# Rapport — essai\n"
+    markdown = "# Rapport : essai à blanc\n"
     write_incident_report(markdown, target)
     assert target.read_text(encoding="utf-8") == markdown
     record = next(r for r in log_records if r.getMessage() == "incident_report_written")
@@ -78,8 +78,8 @@ def test_the_report_lists_failed_and_warning_controls_only_is_written_in_utf_8_a
         "a failed control produced an incident; the report is the document an analyst works from and an auditor reads"
     )
     assert record.path == str(target)
-    # The size is in bytes, not characters: the dash is three bytes in UTF-8.
-    assert record.bytes == len(markdown) + 2
+    # The size is in bytes, not characters: "à" is two bytes in UTF-8, one character.
+    assert record.bytes == len(markdown) + 1
 
     # Writing over an existing report replaces it, in UTF-8 whatever the platform default.
     existing = tmp_path / "incident_report.md"
@@ -136,7 +136,7 @@ def test_main_writes_the_report_when_a_control_failed_and_leaves_the_output_fold
         incident_report.main()
     written = tmp_path / "out" / "incident_report.md"
     assert calls == ["configure_logging", "new_run_id", "run_quality_checks"]
-    assert "| CTRL-003 — invalid_amounts | FAIL | high | 3 |" in written.read_text(encoding="utf-8")
+    assert "| CTRL-003 : invalid_amounts | FAIL | high | 3 |" in written.read_text(encoding="utf-8")
     assert capsys.readouterr().out == f"Incident report written to {written}\n"
 
     # FORBIDDEN PATH: an empty or stale report written for a batch where every control passed.

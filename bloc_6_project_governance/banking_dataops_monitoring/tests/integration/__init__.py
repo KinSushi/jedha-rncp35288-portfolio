@@ -3,7 +3,7 @@
 WHY THESE EXIST SEPARATELY
 --------------------------
 The unit suite proves each module behaves in isolation. It cannot catch a
-contract break *between* modules — a column renamed in cleaning that the feature
+contract break *between* modules: a column renamed in cleaning that the feature
 builder still expects, a cleaning rule that removes what a control is meant to
 judge. Those are the failures that reach production.
 

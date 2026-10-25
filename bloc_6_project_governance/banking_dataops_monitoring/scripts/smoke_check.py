@@ -67,7 +67,7 @@ from typing import cast
 #
 # WINDOWS: Windows PowerShell 5.1 does not interpret ANSI sequences by default.
 # Emitting them there prints literal garbage like "<-[0;32m PASS" in front of
-# every line — precisely the console someone would be projecting during a
+# every line: precisely the console someone would be projecting during a
 # demonstration. The Windows console supports ANSI since Windows 10, but the
 # mode has to be switched on explicitly. We try; if it fails, we fall back to
 # plain text rather than print escape codes at an audience.
@@ -121,7 +121,7 @@ def scalar(query: str, default: int = -1) -> int:
     """Return the first column of the first row, or a default on failure.
 
     WHY it swallows the exception: a missing table is a legitimate answer here
-    — it means that step has not run — and it must be reported as a failed
+   (it means that step has not run) and it must be reported as a failed
     check rather than a stack trace that hides the eleven other results.
     """
 
@@ -195,7 +195,7 @@ def main() -> int:
     # WHY NOT THE WHOLE JOURNAL: the journal is append-only and never pruned, so
     # an unbounded count can only degrade over time. One reverse-path test
     # asserting that a broken invariant *is* recorded, or one demo injection
-    # replayed during a rehearsal, would turn this check red permanently — while
+    # replayed during a rehearsal, would turn this check red permanently : while
     # saying nothing about the state being demonstrated.
     # WHY NOT SIMPLY THE LATEST run_id: every RunJournal opens its own run_id,
     # including the ones the test suite opens when it runs against a live

@@ -9,7 +9,7 @@ or worthless. These tests make it mechanical: the same seed produces the same
 bytes, and the fingerprint proves it.
 
 It is also the strongest answer to the question "your data is synthetic, what
-does that invalidate?" — reproducibility is *superior* to what a real extract
+does that invalidate?": reproducibility is *superior* to what a real extract
 would offer, because anyone can regenerate the exact same dataset and obtain the
 exact same verdicts.
 """

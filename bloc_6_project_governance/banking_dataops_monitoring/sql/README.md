@@ -1,4 +1,4 @@
-# `sql/` — schéma et requêtes
+# `sql/` : schéma et requêtes
 
 Numérotés par ordre d'application. Le DDL est rejouable : `CREATE TABLE IF NOT
 EXISTS`, `CREATE OR REPLACE VIEW`.
@@ -31,5 +31,9 @@ Les fichiers 01 à 05 sont des requêtes d'analyse : ils ne créent rien.
 CHECK (length(trim(reason)) > 0)
 ```
 
-Ce n'est pas une convention d'équipe, c'est une contrainte. Un reverse test
+La règle est donc imposée par la base elle-même. Un reverse test
 vérifie qu'une insertion sans raison est bien rejetée.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

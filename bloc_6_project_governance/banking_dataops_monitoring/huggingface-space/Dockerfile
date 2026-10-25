@@ -1,4 +1,4 @@
-# Space Hugging Face — tableau de bord live, lecture seule.
+# Space Hugging Face : tableau de bord live, lecture seule.
 # Image minimale volontairement : moins de surface = moins de risque de build
 # cassé un jour de démonstration publique.
 

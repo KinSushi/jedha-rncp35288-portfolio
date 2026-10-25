@@ -6,7 +6,7 @@ CSV files are generated locally with:
 make generate
 ```
 
-Every timestamp is derived from a **date anchor**, not from the clock. By default the anchor is
+Every timestamp is derived from a date anchor, not from the clock. By default the anchor is
 `2026-07-27T00:00:00Z`, so the same seed gives the same bytes on any day (batch fingerprint
 `89ac138fb9943f00`, ADR-0009). To choose another anchor:
 
@@ -31,3 +31,7 @@ synthetic_transactions.csv
 ```
 
 Do not place real banking, insurance, health, client, employer or private data in this folder.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

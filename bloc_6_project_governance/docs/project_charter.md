@@ -29,9 +29,13 @@ Out of scope:
 
 - real client data;
 - production deployment;
-- private school material;
+- private certification material;
 - applications.
 
 ## Stakeholders
 
 Synthetic/public portfolio context only.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

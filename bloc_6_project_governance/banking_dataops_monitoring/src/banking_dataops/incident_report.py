@@ -90,7 +90,7 @@ def generate_incident_markdown(results: list[QualityCheckResult]) -> str:
 
     for result in relevant:
         lines.append(
-            f"| {result.control_id} — {result.check_name} | "
+            f"| {result.control_id} : {result.check_name} | "
             f"{result.status} | {result.severity} | {result.failed_rows} |"
         )
     lines.extend(

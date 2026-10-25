@@ -1,8 +1,8 @@
 # Indicateurs de pilotage
 
-**Compétences visées** : C6.4 — piloter par indicateurs et tableaux de bord ; C6.5 — restituer aux directions métier.
+**Compétences visées** : C6.4, piloter par indicateurs et tableaux de bord ; C6.5, restituer aux directions métier.
 
-Deux familles distinctes : les indicateurs du **produit**, qui mesurent la qualité des données, et les indicateurs du **projet**, qui mesurent sa conduite.
+Deux familles distinctes : les indicateurs du produit, qui mesurent la qualité des données, et les indicateurs du projet, qui mesurent sa conduite.
 
 ---
 
@@ -25,8 +25,8 @@ Mesurés sur le jeu de test de 375 transactions (30 positives), évalué une seu
 | Indicateur | Valeur | Seuil ou référence |
 |---|---|---|
 | AUC ROC de la régression logistique retenue | 0,970 | Plancher de publication du modèle : 0,70 (un invariant lève sous ce seuil) |
-| Précision au seuil de 0,852 | 0,656 | — |
-| Rappel au seuil de 0,852 | 0,700 | — |
+| Précision au seuil de 0,852 | 0,656 | - |
+| Rappel au seuil de 0,852 | 0,700 | - |
 | F1 | 0,677 | Règle simple de comparaison : 0,419 |
 | Transactions par niveau de priorité (1 500 notées) | 126 *high*, 99 *medium*, 1 275 *low* | Règle de l'ADR-0009 : *high* au seuil de décision, *medium* à partir de 0,60 fois le seuil |
 
@@ -40,21 +40,21 @@ Mesurés sur le jeu de test de 375 transactions (30 positives), évalué une seu
 
 ## 2. Indicateurs de conduite du projet
 
-| Indicateur | Mesure | Valeur au 20 juillet 2026 | Mise à jour (11 octobre 2026) |
+| Indicateur | Mesure | Valeur au 20 juillet 2026 | Mise à jour (octobre 2026) |
 |---|---|---|---|
-| Avancement des jalons | Jalons franchis sur total | 2 sur 8 | Bilan complet en annexe 03, § 6 : J1, J2 et J4 datés par des pièces, J3 non établi, J5 respecté pour le code seulement, J8 non tenu dans la fenêtre prévue |
+| Avancement des jalons | Jalons franchis sur total | 2 sur 8 | Bilan complet en annexe 03, § 6 : J1, J2 et J4 datés par des pièces, J3 non établi, J5 respecté pour le code seulement, J8 sorti de la fenêtre prévue et replanifié : dépôt au plus tard le 1er novembre 2026 (annexe 03, § 6.6) |
 | Charge consommée | Heures passées sur estimées | 47 h sur 81 h | Aucune mesure postérieure : non établi |
 | Couverture des exigences | Exigences fonctionnelles livrées | 10 sur 10 | Non remesurée |
-| Risques de criticité haute traités | Risques cotés 12 avec traitement en place | **3 risques cotés 12 (R-01, R-04, R-07), dont 2 traités et 1 partiel** (R-07) | 17 risques cotés au total (annexe 05) ; R-12 vaut 8 |
+| Risques de criticité haute traités | Risques cotés 12 avec traitement en place | 3 risques cotés 12 (R-01, R-04, R-07), dont 2 traités et 1 partiel (R-07) | 17 risques cotés au total (annexe 05) ; R-12 vaut 8 |
 | Dette documentaire | Limites connues non documentées | 0 déclarée | Non remesurée |
-| Santé de la CI | Lint et tests au vert | Vert | `ruff` et `pytest` réussis dans le rapport généré par GitHub Actions le 3 août 2026, qui n'est pas reproduit dans l'archive ; la CI n'a pas de PostgreSQL |
+| Santé de la CI | Vérification de style et tests au vert | Vert | `ruff` et `pytest` réussis dans le rapport généré par GitHub Actions le 3 août 2026, qui n'est pas reproduit dans l'archive ; la CI n'a pas de PostgreSQL |
 
 ## 3. Indicateurs de qualité du code
 
 | Indicateur | Outil | État |
 |---|---|---|
-| Conformité au style | `ruff check .` | Aucun avertissement |
-| Tests | `pytest` | **<!--tests-fr-->547 réussis, 3 ignorés, 1 échec attendu (xfail), soit 551 cas<!--/tests-->** dans <!--tests-fichiers-->48<!--/tests--> fichiers, preuves du 20 octobre 2026 (`evidence/01_pytest_summary.txt`). Les ignorés sautent sous condition (`tests/test_sql_splitter.py`) ; le *xfail* est un écart connu et déclaré de l'entrypoint ; la CI n'exécute pas les contrôles SQL sur une base |
+| Conformité au style | `ruff check .` | Non conservée dans les preuves d'octobre ; sans avertissement au rapport CI du 3 août 2026, non reproduit |
+| Tests | `pytest` | <!--tests-fr-->547 réussis, 3 ignorés, 1 échec attendu (xfail), soit 551 cas<!--/tests--> dans <!--tests-fichiers-->48<!--/tests--> fichiers, preuves du 20 octobre 2026 (`evidence/01_pytest_summary.txt`). Les ignorés sautent sous condition (`tests/test_sql_splitter.py`) ; le *xfail* est un écart connu et déclaré du script de démarrage (`docker/entrypoint.sh`) ; la CI n'exécute pas les contrôles SQL sur une base |
 | Contrôles documentés | `docs/controls_matrix.md` | 10 contrôles décrits |
 | Exécution vérifiable | `evidence/` | Sorties réelles des commandes, avec leur date et leur commande (`evidence/README.md`) |
 
@@ -62,11 +62,11 @@ Mesurés sur le jeu de test de 375 transactions (30 positives), évalué une seu
 
 Le tableau de bord est conçu pour être lu par une personne qui n'écrit pas de SQL. Trois niveaux de lecture :
 
-**Premier niveau, trois secondes** — le bandeau de verdict. Vert, orange ou rouge, avec une phrase énonçant la décision.
+Premier niveau, trois secondes : le bandeau de verdict. Vert, orange ou rouge, avec une phrase énonçant la décision.
 
-**Deuxième niveau, trente secondes** — les quatre indicateurs et la liste des contrôles en échec, avec leur sévérité et le nombre de lignes concernées.
+Deuxième niveau, trente secondes : les quatre indicateurs et la liste des contrôles en échec, avec leur sévérité et le nombre de lignes concernées.
 
-**Troisième niveau, quelques minutes** — la descente au détail par contrôle, la procédure de triage associée, et les volumes par date, statut et canal.
+Troisième niveau, quelques minutes : la descente au détail par contrôle, la procédure de triage associée, et les volumes par date, statut et canal.
 
 Cette gradation est délibérée : une direction métier doit obtenir la décision sans traverser la technique, tout en pouvant y descendre si elle le souhaite.
 
@@ -81,4 +81,12 @@ Cette gradation est délibérée : une direction métier doit obtenir la décisi
 | Couverture des contrôles par domaine de risque | Révèle les angles morts |
 | Durée d'exécution du pipeline | Anticipe la montée en volumétrie |
 
-Les indicateurs ci-dessus figurent en roadmap. Leur absence est assumée : ils supposent un historique d'exploitation que le projet n'a pas encore.
+Les indicateurs ci-dessus figurent dans la feuille de route. Leur absence est assumée : ils supposent un historique d'exploitation que le projet n'a pas encore.
+
+<style>
+:not(pre) > code { white-space: nowrap; }
+</style>
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

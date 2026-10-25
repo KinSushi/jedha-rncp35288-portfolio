@@ -53,8 +53,8 @@ POURQUOI
   cannot answer it (docs/CODE_STANDARD.md, section 3).
 - The invariant exists because a missing view appears as an empty Power BI panel rather than as an error: the
   report would look built and show nothing.
-- The count of views is eight here; docs/pipeline_architecture.md says nine. The code and the SQL file define
-  eight, so that document is out of date.
+- The count of views is eight, in ``EXPECTED_VIEWS`` and in sql/06_powerbi_star_schema.sql;
+  docs/pipeline_architecture.md says eight as well.
 
 JOURNALISATION
 --------------

@@ -16,3 +16,7 @@
 ## Public-safety rule
 
 All datasets must be synthetic or open. Do not publish real banking, insurance, health, client, employer or private data.
+
+---
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
