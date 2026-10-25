@@ -92,7 +92,8 @@ def test_charger_sms_nomme_toutes_les_colonnes_absentes(tmp_path):
         ("WIN a Prize", "win a prize"),
         ("see www.example.com now", "see  <url>  now"),
         ("go to http://a.io/x?y=1 ok", "go to  <url>  ok"),
-        ("mail me@example.co.uk please", "mail  <url>  please"),  # seul cas du motif co.uk
+        # Seul cas de la branche co.uk du motif ; domaine sous .example, réservé (RFC 2606).
+        ("mail me@site.co.uk.example please", "mail  <url>  please"),
         ("visit news.net today", "visit  <url>  today"),
         ("visit ong.org today", "visit  <url>  today"),
         ("win £100 now", "win  <argent>  now"),
