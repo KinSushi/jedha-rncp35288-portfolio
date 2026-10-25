@@ -105,6 +105,11 @@ Détail de chaque limite : [`kayak_v2/README.md`](kayak_v2/README.md), « Limite
 
 Données et fonds de carte : © les contributeurs d'OpenStreetMap (ODbL) ; météo : Open-Meteo (CC BY 4.0).
 
+## 8. Différences avec le livrable déposé
+
+- Le data lake n'est pas publié : le test qui rejoue le notebook (`kayak_v2/tests/test_notebook.py`) est ignoré quand le dossier `datalake/` est absent, au lieu d'échouer.
+- Dans `kayak_v2/tests/test_destinations_inverses.py`, le mot d'essai de la normalisation (majuscule accentuée, puis accent décomposé) est « ÉTRETAT » au lieu de « ÉCOLE » ; le cas testé est le même.
+
 ---
 
 *Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

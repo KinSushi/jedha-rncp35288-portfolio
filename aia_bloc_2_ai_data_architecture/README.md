@@ -160,6 +160,11 @@ aia_bloc_2_ai_data_architecture/
 
 Le code lit `livrables/aia2/` (mesures et documents vérifiés par les tests) : garder les deux dossiers côte à côte.
 
+## 8. Différences avec le livrable déposé
+
+- Le document `12_script_video.md` (script de la vidéo) n'est pas publié : la liste des documents attendus par `stripe/tests/test_conformite_depot.py` ne le contient donc pas. Le reste du test est celui du livrable.
+- Le modèle de variables de la démonstration s'appelle ici `stripe/modele.env.exemple` (`modele.env` dans le livrable), pour qu'aucun fichier publié ne ressemble à un fichier `.env` réel ; il ne contient aucun secret.
+
 ---
 
 *Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*
