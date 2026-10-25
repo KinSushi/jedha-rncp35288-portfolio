@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 #
 # Outils de test et de contrôle : s'ajoutent aux dépendances d'exécution de requirements.txt.
 # Installation : python -m pip install -r requirements-dev.txt

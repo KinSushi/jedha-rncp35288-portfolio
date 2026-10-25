@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de walmart_bloc3.py : chaque fonction a des tests directs ET des tests inverses.
 
 Un test direct montre ce que la fonction calcule ; un test inverse montre ce qu'elle refuse
@@ -486,9 +486,9 @@ def test_evaluate_model_calcule_les_metriques_train_et_test():
     # prédictions 50 et 60 : erreurs 0 et 1
     assert res["test_RMSE"] == pytest.approx(math.sqrt(0.5))
     assert res["test_MAE"] == pytest.approx(0.5)
-    assert res["test_R2"] == pytest.approx(1 - 1 / 60.5)  # 1 − somme des carrés / variance de y
+    assert res["test_R2"] == pytest.approx(1 - 1 / 60.5)  # 1 - somme des carrés / variance de y
     assert res["overfit_gap_RMSE"] == pytest.approx(res["test_RMSE"] - res["train_RMSE"])
-    # avec une erreur d'apprentissage non nulle, l'écart est test − train (ni somme ni inverse)
+    # avec une erreur d'apprentissage non nulle, l'écart est test - train (ni somme ni inverse)
     y_bruite = pd.Series([11.0, 19.0, 31.0, 39.0])
     bruite = w.evaluate_model("bruit", pipeline, x, x_test, y_bruite, y_test)
     assert bruite["train_RMSE"] == pytest.approx(1.0)

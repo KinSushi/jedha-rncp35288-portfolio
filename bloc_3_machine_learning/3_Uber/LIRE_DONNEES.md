@@ -1,6 +1,6 @@
-# Uber Pickups — où sont les données
+# Uber Pickups : où sont les données
 
-Le notebook `Uber_Pickups_Bloc3_CDSD_v2.ipynb` lit six fichiers CSV mensuels, d'avril à septembre 2014 : ce sont les seuls fichiers de la collection qui contiennent des coordonnées GPS (colonnes `Date/Time`, `Lat`, `Lon`, `Base`). Les données ne sont pas dupliquées dans ce dossier : l'archive pèse environ 101 Mo ; les six fichiers CSV, environ 210 Mo une fois décompressés.
+Le notebook `Uber_Pickups_Bloc3_CDSD_v2.ipynb` lit six fichiers CSV mensuels, d'avril à septembre 2014 : ce sont les seuls fichiers de la collection qui contiennent des coordonnées GPS (colonnes `Date/Time`, `Lat`, `Lon`, `Base`). Les données ne sont pas dupliquées dans ce dossier : elles pèsent environ 100 Mo.
 
 ## Source publique
 
@@ -43,10 +43,10 @@ Le fichier 2015 (`uber-raw-data-janjune-15.csv.zip`) n'est pas utilisé : il con
 Les tests du module `uber_bloc3.py` (`tests/test_uber_bloc3.py`) n'ont besoin d'aucune donnée. Les tests qui exécutent le notebook sur les vraies données (`tests/test_notebook_uber.py`) cherchent l'archive de la même façon que le notebook : variable `UBER_DATA_ZIP`, puis `uber-trip-data.zip` à côté du notebook. Sans archive, ils sont **ignorés** (et pytest le dit) ; deux d'entre eux, qui fabriquent leur propre petite archive, tournent toujours.
 
 ```powershell
-$env:UBER_DATA_ZIP = "<dossier de l'archive>\uber-trip-data.zip"
+$env:UBER_DATA_ZIP = "C:\chemin\vers\uber-trip-data.zip"
 python -m pytest tests -W error::DeprecationWarning -W error::PendingDeprecationWarning
 ```
 
 ---
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

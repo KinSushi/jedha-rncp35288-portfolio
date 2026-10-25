@@ -55,6 +55,8 @@ Restent affichés : les dimensions, les statistiques descriptives (Walmart, cell
 
 **Méthode.** Découpage stratifié 80/20 ; `OneHotEncoder` pour le pays et le canal, `StandardScaler` pour les variables numériques ; comparaison d'une référence, d'une forêt aléatoire équilibrée et de régressions logistiques (C = 1, C = 10, et C = 10 avec pondération des classes), chacune à son seuil optimal pour le F1 sur la validation (cellule 27). Modèle retenu : **régression logistique C = 10, seuil 0,45**.
 
+**Plan d'architecture** : [`docs/figures/architecture_conversion.png`](docs/figures/architecture_conversion.png), des données aux sorties, étape par étape.
+
 **Résultats** (fichier [`summary_results.json`](2_Conversion/outputs_bloc3_conversion_commente/summary_results.json) ; cellules 31 et 36) :
 
 | Mesure | Valeur |
@@ -82,6 +84,8 @@ Le F1 de 0,7768 est mesuré sur la validation qui a aussi servi à choisir le se
 
 **Méthode.** Découpage 80/20 (104 lignes d'apprentissage, 27 de test) ; `ColumnTransformer` (magasin en `OneHotEncoder`, variables numériques imputées puis standardisées) ; référence, régression linéaire, Ridge et Lasso, régularisation choisie par `GridSearchCV` (K-Fold à 5 plis) sur l'apprentissage seul (cellules 13, 14 et 16).
 
+**Plan d'architecture** : [`docs/figures/architecture_walmart.png`](docs/figures/architecture_walmart.png), des données aux sorties, étape par étape.
+
 **Résultats** ([`model_metrics.csv`](1_Walmart/walmart_bloc3_exam_outputs/model_metrics.csv) ; cellules 16, 17 et 25) :
 
 | Modèle | RMSE de validation croisée | R² apprentissage | R² test | MAE test |
@@ -89,7 +93,7 @@ Le F1 de 0,7768 est mesuré sur la validation qui a aussi servi à choisir le se
 | **Lasso (α = 316)** | **150 194 $** | 0,978 | **0,901** | 145 106 $ |
 | Ridge (α = 0,0316) | 151 079 $ | 0,978 | 0,899 | 143 948 $ |
 | Régression linéaire | 152 475 $ | 0,978 | 0,898 | 145 803 $ |
-| Référence (moyenne) | 668 514 $ | 0,000 | −0,032 | 531 906 $ |
+| Référence (moyenne) | 668 514 $ | 0,000 | -0,032 | 531 906 $ |
 
 - R² moyen de validation en K-Fold : 0,949 ; diagnostic : sur-apprentissage modéré sur un petit jeu (cellule 25).
 - **Stabilité** : toute la procédure rejouée sur 40 découpages donne un R² de test moyen de **0,934, de 0,473 à 0,975** ; le Lasso est retenu 28 fois sur 40 ([`repeated_splits_results.csv`](1_Walmart/walmart_bloc3_exam_outputs/repeated_splits_results.csv) ; cellule 27). L'avance du Lasso sur la régression linéaire est plus petite que la variation due au découpage.
@@ -111,6 +115,8 @@ Le F1 de 0,7768 est mesuré sur la validation qui a aussi servi à choisir le se
 **Hot-zones.** Latitude et longitude projetées en kilomètres, pour que la distance de KMeans ait un sens. De k = 4 à 10, **k = 8** maximise la silhouette (0,492) et minimise l'indice de Davies-Bouldin (0,644) (cellule 14) ; un modèle et une carte par jour de la semaine (cellules 16 et 18 ; l'image de ces cartes n'est pas publiée, voir § Limites). Avec DBSCAN, quand `eps` passe de 0,1 à 1,2 km, le nombre de clusters varie de 49 à 4 et le plus grand cluster regroupe de 52 % à 97 % des points (cellule 22) : MiniBatchKMeans, dont les centroïdes sont directement exploitables, est retenu.
 
 **Prévision.** Table zone × heure, encodage cyclique de l'heure, retards de 24 h et de 168 h calculés sur le passé seul ; apprentissage d'avril à août, test sur septembre ; validation croisée **chronologique** à 5 plis (`TimeSeriesSplit`) (cellules 26 à 29).
+
+**Plan d'architecture** : [`docs/figures/architecture_uber.png`](docs/figures/architecture_uber.png), des données aux sorties, étape par étape.
 
 | Modèle | R² validation croisée | R² test | MAE test (courses/h) | WAPE test |
 |---|---|---|---|---|
@@ -207,6 +213,7 @@ bloc_3_machine_learning/
 ├── DONNEES.md                       comment obtenir les données
 ├── .gitignore                       données et exports à ne pas versionner
 ├── docs/evidence_note.md            note de preuve du bloc
+├── docs/figures/                    plans d'architecture des trois projets
 ├── 1_Walmart/
 │   ├── Walmart_Bloc3_CDSD_v2.ipynb  notebook exécuté, avec ses sorties
 │   ├── walmart_bloc3.py             module de calcul importé par le notebook

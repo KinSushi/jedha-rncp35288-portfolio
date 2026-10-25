@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests d'intégration : exécutent le notebook Walmart avec nbclient et vérifient ses chiffres.
 
 Chaque test copie le projet (notebook, module, CSV) dans un dossier temporaire : le notebook y

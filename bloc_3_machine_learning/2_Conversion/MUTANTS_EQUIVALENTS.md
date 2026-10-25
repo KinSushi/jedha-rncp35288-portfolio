@@ -1,6 +1,6 @@
-# Mutants équivalents — `conversion_bloc3.py`
+# Mutants équivalents : `conversion_bloc3.py`
 
-Mesure : mutmut 3, sur le module entier, tests
+Mesure : mutmut 3 (sous WSL), sur le module entier, tests
 `tests/test_conversion_bloc3.py`. Un mutant n'est nommé ici que si **aucun test ne peut le
 distinguer** du code d'origine : même comportement, mêmes valeurs rendues.
 
@@ -31,7 +31,7 @@ Preuves exécutées :
 **Avant.** Les mutants étaient numérotés 32 et 35 (mesure du 17 octobre 2026) et la preuve
 donnée dans ce fichier était fausse. Elle disait : « `astype(None)` donne des flottants 0.0 /
 1.0 […] scikit-learn lit des flottants entiers comme des classes binaires : F1, précision, rappel
-et exactitude sont les mêmes. » Elle ne valait que pour une cible 0 / 1 — et la fonction
+et exactitude sont les mêmes. » Elle ne valait que pour une cible 0 / 1, et la fonction
 n'interdisait pas une autre cible. Le contrôle indépendant du 20 octobre a produit une cible
 sans classe 1 (des étiquettes 2) au seuil 1 : scikit-learn échouait alors, et le message de
 l'erreur dépendait du type des prédictions (« [0 2] » contre « [0. 2.] »). Les deux mutants
@@ -77,4 +77,4 @@ Le remède a sept tests nouveaux dans `tests/test_conversion_bloc3.py` :
 
 ---
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

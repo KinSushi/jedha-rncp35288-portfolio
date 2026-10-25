@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de uber_bloc3.py : chaque fonction a des tests directs ET des tests inverses.
 
 Un test direct montre ce que la fonction calcule ; un test inverse montre ce qu'elle refuse
@@ -849,7 +849,7 @@ def test_placer_etiquette_refuse_une_geometrie_absente():
 
 
 def test_indicateurs_calculent_mae_wape_et_biais():
-    """Réel (10, 20), prévu (12, 15) : erreurs +2 et −5 ; MAE 3,5 ; WAPE 7/30 ; biais −3/30."""
+    """Réel (10, 20), prévu (12, 15) : erreurs +2 et -5 ; MAE 3,5 ; WAPE 7/30 ; biais -3/30."""
     ind = u.indicateurs([10, 20], [12, 15])
     assert ind == pytest.approx({"MAE": 3.5, "WAPE": 100 * 7 / 30, "biais": -10.0})
     assert list(ind) == ["MAE", "WAPE", "biais"]
@@ -910,7 +910,7 @@ def test_evaluer_rend_une_ligne_de_tableau_avec_ou_sans_apprentissage():
     }
     avec = u.evaluer("m", [10, 20, 30], [12, 18, 33], [1, 2, 3], [1, 2, 3])
     assert avec["R² apprentissage"] == 1.0
-    assert avec["R² test"] == pytest.approx(1 - 17 / 200)  # erreurs 2, −2, 3 : SCR 17, SCT 200
+    assert avec["R² test"] == pytest.approx(1 - 17 / 200)  # erreurs 2, -2, 3 : SCR 17, SCT 200
     assert avec["MAE test (courses/heure)"] == pytest.approx(7 / 3)
     assert avec["WAPE test (%)"] == pytest.approx(100 * 7 / 60)
     assert avec["biais test (%)"] == pytest.approx(100 * 3 / 60)

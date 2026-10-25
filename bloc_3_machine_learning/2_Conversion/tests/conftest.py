@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Rend le module du projet importable quand on lance `pytest` sans `python -m`.
 
 Le dossier du projet est AJOUTÉ EN FIN de sys.path, jamais en tête : sous mutmut, la copie mutée

@@ -1,4 +1,4 @@
-# Note de preuve — Bloc 3 — Analyse prédictive de données structurées
+# Note de preuve : bloc 3, analyse prédictive de données structurées
 
 ## Statut
 
@@ -20,8 +20,12 @@ Entraînement et évaluation de modèles supervisés (classification déséquili
 
 ## Contrôles de publication
 
-- [x] aucun support de cours ni énoncé ;
-- [x] aucun fichier de données de l'organisme de formation, et aucune ligne de ces jeux dans les sorties publiées ;
+- [x] aucun énoncé ni document fourni avec les projets ;
+- [x] aucun fichier de données fourni avec les énoncés, et aucune ligne de ces jeux dans les sorties publiées ;
 - [x] aucune note ni attestation ;
 - [x] aucune donnée réelle de client ou d'employeur ;
 - [x] aucun secret.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

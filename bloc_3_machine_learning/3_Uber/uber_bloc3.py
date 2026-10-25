@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Fonctions du notebook Uber Pickups (bloc 3 CDSD), sorties du notebook pour être testées.
 
 CHOIX
@@ -523,7 +523,7 @@ def indicateurs(y_reel: Any, y_prevu: Any) -> dict[str, float]:
     """MAE (courses/heure), WAPE et biais (en % de la demande réelle totale).
 
     WAPE = somme des erreurs absolues / somme de la demande. Biais = somme des erreurs signées
-    (prévu − réel) / somme de la demande : négatif = sous-estimation. Lève ValueError si les
+    (prévu - réel) / somme de la demande : négatif = sous-estimation. Lève ValueError si les
     longueurs diffèrent ou si la demande totale est nulle (les pourcentages seraient infinis).
     """
     # Une seule règle de conversion pour les deux séries : tout est calculé en double précision.

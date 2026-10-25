@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de conversion_bloc3.py : chaque fonction a des tests directs ET des tests inverses.
 
 Un test direct montre ce que la fonction calcule ; un test inverse montre ce qu'elle refuse
@@ -753,7 +753,7 @@ def test_statut_visiteurs_refuse_une_part_ecrite_en_texte():
     ],
 )
 def test_lecture_ecart_apprentissage_selon_le_seuil(ecart, attendu):
-    """L'écart apprentissage − validation est jugé en valeur absolue contre 0,02."""
+    """L'écart apprentissage - validation est jugé en valeur absolue contre 0,02."""
     assert c.lecture_ecart_apprentissage(ecart) == attendu
 
 

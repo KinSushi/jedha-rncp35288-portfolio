@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests d'intégration : exécutent le notebook Uber avec nbclient et vérifient ses chiffres.
 
 Chaque test copie le projet (notebook et module) dans un dossier temporaire : le notebook y écrit

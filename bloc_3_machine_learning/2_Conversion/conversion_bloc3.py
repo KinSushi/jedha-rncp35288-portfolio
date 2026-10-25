@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Fonctions du notebook Conversion Rate (bloc 3 CDSD), sorties du notebook pour être testées.
 
 CHOIX
@@ -75,7 +75,7 @@ POURQUOI
   indépendant de la mutation du 20/10/2026, qui a montré qu'une cible sans classe 1 faisait
   dépendre le message d'erreur du type interne des prédictions (rapport de vérification hors
   du dépôt, cité dans MUTANTS_EQUIVALENTS.md).
-- Seuils de lecture des diagnostics (0,02 pour l'écart apprentissage − validation et pour la
+- Seuils de lecture des diagnostics (0,02 pour l'écart apprentissage - validation et pour la
   dispersion entre plis ; 0,99 et 0,01 pour la part de nouveaux visiteurs) : conventions de
   lecture du notebook, source : inconnue.
 
@@ -383,7 +383,7 @@ def statut_visiteurs(taux_nouveaux: float) -> str:
 
 
 def lecture_ecart_apprentissage(ecart: float) -> str:
-    """« négligeable » si l'écart apprentissage − validation est sous 0,02 en valeur absolue.
+    """« négligeable » si l'écart apprentissage - validation est sous 0,02 en valeur absolue.
 
     Convention de lecture du notebook (seuil indicatif). Lève ValueError si l'écart est NaN.
     """

@@ -1,6 +1,6 @@
-# Mutants équivalents — `uber_bloc3.py`
+# Mutants équivalents : `uber_bloc3.py`
 
-Mesure : mutmut 3, sur le module entier, tests
+Mesure : mutmut 3 (sous WSL), sur le module entier, tests
 `tests/test_uber_bloc3.py`. Un mutant n'est nommé ici que si **aucun test ne peut le
 distinguer** du code d'origine : même comportement, mêmes valeurs rendues.
 
@@ -31,4 +31,4 @@ des tests ajoutés ou par une écriture plus nette du code :
 
 ---
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

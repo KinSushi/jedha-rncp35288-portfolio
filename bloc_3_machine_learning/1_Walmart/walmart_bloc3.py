@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Fonctions du notebook Walmart (bloc 3 CDSD), sorties du notebook pour être testées.
 
 CHOIX
@@ -45,7 +45,7 @@ COMMENT
   test_chercher_alpha_*, test_evaluate_model_*, test_rmse_*.
 - r2_regression, part_entre_magasins, phrase_variable chiffrent la colinéarité et la lecture des
   coefficients ; evaluer_un_decoupage rejoue toute la procédure sur une graine ;
-  diagnostic_validation classe l'écart apprentissage − validation. Preuves : tests du même nom.
+  diagnostic_validation classe l'écart apprentissage - validation. Preuves : tests du même nom.
 - Intégration : tests/test_notebook_walmart.py exécute le notebook et vérifie ses chiffres clés
   (131 lignes, 19 magasins, Lasso, R² de test).
 
@@ -56,7 +56,7 @@ POURQUOI
 - Choix du modèle sur la validation croisée de l'apprentissage et pas sur le test : voir la
   cellule Markdown 6 du notebook et la section 11 ; le test ne sert qu'à mesurer.
 - Règle moyenne ± 3 écarts-types sur Temperature, Fuel_Price, CPI et Unemployment : imposée par
-  l'énoncé du projet, fourni par l'organisme de formation et non redistribué ici.
+  l'énoncé du projet, non redistribué ici.
 - Référentiel RNCP35288, bloc 3 : https://www.francecompetences.fr/recherche/rncp/35288/ ;
   documentation scikit-learn : https://scikit-learn.org/stable/modules/compose.html
 - Seuils de lecture du diagnostic (0,5 ; 0,10 ; 0,02) : conventions de lecture du notebook,
@@ -386,7 +386,7 @@ def evaluate_model(
 ) -> dict[str, float | str]:
     """Évalue un pipeline déjà entraîné sur l'apprentissage ET sur le test.
 
-    Train : capacité à apprendre les données vues. Test : généralisation. L'écart test − train
+    Train : capacité à apprendre les données vues. Test : généralisation. L'écart test - train
     du RMSE signale un risque de sur-apprentissage.
     """
     pred_train = fitted_pipeline.predict(x_train)
@@ -572,7 +572,7 @@ def diagnostic_validation(moyenne_r2: float, ecart_app_val: float) -> str:
 
     Seuils INDICATIFS (convention de lecture, pas une loi) :
     - SOUS-apprentissage : R² de validation inférieur à 0,5 ;
-    - SUR-apprentissage marqué : écart apprentissage − validation supérieur à 0,10 ;
+    - SUR-apprentissage marqué : écart apprentissage - validation supérieur à 0,10 ;
     - SUR-apprentissage modéré : écart supérieur à 0,02 (et au plus 0,10) ;
     - sinon : ni sous-apprentissage ni sur-apprentissage visible.
 
