@@ -14,26 +14,34 @@
   </defs>
   <rect width="1280" height="320" rx="26" fill="url(#bg)"/>
   <g opacity=".42">
-    <rect x="790" y="70" width="90" height="50" rx="12" fill="#0D419D" stroke="#58A6FF"/>
-    <text x="816" y="101" class="node">B1</text>
-    <rect x="900" y="70" width="90" height="50" rx="12" fill="#0D419D" stroke="#58A6FF"/>
-    <text x="926" y="101" class="node">B2</text>
-    <rect x="1010" y="70" width="90" height="50" rx="12" fill="#0F2F24" stroke="#2EA043"/>
-    <text x="1036" y="101" class="node">B3</text>
-    <rect x="1120" y="70" width="90" height="50" rx="12" fill="#24143D" stroke="#A371F7"/>
-    <text x="1146" y="101" class="node">B4</text>
-    <rect x="900" y="180" width="90" height="50" rx="12" fill="#0F2F24" stroke="#2EA043"/>
-    <text x="926" y="211" class="node">B5</text>
-    <rect x="1010" y="180" width="90" height="50" rx="12" fill="#24143D" stroke="#A371F7"/>
-    <text x="1036" y="211" class="node">B6</text>
+    <rect x="790" y="50" width="90" height="50" rx="12" fill="#0D419D" stroke="#58A6FF"/>
+    <text x="816" y="81" class="node">B1</text>
+    <rect x="900" y="50" width="90" height="50" rx="12" fill="#0D419D" stroke="#58A6FF"/>
+    <text x="926" y="81" class="node">B2</text>
+    <rect x="1010" y="50" width="90" height="50" rx="12" fill="#0F2F24" stroke="#2EA043"/>
+    <text x="1036" y="81" class="node">B3</text>
+    <rect x="1120" y="50" width="90" height="50" rx="12" fill="#24143D" stroke="#A371F7"/>
+    <text x="1146" y="81" class="node">B4</text>
+    <rect x="790" y="125" width="90" height="50" rx="12" fill="#0F2F24" stroke="#2EA043"/>
+    <text x="816" y="156" class="node">B5</text>
+    <rect x="900" y="125" width="90" height="50" rx="12" fill="#24143D" stroke="#A371F7"/>
+    <text x="926" y="156" class="node">B6</text>
+    <rect x="1010" y="125" width="90" height="50" rx="12" fill="#0D419D" stroke="#58A6FF"/>
+    <text x="1033" y="156" class="node">AIA1</text>
+    <rect x="1120" y="125" width="90" height="50" rx="12" fill="#0F2F24" stroke="#2EA043"/>
+    <text x="1143" y="156" class="node">AIA2</text>
+    <rect x="1010" y="200" width="90" height="50" rx="12" fill="#24143D" stroke="#A371F7"/>
+    <text x="1033" y="231" class="node">AIA3</text>
+    <rect x="1120" y="200" width="90" height="50" rx="12" fill="#0D419D" stroke="#58A6FF"/>
+    <text x="1143" y="231" class="node">AIA4</text>
   </g>
   <text x="74" y="104" class="title">jedha-rncp35288-portfolio</text>
-  <text x="74" y="150" class="sub">Six-block public evidence map · Data Science · MLOps · Governance</text>
+  <text x="74" y="150" class="sub">Ten-block public evidence map · Data Science · AI Architect</text>
   <text x="74" y="188" class="sub">Sanitized technical artifacts only - no private certification or application documents</text>
-  <rect x="74" y="232" width="136" height="36" rx="18" fill="#0D419D"/>
-  <text x="102" y="255" class="chip">RNCP L6</text>
-  <rect x="226" y="232" width="146" height="36" rx="18" fill="#1A7F37"/>
-  <text x="254" y="255" class="chip">Six Blocks</text>
-  <rect x="388" y="232" width="152" height="36" rx="18" fill="#6E40C9"/>
-  <text x="416" y="255" class="chip">Governance</text>
+  <rect x="74" y="232" width="160" height="36" rx="18" fill="#0D419D"/>
+  <text x="102" y="255" class="chip">RNCP L6 + L7</text>
+  <rect x="250" y="232" width="146" height="36" rx="18" fill="#1A7F37"/>
+  <text x="278" y="255" class="chip">Ten Blocks</text>
+  <rect x="412" y="232" width="152" height="36" rx="18" fill="#6E40C9"/>
+  <text x="440" y="255" class="chip">Governance</text>
 </svg>

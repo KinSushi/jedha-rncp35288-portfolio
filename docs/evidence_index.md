@@ -4,16 +4,16 @@ This index should be updated whenever a new public artifact is added.
 
 | Evidence ID | Block | Artifact | Status | Public-safety review |
 |---|---|---|---|---|
-| B1-E001 | Bloc 1 | Data infrastructure README | Planned | Required |
-| B2-E001 | Bloc 2 | EDA report | Planned | Required |
-| B3-E001 | Bloc 3 | ML evaluation report | Planned | Required |
-| B4-E001 | Bloc 4 | NLP / RAG evidence | Planned | Required |
-| B5-E001 | Bloc 5 | MLOps deployment evidence | Planned | Required |
-| B6-E001 | Bloc 6 | Project governance pack | Planned | Required |
-| A1-E001 | AIA Bloc 1 | Data & AI governance plan and summary deck | Planned | Required |
-| A2-E001 | AIA Bloc 2 | AI data architecture plan, IaC code, video | Planned | Required |
-| A3-E001 | AIA Bloc 3 | Data pipeline plan, code, video | Planned | Required |
-| A4-E001 | AIA Bloc 4 | AI solution (`reviewpulse-pipeline`), presentation, video | In progress | Required |
+| B1-E001 | Bloc 1 | Kayak: web collection, data lake, Spark ETL, SQL warehouse | Published | Required |
+| B2-E001 | Bloc 2 | Speed dating (pandas) and Steam (PySpark) studies | Published | Required |
+| B3-E001 | Bloc 3 | Walmart, Conversion and Uber projects | Published | Required |
+| B4-E001 | Bloc 4 | SMS spam detector with deep learning | Published | Required |
+| B5-E001 | Bloc 5 | MLOps deployment evidence | Not published in this version | Required |
+| B6-E001 | Bloc 6 | banking-dataops-monitoring: quality control of synthetic banking data, run as a project | Published | Required |
+| A1-E001 | AIA Bloc 1 | Governance plan for a music-streaming platform | Published (summary) | Required |
+| A2-E001 | AIA Bloc 2 | Data architecture of a payment platform | Published | Required |
+| A3-E001 | AIA Bloc 3 | Real-time fraud detection pipeline | Published | Required |
+| A4-E001 | AIA Bloc 4 | AI solution (`reviewpulse-pipeline`), presentation, video | Not published in this version | Required |
 
 ## External repo links to add later
 
