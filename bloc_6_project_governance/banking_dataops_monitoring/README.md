@@ -44,7 +44,7 @@ Tableau de bord : <http://localhost:8501>. API, en lecture seule : <http://local
 Le modèle n'existe pas au démarrage (`TRAIN_ON_BOOT=false` n'est pas lu par l'entrypoint). Une fois la pile démarrée, dans un second terminal :
 
 ```bash
-docker compose exec app python -m banking_dataops.ml.train     # entraîne le modèle (13 s mesurées)
+docker compose exec app python -m banking_dataops.ml.train     # entraîne le modèle (environ 13 s, evidence/pipeline_full.txt ; jusqu'à 24 s sur un poste chargé, captures du 25/10)
 docker compose exec app python -m banking_dataops.ml.predict   # remplit gold.predictions, la file d'investigation
 make smoke                                                      # vérification de bout en bout, 15 assertions
 ```

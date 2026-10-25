@@ -44,6 +44,15 @@ contrôles sur 7. Modèle : validation croisée 0,9748 et 0,9658, seuil 0,852, A
 L'avertissement restant vient de Starlette (`StarletteDeprecationWarning`, sous-classe de `UserWarning`) : il n'est pas un
 `DeprecationWarning`, donc les options `-W error::DeprecationWarning` ne l'élèvent pas.
 
+Rejeu du 25 octobre 2026 (`04_rejeu_tests_2026-10-25.txt`). Après les preuves du 20/10, le code a changé en deux points
+de comportement : `src/banking_dataops/ml/features.py` calcule `is_weekend` avec `dt.day_of_week` au lieu de
+`dt.dayofweek` (renommage d'API pandas), et le tableau de bord affiche la baisse des contrôles réussis avec
+`delta_color="normal"` (`dashboard/streamlit_app.py`) ; les autres modifications de `src/` et `dashboard/` ne touchent que
+des commentaires, des docstrings et des chaînes affichées. La suite, rejouée le 25 octobre 2026 à 02 h 32 UTC sous WSL
+(Python 3.12.15, pandas 3.0.6, pytest 9.1.1) sur une copie fraîche du code final (`9925bbb`), donne 547 réussis,
+3 ignorés, 1 xfail et 1 avertissement, en 42,37 s ; les tests inverses, 12 réussis et 1 xfail. Les preuves du 20/10
+ci-dessus ne sont pas modifiées.
+
 ## Avant la correction
 
 `rejeu_modele_2026-07-27.json` et `rejeu_modele_2026-07-27.md` décrivent l'état antérieur (modèle et seuil choisis sur le jeu de test),

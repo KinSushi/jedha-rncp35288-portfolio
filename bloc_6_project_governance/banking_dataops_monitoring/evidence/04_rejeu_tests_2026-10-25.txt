@@ -1,0 +1,72 @@
+Rejeu de la suite de tests sur le code final, 25 octobre 2026
+
+Commit testé : df76aa9b38090c7c14d2b32bfb81fe6ad2f333f0. Son code (src/, dashboard/, sql/, tests/, scripts/) est
+celui de 9925bbbdb43d65500686014d23b6c5fcac658eb5 : seuls README.md et docs/soutenance/11-SCRIPT-SOUTENANCE-10MIN.md
+diffèrent (durée d'entraînement). Copie fraîche : arbre du commit extrait par git archive dans un dossier neuf.
+Environnement : WSL2 (Linux 6.18.33.2-microsoft-standard-WSL2, glibc 2.43), Python 3.12.15, pandas 3.0.6,
+pytest 9.1.1, numpy 2.5.4, scikit-learn 1.9.1, fastapi 0.143.0, starlette 1.7.0, httpx 0.28.1.
+Seuls les chemins absolus de la machine sont remplacés : <venv> pour l'environnement Python, <depot> pour la copie
+testée. Les preuves du 20 octobre 2026 (pytest_full.txt, 01_pytest_summary.txt, 02_reverse_tests.txt,
+03_tests_par_fichier.txt, reverse_full.txt) ne sont pas modifiées.
+
+1. Suite complète
+Début : 2026-10-25T02:32:22Z ; fin : 2026-10-25T02:33:12Z (UTC)
+Commande : <venv>/bin/python -m pytest -q -p no:cacheprovider -W error::DeprecationWarning -W error::PendingDeprecationWarning
+Code de sortie : 0
+Résultat : 547 passed, 3 skipped, 1 xfailed, 1 warning in 42.37s
+
+Sortie brute :
+........................................................................ [ 13%]
+........................................................................ [ 26%]
+........................................................................ [ 39%]
+........................................................................ [ 52%]
+........................................................................ [ 65%]
+...............................................x........................ [ 78%]
+...................................s...ss............................... [ 91%]
+...............................................                          [100%]
+=============================== warnings summary ===============================
+<venv>/lib/python3.12/site-packages/fastapi/testclient.py:1
+  <venv>/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+547 passed, 3 skipped, 1 xfailed, 1 warning in 42.37s
+
+2. Tests inverses (chemins interdits)
+Début : 2026-10-25T02:33:21Z (UTC)
+Commande : <venv>/bin/python -m pytest tests/test_reverse_paths.py -v -rs -p no:cacheprovider -W error::DeprecationWarning -W error::PendingDeprecationWarning
+(celle des preuves du 20/10, commit e77b86f : pytest tests/test_reverse_paths.py -v, avec les options de la suite complète)
+Code de sortie : 0
+Résultat : 12 passed, 1 xfailed, 1 warning in 0.35s
+
+Sortie brute :
+============================= test session starts ==============================
+platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.6.0 -- <venv>/bin/python
+rootdir: <depot>
+configfile: pyproject.toml
+plugins: anyio-4.15.1, platformdirs-4.13.0
+collecting ... collected 13 items
+
+tests/test_reverse_paths.py::test_the_demo_reset_is_scoped_to_its_marker_and_a_mistyped_action_is_refused_instead_of_read_as_reset PASSED [  7%]
+tests/test_reverse_paths.py::test_a_run_identifier_is_sixteen_hexadecimal_characters_unique_per_run_and_anything_else_reaches_no_query PASSED [ 15%]
+tests/test_reverse_paths.py::test_audit_event_without_a_reason_is_refused PASSED [ 23%]
+tests/test_reverse_paths.py::test_audit_event_with_a_negative_row_count_is_refused PASSED [ 30%]
+tests/test_reverse_paths.py::test_logging_never_raises_when_the_sink_is_broken_and_configuring_it_twice_does_not_duplicate_output PASSED [ 38%]
+tests/test_reverse_paths.py::test_the_verdict_blocks_on_a_failure_not_on_a_warning_is_503_when_it_cannot_decide_and_health_stays_up PASSED [ 46%]
+tests/test_reverse_paths.py::test_a_violated_invariant_stops_the_run_and_a_satisfied_one_is_journalled_too PASSED [ 53%]
+tests/test_reverse_paths.py::test_every_demo_violation_breaks_its_control_fits_the_schema_carries_a_reason_and_cannot_be_edited PASSED [ 61%]
+tests/test_reverse_paths.py::test_the_audit_categories_are_a_closed_list_shared_with_the_sql_check_and_an_unknown_one_is_refused PASSED [ 69%]
+tests/test_reverse_paths.py::test_every_state_changing_module_is_journalled_and_the_scan_refuses_a_module_that_leaves_no_trace PASSED [ 76%]
+tests/test_reverse_paths.py::test_every_control_has_a_business_reason_and_the_decision_trail_is_complete_and_the_check_refuses_a_gap PASSED [ 84%]
+tests/test_reverse_paths.py::test_the_pipeline_does_not_require_a_model_to_complete_and_a_failing_training_is_not_swallowed PASSED [ 92%]
+tests/test_reverse_paths.py::test_entrypoint_starts_the_dashboard_even_when_the_pipeline_fails XFAIL [100%]
+
+=============================== warnings summary ===============================
+<venv>/lib/python3.12/site-packages/fastapi/testclient.py:1
+  <venv>/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=================== 12 passed, 1 xfailed, 1 warning in 0.35s ===================
+
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC

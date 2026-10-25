@@ -14,7 +14,7 @@ Le registre compte dix-sept risques : quatorze établis au cadrage (R-01 à R-14
 |---|---|:-:|:-:|:-:|---|---|
 | R-01 | Échec du démarrage à froid le jour de la présentation | 3 | 4 | 12 | Pile lancée 75 minutes avant, répétition à froid obligatoire, gel du code à J-1 | Traité |
 | R-02 | Dépendance réseau indisponible pendant la démonstration | 2 | 4 | 8 | Exécution entièrement locale, aucune ressource distante requise | Traité |
-| R-03 | Dépassement des dix minutes de présentation, démonstration comprise | 3 | 2 | 6 | Déroulé minuté : 9 min 15 s prévues pour les huit diapositives et la démonstration, soit 45 s de marge sur les dix minutes ; non chronométré | Traité |
+| R-03 | Dépassement des dix minutes de présentation, démonstration comprise | 3 | 2 | 6 | Déroulé minuté : au plus 9 min 15 s pour les huit diapositives et la démonstration, soit au moins 45 s de marge sur les dix minutes ; non chronométré | Traité |
 | R-04 | Modification de dernière minute cassant la démonstration | 3 | 4 | 12 | Gel du code, jalon J5 (2 août 2026) ; non tenu pour le support et la documentation le soir du 2 août (annexe 03, § 6.3) | Traité |
 | R-05 | Périmètre non tenu faute de temps | 2 | 3 | 6 | Coupes décidées et documentées dès le cadrage | Traité |
 | R-06 | Question d'évaluation sur une limite non anticipée | 3 | 2 | 6 | Limites recensées et déclarées dans le dossier de projet (§ 8) | Traité |
