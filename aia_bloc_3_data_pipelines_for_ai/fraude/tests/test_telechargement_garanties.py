@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Téléchargement vérifié du jeu : chaque refus, chaque contrôle, rien d'abîmé (critères 3.3, 4.1).
 
 Le client HTTP est remplacé par une doublure qui enregistre ses arguments exacts (flux, délais,

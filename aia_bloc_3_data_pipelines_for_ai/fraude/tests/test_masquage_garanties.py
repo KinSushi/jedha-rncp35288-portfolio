@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Garanties du masquage (critère 5.1) : ce qui est refusé, ce qui est effacé, ce qui ne bouge pas.
 
 Les valeurs attendues sont écrites en dur (empreintes calculées avec la bibliothèque standard,

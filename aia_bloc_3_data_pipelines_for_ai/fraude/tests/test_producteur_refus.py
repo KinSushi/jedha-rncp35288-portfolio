@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Producteur : ce qui est refusé, relancé ou abandonné, et la preuve que rien n'est abîmé.
 
 Chaque test inverse fixe une règle de refus avec ses messages exacts, ses événements d'audit

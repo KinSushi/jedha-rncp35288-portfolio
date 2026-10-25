@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Collecte des hôtels sur Booking.com via Scrapy.
 
 Le spider parcourt une seule page de résultats par ville (25 hôtels max)

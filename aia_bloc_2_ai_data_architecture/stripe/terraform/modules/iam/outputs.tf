@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 
 output "role_etl_arn" {
   description = "ARN du rôle des tâches d'extraction et de chargement."

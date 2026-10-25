@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 r"""Réglages communs des tests : arrêt de Spark après chaque module, espion des ouvertures.
 
 1. Spark et sa machine virtuelle Java arrêtés à la fin de chaque module.

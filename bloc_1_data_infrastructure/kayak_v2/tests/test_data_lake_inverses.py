@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests INVERSES du data lake (``kayak.stockage.data_lake``), en mode local et en mode S3.
 
 Le data lake est la mémoire du pipeline : si une écriture tronque un fichier, si une suppression

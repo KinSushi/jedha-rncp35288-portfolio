@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """DAG de réentraînement hebdomadaire du modèle (dimanche, 03:00).
 
 Enchaînement (chaque tâche attend le succès de la précédente) :

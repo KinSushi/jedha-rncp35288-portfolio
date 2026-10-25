@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Fichiers de déploiement : docker-compose, connecteur Debezium, secrets, Dockerfile.
 
 Ces fichiers ne sont pas exécutables sans Docker et sans téléchargement d'images. Les tests
@@ -27,7 +27,7 @@ from stripe_demo import generer_ddl as g
 RACINE = Path(__file__).resolve().parent.parent
 COMPOSE = RACINE / "docker-compose.yml"
 CONNECTEUR = RACINE / "deploiement" / "debezium_connecteur.json"
-COPYRIGHT = "Copyright © 2026 · voir le fichier LICENSE du dépôt"
+COPYRIGHT = "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC"
 
 
 @pytest.fixture(scope="module")

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Producteur : boucle API, rejeu du jeu et ligne de commande (options, codes de sortie).
 
 Les tests de ``main`` isolent l'environnement comme la fixture ``config`` (dossier de données,

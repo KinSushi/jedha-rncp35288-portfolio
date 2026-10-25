@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests INVERSES du score météo (``kayak.etl.score``) : ce qu'il doit REFUSER ou ne pas toucher.
 
 Le score classe les 35 destinations ; une erreur silencieuse y fausserait le « top 5 » des cartes.

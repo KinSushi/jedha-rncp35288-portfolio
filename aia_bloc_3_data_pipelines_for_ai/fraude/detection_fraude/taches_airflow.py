@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Fonctions appelées par les DAG Airflow, testables sans Airflow (critères 3.1, 3.2, 4.3, 6.1).
 
 Un DAG est de la plomberie : il dit *quand* et *dans quel ordre*. Le travail lui-même vit ici, dans

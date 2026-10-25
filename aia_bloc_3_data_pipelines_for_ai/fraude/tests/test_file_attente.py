@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """File de messages : SQLite (local) et Kafka (production, client simulé) (critères 1.2 et 4.2)."""
 
 from __future__ import annotations

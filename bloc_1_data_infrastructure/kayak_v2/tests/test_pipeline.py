@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de l'orchestration : lecture des tables Parquet du lac et étape « cartes » seule.
 
 Avant la correction, ``--etapes cartes`` utilisé seul reconstituait les destinations à partir du

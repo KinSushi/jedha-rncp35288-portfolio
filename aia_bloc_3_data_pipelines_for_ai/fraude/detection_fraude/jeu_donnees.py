@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Lecture du jeu ``fraudTest.csv`` et mise au format de l'API temps réel.
 
 Le jeu sert à deux choses : **entraîner** le modèle et **rejouer** un flux quand l'API n'est pas

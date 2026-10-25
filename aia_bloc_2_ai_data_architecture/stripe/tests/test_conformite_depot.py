@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Règles du dépôt vérifiées par des tests plutôt que par une relecture.
 
 - mention de droits d'auteur dans chaque fichier du livrable (en tête pour le code, en pied de
@@ -20,7 +20,7 @@ from pathlib import Path
 import pytest
 
 RACINE = Path(__file__).resolve().parent.parent.parent
-COPYRIGHT = "Copyright © 2026 · voir le fichier LICENSE du dépôt"
+COPYRIGHT = "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC"
 DOSSIERS = (RACINE / "stripe", RACINE / "livrables" / "aia2")
 EXCLUS = {"sorties", "secrets", "__pycache__", ".pytest_cache", ".ruff_cache", ".terraform",
           ".venv", "_env", "_quarantaine"}

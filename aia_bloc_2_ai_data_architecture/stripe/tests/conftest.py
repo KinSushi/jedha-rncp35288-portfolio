@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Fixtures communes : une mini-démonstration (OLTP + entrepôt) rapide et isolée.
 
 Pourquoi : les tests doivent tourner en quelques secondes et sans dépendre de la démonstration

@@ -142,5 +142,3 @@ python -m stripe_demo.dimensionnement               # volumes extrapolés sous h
 Python 3.12, PEP 8 à 99 colonnes (ruff), commentaires en français qui expliquent le *pourquoi*, mention de droits d'auteur en tête de chaque fichier, aucun secret versionné.
 
 *Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*
-
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*

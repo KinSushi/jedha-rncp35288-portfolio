@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Réglages communs à tous les environnements. Ne jamais y écrire de secret :
 # mots de passe, jetons, sel de hachage et chaîne de connexion à la base viennent de
 # l'environnement (voir .env.example et detection_fraude/configuration.py).

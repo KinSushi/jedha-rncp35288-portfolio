@@ -153,3 +153,7 @@ Les deux exposent les mêmes tâches. Sous Linux ou macOS, `make smoke` ; sous W
 ## Ce qui n'est pas nécessaire
 
 Ni Git Bash, ni WSL, ni `make`, ni `chmod`, ni Git : le code source est dans l'archive. Uniquement Docker Desktop.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

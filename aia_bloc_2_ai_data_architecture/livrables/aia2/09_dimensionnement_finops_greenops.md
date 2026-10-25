@@ -262,4 +262,4 @@ décision. Ces prix changent : refaire le relevé le jour de la décision avec l
 - Chiffrage daté au § 5.5 (relevé du 10/10/2026) : un plancher ; plusieurs postes restent non chiffrés (MSK Connect, Fargate, points de terminaison, stockages, journaux, sauvegardes, transferts : liste au § 5.5).
 - Les performances de l'entrepôt et du bus n'ont pas été mesurées (services AWS non utilisés).
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

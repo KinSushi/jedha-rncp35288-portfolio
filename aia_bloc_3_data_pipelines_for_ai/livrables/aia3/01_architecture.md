@@ -235,4 +235,4 @@ point d'entrée, de sortie et de stockage.
 * La devise des montants n'est pas précisée par la source ; les rapports n'en affichent aucune.
 * Les chiffres de débit sont mesurés en mode local ; ils n'ont pas été vérifiés sur un cluster.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

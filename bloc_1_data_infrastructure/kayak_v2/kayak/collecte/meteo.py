@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Collecte des prévisions météo sur 7 jours.
 
 Le module supporte deux fournisseurs : OpenWeather (One Call 3.0, clé

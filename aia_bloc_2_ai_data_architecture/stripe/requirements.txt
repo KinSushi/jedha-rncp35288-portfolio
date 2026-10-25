@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Dépendances d'exécution de la démonstration (Python 3.12).
 sqlalchemy>=2.0
 duckdb>=1.0

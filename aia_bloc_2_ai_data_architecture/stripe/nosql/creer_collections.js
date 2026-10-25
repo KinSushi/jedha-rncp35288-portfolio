@@ -1,4 +1,4 @@
-// Copyright © 2026 · voir le fichier LICENSE du dépôt
+// Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 // Fichier GÉNÉRÉ par `python -m stripe_demo.generer_ddl` depuis nosql/schemas/*.json.
 // Ne pas modifier à la main. Usage : mongosh "$URI_MONGO" nosql/creer_collections.js
 // Exécution idempotente : une collection existante reçoit le validateur à jour (collMod).

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 #
 # Module « documentdb » : la base de documents (NoSQL), Amazon DocumentDB compatible MongoDB.
 #

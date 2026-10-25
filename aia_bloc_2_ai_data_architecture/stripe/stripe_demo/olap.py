@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Entrepôt analytique (OLAP) en étoile, chargé en batch puis au fil de l'eau (CDC).
 
 En production : Redshift Serverless (ou Snowflake) alimenté par Airflow (batch quotidien) et

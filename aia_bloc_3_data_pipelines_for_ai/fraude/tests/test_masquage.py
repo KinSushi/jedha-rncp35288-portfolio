@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Masquage dès l'ingestion (critère 5.1) : aucune donnée identifiante ne survit."""
 
 from __future__ import annotations

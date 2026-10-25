@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """FinOps et mode local : chiffres exacts, refus de la démonstration hors SQLite, attentes bornées.
 
 * FinOps : chaque poste, chaque arrondi et chaque prix sont fixés par des valeurs écrites en

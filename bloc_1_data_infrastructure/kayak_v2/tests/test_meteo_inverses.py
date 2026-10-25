@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests INVERSES de la collecte météo : ce que le code refuse, ignore ou laisse intact.
 
 Complète tests/test_meteo.py. Chaque test prouve une règle précise : un statut HTTP en erreur

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """DAG Airflow : ordonnancement, dépendances, relances, SLA (critères 3.1, 3.2, 4.3 et 6.1).
 
 Airflow ne s'installe pas sur tous les postes (Windows notamment). Ces tests substituent donc à

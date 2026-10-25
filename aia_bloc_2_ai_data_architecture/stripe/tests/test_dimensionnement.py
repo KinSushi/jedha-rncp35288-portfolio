@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Extrapolation du dimensionnement : arithmétique exacte, cohérence avec les mesures, refus.
 
 Un test de calcul ne prouve rien s'il n'a que des cas qui réussissent : chaque scénario ci-dessous

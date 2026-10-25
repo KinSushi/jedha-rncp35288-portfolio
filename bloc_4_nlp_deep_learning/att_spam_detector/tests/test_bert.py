@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de `att_spam.bert` avec un mini-DistilBERT local : aucun réseau, aucun téléchargement."""
 
 import copy

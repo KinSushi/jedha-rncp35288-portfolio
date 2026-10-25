@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Mesures réelles du dimensionnement : PostgreSQL, démonstration, qualité des alertes, commande.
 
 Les mesures publiées dans `livrables/aia2/donnees/` alimentent la note de dimensionnement ; ces

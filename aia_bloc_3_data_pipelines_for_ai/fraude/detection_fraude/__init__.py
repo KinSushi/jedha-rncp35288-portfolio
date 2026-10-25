@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Détection automatique de fraude : pipeline temps réel, rapport du matin, réentraînement.
 
 Le paquet est organisé en couches, de la source vers le métier :

@@ -22,3 +22,7 @@ Les étapes sont nommées pour **exclure Booking.com** : le 10/10/2026, le site 
 Les moyens de contact des établissements que renvoie OpenStreetMap (courriels, téléphones) sont retirés de chaque réponse dès sa réception, avant l'archivage (`kayak_v2/kayak/collecte/minimisation.py`).
 
 Une nouvelle collecte ne reproduit pas les chiffres publiés : les prévisions météo sont révisées d'un jour à l'autre et les données OpenStreetMap évoluent. Les résultats publiés viennent de la collecte du 11/10/2026.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

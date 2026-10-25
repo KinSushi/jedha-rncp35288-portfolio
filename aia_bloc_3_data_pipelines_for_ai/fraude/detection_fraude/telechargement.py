@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Téléchargement vérifié du jeu public ``fraudTest.csv`` (jamais versionné).
 
 Un fichier de 150 Mo n'a pas sa place dans le dépôt : il est téléchargé à la demande. Pour que

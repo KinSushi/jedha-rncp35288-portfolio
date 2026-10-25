@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Versions exactes des bibliothèques qui ne figurent pas dans les contraintes d'Airflow et dont
 # dépendent le modèle exporté (scikit-learn) et le suivi (MLflow). Elles sont identiques dans les
 # images application et Airflow : un modèle entraîné dans l'une est chargé dans l'autre avec les

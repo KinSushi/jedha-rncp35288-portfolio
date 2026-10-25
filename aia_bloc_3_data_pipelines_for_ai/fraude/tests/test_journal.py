@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Journaux d'audit structurés (critère 6.3) et défense en profondeur contre les fuites."""
 
 from __future__ import annotations

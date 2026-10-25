@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Surveillance du retard des emplacements de réplication logique (la requête du document 10).
 
 Pourquoi ce module : quand le connecteur Debezium s'arrête, PostgreSQL GARDE tout le journal de

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests unitaires de la collecte météo : conversion, coordonnées manquantes, échec par ville.
 
 Aucun appel réseau : le fournisseur de prévisions est remplacé par une fonction factice et les

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Générateur de DDL : la commande (écrire, vérifier), la variante portable et les refus.
 
 `test_generer_ddl.py` prouve que les fichiers livrés sont à jour et exécutables. Ici, on prouve le

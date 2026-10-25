@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 
 output "arn_sel_pseudonymisation" {
   description = "ARN du secret qui contient le sel de pseudonymisation."

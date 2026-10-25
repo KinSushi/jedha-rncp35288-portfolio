@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Exécute le notebook avec nbclient et compare ses sorties à celles de la version d'origine.
 
 `tests/reference/sorties_origine.json` contient les sorties textuelles du notebook AVANT

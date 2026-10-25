@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """DAG de supervision : contrôle de santé du flux temps réel toutes les 10 minutes.
 
 Le flux temps réel tourne hors d'Airflow (producteur et consommateur sont des services continus).

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Supervision : contrôles de santé et seuils d'alerte (SLA), critère 6.1.
 
 Un pipeline temps réel qui tombe en silence est pire qu'un pipeline qui échoue bruyamment. Ce

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Estimation FinOps : consommation mesurée x prix unitaires hypothétiques (critère 6.2).
 
 « Combien coûte ce pipeline ? » se répond par une chaîne vérifiable : *consommation* (mesurée ou

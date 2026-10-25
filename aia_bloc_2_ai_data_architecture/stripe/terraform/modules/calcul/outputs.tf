@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 
 output "cluster_nom" {
   description = "Nom du cluster ECS (dimension des métriques et cible des tâches lancées par l'orchestrateur)."

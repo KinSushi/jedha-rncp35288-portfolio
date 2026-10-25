@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests unitaires de l'extraction des hôtels Booking et du rapport de collecte.
 
 ATTENTION, LIMITE DE CES TESTS : ceux qui portent sur ``extraire_hotels`` sont CIRCULAIRES. Le

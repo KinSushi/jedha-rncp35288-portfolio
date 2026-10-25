@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Scripts mongosh : ils s'exécutent (contre un simulateur) et reprennent les requêtes de nosql.py.
 
 Pourquoi un simulateur : aucun serveur MongoDB n'est disponible dans les tests. On exécute donc

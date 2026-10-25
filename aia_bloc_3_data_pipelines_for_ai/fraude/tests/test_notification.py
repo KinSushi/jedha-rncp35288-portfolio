@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Notifications : canaux, TLS, secrets, isolation des pannes (critères 5.2 et 5.3)."""
 
 from __future__ import annotations

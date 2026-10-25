@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests inverses des cartes (``kayak.cartes``) : refus, entrées intactes, valeurs calculées.
 
 Ce fichier complète ``test_cartes.py`` en prouvant ce que le module REFUSE ou NE FAIT PAS :
@@ -40,7 +40,7 @@ from kayak.cartes import (
     selectionner_top_hotels,
 )
 
-MENTION = "Copyright © 2026 · voir le fichier LICENSE du dépôt"
+MENTION = "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC"
 COULEURS_ATTENDUES = ["#1b6ca8", "#b03a2e", "#1e8449", "#7d3c98", "#9c640c"]
 ROUGE, NEUTRE = "#b03a2e", "#333333"
 

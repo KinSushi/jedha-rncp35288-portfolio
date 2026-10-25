@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Entrepôt en couches bronze / argent / or (architecture médaillon), critères 2.1 et 7.1.
 
 Il isole **tout le SQL** du projet. Le même code écrit dans SQLite (mode local) et dans

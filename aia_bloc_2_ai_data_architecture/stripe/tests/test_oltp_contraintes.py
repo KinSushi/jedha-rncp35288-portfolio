@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Contraintes d'intégrité de l'OLTP : la base refuse les données incohérentes (ACID, le C).
 
 Pourquoi tester la base et pas le code : la garantie doit tenir même si une application, un script

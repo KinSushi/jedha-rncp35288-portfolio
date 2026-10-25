@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Démonstration de bout en bout : chaque étape, chaque nombre affiché, chaque fichier produit.
 
 La démonstration complète traite 48 000 paiements (une minute). Ces tests la rejouent en petit

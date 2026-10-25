@@ -141,4 +141,4 @@ pytest tests/test_nosql.py tests/test_schemas_mongo.py tests/test_requetes_mongo
 
 Non vérifié : exécution sur un vrai serveur MongoDB ou DocumentDB.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

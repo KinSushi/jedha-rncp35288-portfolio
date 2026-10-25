@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Lit les fichiers de la liste de prix publique d'AWS (Price List, offre « OnDemand »).
 
 Pourquoi : un chiffrage FinOps doit citer des prix **datés** et **sourcés**. Ce script lit le

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 #
 # Image du service de démonstration (Python). Principes :
 # - version de Python paramétrable (3.12 par défaut, celle des règles du dépôt) ;

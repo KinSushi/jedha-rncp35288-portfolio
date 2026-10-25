@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Refus du contrat de données (critères 4.1 et 4.2) : une règle, un test, une valeur exacte.
 
 Ce que chaque test garantit, au-delà du simple « une erreur existe » :

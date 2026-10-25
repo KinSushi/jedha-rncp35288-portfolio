@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 
 output "cluster_arn" {
   description = "ARN du cluster (sert aux politiques IAM kafka-cluster:*)."

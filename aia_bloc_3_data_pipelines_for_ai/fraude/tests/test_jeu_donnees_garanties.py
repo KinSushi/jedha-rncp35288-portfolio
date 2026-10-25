@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Jeu de données : lecture économe, conversion au format de l'API, préparation (2.1, 4.1).
 
 Les tests inverses prouvent qu'un fichier absent, une colonne manquante, une date illisible ou un

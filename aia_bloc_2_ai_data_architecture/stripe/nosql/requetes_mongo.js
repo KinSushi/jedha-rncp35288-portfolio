@@ -1,4 +1,4 @@
-// Copyright © 2026 · voir le fichier LICENSE du dépôt
+// Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 //
 // Requêtes MongoDB en syntaxe mongosh : mêmes pipelines que stripe_demo/nosql.py (le test
 // tests/test_requetes_mongo_js.py compare les deux, au caractère près pour les pipelines).

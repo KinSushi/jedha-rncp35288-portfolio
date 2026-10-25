@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Retraitement de l'historique depuis le bronze (critère 2.3) : idempotent, sans renotifier."""
 
 from __future__ import annotations

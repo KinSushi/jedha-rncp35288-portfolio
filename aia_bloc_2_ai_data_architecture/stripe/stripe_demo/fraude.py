@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Intégration du machine learning : modèle de fraude entraîné sur l'OLAP, servi en temps réel.
 
 - **Entraînement** (batch) : sur l'historique de l'entrepôt (`faits_paiements` + dimensions),

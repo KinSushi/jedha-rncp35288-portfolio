@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Garanties du journal d'audit (critères 5.1 et 6.3) : ce qu'il efface, ce qu'il refuse d'écrire.
 
 Défense en profondeur : même si un champ sensible arrivait jusqu'au journal, il serait remplacé

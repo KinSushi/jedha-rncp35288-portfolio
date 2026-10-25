@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Lecture, archivage et interprétation de robots.txt, règle par règle.
 
 Pourquoi ce module : affirmer « robots.txt autorise la collecte » sans preuve ne vaut rien. Il

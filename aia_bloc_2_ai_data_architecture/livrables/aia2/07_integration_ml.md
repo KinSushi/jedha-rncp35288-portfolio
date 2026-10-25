@@ -144,4 +144,4 @@ python -m stripe_demo.mesures demo  # mesures du modèle, alertes du flux, duré
 - Pas de registre de modèles, pas de déploiement en ombre, pas de courbe précision-rappel avec coûts réels, pas de mesure d'équité réelle.
 - Latence mesurée en processus unique avec des bases en mémoire.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

@@ -93,4 +93,4 @@ planification) avec deux commandes ; le même rejeu donne les mêmes 10 alertes 
 | Panne silencieuse | 3 | supervision toutes les 10 minutes, SLA, alertes |
 | Dérive d'environnement | 2-3 | configuration unique, contraintes de versions, tests sur deux piles |
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

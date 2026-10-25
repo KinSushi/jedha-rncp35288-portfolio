@@ -94,4 +94,4 @@ La couverture des 27 indicateurs du référentiel est détaillée dans `13_couve
 - **Non vérifié** : écrit mais non exécuté faute de moyen (par exemple Terraform `plan`, Redshift, Debezium) ; la liste complète est dans `13_couverture_et_limites.md`.
 - Les données sont synthétiques ; les taux de fraude et corrélations des résultats viennent de paramètres de simulation choisis (`stripe_demo/oltp.py`) et ne disent rien du monde réel.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

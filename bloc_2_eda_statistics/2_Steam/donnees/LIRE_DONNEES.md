@@ -10,4 +10,4 @@ d'exécuter le notebook, puis vérifier son empreinte.
   (PowerShell : `Get-FileHash -Algorithm SHA256 steam_game_output.json`).
 - **Utilisation** : en local, le notebook lit `donnees/steam_game_output.json` ; sur Databricks, il lit l'adresse du fichier donnée par la variable d'environnement `STEAM_CHEMIN_S3`, à définir avant l'exécution (`steam_analyse.py`, fonction `chemin_donnees`).
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

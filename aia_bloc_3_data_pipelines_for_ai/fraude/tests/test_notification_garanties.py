@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Notifications : refus de TLS manquant, isolation des canaux, boîte d'envoi, bornes du SLA."""
 
 from __future__ import annotations

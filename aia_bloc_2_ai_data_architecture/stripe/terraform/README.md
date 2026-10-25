@@ -110,5 +110,3 @@ L'état contient des valeurs sensibles (mots de passe aléatoires du module `sec
 - Pas de réplication inter-régions (choix documenté).
 
 *Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*
-
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*

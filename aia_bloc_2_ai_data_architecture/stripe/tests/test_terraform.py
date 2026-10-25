@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Contrôles statiques du code Terraform, sans AWS ni binaire Terraform.
 
 Pourquoi : `terraform validate` et `terraform plan` exigent le binaire Terraform (et, pour `plan`,
@@ -29,7 +29,7 @@ TERRAFORM = RACINE / "terraform"
 MODULES = sorted(p for p in (TERRAFORM / "modules").iterdir() if p.is_dir())
 ENVIRONNEMENTS = sorted(p for p in (TERRAFORM / "environnements").iterdir() if p.is_dir())
 FICHIERS_TF = sorted(TERRAFORM.rglob("*.tf"))
-COPYRIGHT = "Copyright © 2026 · voir le fichier LICENSE du dépôt"
+COPYRIGHT = "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC"
 META_ARGUMENTS = {"source", "count", "for_each", "depends_on", "providers", "version"}
 
 

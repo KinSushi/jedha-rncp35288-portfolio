@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests INVERSES du robot Booking : ce qu'il refuse, ignore, écarte ou laisse intact.
 
 Complète tests/test_booking.py (dont les cas d'extraction sont circulaires : le HTML est

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests des trois défauts relevés par les tests de la mise en conformité, puis corrigés.
 
 Chaque test échouait avant la correction :

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests des parties de `kayak/etl/spark_etl.py` qui n'ont PAS besoin de Spark.
 
 Aucune session Spark, aucune machine virtuelle Java : le découpage par lots, le chargement de

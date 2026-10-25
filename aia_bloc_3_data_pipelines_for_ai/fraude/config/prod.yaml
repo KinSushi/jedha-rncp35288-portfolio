@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Environnement de production (locale, via docker-compose.yml) : Kafka-compatible (Redpanda),
 # PostgreSQL, MLflow serveur. Aucun secret ici : la chaîne de connexion à la base
 # (FRAUDE_DSN_ENTREPOT), le sel de hachage (FRAUDE_SEL_HACHAGE), les accès SMTP et l'URL du

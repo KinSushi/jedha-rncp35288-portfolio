@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests INVERSES de ``kayak.collecte.journal`` : ce que le journal HTTP ne doit jamais garder.
 
 Le fichier prouve que tout paramètre hors de la liste blanche, tout corps de requête, tout

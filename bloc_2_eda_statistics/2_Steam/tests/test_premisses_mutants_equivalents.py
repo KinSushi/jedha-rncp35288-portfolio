@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Prémisses des mutants équivalents nommés dans `MUTANTS_EQUIVALENTS.md`.
 
 Un mutant est dit équivalent quand aucun test ne peut le distinguer du code d'origine. Cette

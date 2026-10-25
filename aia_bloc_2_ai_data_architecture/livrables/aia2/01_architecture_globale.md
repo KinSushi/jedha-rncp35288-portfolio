@@ -199,4 +199,4 @@ La linéarité du volume a été mesurée : stockage OLTP par paiement (index co
 
 **Risque résiduel à signaler** : héberger en région UE chez un fournisseur dont la maison mère est soumise à un droit étranger n'élimine pas le risque d'une demande d'accès extraterritoriale. Atténuation : chiffrement avec clés du client, journalisation des usages de clés, et évaluation juridique par le DPO. Le plan de conformité complet est au document 06.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

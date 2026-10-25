@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Garanties du modèle exporté (critères 2.3 et 5.2) : un refus, un message exact, un état intact.
 
 Ce que chaque test prouve, au-delà du « ça marche » :

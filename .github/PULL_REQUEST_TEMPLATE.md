@@ -28,3 +28,7 @@ Describe the technical change.
 ## Evidence
 
 Add commands run, screenshots, or relevant outputs.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

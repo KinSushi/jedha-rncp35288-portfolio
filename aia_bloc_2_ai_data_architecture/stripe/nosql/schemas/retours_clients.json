@@ -1,5 +1,5 @@
 {
-  "_copyright": "Copyright © 2026 · voir le fichier LICENSE du dépôt",
+  "_copyright": "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC",
   "title": "retours_clients",
   "description": "Avis et réponses aux enquêtes. Le texte et son analyse (sentiment, thèmes) sont imbriqués : ils sont toujours lus ensemble.",
   "bsonType": "object",

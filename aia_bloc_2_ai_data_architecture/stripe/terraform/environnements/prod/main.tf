@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 #
 # Environnement « prod » : la production. Même architecture et mêmes modules que `dev` ; seuls
 # changent les tailles, la haute disponibilité (plusieurs instances dans des zones différentes),

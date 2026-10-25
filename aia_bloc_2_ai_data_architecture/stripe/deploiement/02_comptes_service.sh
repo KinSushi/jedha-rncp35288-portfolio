@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 #
 # Exécuté UNE fois par l'image PostgreSQL, à la création de la base, après le schéma
 # (01_oltp_schema.sql). Crée les deux comptes de service qui se connectent réellement ; les rôles

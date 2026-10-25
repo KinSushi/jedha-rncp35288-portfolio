@@ -1,6 +1,6 @@
 # Mutants équivalents nommés : AIA bloc 3, détection de fraude
 
-Copyright © 2026 · voir le fichier LICENSE du dépôt
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 
 Un mutant est une petite modification du code (un opérateur inversé, une valeur changée) faite par l'outil de mutation `mutmut`. Un mutant est **tué** quand au moins un test échoue. Un mutant qui survit est soit un trou dans les tests, soit un mutant **équivalent** : il ne change aucun comportement observable, donc aucun test ne peut le distinguer de l'original.
 

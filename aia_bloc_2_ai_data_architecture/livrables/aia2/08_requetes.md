@@ -220,4 +220,4 @@ db.retours_clients.aggregate([
 
 Les 7 requêtes SQL sont exécutées sur chaque jeu de test (`test_toutes_les_requetes_du_fichier_sql_s_executent`) ; la cohérence des agrégats qu'elles lisent est vérifiée (document 03 § 4).
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

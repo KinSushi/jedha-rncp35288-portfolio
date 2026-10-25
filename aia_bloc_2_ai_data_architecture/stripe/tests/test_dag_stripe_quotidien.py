@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Le DAG quotidien, testé SANS Airflow : analyse du fichier, tâches exécutées, graphe simulé.
 
 Pourquoi : Airflow n'est pas installé dans l'environnement du projet (c'est un service à part,

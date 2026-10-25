@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 #
 # Module « redshift_serverless » : l'entrepôt analytique (OLAP), Amazon Redshift Serverless.
 #

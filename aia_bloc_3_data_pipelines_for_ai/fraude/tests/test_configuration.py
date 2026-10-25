@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Configuration par environnement (critère 3.3) et gestion des secrets (critère 5.2)."""
 
 from __future__ import annotations

@@ -1,4 +1,4 @@
--- Copyright © 2026 · voir le fichier LICENSE du dépôt
+-- Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 -- Requêtes analytiques sur l'entrepôt en étoile (SQL standard : DuckDB en démonstration,
 -- Redshift en production). Chaque bloc commence par un commentaire « arobase » suivi
 -- de la question métier.

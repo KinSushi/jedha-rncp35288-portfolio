@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Ligne de commande d'entraînement (critère 3.3) : options, barrière de qualité, codes de sortie.
 
 ``main`` est testé avec des **doublures qui enregistrent leurs arguments** (configuration,

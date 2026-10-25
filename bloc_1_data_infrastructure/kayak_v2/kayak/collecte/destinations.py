@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Collecte et réconciliation de la liste des destinations.
 
 La source one-week-in.com publie les 35 villes sous forme de titres h2.

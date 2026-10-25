@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de la collecte OpenStreetMap : requête sans troncature, conversion, archives.
 
 Contexte : la première requête (``out center tags 40``) coupait chaque réponse à 40 éléments,

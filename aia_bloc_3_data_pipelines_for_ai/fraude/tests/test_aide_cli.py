@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Aide de chaque ligne de commande (``--help``) : un texte d'interface, fixé mot pour mot.
 
 L'aide est ce que l'exploitant lit avant de lancer une commande (démonstration, supervision,

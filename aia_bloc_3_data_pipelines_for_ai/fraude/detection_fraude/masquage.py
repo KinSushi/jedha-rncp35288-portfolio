@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Masquage des données personnelles dès l'ingestion (privacy by design), critère 5.1.
 
 Le masquage est appliqué **à l'entrée du flux**, dans le producteur, avant toute publication

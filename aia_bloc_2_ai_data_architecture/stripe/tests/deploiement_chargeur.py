@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Aide aux tests : charge `deploiement/generer_secrets.py`, qui n'est pas un paquet Python."""
 
 from __future__ import annotations

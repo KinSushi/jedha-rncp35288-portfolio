@@ -119,4 +119,4 @@ flowchart LR
 
 Accessibilité : chaque diagramme est suivi d'une **description textuelle** ; les tableaux ont des en-têtes explicites ; aucune information n'est portée par la seule couleur ; les termes techniques sont définis au premier emploi ou dans le glossaire de `stripe/README.md`.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

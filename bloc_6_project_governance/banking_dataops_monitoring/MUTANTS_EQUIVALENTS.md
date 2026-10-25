@@ -185,3 +185,7 @@ identique. L'argument explicite dit au lecteur que le contrôle bloque. Le test
 - Le code hors de `src/banking_dataops/` : `src/ingestion`, `src/cleaning`, `src/transformations`, `src/ml` ne contiennent que
   des réexportations (`tests/test_path_aliases.py`) ; `run_pipeline.py`, `scripts/`, `dashboard/` et `huggingface-space/`
   ne sont pas dans le périmètre `src/` mesuré.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

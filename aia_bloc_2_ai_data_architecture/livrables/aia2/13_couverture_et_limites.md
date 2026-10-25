@@ -87,4 +87,4 @@ Les taux de fraude et corrélations des requêtes (par exemple 24,87 % de litige
 4. Rendre le chargement des caractéristiques en ligne idempotent et leur donner un rôle dans le modèle (version 2).
 5. Compléter le chiffrage des postes non relevés (09 § 5.5) et le refaire le jour de la décision.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

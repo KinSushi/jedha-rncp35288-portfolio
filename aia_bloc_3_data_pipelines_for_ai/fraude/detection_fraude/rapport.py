@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Rapport du matin : paiements et fraudes de la veille (traitement par lot), critères 1.1 et 6.1.
 
 Le métier veut, chaque matin, voir les paiements et les fraudes de la veille. Ce besoin n'a pas la
@@ -112,7 +112,7 @@ COLONNES_RAPPORT_JOUR = (
     "nb_vrais_positifs",
     "nb_fraudes_reelles",
 )
-PIED_DE_PAGE = "Copyright © 2026 · voir le fichier LICENSE du dépôt"
+PIED_DE_PAGE = "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC"
 
 
 class DonneesAbsentes(Exception):

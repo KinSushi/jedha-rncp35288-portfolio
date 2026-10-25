@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Traduction des schémas MongoDB en JSON Schema et messages d'erreur du validateur.
 
 Complète `test_schemas_mongo.py` (qui vérifie les documents de la démonstration et un échantillon

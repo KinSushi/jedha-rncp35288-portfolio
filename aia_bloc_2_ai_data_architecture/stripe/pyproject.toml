@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 #
 # Configuration des outils Python de la démonstration Stripe (lint, types et tests).
 # Pourquoi ici : un seul endroit fixe les règles de style (PEP 8, 99 colonnes), le contrôle des

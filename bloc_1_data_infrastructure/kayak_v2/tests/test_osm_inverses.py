@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests INVERSES de la collecte OpenStreetMap (Overpass) : refus, reprises et absences d'effet.
 
 Complète tests/test_osm.py. Chaque test prouve un refus ou une absence d'effet : une réponse en

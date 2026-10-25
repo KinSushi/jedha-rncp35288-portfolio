@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Journaux d'audit structurés (une ligne JSON par événement), critère 6.3.
 
 Un incident de production se diagnostique avec des événements nommés et des champs

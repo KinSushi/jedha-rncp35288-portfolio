@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Génération des cartes interactives avec Plotly.
 
 Deux cartes sont produites :
@@ -106,7 +106,7 @@ logger = logging.getLogger(__name__)
 # l'avertissement d'``enregistrer`` : ses messages sous le niveau ERROR sont tus pendant l'essai.
 JOURNAL_NAVIGATEUR = "choreographer"
 
-MENTION_DROITS = "Copyright © 2026 · voir le fichier LICENSE du dépôt"
+MENTION_DROITS = "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC"
 
 # Tailles des images exportées (pixels) : le cadrage de chaque carte en dépend, car le niveau
 # de zoom qui « tient » dans une carte dépend de sa taille en pixels.

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """DAG du rapport du matin : paiements et fraudes de la veille, chaque jour à 07:00.
 
 Pourquoi un traitement par lot : le métier lit ce rapport le matin ; une journée complète est

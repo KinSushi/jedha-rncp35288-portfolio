@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Garanties de l'entraînement (critères 2.2 et 3.3) : mesures exactes, câblage prouvé, refus nets.
 
 Comment lire ces tests :

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Aide aux tests : un faux générateur aléatoire qui note ce qu'on lui demande.
 
 Pourquoi : les données de la démonstration sont tirées au hasard avec une graine fixe. Un test

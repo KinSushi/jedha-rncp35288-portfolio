@@ -201,4 +201,4 @@ pytest tests/test_dag_stripe_quotidien.py tests/test_supervision.py
 STRIPE_TESTS_DOCKER=1 pytest tests/test_postgres_docker.py
 ```
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

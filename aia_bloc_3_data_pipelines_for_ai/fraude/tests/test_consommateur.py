@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Consommateur : idempotence, atomicité, DLQ, boîte d'envoi, alertes (critères 4.2, 6.1)."""
 
 from __future__ import annotations

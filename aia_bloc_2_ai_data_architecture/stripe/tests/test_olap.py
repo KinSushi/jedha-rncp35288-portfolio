@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Entrepôt en étoile : les faits reflètent l'OLTP et les agrégats reflètent les faits.
 
 Pourquoi : un tableau de bord faux est pire qu'un tableau de bord absent. Ces tests vérifient les

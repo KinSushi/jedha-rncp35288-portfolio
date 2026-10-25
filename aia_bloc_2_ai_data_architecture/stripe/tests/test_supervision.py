@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Surveillance du retard de réplication : ce qui déclenche une alerte, et ce qui est refusé.
 
 Pourquoi : un connecteur Debezium arrêté fait grossir le WAL retenu par PostgreSQL jusqu'à

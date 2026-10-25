@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 #
 # Environnement « dev » : la même architecture que la production, en plus petit et sans
 # protection contre la suppression, pour pouvoir être détruit et recréé librement.

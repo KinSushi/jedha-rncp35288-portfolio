@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Générateur de DDL : les scripts livrés sont à jour, fidèles au modèle et exécutables.
 
 Trois garanties :
@@ -144,7 +144,7 @@ def exiger_script_mongo(script: str) -> None:
     for nom in g.schemas_mongo():
         assert f'"{nom}": {{' in script, nom
     assert "_copyright" not in script  # clé propre aux fichiers JSON, absente du validateur
-    assert script.startswith("// Copyright © 2026 · voir le fichier LICENSE du dépôt")
+    assert script.startswith("// Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC")
 
 
 def exiger_index_declares(attendu: set, present: set) -> None:

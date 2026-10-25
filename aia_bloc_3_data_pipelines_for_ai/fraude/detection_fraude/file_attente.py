@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """File de messages : SQLite en local (sans Docker), Kafka en production (critères 1.2 et 4.2).
 
 Le producteur et le consommateur ne se connaissent pas : ils ne partagent qu'une file. Cette

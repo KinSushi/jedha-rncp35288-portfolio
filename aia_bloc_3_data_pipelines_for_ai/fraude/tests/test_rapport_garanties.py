@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Rapport du matin : garanties de refus, bornes exactes et état inchangé (critères 1.1 et 6.1).
 
 Chaque test de ce fichier énonce une règle que le rapport doit tenir **même quand l'entrée est
@@ -543,7 +543,7 @@ def test_rendre_html_ne_modifie_pas_le_rapport_et_produit_la_page_exacte():
         f"<th>Catégorie</th><th>Montant</th><th>Score</th></tr>{fraudes}</table>\n"
         f"{controle}\n"
         "<footer>Données masquées : aucun nom, adresse ni numéro de carte complet.\n"
-        "Copyright © 2026 · voir le fichier LICENSE du dépôt</footer>\n"
+        "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC</footer>\n"
         "</body></html>\n"
     )
 

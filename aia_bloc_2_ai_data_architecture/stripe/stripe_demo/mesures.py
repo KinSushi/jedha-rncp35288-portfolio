@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Mesures réelles servant de base à la note de dimensionnement (aucune valeur supposée).
 
 Pourquoi ce module : un dimensionnement honnête part de MESURES (taille d'une ligne, mémoire

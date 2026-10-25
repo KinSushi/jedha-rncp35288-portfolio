@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Types de ``airflow.timetables.interval`` (Airflow 2.10) : ``CronDataIntervalTimetable``."""
 
 from pendulum.tz.timezone import FixedTimezone, Timezone

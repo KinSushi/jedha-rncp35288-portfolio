@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Dépendances de la production locale (Docker) : socle + Kafka + PostgreSQL.
 -r requirements.txt
 confluent-kafka>=2.4

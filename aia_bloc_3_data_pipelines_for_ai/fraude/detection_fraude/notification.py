@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Notifications : journal, fichier, e-mail SMTP, webhook (critères 5.2, 5.3 et 6.1).
 
 Le métier veut être prévenu *dès* qu'une fraude est détectée. Trois principes guident le code :

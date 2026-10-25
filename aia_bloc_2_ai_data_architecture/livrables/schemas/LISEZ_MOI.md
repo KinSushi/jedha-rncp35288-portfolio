@@ -28,4 +28,4 @@ Le **plan du pipeline** est formé des images `05-1` (les deux voies, batch et t
 
 Rendu : Mermaid 11.17.2 dans le navigateur Edge sans interface, le 17/10/2026 (titres de cadres entiers, marge sous chaque titre). Images `01-2` et `06-1` refaites le 19/10/2026 de la même façon, après l'ajout des modules `calcul` et `supervision` (8 clés KMS, 6 rôles IAM, tâches ECS Fargate, alarmes vers SNS). Image `01-2` refaite une seconde fois le 19/10/2026 : les points de terminaison d'interface ECR (API et registre Docker) du module `reseau` y figurent.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

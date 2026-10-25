@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tout fichier texte du pipeline est lu et écrit en UTF-8 explicite, quel que soit le système.
 
 Pourquoi ces tests existent : sous Windows, l'encodage par défaut d'``open`` est cp1252 ; sous

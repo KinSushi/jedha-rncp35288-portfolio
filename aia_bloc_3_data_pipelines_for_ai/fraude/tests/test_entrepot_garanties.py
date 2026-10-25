@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Entrepôt : tout ou rien, idempotence, bornes des lectures et refus des écritures invalides."""
 
 from __future__ import annotations

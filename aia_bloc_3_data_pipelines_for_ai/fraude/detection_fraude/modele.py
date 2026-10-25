@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Export, intégrité et chargement du modèle de détection (critères 2.3 et 5.2).
 
 Entre l'entraînement (tâche hebdomadaire Airflow) et le scoring (consommateur en continu), il

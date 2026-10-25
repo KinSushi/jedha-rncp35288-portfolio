@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Démonstration de bout en bout de l'architecture Stripe (OLTP → CDC → OLAP + NoSQL + ML).
 
 Étapes (chacune affichée, pour la vidéo de démonstration) :

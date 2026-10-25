@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # %% [markdown]
 # # Kayak : collecter, stocker et préparer les données de destinations
 #
@@ -810,4 +810,4 @@ print(f"Étoiles renseignées : {enrichi['etoiles'].notna().mean():.0%} des hôt
 #   - le passage sur AWS (S3, RDS) demande un compte et se fait par deux variables
 #     d'environnement (voir le README) ; le mode S3 n'a été testé qu'avec un faux client.
 #
-# *Copyright © 2026 · voir le fichier LICENSE du dépôt*
+# *Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Géocodage des destinations avec l'API Nominatim (OpenStreetMap).
 
 Pourquoi Nominatim : l'énoncé le recommande ; c'est un service ouvert, sans inscription. Sa

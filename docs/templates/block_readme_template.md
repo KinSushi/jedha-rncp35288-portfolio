@@ -19,3 +19,7 @@ Explain what this block proves.
 ## Public-safety note
 
 No private course, exam, grade, certificate or administrative material belongs here.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

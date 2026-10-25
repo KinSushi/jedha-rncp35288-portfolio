@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Image Airflow : l'image officielle + le paquet detection_fraude + les DAG.
 # Les dépendances sont installées AVEC le fichier de contraintes d'Airflow, pour ne jamais
 # remplacer une version dont Airflow dépend.

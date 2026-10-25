@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests du data lake en mode S3, avec un faux client écrit à la main.
 
 Le mode S3 n'était pas testé jusqu'ici : ni l'écriture chiffrée, ni la liste paginée, ni le cache

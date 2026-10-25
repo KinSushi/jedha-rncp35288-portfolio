@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Supervision : seuils exacts, messages exacts, gravité, codes de sortie (critère 6.1).
 
 Une supervision qui crie trop est ignorée, une supervision qui se tait trompe. Ces tests fixent

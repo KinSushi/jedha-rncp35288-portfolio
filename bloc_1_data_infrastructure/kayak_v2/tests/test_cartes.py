@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests des cartes : cadrage, classement du top 20, pastilles numérotées, écartement.
 
 Les figures sont construites mais PAS exportées en image (kaleido et le fond de carte demandent
@@ -237,6 +237,6 @@ def test_enregistrer_ecrit_le_html_avec_la_mention_de_droits(tmp_path, monkeypat
     monkeypatch.setattr(go.Figure, "write_image", faux_export)
     chemins = cartes.enregistrer(carte_destinations(VILLES), "essai")
     contenu = chemins["html"].read_text(encoding="utf-8")
-    assert contenu.startswith("<!-- Copyright © 2026 · voir le fichier LICENSE du dépôt")
+    assert contenu.startswith("<!-- Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC")
     assert "<html" in contenu and chemins["png"].name == "essai.png"
     assert appels and appels[0][1] == {"scale": 2}

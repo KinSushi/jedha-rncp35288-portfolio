@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de l'ETL Spark sur UN data lake synthétique riche, exécuté une seule fois.
 
 Un jeu de neuf villes et d'une vingtaine d'hôtels contient chacune des anomalies que l'ETL doit

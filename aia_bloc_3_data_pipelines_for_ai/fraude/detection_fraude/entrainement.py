@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Entraînement reproductible du modèle, suivi MLflow, export et promotion (critères 2.2, 3.3).
 
 L'énoncé le dit : l'essentiel est le pipeline de données, pas l'algorithme. Le modèle est donc

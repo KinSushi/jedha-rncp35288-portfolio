@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Exécuté une seule fois, à la première initialisation du volume PostgreSQL.
 # Crée une base et un rôle par service (principe du moindre privilège) : un service compromis
 # n'accède qu'à sa propre base. Les mots de passe viennent des secrets Docker, jamais du script.

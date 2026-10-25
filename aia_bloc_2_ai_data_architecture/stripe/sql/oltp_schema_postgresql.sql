@@ -1,4 +1,4 @@
--- Copyright © 2026 · voir le fichier LICENSE du dépôt
+-- Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 -- Fichier GÉNÉRÉ par `python -m stripe_demo.generer_ddl` depuis stripe_demo/modele_oltp.py.
 -- Ne pas modifier à la main : modifier le modèle puis relancer le générateur.
 -- Cible : PostgreSQL 16 (Aurora PostgreSQL compatible). Exécution idempotente.

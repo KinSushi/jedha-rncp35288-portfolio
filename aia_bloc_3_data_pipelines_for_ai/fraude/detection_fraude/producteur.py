@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Producteur : interroge l'API temps réel (ou rejoue le jeu), valide, masque, publie.
 
 C'est la frontière entre le monde extérieur (une API publique, lente et parfois en erreur) et le

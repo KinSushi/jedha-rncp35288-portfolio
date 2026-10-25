@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Test d'intégration : le notebook Kayak_Bloc1_CDSD.ipynb s'exécute de bout en bout, HORS LIGNE.
 
 Le notebook ne collecte rien : il relit le data lake archivé, relance l'ETL Spark sur les fichiers

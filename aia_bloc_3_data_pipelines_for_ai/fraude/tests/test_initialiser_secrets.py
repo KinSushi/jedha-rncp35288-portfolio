@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Génération des secrets de production locale : jamais d'écrasement, jamais d'affichage.
 
 Le script ``scripts/initialiser_secrets.py`` crée les fichiers montés dans les conteneurs. Sa règle

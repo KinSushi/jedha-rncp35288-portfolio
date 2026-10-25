@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 #
 # Module « kms » : une clé de chiffrement gérée par le client (CMK) PAR DOMAINE DE DONNÉES.
 #

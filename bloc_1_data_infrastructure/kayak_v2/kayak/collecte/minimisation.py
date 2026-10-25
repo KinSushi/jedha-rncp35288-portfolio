@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Minimisation des données OpenStreetMap : ni courriel ni téléphone dans le data lake.
 
 Pourquoi ce module existe : les réponses de l'API Overpass portent toutes les étiquettes de

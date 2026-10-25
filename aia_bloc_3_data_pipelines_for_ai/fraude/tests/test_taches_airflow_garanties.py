@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tâches Airflow : refus définitifs, ressources rendues, valeurs transmises (critères 3.1 à 6.1).
 
 Les tâches ne contiennent que de la plomberie, mais c'est elle qui décide si Airflow relance

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Configuration (critères 3.3 et 5.2) : chaque refus, chaque secret, chaque valeur par défaut.
 
 Principes de ces tests :

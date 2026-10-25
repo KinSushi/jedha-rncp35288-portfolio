@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Consommateur en ligne de commande : aide, codes de sortie, démarrage, arrêt, assemblage."""
 
 from __future__ import annotations

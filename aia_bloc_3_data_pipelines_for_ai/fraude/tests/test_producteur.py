@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Producteur : décodage, relances, validation, masquage, DLQ (critères 4.2, 4.3 et 5.1)."""
 
 from __future__ import annotations

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Base documents : index, mises à jour atomiques et requêtes d'agrégation.
 
 Les requêtes sont testées sur de PETITS jeux écrits à la main dont on connaît la réponse : un test

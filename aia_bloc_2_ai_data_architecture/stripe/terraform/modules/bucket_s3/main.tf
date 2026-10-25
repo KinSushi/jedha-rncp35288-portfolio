@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 #
 # Module « bucket_s3 » : un bucket S3 DURCI, réutilisé pour le lac, les journaux d'accès et
 # l'archive d'audit. Un seul endroit définit donc les garanties de base :

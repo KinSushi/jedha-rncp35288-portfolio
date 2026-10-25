@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests INVERSES de ``kayak.collecte.destinations`` : ce que la collecte doit refuser ou ignorer.
 
 Le fichier prouve qu'un titre autre que h2, un commentaire HTML ou un script, un nom voisin ou

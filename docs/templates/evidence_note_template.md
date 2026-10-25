@@ -22,3 +22,7 @@ Bloc X - <name>
 - [ ] no private certification material;
 - [ ] no employer/client data;
 - [ ] no secrets.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

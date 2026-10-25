@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Retraitement de l'historique depuis la couche bronze (critère 2.3).
 
 Les règles de transformation changent : nouvelle caractéristique, nouveau seuil, nouveau modèle,

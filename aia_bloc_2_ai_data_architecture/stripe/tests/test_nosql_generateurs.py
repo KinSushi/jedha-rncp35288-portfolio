@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Base documents : index déclarés, générateurs reproductibles et bornes de leurs tirages.
 
 Complète `test_nosql.py` (qui vérifie les requêtes sur des petits jeux écrits à la main) : ici,

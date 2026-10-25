@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """File de messages : garanties de la file SQLite et du client Kafka simulé (critères 1.2, 4.2).
 
 Les tests inverses prouvent ce qui est refusé (valeur non sérialisable, verrou persistant,

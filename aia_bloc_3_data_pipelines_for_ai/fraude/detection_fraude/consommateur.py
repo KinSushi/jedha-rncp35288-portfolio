@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Consommateur : note chaque transaction, stocke en bronze / argent / or, notifie.
 
 C'est le cœur du « temps réel » : dès qu'une transaction masquée arrive dans la file, elle est

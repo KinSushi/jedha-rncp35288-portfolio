@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Rapport du matin : exactitude des agrégats, rendu, idempotence, SLA (critères 1.1 et 6.1)."""
 
 from __future__ import annotations

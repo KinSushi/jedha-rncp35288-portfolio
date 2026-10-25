@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Versions figées : ce sont celles de l'environnement (Python 3.12) dans lequel les tests, le
 # pipeline et le notebook ont été exécutés pour cette livraison. Une version plus récente peut
 # fonctionner, mais n'a pas été vérifiée.

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Outils de contrôle de la qualité du code : tout l'environnement d'exécution,
 # plus les types de mypy --strict, l'exécution du notebook par les tests, et mypy lui-même.
 # mutmut (mutation) s'installe à part, sous Linux ou WSL : il ne fonctionne pas sous Windows.

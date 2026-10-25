@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Dépendances de développement : tests, lint, types, analyse de la configuration et de l'IaC.
 -r requirements.txt
 pytest>=8.0

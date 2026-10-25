@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Base transactionnelle de démonstration : moteur, déclencheurs, référentiels, paiements.
 
 Les contraintes d'intégrité de la base sont déjà testées dans `test_oltp_contraintes.py`. Ici, on

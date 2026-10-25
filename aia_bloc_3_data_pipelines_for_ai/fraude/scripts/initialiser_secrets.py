@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Génère les secrets de la production locale dans ``secrets/`` (jamais versionné).
 
 Le fichier ``docker-compose.yml`` ne contient aucun mot de passe : chaque secret est un fichier

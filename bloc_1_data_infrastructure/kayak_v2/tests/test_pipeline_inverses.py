@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests INVERSES de l'orchestration (``kayak.pipeline``) : ce qu'il refuse ou laisse intact.
 
 Le pipeline enchaîne des étapes qui lisent leurs entrées dans le data lake. Ce fichier prouve

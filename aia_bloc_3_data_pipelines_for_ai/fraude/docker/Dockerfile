@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Image applicative : producteur, consommateur, entraînement initial.
 # Construction : docker compose build (contexte = dossier fraude/).
 

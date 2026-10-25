@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Capture des changements (CDC) : appliquer plusieurs fois un changement est inoffensif.
 
 Pourquoi l'idempotence : Kafka (comme tout bus de messages) garantit « au moins une fois » ;

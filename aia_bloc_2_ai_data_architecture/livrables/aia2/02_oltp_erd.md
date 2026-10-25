@@ -297,4 +297,4 @@ STRIPE_TESTS_DOCKER=1 pytest tests/test_postgres_docker.py -> 5 tests sur Postgr
 python -m stripe_demo.generer_ddl --verifier   -> le DDL versionné est à jour
 ```
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

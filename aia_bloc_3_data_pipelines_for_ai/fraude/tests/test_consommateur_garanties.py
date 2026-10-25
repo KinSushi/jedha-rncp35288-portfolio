@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Consommateur : rejets exacts, atomicité, relivraison, bornes de dates et boucle d'arrêt."""
 
 from __future__ import annotations

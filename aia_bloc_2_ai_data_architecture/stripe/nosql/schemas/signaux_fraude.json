@@ -1,5 +1,5 @@
 {
-  "_copyright": "Copyright © 2026 · voir le fichier LICENSE du dépôt",
+  "_copyright": "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC",
   "title": "signaux_fraude",
   "description": "Score de fraude attribué à chaque paiement, avec la version du modèle qui l'a calculé (traçabilité).",
   "bsonType": "object",

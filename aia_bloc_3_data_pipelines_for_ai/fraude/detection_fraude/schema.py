@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Contrats de données : validation de schéma à chaque étape (critères 4.1 et 4.2).
 
 Deux contrats, deux étapes du flux :

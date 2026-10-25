@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Le DDL PostgreSQL livré, exécuté sur un VRAI PostgreSQL 16 (conteneur jetable).
 
 Ces tests sont optionnels, car ils exigent Docker et l'image `postgres:16` déjà présente sur la

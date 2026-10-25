@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Sortie console en UTF-8 : un flux ouvert dans la page de code de Windows passe en UTF-8.
 
 Pourquoi : les commandes de la démonstration affichent des accents. Sur Windows, une sortie

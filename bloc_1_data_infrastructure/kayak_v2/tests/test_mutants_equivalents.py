@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Preuves d'équivalence des mutants qu'aucun test du projet ne peut distinguer.
 
 Un mutant est ÉQUIVALENT quand le code modifié a exactement le même comportement que le code

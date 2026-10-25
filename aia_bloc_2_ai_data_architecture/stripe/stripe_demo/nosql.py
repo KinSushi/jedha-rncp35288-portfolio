@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Base orientée documents (NoSQL) : événements, retours clients, caractéristiques en ligne.
 
 En production : MongoDB Atlas (ou Amazon DocumentDB). En démonstration : `mongomock`, qui offre

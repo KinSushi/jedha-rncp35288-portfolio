@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Fichiers à ne jamais versionner : jeu de données volumineux, données générées, secrets.
 
 # Jeu de données public (150 Mo) : à télécharger avec `python -m detection_fraude.telechargement`

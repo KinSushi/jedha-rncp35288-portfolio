@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Une heure de transaction illisible va en file des rejets sans bloquer le flux (critère 4.2).
 
 Régression : ``masquer_pour_rejet`` comparait ``current_time`` à une plage numérique avant d'en

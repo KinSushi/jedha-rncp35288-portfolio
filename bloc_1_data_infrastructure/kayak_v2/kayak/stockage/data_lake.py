@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Couche d'abstraction du data lake, local ou S3.
 
 L'objectif est de fournir une interface unique pour lire, écrire et lister

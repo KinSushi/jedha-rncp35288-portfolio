@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Données du détecteur de spam : réparation, normalisation, quasi-doublons, découpage, tenseurs.
 
 CHOIX

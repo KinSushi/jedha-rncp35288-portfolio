@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Serveur de suivi MLflow : base PostgreSQL pour les métadonnées, volume pour les artefacts.
 
 FROM python:3.12-slim

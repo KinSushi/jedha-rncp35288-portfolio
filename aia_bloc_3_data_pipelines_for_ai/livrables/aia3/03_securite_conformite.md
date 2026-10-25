@@ -177,4 +177,4 @@ jeton de webhook → remplacer le fichier et redémarrer le consommateur.
 | Producteur dans le périmètre PCI | à évaluer | segmentation réseau, QSA |
 | Alertes en clair par e-mail | moyen | webhook vers un outil d'astreinte authentifié ; limiter les champs |
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

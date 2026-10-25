@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de ``kayak.collecte.geocodage`` : géocodage Nominatim, archives brutes et refus.
 
 Le fichier prouve qu'une réponse mal formée (latitude absente ou non numérique, objet au lieu

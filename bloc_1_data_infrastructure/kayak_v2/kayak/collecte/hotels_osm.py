@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Source de repli pour les hôtels : OpenStreetMap, via l'API Overpass.
 
 Pourquoi ce module existe : Booking.com protège ses pages de résultats par un contrôle

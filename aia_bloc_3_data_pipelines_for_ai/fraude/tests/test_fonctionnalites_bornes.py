@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Caractéristiques : bornes exactes des fenêtres, plafond, élagage et refus des entrées invalides.
 
 Les fenêtres sont écrites ici en secondes littérales (24 h, 30 jours) et non avec les constantes du

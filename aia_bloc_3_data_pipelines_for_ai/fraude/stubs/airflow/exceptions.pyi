@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Types de ``airflow.exceptions`` (Airflow 2.10) : l'échec que le planificateur ne relance pas."""
 
 class AirflowException(Exception): ...

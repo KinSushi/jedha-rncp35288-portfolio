@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Journal des requêtes HTTP d'une collecte : la preuve de ce que chaque service a répondu.
 
 Pourquoi : le rapport de collecte de Booking n'avait pas gardé le statut HTTP des réponses, et

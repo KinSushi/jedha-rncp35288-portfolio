@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Validateurs JSON Schema des quatre collections MongoDB.
 
 Deux familles de tests : les documents que produit la démonstration sont ACCEPTÉS (le schéma ne
@@ -56,7 +56,7 @@ def _tous_les_mots_cles(noeud):
 
 
 def exiger_sous_ensemble_mongodb(brut, collection: str) -> None:
-    assert "Copyright © 2026 · voir le fichier LICENSE du dépôt" == brut["_copyright"]
+    assert "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC" == brut["_copyright"]
     assert brut["bsonType"] == "object"
     assert brut["title"] == collection
     assert not (set(_tous_les_mots_cles(brut)) & MOTS_CLES_NON_SUPPORTES), "mot-clé non supporté"

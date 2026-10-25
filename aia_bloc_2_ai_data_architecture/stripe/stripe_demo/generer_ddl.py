@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Générateur des scripts de déploiement : DDL PostgreSQL, DDL analytique, collections MongoDB.
 
 Pourquoi un générateur : le modèle de données existe en UN seul endroit (`modele_oltp.py` pour
@@ -102,7 +102,7 @@ FICHIER_OLTP = RACINE / "sql" / "oltp_schema_postgresql.sql"
 FICHIER_OLAP = RACINE / "sql" / "olap_schema.sql"
 FICHIER_MONGO = RACINE / "nosql" / "creer_collections.js"
 
-COPYRIGHT = "Copyright © 2026 · voir le fichier LICENSE du dépôt"
+COPYRIGHT = "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC"
 
 # Le constructeur de `PGDialect` n'est pas annoté dans SQLAlchemy : on l'appelle par un nom typé,
 # pour que `mypy --strict` ne signale pas un appel non typé (même procédé que `_etendre` dans

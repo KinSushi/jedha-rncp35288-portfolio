@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de l'interprétation de robots.txt (RFC 9309) et de son archivage dans le data lake.
 
 Le module standard ``urllib.robotparser`` ignore les jokers (``*``, ``$``) que Booking.com

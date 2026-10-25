@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Fabriques de données synthétiques et doublures partagées par les tests.
 
 Toutes les personnes, adresses et numéros de carte sont **fictifs**. Les noms contiennent le

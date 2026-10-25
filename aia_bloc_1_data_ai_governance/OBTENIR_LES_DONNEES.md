@@ -16,3 +16,7 @@ Les textes officiels cités dans le plan sont publics :
 - PCI-DSS : bibliothèque documentaire du PCI Security Standards Council.
 
 Sans ces documents, le README de ce dossier reste lisible : il décrit la méthode et les résultats sans recopier l'étude de cas.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

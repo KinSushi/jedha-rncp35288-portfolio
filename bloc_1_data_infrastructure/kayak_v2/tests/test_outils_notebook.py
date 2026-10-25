@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de `kayak.outils_notebook` : les fonctions d'aide sorties du notebook.
 
 Ce fichier prouve deux choses. D'abord, que chaque fonction rend le bon résultat sur un petit jeu

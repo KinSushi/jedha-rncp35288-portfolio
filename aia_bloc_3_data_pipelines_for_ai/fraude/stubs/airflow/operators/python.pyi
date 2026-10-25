@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Types de ``airflow.operators.python`` (Airflow 2.10) : seul ``PythonOperator`` est utilisé."""
 
 from collections.abc import Callable

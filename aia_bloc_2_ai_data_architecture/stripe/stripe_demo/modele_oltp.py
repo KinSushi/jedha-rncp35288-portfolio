@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Modèle transactionnel (OLTP) de Stripe, défini UNE fois, en SQLAlchemy Core.
 
 Pourquoi en Python plutôt qu'en SQL écrit à la main : le même modèle sert (1) à créer la base de

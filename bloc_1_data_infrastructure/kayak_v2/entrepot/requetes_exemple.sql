@@ -1,4 +1,4 @@
--- Copyright © 2026 · voir le fichier LICENSE du dépôt
+-- Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 -- Requêtes d'exemple pour l'entrepôt Kayak
 -- Schéma : villes(id_ville, ville, latitude, longitude, temp_max_moy_c, pluie_totale_mm, ensoleillement_moy_h, proba_pluie_moy_pct, score_meteo, rang_meteo)
 --          meteo_quotidienne(id_ville, date, temp_max_c, temp_min_c, pluie_mm, proba_pluie_pct, ensoleillement_h, vent_max_kmh, source)

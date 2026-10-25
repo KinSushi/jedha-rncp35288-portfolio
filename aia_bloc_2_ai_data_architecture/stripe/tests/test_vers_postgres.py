@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Alimentation d'un PostgreSQL « de production locale » : secrets, moteur, amorçage, flux.
 
 Aucun PostgreSQL n'est disponible dans ces tests (les tests Docker optionnels le prouvent sur un

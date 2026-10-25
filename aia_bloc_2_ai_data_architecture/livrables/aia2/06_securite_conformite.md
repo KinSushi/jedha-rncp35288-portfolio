@@ -237,4 +237,4 @@ Analyse faite le 10/10/2026 et rejouée le 17/10/2026 sur le Terraform du dossie
 
 La colonne « Responsable » reprend le seul responsable de résultat (A) de la ligne correspondante de la matrice du document 11 § 3 ; elle désigne une équipe, pas une personne.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

@@ -76,4 +76,4 @@
   a été faite dans l'image officielle avec `airflow dags list` et `list-import-errors`.
 * Le modèle est volontairement simple (énoncé : « le pipeline, pas l'algorithme »).
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

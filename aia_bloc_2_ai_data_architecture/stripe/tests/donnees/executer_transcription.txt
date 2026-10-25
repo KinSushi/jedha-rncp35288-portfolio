@@ -1,4 +1,4 @@
-Copyright © 2026 · voir le fichier LICENSE du dépôt
+Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 
 === 1. OLTP : schéma normalisé et données synthétiques ===
 {'marchands': 40, 'clients': 2000, 'paiements': 300, 'litiges': 8, 'remboursements': 12, 'journal_changements': 300}

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Orchestration du projet Kayak : collecte → data lake → ETL Spark → entrepôt → cartes.
 
 Chaque étape lit ses entrées dans le data lake et y écrit ses sorties : on peut donc relancer

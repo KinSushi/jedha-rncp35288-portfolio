@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Indice de stabilité de population (PSI) : surveillance de la dérive des scores du modèle.
 
 Seuils usuels : en dessous de 0,1 la distribution est stable ; au-delà de 0,2 elle a dérivé et la

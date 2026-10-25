@@ -1,4 +1,4 @@
--- Copyright © 2026 · voir le fichier LICENSE du dépôt
+-- Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 -- Fichier GÉNÉRÉ par `python -m stripe_demo.generer_ddl` depuis la spécification TABLES_OLAP.
 -- Ne pas modifier à la main : modifier la spécification puis relancer le générateur.
 -- Variante portable (sans options Redshift), exécutée par les tests dans DuckDB.

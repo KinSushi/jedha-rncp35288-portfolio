@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Modèle de fraude : découpage dans le temps, variables, notation d'un paiement, PSI.
 
 Un test sur le modèle lui-même ne peut pas se contenter de « ça tourne » : il doit montrer que

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Types de la partie d'Apache Airflow 2.10 utilisée par les DAG (voir ``dags/``)."""
 
 from collections.abc import Callable

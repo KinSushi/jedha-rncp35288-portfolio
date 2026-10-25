@@ -327,4 +327,4 @@ Les champs `first`, `last`, `street`, `city`, `zip`, `job`, `gender`, `dob`, `la
   (message tel que reçu, position dans la file) → le sujet Kafka. Le rapport du jour porte sa
   version de règles, son heure de génération et les chemins de ses fichiers.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

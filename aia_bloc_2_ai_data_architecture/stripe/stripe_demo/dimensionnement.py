@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Extrapolation du dimensionnement : mesures réelles multipliées par des hypothèses déclarées.
 
 Principe de la note de dimensionnement (livrables/aia2/09_...) : aucun volume n'est « deviné ».

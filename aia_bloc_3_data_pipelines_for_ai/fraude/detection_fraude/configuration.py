@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Configuration par environnement (dev / prod) et lecture des secrets.
 
 * Critère 3.3 (reproductibilité) : le même code tourne en développement et en production ;

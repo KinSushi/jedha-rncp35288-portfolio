@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 #
 # Modèle de variables : copier en « terraform.tfvars » (ignoré par Git) pour surcharger les
 # valeurs par défaut. Aucun secret ici : les mots de passe sont générés et conservés par les

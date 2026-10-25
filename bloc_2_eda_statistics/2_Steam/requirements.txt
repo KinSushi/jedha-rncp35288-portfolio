@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 # Bibliothèques du notebook Steam_Bloc2_CDSD_PySpark.ipynb (imports de la cellule 2).
 # Versions épinglées : celles de l'environnement Python 3.12.14 (version inscrite dans les
 # métadonnées du notebook) qui a produit les sorties enregistrées ; Spark 3.5.9 est affiché par la

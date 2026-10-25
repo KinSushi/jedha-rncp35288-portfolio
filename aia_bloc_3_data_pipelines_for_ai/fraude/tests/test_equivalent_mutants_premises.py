@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Les faits de bibliothèque et de langage sur lesquels reposent les mutants équivalents nommés.
 
 ``MUTANTS_EQUIVALENTS.md`` nomme chaque mutant que ``mutmut`` laisse survivre parce qu'aucun

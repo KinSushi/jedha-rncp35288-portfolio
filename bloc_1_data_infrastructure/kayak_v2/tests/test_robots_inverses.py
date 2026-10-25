@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests INVERSES de ``kayak.collecte.robots`` : ce que l'interpréteur doit refuser ou ignorer.
 
 Le fichier prouve qu'une ligne de robots.txt mal formée, un commentaire, une directive inconnue,

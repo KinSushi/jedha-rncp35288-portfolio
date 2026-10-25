@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests des fonctions du notebook Steam (`steam_analyse.py`).
 
 Les fonctions Spark sont éprouvées sur de petits enregistrements qui reproduisent les défauts

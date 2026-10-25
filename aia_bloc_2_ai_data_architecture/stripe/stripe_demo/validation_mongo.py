@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Validation des documents NoSQL côté application, à partir des MÊMES schémas que MongoDB.
 
 Pourquoi ce module : les schémas `nosql/schemas/*.json` sont écrits au format `$jsonSchema` de

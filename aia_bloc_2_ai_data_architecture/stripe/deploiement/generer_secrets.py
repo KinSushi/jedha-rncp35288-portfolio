@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Génère les mots de passe de la démonstration locale dans `secrets/` (ignoré par Git).
 
 Pourquoi un script plutôt que des valeurs par défaut : un mot de passe écrit dans un dépôt est

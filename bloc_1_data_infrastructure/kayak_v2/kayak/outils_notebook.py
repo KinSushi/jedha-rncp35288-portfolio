@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Fonctions d'aide du notebook Kayak, sorties du notebook pour être testées.
 
 Le notebook ``Kayak_Bloc1_CDSD.ipynb`` calcule des volumes, un bilan des réponses Overpass et une

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Entrepôt en étoile : connexion, ordre des instructions du chargement et reprise sur erreur.
 
 `test_olap.py` et `test_cdc.py` prouvent que les FAITS et les AGRÉGATS sont justes. Ici, on prouve

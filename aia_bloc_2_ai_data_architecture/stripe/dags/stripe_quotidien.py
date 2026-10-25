@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """DAG Airflow « stripe_quotidien » : la voie batch du document 05, de l'OLTP à l'entrepôt.
 
 Chaque jour, pour la date logique `ds` : attendre que les paiements du jour soient là, les

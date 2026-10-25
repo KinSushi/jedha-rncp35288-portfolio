@@ -1,5 +1,5 @@
 {
-  "_copyright": "Copyright © 2026 · voir le fichier LICENSE du dépôt",
+  "_copyright": "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC",
   "title": "caracteristiques_clients",
   "description": "Magasin de caractéristiques en ligne pour le score de fraude : un document par client, mis à jour de façon atomique à chaque paiement.",
   "bsonType": "object",

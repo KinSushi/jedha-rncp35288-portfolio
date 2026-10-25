@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de `att_spam.donnees` : chargement, normalisation, quasi-doublons, découpage, encodage."""
 
 import inspect
@@ -92,7 +92,7 @@ def test_charger_sms_nomme_toutes_les_colonnes_absentes(tmp_path):
         ("WIN a Prize", "win a prize"),
         ("see www.example.com now", "see  <url>  now"),
         ("go to http://a.io/x?y=1 ok", "go to  <url>  ok"),
-        ("mail me@site.co.uk please", "mail  <url>  please"),
+        ("mail me@example.co.uk please", "mail  <url>  please"),  # seul cas du motif co.uk
         ("visit news.net today", "visit  <url>  today"),
         ("visit ong.org today", "visit  <url>  today"),
         ("win £100 now", "win  <argent>  now"),

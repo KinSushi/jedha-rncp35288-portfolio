@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Entraînement, métriques, export, intégrité et barrière de qualité (critères 2.2 et 3.3)."""
 
 from __future__ import annotations

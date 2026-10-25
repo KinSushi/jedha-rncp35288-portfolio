@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Parcours complet en mode local : collecte, DLQ, notation, couches, notification, rapport, DAG.
 
 Ce fichier vérifie aussi l'engagement de confidentialité (critère 5.1) de la seule façon

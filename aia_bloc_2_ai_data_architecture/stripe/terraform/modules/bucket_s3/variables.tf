@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 
 variable "nom" {
   description = "Nom du bucket (unique dans tout AWS : y inclure l'identifiant du compte)."

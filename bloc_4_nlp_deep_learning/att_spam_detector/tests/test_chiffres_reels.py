@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Chiffres de la préparation du notebook, rejoués avec le paquet sur le vrai `spam.csv`.
 
 Ces tests durent quelques secondes (pas d'entraînement). Les effectifs du jeu de données sont des

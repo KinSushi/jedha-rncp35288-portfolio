@@ -177,4 +177,4 @@ La taille DuckDB n'est pas comparable à celle de PostgreSQL (moteurs et colonne
 - L'ancienneté des clients est calculée par rapport à une date fixe (30 septembre 2026) dans la démonstration ; en production, par rapport à la date de chargement.
 - Le DDL Redshift utilise des clés primaires et étrangères **informatives** : Redshift ne les vérifie pas. L'unicité repose sur le `MERGE`.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

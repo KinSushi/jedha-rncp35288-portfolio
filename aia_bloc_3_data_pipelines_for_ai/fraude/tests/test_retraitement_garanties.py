@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Retraitement depuis le bronze : bornes de période, refus, alertes conservées, état intact.
 
 Le retraitement réécrit le passé : c'est l'opération la plus dangereuse du pipeline. Ces tests

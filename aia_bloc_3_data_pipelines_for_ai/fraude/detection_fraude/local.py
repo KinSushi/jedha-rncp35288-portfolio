@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Mode local sans Docker : démonstration complète du flux, de la collecte au rapport du matin.
 
 Pour la vidéo et pour toute personne qui clone le dépôt : une seule commande fait tourner

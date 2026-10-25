@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """FinOps, téléchargement vérifié, réinitialisation du mode local (critères 3.3 et 6.2)."""
 
 from __future__ import annotations

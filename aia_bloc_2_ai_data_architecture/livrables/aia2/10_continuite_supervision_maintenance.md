@@ -202,4 +202,4 @@ Les dépendances Python sont déclarées par plages (`requirements.txt`). Mise �
 | Perte d'un secret / rotation forcée | vérifier la procédure | semestrielle |
 | Reconstruction de `dev` depuis le code | prouver la reproductibilité de l'IaC | à chaque version majeure |
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

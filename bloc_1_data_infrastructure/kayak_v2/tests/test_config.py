@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests de la configuration centralisée (``kayak.config``), surtout par leurs refus et leurs
 invariants.
 

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Aide aux tests : rejouer la démonstration en petit, avec horloge et modèle factices.
 
 Pourquoi : la démonstration complète traite 48 000 paiements (une minute). Pour la tester, on la

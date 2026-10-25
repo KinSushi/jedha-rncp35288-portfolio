@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Tests du journal des requêtes HTTP d'une collecte (``kayak.collecte.journal``).
 
 Aucun réseau : les requêtes passent par un adaptateur de transport factice, branché sur une vraie
