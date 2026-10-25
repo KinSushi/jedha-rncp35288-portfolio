@@ -1,11 +1,11 @@
 # Mutants équivalents : `steam_analyse.py`
 
-Mesure en vigueur : mutmut 3, sur le module
-**entier** et le code du 19/10/2026 (refus du 18/10 compris), tests `tests/test_steam_analyse.py`.
-Trois mutants survivent, les trois mêmes qu'aux mesures du 17/10 (mêmes noms, même changement), et
-tous les trois sont équivalents : aucun test ne peut les distinguer du code d'origine, car le
-comportement est identique. Le changement de chaque mutant ci-dessous est celui que rend
-`mutmut show <nom>` dans la copie mutée lors de cette mesure (relu le 19/10).
+Mesure en vigueur : mutmut 3, lancé sous WSL (le sous-système Windows pour Linux), sur le module
+**entier** et le code du 19/10/2026 (refus du 18/10 compris), tests `tests/test_steam_analyse.py` :
+968 mutants, 965 tués. Les trois survivants sont les trois mêmes qu'aux mesures du 17/10 (mêmes
+noms, même changement), et tous les trois sont équivalents : aucun test ne peut les distinguer du
+code d'origine, car le comportement est identique. Le changement de chaque mutant ci-dessous est
+celui que rend `mutmut show <nom>` dans la copie mutée lors de cette mesure (relu le 19/10).
 
 Portée de « équivalent » ici : la fonction rend `None` et sa seule sortie est la figure. Avec
 `legend=None` comme avec `legend=False`, pandas ne range la valeur que dans son objet de tracé
@@ -27,3 +27,5 @@ des écritures d'éditeurs, colonne en trop sur un graphique, mois d'une date sa
 disparu avec une écriture plus simple du code (couleur unique, réglages de partitions). Les refus
 ajoutés le 18/10 (tag demandé deux fois, quantile z nul ou négatif) portent le module à 968
 mutants ; aucun de leurs mutants ne survit.
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Fonctions du notebook Steam (PySpark), extraites pour être testées une à une.
 
 CHOIX
@@ -270,8 +270,8 @@ def liste_langues(colonne: str) -> Column:
 def nombre_de_langues(colonne: str) -> Column:
     """Nombre de langues d'une colonne de listes ; une liste vide ou absente compte pour 0.
 
-    `F.size` d'une liste absente vaut −1 dans Spark : on la remplace explicitement par 0 plutôt
-    que de compter −1 langue.
+    `F.size` d'une liste absente vaut -1 dans Spark : on la remplace explicitement par 0 plutôt
+    que de compter -1 langue.
     """
     return F.when(F.col(colonne).isNull(), F.lit(0)).otherwise(F.size(colonne))
 

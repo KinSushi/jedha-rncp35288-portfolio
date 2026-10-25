@@ -1,4 +1,4 @@
-# Copyright © 2026 · voir le fichier LICENSE du dépôt
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
 """Test d'intégration : le notebook Steam se rejoue en entier et redonne les chiffres du jury.
 
 Le notebook est copié avec son module et ses données dans un dossier temporaire, puis exécuté
@@ -96,7 +96,7 @@ def test_notebook_rejoue_les_chiffres_du_jury(notebook_execute: nbformat.Noteboo
         "Âges requis aberrants (> 21 ans) mis à NULL : 5",
         "Jeux retenus : 55 690",
         "Lignes (jeu, genre) : 157110 | lignes (jeu, langue) : 202293",
-        "Éditeurs distincts — avant normalisation : 29818 | après : 29434",
+        "Éditeurs distincts, avant normalisation : 29818 | après : 29434",
         "Jeux à plusieurs éditeurs : 2006",
         # éditeurs (3.1) : Ubisoft, huitième ex æquo, une fois ses écritures regroupées
         "Jeux publiés par les 10 premiers éditeurs : 1851 (3.3% du catalogue)",

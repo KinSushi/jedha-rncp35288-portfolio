@@ -232,7 +232,7 @@ def agreger_personnes(decisions: pd.DataFrame, agregation: dict[str, str]) -> pd
 
 
 def bornes_iqr(serie: pd.Series[float]) -> tuple[float, float, int]:
-    """Bornes de la règle de l'IQR [Q1 − 1,5 × IQR ; Q3 + 1,5 × IQR] et nombre de valeurs dehors.
+    """Bornes de la règle de l'IQR [Q1 - 1,5 × IQR ; Q3 + 1,5 × IQR] et nombre de valeurs dehors.
 
     Une série sans aucune valeur renseignée n'a pas de quartiles : `ValueError`.
     """
@@ -348,7 +348,7 @@ def consigner_test(
 
 
 def d_cohen(groupe_a: pd.Series[float], groupe_b: pd.Series[float]) -> float:
-    """d de Cohen : (moyenne de A − moyenne de B) / écart-type moyen des deux groupes (Welch)."""
+    """d de Cohen : (moyenne de A - moyenne de B) / écart-type moyen des deux groupes (Welch)."""
     ecart_moyen = np.sqrt((groupe_a.var() + groupe_b.var()) / 2)
     if not ecart_moyen > 0:
         raise ValueError("variances nulles dans les deux groupes : d de Cohen indéfini")
@@ -364,11 +364,11 @@ def d_cohen_apparie(ecarts: pd.Series[float]) -> float:
 
 
 def rang_bisserial_apparie(ecarts: pd.Series[float]) -> float:
-    """Corrélation de rang bisériale appariée, entre −1 et 1 (taille d'effet du Wilcoxon signé).
+    """Corrélation de rang bisériale appariée, entre -1 et 1 (taille d'effet du Wilcoxon signé).
 
-    (somme des rangs des écarts positifs − somme des rangs des écarts négatifs) / somme des rangs,
+    (somme des rangs des écarts positifs - somme des rangs des écarts négatifs) / somme des rangs,
     les rangs étant ceux des valeurs absolues ; les écarts nuls sont ignorés. Écrit comme la
-    somme des rangs signés (chaque rang multiplié par le signe +1 ou −1 de son écart), divisée
+    somme des rangs signés (chaque rang multiplié par le signe +1 ou -1 de son écart), divisée
     par la somme des rangs : c'est la même quantité, en une seule opération.
     """
     non_nuls = ecarts[ecarts != 0].to_numpy()
@@ -379,7 +379,7 @@ def rang_bisserial_apparie(ecarts: pd.Series[float]) -> float:
 
 
 def v_cramer(tableau: pd.DataFrame, chi2: float) -> float:
-    """V de Cramér : racine de χ² / (n × (min(lignes, colonnes) − 1)), pour un tableau croisé.
+    """V de Cramér : racine de χ² / (n × (min(lignes, colonnes) - 1)), pour un tableau croisé.
 
     Refus (`ValueError`) : moins de deux lignes ou de deux colonnes ; un χ² négatif ou indéfini
     (la racine rendrait NaN sans prévenir) ; un tableau sans aucun effectif (division par zéro).
