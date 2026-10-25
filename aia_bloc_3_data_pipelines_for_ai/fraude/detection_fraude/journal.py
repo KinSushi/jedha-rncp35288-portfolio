@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Journaux d'audit structurés (une ligne JSON par événement) — critère 6.3.
+"""Journaux d'audit structurés (une ligne JSON par événement), critère 6.3.
 
 Un incident de production se diagnostique avec des événements nommés et des champs
 filtrables (``evenement``, ``trans_num``, ``lot``, ``duree_ms``...), pas avec des phrases libres.

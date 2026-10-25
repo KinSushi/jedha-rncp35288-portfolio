@@ -1,4 +1,4 @@
-# Note de preuve — AIA bloc 3 — Pipelines de données pour l'IA
+# Note de preuve : AIA bloc 3, pipelines de données pour l'IA
 
 ## Statut
 
@@ -19,3 +19,7 @@ Construction d'un pipeline de données automatisé, observable et conforme, dont
 | Obtention des données | [`README.md`](../README.md), section « Données », et [`fraude/data/README.md`](../fraude/data/README.md) |
 
 Le script de la vidéo de démonstration n'est pas publié dans cette version.
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

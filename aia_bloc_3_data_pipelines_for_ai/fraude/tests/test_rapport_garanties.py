@@ -501,7 +501,7 @@ def test_rendre_html_ne_modifie_pas_le_rapport_et_produit_la_page_exacte():
     assert rendre_html(rapport) == page
     assert page.split("</style>", 1)[0] == (
         '<!DOCTYPE html>\n<html lang="fr"><head><meta charset="utf-8">\n'
-        "<title>Rapport du matin — 2026-10-09</title>\n<style>\n" + "\n".join(CSS) + "\n"
+        "<title>Rapport du matin - 2026-10-09</title>\n<style>\n" + "\n".join(CSS) + "\n"
     )
     cartes = "".join(
         [
@@ -531,7 +531,7 @@ def test_rendre_html_ne_modifie_pas_le_rapport_et_produit_la_page_exacte():
     )
     assert page.split("</style>", 1)[1] == (
         "</head><body>\n"
-        "<h1>Rapport du matin — paiements et fraudes du 2026-10-09</h1>\n"
+        "<h1>Rapport du matin : paiements et fraudes du 2026-10-09</h1>\n"
         "<p>Jour UTC. Modèle(s) utilisé(s) : v1, v2.</p>\n"
         f'<div class="cartes">{cartes}</div>\n'
         "<h2>Par catégorie</h2>\n"
@@ -672,7 +672,7 @@ CAS_HTML = {
             ],
         ),
         [
-            f"<title>Rapport du matin — {HOSTILE_ECHAPPE}</title>",
+            f"<title>Rapport du matin - {HOSTILE_ECHAPPE}</title>",
             f"paiements et fraudes du {HOSTILE_ECHAPPE}</h1>",
             f"Modèle(s) utilisé(s) : {HOSTILE_ECHAPPE}.</p>",
             f"<tr><td>{HOSTILE_ECHAPPE}</td><td class='n'>1200</td>",

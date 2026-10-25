@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Caractéristiques du modèle, identiques à l'entraînement et au scoring — critères 2.1 et 2.2.
+"""Caractéristiques du modèle, identiques à l'entraînement et au scoring (critères 2.1 et 2.2).
 
 Le défaut classique d'un projet d'apprentissage en production est l'écart « entraînement /
 service » : les caractéristiques calculées en lot pour entraîner ne sont pas celles calculées au

@@ -1,6 +1,6 @@
-# 03 — Sécurité et conformité (RGPD, PCI DSS, chiffrement, secrets)
+# 03 - Sécurité et conformité (RGPD, PCI DSS, chiffrement, secrets)
 
-*Bloc 3 AIA — Détection automatique de fraude. Ce document répond aux indicateurs 5.1, 5.2 et 5.3
+*Bloc 3 AIA : détection automatique de fraude. Ce document répond aux indicateurs 5.1, 5.2 et 5.3
 du référentiel. Les données du projet sont **synthétiques** (jeu public de l'énoncé) ; le RGPD et
 PCI DSS sont appliqués **par transposition**, comme si elles étaient réelles. Les références de
 textes sont citées sans leur prêter plus qu'elles ne disent ; les numéros d'exigence PCI DSS
@@ -18,7 +18,7 @@ Une transaction de l'API contient 21 champs. Classement :
 | Quasi-identifiants | `dob`, `lat`, `long`, `zip`, `city`, `job`, `gender` | supprimés, ou remplacés par une valeur généralisée (`age`, `distance_km`) |
 | Données de la transaction | `merchant`, `category`, `amt`, `state`, `city_pop`, `merch_lat`, `merch_long`, `trans_num`, `current_time`, `is_fraud` | conservées (non identifiantes seules) |
 
-## 2. Privacy by Design : le masquage dès l'ingestion — indicateur 5.1
+## 2. Privacy by Design : le masquage dès l'ingestion - indicateur 5.1
 
 > *« Le code implémente-t-il techniquement l'anonymisation ou le masquage des champs sensibles
 > identifiés ? »*
@@ -100,17 +100,17 @@ Hypothèse : la donnée de paiement est un numéro de carte (PAN). Périmètre :
 
 | Exigence (v4.0.1) | Réponse |
 |---|---|
-| 3.4.1 — PAN masqué à l'affichage (au plus les 4 derniers chiffres affichables) | rapports, alertes, journaux : `****1234` seulement |
-| 3.5.1 — PAN rendu illisible partout où il est stocké | il n'est stocké nulle part |
-| 3.5.1.1 — hachage par fonction à clé | HMAC-SHA256 à clé secrète, non un hachage simple |
-| 3.6 — clés protégées | clé dans un secret monté en lecture seule, hors dépôt et hors image |
-| 4.2.1 — cryptographie forte pour les transmissions sur réseau ouvert | API en HTTPS exigé ; SMTP en TLS exigé ; webhook en HTTPS exigé (voir section 5) |
-| 10.2 — journaux d'audit | journaux JSON structurés, sans PAN (`06_*` et `04_exploitation.md`) |
+| 3.4.1 : PAN masqué à l'affichage (au plus les 4 derniers chiffres affichables) | rapports, alertes, journaux : `****1234` seulement |
+| 3.5.1 : PAN rendu illisible partout où il est stocké | il n'est stocké nulle part |
+| 3.5.1.1 : hachage par fonction à clé | HMAC-SHA256 à clé secrète, non un hachage simple |
+| 3.6 : clés protégées | clé dans un secret monté en lecture seule, hors dépôt et hors image |
+| 4.2.1 : cryptographie forte pour les transmissions sur réseau ouvert | API en HTTPS exigé ; SMTP en TLS exigé ; webhook en HTTPS exigé (voir section 5) |
+| 10.2 : journaux d'audit | journaux JSON structurés, sans PAN (`06_*` et `04_exploitation.md`) |
 
 Limite : le périmètre exact, la rotation de clé, l'accès à la clé et la segmentation réseau du
 producteur relèvent d'une évaluation par un évaluateur qualifié (QSA).
 
-## 5. Chiffrement des transferts entre zones — indicateur 5.3
+## 5. Chiffrement des transferts entre zones - indicateur 5.3
 
 > *« Le candidat justifie-t-il l'utilisation de protocoles sécurisés pour le transfert des données
 > entre les zones ? »*
@@ -126,7 +126,7 @@ producteur relèvent d'une évaluation par un évaluateur qualifié (QSA).
 | Interfaces Airflow, MLflow | HTTP sur `127.0.0.1` seulement | ports publiés uniquement sur la boucle locale ; en production réelle : mandataire inverse TLS + authentification unique | pas d'accès réseau aux consoles d'administration |
 | Données au repos | volumes Docker | non chiffrés dans la production locale ; en production réelle : chiffrement du disque ou du volume géré par le fournisseur | les couches ne contiennent pas d'identifiant direct |
 
-## 6. Gestion des secrets — indicateur 5.2
+## 6. Gestion des secrets - indicateur 5.2
 
 > *« Les identifiants de connexion aux bases/API sont-ils externalisés […] et non écrits en clair
 > dans le code ? »*
@@ -135,8 +135,8 @@ producteur relèvent d'une évaluation par un évaluateur qualifié (QSA).
 |---|---|---|---|
 | Clé de hachage des cartes (`SEL_HACHAGE`) | producteur, entraînement, DAG | variable d'environnement, sinon fichier généré au premier lancement dans `donnees/` (jamais versionné) | secret Docker `sel_hachage` |
 | Chaîne de connexion de l'entrepôt (`DSN_ENTREPOT`) | consommateur, DAG | SQLite, aucun secret | secret Docker `dsn_entrepot` |
-| Mots de passe PostgreSQL (un rôle par composant) | PostgreSQL, MLflow, Airflow, application | — | secrets `pg_*_motdepasse`, lus par `POSTGRES_PASSWORD_FILE` et par le script d'initialisation |
-| Fernet, clé secrète et compte administrateur d'Airflow | Airflow | — | secrets montés, lus par les variables `..._CMD` d'Airflow |
+| Mots de passe PostgreSQL (un rôle par composant) | PostgreSQL, MLflow, Airflow, application | - | secrets `pg_*_motdepasse`, lus par `POSTGRES_PASSWORD_FILE` et par le script d'initialisation |
+| Fernet, clé secrète et compte administrateur d'Airflow | Airflow | - | secrets montés, lus par les variables `..._CMD` d'Airflow |
 | Identifiants SMTP, URL du webhook | notification | variables d'environnement | secrets `smtp_utilisateur`, `smtp_mot_de_passe`, `webhook_url` |
 | Identifiants Kafka (SASL) | file | variables d'environnement | à fournir pour une production réelle |
 

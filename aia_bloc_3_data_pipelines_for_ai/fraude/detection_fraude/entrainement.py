@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Entraînement reproductible du modèle, suivi MLflow, export et promotion — critères 2.2, 3.3.
+"""Entraînement reproductible du modèle, suivi MLflow, export et promotion (critères 2.2, 3.3).
 
 L'énoncé le dit : l'essentiel est le pipeline de données, pas l'algorithme. Le modèle est donc
 volontairement simple, mais entraîné *proprement* :

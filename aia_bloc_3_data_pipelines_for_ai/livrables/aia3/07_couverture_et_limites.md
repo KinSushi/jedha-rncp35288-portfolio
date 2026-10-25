@@ -1,4 +1,4 @@
-# 07 — Couverture du référentiel, vérifications et limites
+# 07 - Couverture du référentiel, vérifications et limites
 
 > Ce document dit ce qui est prouvé, par quelle commande, et ce qui ne l'est pas encore.
 

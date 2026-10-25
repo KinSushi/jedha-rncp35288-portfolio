@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Masquage des données personnelles dès l'ingestion (privacy by design) — critère 5.1.
+"""Masquage des données personnelles dès l'ingestion (privacy by design), critère 5.1.
 
 Le masquage est appliqué **à l'entrée du flux**, dans le producteur, avant toute publication
 dans la file et toute écriture sur disque. Aucune couche située après lui (bronze, argent, or,

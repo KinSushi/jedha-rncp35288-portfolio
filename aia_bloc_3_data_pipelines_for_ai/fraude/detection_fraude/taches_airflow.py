@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Fonctions appelées par les DAG Airflow — testables sans Airflow (critères 3.1, 3.2, 4.3, 6.1).
+"""Fonctions appelées par les DAG Airflow, testables sans Airflow (critères 3.1, 3.2, 4.3, 6.1).
 
 Un DAG est de la plomberie : il dit *quand* et *dans quel ordre*. Le travail lui-même vit ici, dans
 des fonctions ordinaires qui reçoivent des paramètres simples et renvoient de petits résultats
@@ -293,7 +293,7 @@ def alerte_echec_tache(contexte: dict[str, Any]) -> None:
         Notification(
             "supervision",
             sujet,
-            f"Tentative n° {getattr(instance, 'try_number', '?')} — {cause}",
+            f"Tentative n° {getattr(instance, 'try_number', '?')} : {cause}",
             {
                 "dag": getattr(instance, "dag_id", None),
                 "tache": getattr(instance, "task_id", None),

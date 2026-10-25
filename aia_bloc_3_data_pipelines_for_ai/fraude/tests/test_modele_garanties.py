@@ -453,8 +453,8 @@ def test_ecriture_atomique_cree_les_dossiers_ecrit_en_utf8_et_laisse_les_voisins
         vrai_remplacer(source, destination)
 
     monkeypatch.setattr(modele.os, "replace", espion)
-    _ecrire_atomiquement(cible, "café — été")  # dossiers b/ et c/ créés
-    assert cible.read_bytes() == "café — été".encode()
+    _ecrire_atomiquement(cible, "café - été")  # dossiers b/ et c/ créés
+    assert cible.read_bytes() == "café - été".encode()
     _ecrire_atomiquement(cible, "second")  # le dossier existe déjà : aucune erreur
     assert cible.read_bytes() == b"second"
     assert [(s.parent, s.name.startswith(".tmp_"), d) for s, d in renommages] == [

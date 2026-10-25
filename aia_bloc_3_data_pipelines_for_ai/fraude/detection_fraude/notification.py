@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Notifications : journal, fichier, e-mail SMTP, webhook — critères 5.2, 5.3 et 6.1.
+"""Notifications : journal, fichier, e-mail SMTP, webhook (critères 5.2, 5.3 et 6.1).
 
 Le métier veut être prévenu *dès* qu'une fraude est détectée. Trois principes guident le code :
 
@@ -15,7 +15,7 @@ Le métier veut être prévenu *dès* qu'une fraude est détectée. Trois princi
    repart au tour suivant, canal par canal (on ne renvoie pas là où l'envoi a réussi).
 
 Une notification ne contient que des données masquées : jamais de nom, d'adresse ni de numéro de
-carte complet — seulement les quatre derniers chiffres.
+carte complet : seulement les quatre derniers chiffres.
 
 CHOIX
 -----

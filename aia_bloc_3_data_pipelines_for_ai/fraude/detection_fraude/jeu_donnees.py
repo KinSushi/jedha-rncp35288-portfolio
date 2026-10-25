@@ -3,7 +3,7 @@
 
 Le jeu sert à deux choses : **entraîner** le modèle et **rejouer** un flux quand l'API n'est pas
 joignable (ou pour une démonstration reproductible). Dans les deux cas, ses lignes doivent suivre
-exactement le même chemin que celles de l'API — validation puis masquage — pour que le modèle
+exactement le même chemin que celles de l'API (validation puis masquage) pour que le modèle
 apprenne sur ce qu'il verra en production. Ce module convertit donc une ligne du fichier en
 « ligne au format API » (mêmes noms de champs, horodatage ``current_time`` en millisecondes).
 

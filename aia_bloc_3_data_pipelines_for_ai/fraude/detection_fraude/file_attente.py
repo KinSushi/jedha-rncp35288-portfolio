@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""File de messages : SQLite en local (sans Docker), Kafka en production — critères 1.2 et 4.2.
+"""File de messages : SQLite en local (sans Docker), Kafka en production (critères 1.2 et 4.2).
 
 Le producteur et le consommateur ne se connaissent pas : ils ne partagent qu'une file. Cette
 indirection apporte trois choses :
@@ -237,7 +237,7 @@ class FileKafka:
 
     Paramètres de fiabilité côté producteur : ``acks=all`` (le courtier confirme l'écriture) et
     ``enable.idempotence`` (une relance réseau ne crée pas de doublon dans le sujet).
-    Côté consommateur : ``enable.auto.commit=false`` — la position n'avance qu'après l'écriture
+    Côté consommateur : ``enable.auto.commit=false`` : la position n'avance qu'après l'écriture
     en base (voir ``valider``).
     """
 

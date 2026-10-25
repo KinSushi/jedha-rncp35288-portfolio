@@ -1,6 +1,6 @@
-# 05 — Backlog produit et trois sprints
+# 05 - Backlog produit et trois sprints
 
-*Bloc 3 AIA — Détection automatique de fraude. Ce document répond à l'indicateur 7.2
+*Bloc 3 AIA : détection automatique de fraude. Ce document répond à l'indicateur 7.2
 (« Le travail de développement est-il structuré en itérations (sprints) avec une priorisation
 claire des fonctionnalités ? »).*
 
@@ -17,7 +17,7 @@ claire des fonctionnalités ? »).*
   comportement vérifié par une commande documentée ; document de conception à jour ; aucun secret
   dans le dépôt.
 
-## 2. Sprint 1 — Le flux sûr de bout en bout (le chemin chaud)
+## 2. Sprint 1 - Le flux sûr de bout en bout (le chemin chaud)
 
 *But : une transaction entre, est masquée, notée, stockée et notifiée ; une ligne corrompue ne
 bloque rien.*
@@ -36,7 +36,7 @@ bloque rien.*
 pipeline en 4,4 s de traitement (9,7 s pour la commande entière, modèle chargé et rapport produit)
 en mode local, produit 10 alertes dont 7 vraies, et envoie 6 lignes en DLQ.
 
-## 3. Sprint 2 — Industrialisation : orchestration, environnements, conteneurs
+## 3. Sprint 2 - Industrialisation : orchestration, environnements, conteneurs
 
 *But : plus aucun lancement manuel ; le même code tourne en développement et en production locale.*
 
@@ -52,7 +52,7 @@ en mode local, produit 10 alertes dont 7 vraies, et envoie 6 lignes en DLQ.
 **Revue de fin de sprint** : la production locale démarre de zéro (secrets, images, base, modèle,
 planification) avec deux commandes ; le même rejeu donne les mêmes 10 alertes que le mode local.
 
-## 4. Sprint 3 — Exploitation, conformité, preuves
+## 4. Sprint 3 - Exploitation, conformité, preuves
 
 *But : prouver et documenter ce qui précède ; couvrir les angles morts.*
 

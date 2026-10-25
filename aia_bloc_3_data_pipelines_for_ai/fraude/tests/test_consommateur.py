@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Consommateur : idempotence, atomicité, DLQ, boîte d'envoi, alertes — critères 4.2, 6.1."""
+"""Consommateur : idempotence, atomicité, DLQ, boîte d'envoi, alertes (critères 4.2, 6.1)."""
 
 from __future__ import annotations
 

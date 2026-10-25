@@ -88,9 +88,9 @@ Jeu synthétique : **ces chiffres démontrent la méthode et la chaîne, pas un 
 |---|---:|---:|---|
 | Lignes (fraudes) | 83 358 (283) | 83 358 (86) | [pipeline et qualité, § 2](livrables/aia3/02_pipeline_et_qualite.md) |
 | PR-AUC | 0,8236 | 0,7899 | idem |
-| ROC-AUC | — | 0,9959 | idem |
+| ROC-AUC | - | 0,9959 | idem |
 | Seuil retenu | 0,4150 | | idem |
-| Au seuil : précision / rappel | — | 0,707 / 0,814 (99 alertes, 70 vraies sur 86 fraudes) | idem |
+| Au seuil : précision / rappel | - | 0,707 / 0,814 (99 alertes, 70 vraies sur 86 fraudes) | idem |
 | Référence : régression logistique, PR-AUC | 0,5003 | 0,4085 | idem |
 
 L'entraînement porte sur 389 003 lignes (1 776 fraudes). La précision visée de 0,90, atteinte sur la validation, retombe à 0,707 sur le test au même seuil : le taux de fraude du jeu s'effondre en fin de période (aucune fraude après le 22/12/2020). La barrière de qualité suit la PR-AUC, moins sensible à ce décalage ([pipeline et qualité, § 2](livrables/aia3/02_pipeline_et_qualite.md)).
@@ -196,3 +196,7 @@ Ce que le projet ne démontre pas, dit tel quel :
     |-- MUTANTS_EQUIVALENTS.md        mutants survivants, nommés avec leur preuve
     `-- data/                         reçoit fraudTest.csv (non versionné, non redistribué)
 ```
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

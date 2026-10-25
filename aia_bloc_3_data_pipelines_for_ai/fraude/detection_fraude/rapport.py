@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Rapport du matin : paiements et fraudes de la veille (traitement par lot) — critères 1.1, 6.1.
+"""Rapport du matin : paiements et fraudes de la veille (traitement par lot), critères 1.1 et 6.1.
 
 Le métier veut, chaque matin, voir les paiements et les fraudes de la veille. Ce besoin n'a pas la
 même fraîcheur que l'alerte : une journée complète est consolidée une fois, à 07:00, par un
@@ -295,7 +295,7 @@ def rendre_html(rapport: dict[str, Any]) -> str:
         )
     return f"""<!DOCTYPE html>
 <html lang="fr"><head><meta charset="utf-8">
-<title>Rapport du matin — {e(rapport["jour"])}</title>
+<title>Rapport du matin - {e(rapport["jour"])}</title>
 <style>
 body{{font-family:Segoe UI,Arial,sans-serif;margin:2rem auto;max-width:1000px;color:#1b2430}}
 h1{{font-size:1.6rem}} h2{{margin-top:2rem;font-size:1.2rem}}
@@ -309,7 +309,7 @@ th{{background:#f3f5f8}} td.n{{text-align:right}} td.m{{font-family:Consolas,mon
 footer{{margin-top:3rem;font-size:.75rem;color:#5b6675;border-top:1px solid #e3e8ee;
 padding-top:8px}}
 </style></head><body>
-<h1>Rapport du matin — paiements et fraudes du {e(rapport["jour"])}</h1>
+<h1>Rapport du matin : paiements et fraudes du {e(rapport["jour"])}</h1>
 <p>Jour UTC. Modèle(s) utilisé(s) : {e(", ".join(rapport["versions_modele"]) or "n/d")}.</p>
 <div class="cartes">{cartes_html}</div>
 <h2>Par catégorie</h2>

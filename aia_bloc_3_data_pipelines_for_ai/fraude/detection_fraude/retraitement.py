@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Retraitement de l'historique depuis la couche bronze — critère 2.3.
+"""Retraitement de l'historique depuis la couche bronze (critère 2.3).
 
 Les règles de transformation changent : nouvelle caractéristique, nouveau seuil, nouveau modèle,
 correction d'un bug. Il faut alors pouvoir **recalculer le passé sans rappeler l'API** (qui ne

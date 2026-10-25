@@ -215,4 +215,4 @@ prime sur la variable.
 * **Traçabilité** : chaque ligne de la couche argent porte la version du modèle, la version des
   règles et le lot ; la table `meta_lignage` consigne chaque exécution d'étape.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

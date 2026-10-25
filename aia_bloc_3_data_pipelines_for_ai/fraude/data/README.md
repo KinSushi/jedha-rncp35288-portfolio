@@ -20,4 +20,4 @@ Le jeu est fourni avec l'énoncé du projet. Deux façons de le mettre en place 
    La commande vérifie la taille (150 354 339 octets) et l'empreinte SHA-256 inscrites dans
    `config/base.yaml` ; un fichier qui ne correspond pas est refusé.
 
-*Copyright © 2026 · voir le fichier LICENSE du dépôt*
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

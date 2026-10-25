@@ -1,10 +1,10 @@
-# 02 — Pipeline de données et qualité
+# 02 - Pipeline de données et qualité
 
-*Bloc 3 AIA — Détection automatique de fraude. Ce document répond aux indicateurs 2.1, 2.2, 2.3,
+*Bloc 3 AIA : détection automatique de fraude. Ce document répond aux indicateurs 2.1, 2.2, 2.3,
 3.1, 3.2, 3.3, 4.1, 4.2, 4.3 et 7.1 du référentiel. Tous les chiffres viennent de mesures faites
 sur ce projet (jeu `fraudTest.csv`, mode local et production locale Docker).*
 
-## 1. Les trois couches (architecture médaillon) — indicateur 2.1
+## 1. Les trois couches (architecture médaillon) - indicateur 2.1
 
 > *« Les transformations sont-elles organisées en modules réutilisables ou couches logiques
 > (Médaillon) ? »*
@@ -13,8 +13,8 @@ sur ce projet (jeu `fraudTest.csv`, mode local et production locale Docker).*
 |---|---|---|---|---|
 | **Bronze** | `bronze_transactions` | message valide **tel que reçu**, déjà masqué, avec sa position dans la file | `consommateur.construire_ligne_bronze` | personne (immuable, sauf purge de conservation) |
 | **Argent** | `argent_transactions` | ligne normalisée, enrichie (caractéristiques) et notée (score, décision, versions) | `consommateur.enrichir` + `noter_lignes` ; `retraitement` | le bronze ne dépend pas d'elle |
-| **Or** | `or_alertes_fraude`, `or_rapport_quotidien`, `or_rapport_categorie` | alertes et état de leur notification ; indicateurs du jour | consommateur ; DAG rapport | — |
-| **Méta** | `meta_rejets`, `meta_lignage` | rejets archivés ; une ligne par exécution d'étape | consommateur, rapport, retraitement | — |
+| **Or** | `or_alertes_fraude`, `or_rapport_quotidien`, `or_rapport_categorie` | alertes et état de leur notification ; indicateurs du jour | consommateur ; DAG rapport | - |
+| **Méta** | `meta_rejets`, `meta_lignage` | rejets archivés ; une ligne par exécution d'étape | consommateur, rapport, retraitement | - |
 
 Chaque transformation est une **fonction isolée et testée**, réutilisée par le flux, le lot et
 l'entraînement. Le tableau ci-dessous donne le module de chaque étape.
@@ -35,7 +35,7 @@ d'entraînement passe par le même code que le flux** (`jeu_donnees.preparer_jeu
 appelle `valider_brut` puis `masquer`). Le modèle apprend donc sur ce qu'il verra, y compris sur
 des données déjà masquées.
 
-## 2. Feature engineering — indicateur 2.2
+## 2. Feature engineering - indicateur 2.2
 
 > *« Les transformations spécifiques (encodage, normalisation, agrégations) sont-elles
 > configurées selon les besoins mathématiques du modèle ? »*
@@ -82,10 +82,10 @@ demande depuis le bronze : un consommateur redémarré retrouve exactement le m�
 | Mesure | Validation | Test |
 |---|---:|---:|
 | PR-AUC (surface sous la courbe précision-rappel) | **0,8236** | **0,7899** |
-| ROC-AUC | — | 0,9959 |
-| Rappel à précision fixée à 0,90 (sur la courbe de la tranche) | — | 0,686 |
+| ROC-AUC | - | 0,9959 |
+| Rappel à précision fixée à 0,90 (sur la courbe de la tranche) | - | 0,686 |
 | Seuil de décision retenu | 0,4150 | |
-| Au seuil retenu : précision / rappel | — | 0,707 / 0,814 (99 alertes, 70 vraies sur 86 fraudes) |
+| Au seuil retenu : précision / rappel | - | 0,707 / 0,814 (99 alertes, 70 vraies sur 86 fraudes) |
 
 | Régression logistique (référence) | Validation | Test |
 |---|---:|---:|
@@ -106,7 +106,7 @@ de qualité (section 4.2) suit la PR-AUC, qui y est moins sensible.
   modèle. Un test vérifie que deux entraînements successifs donnent le même seuil et la même
   PR-AUC.
 
-## 3. Cycle de vie et retraitement de l'historique — indicateur 2.3
+## 3. Cycle de vie et retraitement de l'historique - indicateur 2.3
 
 > *« Le pipeline permet-il de re-traiter des données historiques si les règles de transformation
 > changent ? »*
@@ -140,7 +140,7 @@ Garanties (toutes testées dans `tests/test_retraitement.py`) :
 Rétention (RGPD, limitation de conservation) : le bronze est purgé après 90 jours de **réception**
 (`Entrepot.purger_bronze`) ; un rejeu d'historique n'est donc pas purgé le jour même.
 
-## 4. Orchestration, dépendances et reproductibilité — indicateurs 3.1, 3.2, 3.3
+## 4. Orchestration, dépendances et reproductibilité - indicateurs 3.1, 3.2, 3.3
 
 ### 4.1 Les DAG (indicateur 3.1 : orchestrateur, aucun lancement manuel)
 
@@ -207,7 +207,7 @@ SQLAlchemy 2.1, et pandas 2.1.4 + numpy 1.26.4 + SQLAlchemy 1.4.54 comme dans l'
 production locale (Kafka + PostgreSQL) ; (3) l'entraînement donne la même PR-AUC de test (0,7899)
 sur le poste et dans les conteneurs.
 
-## 5. Contrôles de qualité à chaque étape — indicateur 4.1
+## 5. Contrôles de qualité à chaque étape - indicateur 4.1
 
 > *« Des tests automatiques vérifient-ils la conformité des types et des formats de données à
 > chaque étape ? »*
@@ -229,7 +229,7 @@ Chaque erreur de validation est une triplet `{champ, code, detail}` ; **toutes**
 ligne sont remontées d'un coup, ce qui accélère le diagnostic. Le `detail` ne cite jamais la
 valeur d'un champ sensible.
 
-## 6. Gestion des anomalies : file des rejets (DLQ) — indicateur 4.2
+## 6. Gestion des anomalies : file des rejets (DLQ) - indicateur 4.2
 
 > *« Des mécanismes d'isolation (Dead Letter Queues) sont-ils prévus pour ne pas bloquer le flux
 > en cas de ligne corrompue ? »*
@@ -268,7 +268,7 @@ champ obligatoire absent, valeur hors liste, date impossible, coordonnée hors b
 carte invalide, montant négatif. Chacun finit en DLQ (`test_chaque_corruption_de_demonstration…`).
 Dans le rejeu du 21/12/2020 : **6 390 lignes lues, 6 corrompues, 6 en DLQ, 6 384 traitées**.
 
-## 7. Robustesse opérationnelle : relances automatiques — indicateur 4.3
+## 7. Robustesse opérationnelle : relances automatiques - indicateur 4.3
 
 > *« Des politiques de relance automatique (retries) sont-elles configurées pour gérer les pannes
 > réseau éphémères ? »*
@@ -286,7 +286,7 @@ Les relances de l'API ne sont pas théoriques : l'API réelle a répondu **502 �
 ses réponses ont pris 5,8 à 11 s. La démonstration `--pannes 2` simule deux pannes réseau au
 départ pour les montrer à coup sûr.
 
-## 8. Lignage des données — indicateur 7.1
+## 8. Lignage des données - indicateur 7.1
 
 > *« Le lignage permet-il de retracer l'origine de chaque donnée transformée ? »*
 
@@ -307,7 +307,7 @@ départ pour les montrer à coup sûr.
 | `nb_tx_24h`, `montant_relatif` | historique de la carte dans le bronze | fenêtres 24 h et 30 j, strictement antérieures | `fonctionnalites.EtatCartes` |
 | `score`, `est_fraude`, `seuil`, `version_modele` | caractéristiques ci-dessus | probabilité du modèle ; décision `score >= seuil` | `modele.ModeleFraude` |
 | `etiquette_source` | `is_fraud` | identité ; **jamais utilisée pour décider**, seulement pour mesurer | `masquer` |
-| `version_regles`, `lot_id`, `traite_le` | métadonnées d'exécution | — | `consommateur` |
+| `version_regles`, `lot_id`, `traite_le` | métadonnées d'exécution | - | `consommateur` |
 
 Les champs `first`, `last`, `street`, `city`, `zip`, `job`, `gender`, `dob`, `lat`, `long` n'ont
 **aucune colonne descendante** : leur lignage s'arrête au producteur (voir

@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Estimation FinOps : consommation mesurée x prix unitaires hypothétiques — critère 6.2.
+"""Estimation FinOps : consommation mesurée x prix unitaires hypothétiques (critère 6.2).
 
 « Combien coûte ce pipeline ? » se répond par une chaîne vérifiable : *consommation* (mesurée ou
 déduite du volume) x *prix unitaire* (fourni par le fournisseur retenu). Le module sépare donc

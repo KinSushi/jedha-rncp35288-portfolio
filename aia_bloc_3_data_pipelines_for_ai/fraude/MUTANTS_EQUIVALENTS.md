@@ -1,4 +1,4 @@
-# Mutants équivalents nommés — AIA bloc 3, détection de fraude
+# Mutants équivalents nommés : AIA bloc 3, détection de fraude
 
 Copyright © 2026 · voir le fichier LICENSE du dépôt
 

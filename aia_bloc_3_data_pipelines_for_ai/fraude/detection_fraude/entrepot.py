@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Entrepôt en couches bronze / argent / or (architecture médaillon) — critères 2.1 et 7.1.
+"""Entrepôt en couches bronze / argent / or (architecture médaillon), critères 2.1 et 7.1.
 
 Il isole **tout le SQL** du projet. Le même code écrit dans SQLite (mode local) et dans
 PostgreSQL (production) : seul le DSN change, car les requêtes se limitent à du SQL portable

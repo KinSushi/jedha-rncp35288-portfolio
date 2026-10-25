@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Supervision : contrôles de santé et seuils d'alerte (SLA) — critère 6.1.
+"""Supervision : contrôles de santé et seuils d'alerte (SLA), critère 6.1.
 
 Un pipeline temps réel qui tombe en silence est pire qu'un pipeline qui échoue bruyamment. Ce
 module regroupe des contrôles *purs* (ils reçoivent l'entrepôt, la configuration et l'heure) :

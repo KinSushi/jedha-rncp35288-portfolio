@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Caractéristiques : version vectorisée (lot) et incrémentale (flux) identiques — critère 2.2."""
+"""Caractéristiques : version vectorisée (lot) et incrémentale (flux) identiques (critère 2.2)."""
 
 from __future__ import annotations
 

@@ -567,38 +567,38 @@ CAS_ALERTES = {
             }
         ),
         "[AIRFLOW] échec de d.t",
-        "Tentative n° 3 — boum",
+        "Tentative n° 3 : boum",
         {"dag": "d", "tache": "t"},
     ),
     "echec_contexte_vide_valeurs_par_defaut": (
         lambda: taches.alerte_echec_tache({}),
         "[AIRFLOW] échec de ?.?",
-        "Tentative n° ? — inconnue",
+        "Tentative n° ? : inconnue",
         {"dag": None, "tache": None},
     ),
     "echec_instance_partielle": (
         lambda: taches.alerte_echec_tache({"task_instance": SimpleNamespace(dag_id="d")}),
         "[AIRFLOW] échec de d.?",
-        "Tentative n° ? — inconnue",
+        "Tentative n° ? : inconnue",
         {"dag": "d", "tache": None},
     ),
     "echec_cause_de_300_caracteres_gardee_entiere": (
         lambda: taches.alerte_echec_tache({"exception": "x" * 300}),
         "[AIRFLOW] échec de ?.?",
-        "Tentative n° ? — " + "x" * 300,
+        "Tentative n° ? : " + "x" * 300,
         {"dag": None, "tache": None},
     ),
     "echec_cause_de_301_caracteres_tronquee_a_300": (
         lambda: taches.alerte_echec_tache({"exception": "x" * 299 + "yz"}),
         "[AIRFLOW] échec de ?.?",
-        "Tentative n° ? — " + "x" * 299 + "y",
+        "Tentative n° ? : " + "x" * 299 + "y",
         {"dag": None, "tache": None},
     ),
     "echec_numero_de_carte_masque_avant_la_coupure": (
         # Un numéro à cheval sur la coupure ne doit pas laisser fuir ses premiers chiffres.
         lambda: taches.alerte_echec_tache({"exception": "x" * 289 + " 4929000000000001 fin"}),
         "[AIRFLOW] échec de ?.?",
-        "Tentative n° ? — " + ("x" * 289 + " [PAN_MASQUE] fin")[:300],
+        "Tentative n° ? : " + ("x" * 289 + " [PAN_MASQUE] fin")[:300],
         {"dag": None, "tache": None},
     ),
     "sla_complet": (

@@ -1,6 +1,6 @@
-# 01 — Architecture de l'infrastructure, justifiée
+# 01 - Architecture de l'infrastructure, justifiée
 
-*Bloc 3 AIA — Détection automatique de fraude. Code : `fraude/`. Ce document répond aux
+*Bloc 3 AIA : détection automatique de fraude. Code : `fraude/`. Ce document répond aux
 indicateurs 1.1, 1.2 et 1.3 du référentiel.*
 
 ## 1. Le besoin et ses deux fraîcheurs
@@ -116,7 +116,7 @@ les quatre. Le coût d'un flux, ici, est faible : un producteur et un consommate
 Le consommateur lit des **micro-lots** (500 messages au plus, 1 s d'attente au plus) plutôt que
 message par message : le modèle note le lot en un appel vectorisé, et la latence reste de l'ordre
 de la seconde. Latence mesurée de la publication à l'envoi de la notification, sur les 10 alertes
-du rejeu : **0,05 s au minimum, 0,30 s en moyenne, 0,54 s au maximum** (mode local, un poste). Sur la production locale (Kafka, PostgreSQL, 18 alertes) : 0,60 s au minimum, 1,95 s en moyenne, 4,26 s au maximum — toujours très en deçà de l'objectif de 60 s.
+du rejeu : **0,05 s au minimum, 0,30 s en moyenne, 0,54 s au maximum** (mode local, un poste). Sur la production locale (Kafka, PostgreSQL, 18 alertes) : 0,60 s au minimum, 1,95 s en moyenne, 4,26 s au maximum, toujours très en deçà de l'objectif de 60 s.
 
 ### 3.2 Rapport du matin : lot
 

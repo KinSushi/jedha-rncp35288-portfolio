@@ -1,5 +1,5 @@
 # Copyright © 2026 · voir le fichier LICENSE du dépôt
-"""Export, intégrité et chargement du modèle de détection — critères 2.3 et 5.2.
+"""Export, intégrité et chargement du modèle de détection (critères 2.3 et 5.2).
 
 Entre l'entraînement (tâche hebdomadaire Airflow) et le scoring (consommateur en continu), il
 faut un *contrat d'échange* : un dossier versionné contenant le pipeline scikit-learn complet

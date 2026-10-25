@@ -31,7 +31,7 @@ from detection_fraude.file_attente import FileSQLite
 from detection_fraude.notification import CanalFichier, Notificateur, Notification
 from tests.helpers import ChargeurFactice
 
-ACCENTS = "Générale d'été — çà et là, œuvre ñ"
+ACCENTS = "Générale d'été - çà et là, œuvre ñ"
 
 
 class Ouvertures:
