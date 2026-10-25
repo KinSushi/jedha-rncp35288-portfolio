@@ -212,6 +212,11 @@ att_spam_detector/
 
 Code, tests et notebook : licence du dépôt, voir le fichier [`LICENSE`](../LICENSE) à sa racine. Le corpus de SMS n'est pas couvert par cette licence et n'est pas publié ici ; DistilBERT, téléchargé à l'exécution, relève des conditions de son propre dépôt.
 
+## 9. Différences avec le livrable déposé
+
+- Les SMS du corpus ne sont pas reproduits : dans `tests/test_chiffres_reels.py` et `tests/test_notebook.py`, leur texte est remplacé par « <SMS du corpus, non reproduit> » ; les comptes et les métriques comparés sont les mêmes.
+- Dans `tests/test_donnees.py`, l'adresse d'essai de la branche `co.uk` du motif d'URL est placée sous le domaine réservé `.example` ; le cas testé est le même.
+
 ---
 
 *Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

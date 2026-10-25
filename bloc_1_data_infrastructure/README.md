@@ -108,7 +108,8 @@ Données et fonds de carte : © les contributeurs d'OpenStreetMap (ODbL) ; mét�
 ## 8. Différences avec le livrable déposé
 
 - Le data lake n'est pas publié : le test qui rejoue le notebook (`kayak_v2/tests/test_notebook.py`) est ignoré quand le dossier `datalake/` est absent, au lieu d'échouer.
-- Dans `kayak_v2/tests/test_destinations_inverses.py`, le mot d'essai de la normalisation (majuscule accentuée, puis accent décomposé) est « ÉTRETAT » au lieu de « ÉCOLE » ; le cas testé est le même.
+- Dans `kayak_v2/tests/test_destinations_inverses.py`, le mot d'essai de la normalisation (majuscule accentuée, puis accent décomposé) est « ÉTRETAT » au lieu du mot du livrable ; le cas testé est le même.
+- Dans `kayak_v2/tests/test_spark_etl_hors_spark.py`, le chemin d'essai de Hadoop est `hadoop` au lieu d'un chemin de poste Windows.
 
 ---
 

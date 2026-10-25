@@ -197,6 +197,13 @@ Ce que le projet ne démontre pas, dit tel quel :
     `-- data/                         reçoit fraudTest.csv (non versionné, non redistribué)
 ```
 
+## 8. Différences avec le livrable déposé
+
+- Les tests n'emploient aucune ligne du jeu réel : noms de commerçants, numéros de transaction, numéros de carte et montants des données d'essai sont remplacés par des valeurs fictives ; les cas testés sont les mêmes.
+- L'adresse de l'API de l'énoncé n'est pas publiée : `config/base.yaml` pointe vers le domaine réservé `exemple.invalid` (section 2).
+- Dans `tests/test_equivalent_mutants_premises.py`, une fonction d'essai est renommée et ses accents sont rétablis ; aucune autre référence ne dépend de son nom.
+- Le titre du rapport du matin et le message d'une nouvelle tentative emploient « : » là où le livrable avait un tiret long ; leurs tests sont alignés.
+
 ---
 
 *Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*

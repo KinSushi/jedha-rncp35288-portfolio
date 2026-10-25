@@ -143,7 +143,7 @@ README.md                           cette page
 
 ## 8. Différences avec le livrable déposé
 
-- **Steam** : l'adresse S3 du fichier de données n'est pas publiée. Sur Databricks, `steam_analyse.py` la lit dans la variable d'environnement `STEAM_CHEMIN_S3` (fonction `chemin_donnees`), au lieu de la constante du livrable ; les tests du module vérifient cette lecture et le refus d'une variable absente ou vide.
+- **Steam** : l'adresse S3 du fichier de données n'est pas publiée. Sur Databricks, `steam_analyse.py` la lit dans la variable d'environnement `STEAM_CHEMIN_S3` (fonction `chemin_donnees`), au lieu de la constante du livrable ; les tests du module vérifient cette lecture et le refus d'une variable absente ou vide. Dans `tests/test_steam_analyse.py`, le chemin d'essai du test qui retire les chemins locaux est anonymisé (`/Users/nom/…`).
 - **Speed dating** : dans la première cellule du notebook, la question de l'énoncé est reformulée en français au lieu d'être citée, et le texte précise que les données et leur dictionnaire ne sont pas joints à ce dépôt ; une docstring de `speed_dating.py` ne renvoie plus à une source « à joindre ». Le code et les sorties sont ceux du livrable.
 
 ---
