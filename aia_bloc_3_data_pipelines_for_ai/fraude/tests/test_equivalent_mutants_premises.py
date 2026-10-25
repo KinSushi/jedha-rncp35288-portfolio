@@ -114,7 +114,15 @@ def test_un_chemin_de_base_en_memoire_a_pour_parent_le_dossier_courant():
 
 
 def test_un_instant_aware_garde_sa_difference_quel_que_soit_son_fuseau_d_expression():
-    """``astimezone(None)`` ou ``astimezone(UTC)`` : la différence de deux instants est la même."""
+    """``astimezone(None)`` ou ``astimezone(UTC)`` : la différence de deux instants est la même.
+
+    Attention : ce fait ne dit rien de l'équivalence du mutant
+    `supervision.x_controler__mutmut_51` (`.astimezone(UTC)` devenu `.astimezone(None)`).
+    La différence est bien la même, mais la conversion vers le fuseau **local** peut échouer là
+    où la conversion vers UTC réussit, et le mutant a été tué le 21 octobre 2026 sur ce point.
+    Ce test ne justifie plus rien sur ce mutant ; il reste vrai, et le test du projet qui tue
+    le mutant est ailleurs.
+    """
     maintenant = datetime(2026, 10, 10, 7, 20, tzinfo=UTC)
     dernier = datetime.fromisoformat("2026-10-10T07:05:00+00:00")
     assert maintenant - dernier.astimezone(None) == maintenant - dernier.astimezone(UTC)
@@ -297,15 +305,6 @@ def test_un_numero_de_carte_de_8_a_19_caracteres_est_au_moins_dix_millions_ou_ne
     assert _controle_brut("cc_num", 0) == _controle_brut("cc_num", 1) == "longueur_invalide"
     assert _controle_brut("cc_num", -12_345_678) == "longueur_invalide"
     assert _controle_brut("cc_num", 12_345_678) is None
-
-
-def test_le_f1_multiplie_par_une_constante_positive_garde_le_meme_maximum():
-    """``3 * p * r`` au lieu de ``2 * p * r`` multiplie chaque F1 par 1,5 : même indice maximal."""
-    generateur = np.random.default_rng(3)
-    for _ in range(50):
-        p, r = generateur.random(30), generateur.random(30)
-        f1 = 2 * p * r / np.maximum(p + r, 1e-12)
-        assert int(np.argmax(3 * p * r / np.maximum(p + r, 1e-12))) == int(np.argmax(f1))
 
 
 def test_l_etiquette_du_jeu_d_entrainement_est_deja_un_entier():

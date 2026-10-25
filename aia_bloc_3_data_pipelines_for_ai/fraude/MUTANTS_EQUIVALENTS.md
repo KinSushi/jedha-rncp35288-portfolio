@@ -4,7 +4,8 @@ Copyright © 2026 · voir le fichier LICENSE du dépôt
 
 Un mutant est une petite modification du code (un opérateur inversé, une valeur changée) faite par l'outil de mutation `mutmut`. Un mutant est **tué** quand au moins un test échoue. Un mutant qui survit est soit un trou dans les tests, soit un mutant **équivalent** : il ne change aucun comportement observable, donc aucun test ne peut le distinguer de l'original.
 
-Ce fichier nomme les **87 mutants équivalents** qui restent, avec pour chacun la preuve de l'équivalence. Quand la preuve repose sur un fait de Python ou d'une bibliothèque, ce fait est contrôlé par un test de `tests/test_equivalent_mutants_premises.py` : si une mise à jour le change, le test échoue et le mutant est à réexaminer. Tous les autres mutants sont tués.
+Ce fichier nomme les **85 mutants équivalents** qui restent (77 dans les familles ci-dessous, 8 en section
+propre ; deux mutants ont été tués le 21 octobre 2026 et sont décrits en fin de fichier), avec pour chacun la preuve de l'équivalence. Quand la preuve repose sur un fait de Python ou d'une bibliothèque, ce fait est contrôlé par un test de `tests/test_equivalent_mutants_premises.py` : si une mise à jour le change, le test échoue et le mutant est à réexaminer. Tous les autres mutants sont tués.
 
 Les noms sont ceux de `mutmut 3` (`module.fonction__mutmut_N`, `ǁ` sépare la classe et la méthode). Le numéro N dépend du contenu de la fonction : il change si la fonction change.
 
@@ -180,14 +181,19 @@ Les noms sont ceux de `mutmut 3` (`module.fonction__mutmut_N`, `ǁ` sépare la c
   - `detection_fraude.entrainement.x_entrainer__mutmut_280`
   - `detection_fraude.entrainement.x_entrainer__mutmut_347`
 
-### Seuil à précision fixée : choix du meilleur point (2)
+### Seuil à précision fixée : choix du meilleur point (1)
 
-- Mutation : `admissibles[np.argmax(r[admissibles])]` devient `admissibles[np.argmax(None)]` ; le F1 `2 * p * r / ...` devient `3 * p * r / ...`.
-- Preuve : Le rappel de la courbe précision-rappel ne croît jamais quand le seuil monte : le meilleur rappel admissible est celui du premier point admissible, l'indice 0, ce que rend aussi `np.argmax(None)`. Multiplier tous les F1 par 1,5 ne déplace pas leur maximum.
-- Fait contrôlé par : test_le_rappel_de_la_courbe_ne_croit_jamais_quand_le_seuil_monte, test_le_f1_multiplie_par_une_constante_positive_garde_le_meme_maximum.
+- Mutation : `admissibles[np.argmax(r[admissibles])]` devient `admissibles[np.argmax(None)]`.
+- Preuve : Le rappel de la courbe précision-rappel ne croît jamais quand le seuil monte : le meilleur rappel admissible est celui du premier point admissible, l'indice 0, ce que rend aussi `np.argmax(None)`.
+- Fait contrôlé par : test_le_rappel_de_la_courbe_ne_croit_jamais_quand_le_seuil_monte.
 - Mutants :
   - `detection_fraude.entrainement.x_rappel_a_precision_fixee__mutmut_15`
-  - `detection_fraude.entrainement.x_rappel_a_precision_fixee__mutmut_32`
+
+> Le second mutant de cette famille, `x_rappel_a_precision_fixee__mutmut_32` (`f1 = 2 * p * r / ...`
+> devient `f1 = 3 * p * r / ...`), n'était **pas** équivalent : il est **tué** depuis le 21 octobre
+> 2026 (voir la section dédiée plus bas). La prémisse qui le justifiait (« multiplier tous les F1
+> par 1,5 ne déplace pas leur maximum ») est vraie en arithmétique exacte et fausse en virgule
+> flottante ; le test de prémisse correspondant a été retiré.
 
 ### Numéro de carte : `int(valeur) > 0` devient `>= 0` ou `> 1` (2)
 
@@ -251,11 +257,23 @@ Les noms sont ceux de `mutmut 3` (`module.fonction__mutmut_N`, `ǁ` sépare la c
 - Preuve : Même raison : `0` et `None` sont faux tous les deux.
 - Fait contrôlé par : test_bool_de_none_est_faux.
 
-### `detection_fraude.supervision.x_controler__mutmut_51`
+### `detection_fraude.supervision.x_controler__mutmut_51` : **tué le 21 octobre 2026**
 
 - Mutation : `.astimezone(UTC)` devient `.astimezone(None)` avant une soustraction.
-- Preuve : La différence de deux instants munis d'un fuseau ne dépend pas du fuseau dans lequel ils sont exprimés.
-- Fait contrôlé par : test_un_instant_aware_garde_sa_difference_quel_que_soit_son_fuseau_d_expression.
+- Ce que la preuve disait : « la différence de deux instants munis d'un fuseau ne dépend pas du fuseau dans lequel ils sont exprimés ». C'est vrai de la différence, mais `.astimezone(None)` doit d'abord convertir l'instant dans le **fuseau local** de la machine, et cette conversion échoue là où la conversion vers UTC réussit : `OverflowError` sous Linux pour un instant de 9999-12-31 quand le fuseau local est en avance sur UTC, `OSError` sous Windows pour un instant antérieur à 1970 ou postérieur à l'an 3000. L'original ne lève rien.
+- **Ce qui a changé** : un test du projet,
+  `tests/test_supervision_garanties.py::test_controler_calcule_la_fraicheur_dans_le_fuseau_utc_quelque_soit_le_fuseau_local`,
+  met la machine dans un fuseau en avance sur UTC (sous Linux) et vérifie que `controler` rend
+  son verdict au lieu de lever. Le mutant échoue, l'original passe : il est désormais **tué**.
+
+### `detection_fraude.entrainement.x_rappel_a_precision_fixee__mutmut_32` : **tué le 21 octobre 2026**
+
+- Mutation : `f1 = 2 * p * r / ...` devient `f1 = 3 * p * r / ...`.
+- Ce que la preuve disait : « multiplier tous les F1 par 1,5 ne déplace pas leur maximum ». C'est vrai en arithmétique exacte, faux en virgule flottante : multiplier par 2 est exact, multiplier par 3 arrondit. Quand deux seuils ont un F1 **mathématiquement égal**, l'arrondi décide lequel `np.argmax` retient, et il ne décide pas de même avec 2 et avec 3.
+- Le cas : 8 transactions, 2 fraudes, précision cible 0,90 (inatteignable, donc la branche F1 est prise). Seuil 0,0 : précision 0,25, rappel 1,0, F1 = 0,4. Seuil 0,3 : précision 1/3, rappel 0,5, F1 = 0,4. L'original retient 0,0, le mutant 0,3 : **le seuil de décision rendu change**.
+- **Ce qui a changé** : un test du projet,
+  `tests/test_entrainement_garanties.py::test_rappel_a_precision_fixee_une_egalite_de_f1_est_departagee_par_le_seuil_le_plus_bas`,
+  fixe ce cas. Le mutant échoue, l'original passe : il est désormais **tué**.
 
 ### `detection_fraude.rapport.x_jour_de_la_veille__mutmut_5`
 

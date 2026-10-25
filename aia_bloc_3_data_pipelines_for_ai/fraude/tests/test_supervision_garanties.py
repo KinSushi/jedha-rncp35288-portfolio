@@ -438,6 +438,47 @@ def test_controler_donne_exactement_les_constats_attendus_aux_bornes_de_chaque_s
     assert instantane(entrepot) == base_avant  # contrôler ne fait que lire
 
 
+def test_controler_calcule_la_fraicheur_dans_le_fuseau_utc_quelque_soit_le_fuseau_local(
+    config, entrepot, monkeypatch
+):
+    """L'âge d'une transaction est mesuré en UTC, quel que soit le fuseau de la machine.
+
+    La différence entre deux instants est la même dans tous les fuseaux, mais la conversion
+    elle-même peut échouer : convertir vers le fuseau **local** demande que l'instant reste
+    représentable dans ce fuseau, ce qui n'est pas le cas aux extrémités du calendrier. La
+    conversion vers UTC, elle, réussit toujours.
+
+    Ce test met donc la machine dans un fuseau en avance sur UTC (sous Linux) et vérifie que
+    `controler` rend tout de même son verdict, sans exception. Sous Windows, où le fuseau local
+    ne peut pas être changé à chaud, le même cas est vérifié par l'absence d'exception.
+    """
+    import time as _time
+
+    # Sous Linux, le fuseau de la machine peut être changé à chaud ; sous Windows, il ne peut
+    # pas, et le cas équivalent est vérifié plus bas (une date antérieure à 1970).
+    if hasattr(_time, "tzset"):
+        fuseau_precedent = os.environ.get("TZ")
+        monkeypatch.setenv("TZ", "Asia/Tokyo")
+        _time.tzset()
+        try:
+            ligne = ligne_argent(1)
+            ligne["traite_le"] = "9999-12-31T20:00:00+00:00"  # non représentable en +9 h
+            inserer(entrepot, [ligne])
+            constats = controler(entrepot, config, datetime(2026, 10, 10, 7, 20, tzinfo=UTC))
+        finally:
+            if fuseau_precedent is None:
+                os.environ.pop("TZ", None)
+            else:
+                os.environ["TZ"] = fuseau_precedent
+            _time.tzset()
+    else:
+        ligne = ligne_argent(1)
+        ligne["traite_le"] = "1960-01-01T00:00:00+00:00"  # non représentable par Windows
+        inserer(entrepot, [ligne])
+        constats = controler(entrepot, config, datetime(2026, 10, 10, 7, 20, tzinfo=UTC))
+    assert constats, "controler n'a rien rendu"
+
+
 def test_controler_ne_modifie_ni_la_base_ni_les_fichiers_et_renvoie_tous_les_constats_dans_l_ordre(
     config, entrepot
 ):

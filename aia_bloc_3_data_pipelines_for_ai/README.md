@@ -118,13 +118,13 @@ L'entraînement porte sur 389 003 lignes (1 776 fraudes). La précision visée d
 | Délai entre détection et notification | 0,6 à 4,5 s ; moyennes de 1,1 à 2,3 s sur quatre exécutions | [exploitation, § 2.1](livrables/aia3/04_exploitation.md) |
 | Coût mensuel estimé (1 440 transactions par jour, prix hypothétiques) | environ 158,79 €, à plus de 99,9 % du calcul permanent | [exploitation, § 4.2 et § 4.3](livrables/aia3/04_exploitation.md) |
 
-### Qualité du code (19 octobre 2026)
+### Qualité du code (21 octobre 2026)
 
 | Mesure | Résultat | Source |
 |---|---|---|
-| Tests (`pytest`, avertissements de dépréciation traités comme des erreurs) | 1 621 tests : 1 620 réussis, 1 ignoré (il exige Airflow installé), aucun appel réseau | [couverture et limites, § 2](livrables/aia3/07_couverture_et_limites.md) |
+| Tests (`pytest`, avertissements de dépréciation traités comme des erreurs) | 1 622 tests : 1 621 réussis, 1 ignoré (il exige Airflow installé), aucun appel réseau | [couverture et limites, § 2](livrables/aia3/07_couverture_et_limites.md) |
 | Analyse statique | `ruff` et `mypy --strict` sans erreur (25 fichiers) | idem |
-| Tests de mutation (`mutmut`, tout le code) | 9 061 mutants tués sur 9 148 ; les 87 autres ne changent aucun comportement et sont nommés avec leur preuve | [`fraude/MUTANTS_EQUIVALENTS.md`](fraude/MUTANTS_EQUIVALENTS.md) |
+| Tests de mutation (`mutmut`, tout le code) | 9 063 mutants tués sur 9 148 ; les 85 autres ne changent aucun comportement et sont nommés avec leur preuve | [`fraude/MUTANTS_EQUIVALENTS.md`](fraude/MUTANTS_EQUIVALENTS.md) |
 | Confidentialité | aucun nom, rue, ville, métier, date de naissance ni numéro de carte dans aucun fichier produit (test dédié) | [couverture et limites, § 2](livrables/aia3/07_couverture_et_limites.md) |
 
 ## 5. Reproduire

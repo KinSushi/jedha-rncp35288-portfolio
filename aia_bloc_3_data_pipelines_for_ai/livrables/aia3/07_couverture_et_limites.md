@@ -49,7 +49,7 @@
 | Confidentialité | `test_aucune_donnee_personnelle_dans_aucun_fichier_produit` | aucun nom, rue, ville, métier, date de naissance ni numéro de carte dans aucun fichier produit |
 | Mentions | recherche sur les fichiers suivis (72 avec ce rapport) | la ligne de copyright figure dans tous les fichiers ; aucun secret ; fins de ligne LF |
 | **Second environnement** (10/10/2026, Python 3.12.14) | `ruff check`, `ruff format --check`, `pytest`, `python -m detection_fraude.local demo --reinitialiser` | ruff propre ; **282 réussis, 2 ignorés** ; mode local : 6 390 lignes lues, 6 en DLQ, 6 384 traitées, **10 alertes**, supervision sans anomalie |
-| **Porte de qualité** (19/10/2026, Python 3.12.14, pandas 3.0.6, numpy 2.5.4, SQLAlchemy 2.0.54) | `ruff check`, `mypy --strict`, `pytest -W error::DeprecationWarning`, mutation (`mutmut`) | ruff et mypy sans erreur (25 fichiers) ; **1 620 réussis, 1 ignoré** (Airflow) ; mutation sur tout le code : 9 061 mutants tués sur 9 148, les 87 autres équivalents, nommés avec leur preuve dans `fraude/MUTANTS_EQUIVALENTS.md` |
+| **Porte de qualité** (21/10/2026, Python 3.12.14, pandas 3.0.6, numpy 2.5.4, SQLAlchemy 2.0.54) | `ruff check`, `mypy --strict`, `pytest -W error::DeprecationWarning`, mutation (`mutmut`) | ruff et mypy sans erreur (25 fichiers) ; **1 621 réussis, 1 ignoré** (Airflow) ; mutation sur tout le code : 9 063 mutants tués sur 9 148, les 85 autres équivalents, nommés avec leur preuve dans `fraude/MUTANTS_EQUIVALENTS.md` |
 
 ## 3. Hypothèses et points à confirmer
 

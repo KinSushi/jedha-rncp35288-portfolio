@@ -631,6 +631,28 @@ def test_rappel_a_precision_fixee_cas_calcules_a_la_main_et_entrees_intactes(
     assert np.array_equal(s, s_avant)
 
 
+def test_rappel_a_precision_fixee_une_egalite_de_f1_est_departagee_par_le_seuil_le_plus_bas():
+    """Deux seuils de même F1 : le plus bas est retenu, et c'est stable.
+
+    Le repli sur le F1 (quand la précision cible est inatteignable) compare des F1 qui
+    peuvent être mathématiquement égaux. Multiplier le numérateur par 2 ou par 3 ne change
+    pas leur ordre en arithmétique exacte, mais le calcul en virgule flottante arrondit :
+    l'égalité peut disparaître d'un côté et pas de l'autre, et le seuil retenu change.
+
+    Ce test fixe le cas : 8 transactions, 2 fraudes, précision cible 0,90 (inatteignable).
+    - seuil 0,0 : 8 alertes dont 2 fraudes, précision 0,25, rappel 1,0, F1 = 0,4 ;
+    - seuil 0,3 : 3 alertes dont 1 fraude, précision 1/3, rappel 0,5, F1 = 0,4.
+    Les deux F1 sont égaux : le seuil le plus bas, 0,0, doit être retenu.
+    """
+    y_vrai = np.array([0, 0, 0, 0, 1, 1, 0, 0])
+    scores = np.array([0.3, 0.0, 0.2, 0.2, 0.3, 0.0, 0.3, 0.0])
+    resultat = rappel_a_precision_fixee(y_vrai, scores, 0.90)
+    assert resultat["cible_atteinte"] is False
+    assert resultat["seuil"] == 0.0
+    assert resultat["rappel"] == 1.0
+    assert resultat["precision"] == 0.25
+
+
 def test_rappel_a_precision_fixee_refuse_des_longueurs_differentes_et_garde_les_entrees_intactes():
     """Des étiquettes et des scores de tailles différentes sont une erreur, pas un seuil."""
     y, s = np.array([1, 0, 1]), np.array([0.9, 0.8])
