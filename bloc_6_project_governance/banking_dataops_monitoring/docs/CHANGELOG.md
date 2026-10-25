@@ -6,3 +6,7 @@
 - psycopg import handling in dashboard
 - database bootstrap ordering
 - validation documentation
+
+---
+
+*Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC*
