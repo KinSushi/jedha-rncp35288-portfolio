@@ -78,7 +78,7 @@ officielle. Le notebook lit le classeur dans `data/`.
 
 ## Lancer en local
 
-Les commandes se lancent depuis le dossier `getaround/`. Les images Docker utilisent Python 3.12.
+Les commandes se lancent depuis ce dossier. Les images Docker utilisent Python 3.12.
 
 ```bash
 python -m venv .venv && .venv/Scripts/activate      # macOS/Linux : source .venv/bin/activate
@@ -126,7 +126,7 @@ publié en HTTPS par Tailscale Funnel.
 **Disponibilité** : le service tourne sur mon poste. Il est en ligne quand le poste est allumé, en
 particulier pendant l'épreuve.
 
-Depuis la racine du projet (`getaround/`) :
+Depuis la racine de ce dossier :
 
 ```bash
 # 1. images
@@ -171,6 +171,13 @@ docker run -v "$PWD/data:/home/utilisateur/app/data:ro" -v "$PWD/models:/home/ut
   (documentation de l'API et tableau de bord sur les adresses publiques ; interface MLflow en
   local, métriques identiques à `models/comparaison_modeles.csv`).
 
+## Limites
+
+- Le service en ligne tourne sur mon poste : il est disponible quand le poste est allumé.
+- L'écart d'annulation (+5,8 points) est observé sur 218 cas seulement : une association, pas une causalité démontrée.
+- Les données ne contiennent aucun prix par location : la part du revenu touchée ne peut pas être calculée.
+- Le mode registre MLflow fonctionne en local seulement ; l'image Docker sert l'export `models/model.joblib`.
+
 ## Accessibilité du tableau de bord et de l'API (compétence C5.3)
 
 Contrôle fait le 19/10/2026 sur les services lancés en local (contraste, clavier, téléphone,
@@ -182,16 +189,16 @@ page déclarée en français ; thème clair plus contrasté (`dashboard/.streaml
 ## Structure
 
 ```
-getaround/api/                       API FastAPI (validation de l'entrée) et son Dockerfile
-getaround/dashboard/                 tableau de bord Streamlit, son thème (.streamlit/) et son Dockerfile
-getaround/train/                     entraînement (train.py), MLflow, export du champion, et son Dockerfile
-getaround/requirements*.txt          versions figées (api, tableau de bord, entraînement, développement)
-getaround/retards.py                 indicateurs de retard (notebook et tableau de bord)
-getaround/ACCESSIBILITE.md           contrôle d'accessibilité du tableau de bord et de /docs
-getaround/Getaround_Analyse_Retards.ipynb   notebook d'analyse, exécuté (retards, puis données de prix)
-getaround/models/                    champion exporté, colonnes, catégories connues, exemple, comparaison, importance
-getaround/data/                      données de l'énoncé (archive remise ; sinon adresses officielles ci-dessus)
-getaround/captures/                  preuves de fonctionnement (API, tableau de bord, MLflow)
+api/                                 API FastAPI (validation de l'entrée) et son Dockerfile
+dashboard/                           tableau de bord Streamlit, son thème (.streamlit/) et son Dockerfile
+train/                               entraînement (train.py), MLflow, export du champion, et son Dockerfile
+requirements*.txt                    versions figées (api, tableau de bord, entraînement, développement)
+retards.py                           indicateurs de retard (notebook et tableau de bord)
+ACCESSIBILITE.md                     contrôle d'accessibilité du tableau de bord et de /docs
+Getaround_Analyse_Retards.ipynb      notebook d'analyse, exécuté (retards, puis données de prix)
+models/                              champion exporté, colonnes, catégories connues, exemple, comparaison, importance
+data/                                données de l'énoncé (archive remise ; sinon adresses officielles ci-dessus)
+captures/                            preuves de fonctionnement (API, tableau de bord, MLflow)
 ```
 
 ---
