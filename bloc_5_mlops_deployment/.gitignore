@@ -1,0 +1,13 @@
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
+__pycache__/
+.ipynb_checkpoints/
+mlflow.db
+mlruns/
+mlartifacts/
+
+# Le .gitignore de la racine exclut *.joblib et *.csv : on republie le modèle et ses tables.
+!models/*.joblib
+!models/*.csv
+
+# Données de l'énoncé : non republiées (voir README, adresses officielles).
+data/

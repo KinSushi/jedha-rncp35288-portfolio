@@ -1,0 +1,62 @@
+{
+  "_copyright": "Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC",
+  "_source": "valeurs vues à l'entraînement (data/get_around_pricing_project.csv)",
+  "model_key": [
+    "Alfa Romeo",
+    "Audi",
+    "BMW",
+    "Citroën",
+    "Ferrari",
+    "Fiat",
+    "Ford",
+    "Honda",
+    "KIA Motors",
+    "Lamborghini",
+    "Lexus",
+    "Maserati",
+    "Mazda",
+    "Mercedes",
+    "Mini",
+    "Mitsubishi",
+    "Nissan",
+    "Opel",
+    "PGO",
+    "Peugeot",
+    "Porsche",
+    "Renault",
+    "SEAT",
+    "Subaru",
+    "Suzuki",
+    "Toyota",
+    "Volkswagen",
+    "Yamaha"
+  ],
+  "fuel": [
+    "diesel",
+    "electro",
+    "hybrid_petrol",
+    "petrol"
+  ],
+  "paint_color": [
+    "beige",
+    "black",
+    "blue",
+    "brown",
+    "green",
+    "grey",
+    "orange",
+    "red",
+    "silver",
+    "white"
+  ],
+  "car_type": [
+    "convertible",
+    "coupe",
+    "estate",
+    "hatchback",
+    "sedan",
+    "subcompact",
+    "suv",
+    "van"
+  ]
+}

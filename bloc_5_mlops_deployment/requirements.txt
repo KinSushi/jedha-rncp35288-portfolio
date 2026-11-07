@@ -1,0 +1,11 @@
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
+# Développement complet : entraînement (MLflow), API, tableau de bord, notebook.
+-r requirements-api.txt
+-r requirements-dashboard.txt
+mlflow==3.17.0
+# sqlalchemy 2.1 déprécie le chargeur « noload » que MLflow 3.17.0 emploie pour sa base SQLite
+# (SADeprecationWarning) : on reste en 2.0.
+sqlalchemy==2.0.54
+skops==0.16.0
+matplotlib>=3.9
+jupyter>=1.0

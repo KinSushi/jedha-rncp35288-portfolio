@@ -1,0 +1,11 @@
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
+# Entraînement du modèle de prix (image Docker « train ») - versions figées, les mêmes que
+# requirements.txt : seulement ce que train/train.py importe.
+pandas==3.0.6
+numpy==2.5.4
+scikit-learn==1.9.1
+scipy==1.18.1
+joblib==1.6.0
+mlflow==3.17.0
+sqlalchemy==2.0.54
+skops==0.16.0

@@ -38,7 +38,7 @@ RNCP38777 : data & AI governance -> AI data architecture -> data pipelines for A
 
 ## Published project work
 
-Eight of the ten blocks now hold the technical work of their certification project, in a cleaned-up public version: code, tests, executed notebooks and documentation. No input dataset, assignment text, grade or administrative document is included; [DONNEES.md](DONNEES.md) (in French) explains how to obtain the data of each block.
+Nine of the ten blocks now hold the technical work of their certification project, in a cleaned-up public version: code, tests, executed notebooks and documentation. No input dataset, assignment text, grade or administrative document is included; [DONNEES.md](DONNEES.md) (in French) explains how to obtain the data of each block.
 
 ### Data Science (RNCP35288)
 
@@ -48,7 +48,7 @@ Eight of the ten blocks now hold the technical work of their certification proje
 | Bloc 2 - EDA / statistics | Speed dating (pandas) and Steam (PySpark) | [bloc_2_eda_statistics](bloc_2_eda_statistics/) | published |
 | Bloc 3 - Machine learning | Walmart, Conversion and Uber | [bloc_3_machine_learning](bloc_3_machine_learning/) | published |
 | Bloc 4 - NLP / deep learning | SMS spam detector with deep learning | [bloc_4_nlp_deep_learning](bloc_4_nlp_deep_learning/) | published |
-| Bloc 5 - Industrialization / MLOps | - | [bloc_5_mlops_deployment](bloc_5_mlops_deployment/) | not published in this version |
+| Bloc 5 - Industrialization / MLOps | Getaround: delay analysis, price model, API, dashboard | [bloc_5_mlops_deployment](bloc_5_mlops_deployment/) | published |
 | Bloc 6 - Project governance | banking-dataops-monitoring: quality control of synthetic banking data, run as a project | [bloc_6_project_governance](bloc_6_project_governance/) | published |
 
 ### AI Architect (RNCP38777)
@@ -114,7 +114,7 @@ Allowed:
 | Bloc 2 - EDA / statistics | [`bloc_2_eda_statistics/`](bloc_2_eda_statistics/) | analysis, distributions, anomalies, hypothesis testing |
 | Bloc 3 - Machine learning | [`bloc_3_machine_learning/`](bloc_3_machine_learning/) | supervised/unsupervised ML, evaluation, explainability |
 | Bloc 4 - NLP / deep learning | [`bloc_4_nlp_deep_learning/`](bloc_4_nlp_deep_learning/) | text processing, document classification, GenAI foundations |
-| Bloc 5 - Industrialization / MLOps | [`bloc_5_mlops_deployment/`](bloc_5_mlops_deployment/) | API, Docker, MLflow, tests, monitoring |
+| Bloc 5 - Industrialization / MLOps | [`bloc_5_mlops_deployment/`](bloc_5_mlops_deployment/) | API, Docker, MLflow, dashboard |
 | Bloc 6 - Project governance | [`bloc_6_project_governance/`](bloc_6_project_governance/) | project charter, risk register, model/data governance |
 
 ## Four-block evidence map: AI Architect (RNCP38777)
@@ -135,10 +135,10 @@ This repository should reference, not duplicate, the technical repos:
 | External repo | Related block |
 |---|---|
 | `banking-dataops-monitoring` | Bloc 1, Bloc 6 |
-| `fraud-mlops-control-tower` | Bloc 3, Bloc 5, Bloc 6 |
+| `fraud-mlops-control-tower` | Bloc 3, Bloc 6 |
 | `database-migration-quality-lab` | Bloc 1, Bloc 6 |
 | `secure-wealth-rag-assistant` | Bloc 4, Bloc 6 |
-| `sovralys-infra-lab` | Bloc 1, Bloc 5 |
+| `sovralys-infra-lab` | Bloc 1 |
 | `pty-flights-pricing` | Bloc 1, operational automation evidence |
 
 ---

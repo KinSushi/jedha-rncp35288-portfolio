@@ -1,0 +1,20 @@
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
+# Thème clair du tableau de bord (lu par Streamlit à côté de dashboard/app.py).
+# Contrôle d'accessibilité du 19/10/2026 (WCAG 2.1, critère 1.4.3 : 4,5:1 pour un texte courant) :
+# - primaryColor : le rouge par défaut (#ff4b4b) écrit la valeur du curseur à 3,3:1 sur le fond
+#   blanc ; ce rouge plus sombre atteint 4,65:1 ;
+# - textColor : les bornes du curseur (0 et 720) sont écrites dans la couleur du texte à 60 %
+#   d'opacité ; avec le texte par défaut (#31333f), elles ressortent en #83858c, à 3,7:1. Avec
+#   ce texte presque noir, elles ressortent en #707070, à 4,95:1 (le texte courant passe à 18,9:1) ;
+# - grayTextColor : gris des indicateurs neutres (variation sur fond gris clair, 3,45:1 avec le
+#   gris par défaut) ; celui-ci est à 6,06:1 sur le blanc.
+# Le thème sombre garde les couleurs par défaut, déjà au-dessus de 4,5:1 sur son fond.
+# Barre d'outils en mode lecture : aucune option de développement ni bouton de publication à l'écran.
+
+[client]
+toolbarMode = "viewer"
+
+[theme.light]
+primaryColor = "#e0282f"
+textColor = "#111111"
+grayTextColor = "#5f6270"

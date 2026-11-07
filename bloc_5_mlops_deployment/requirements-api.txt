@@ -1,0 +1,10 @@
+# Copyright © 2026 · Auteur : KinSushi · Enzo · Sovralys LLC
+# API de prédiction (image Docker « api ») - versions figées : le modèle joblib doit être relu
+# avec la même version de scikit-learn que celle qui l'a entraîné.
+fastapi==0.143.0
+uvicorn==0.54.0
+pandas==3.0.6
+numpy==2.5.4
+scikit-learn==1.9.1
+scipy==1.18.1
+joblib==1.6.0

@@ -1,0 +1,5 @@
+modele,rmse_test,mae_test,r2_test,r2_validation_croisee,r2_validation_croisee_ecart_type,r2_apprentissage
+reference_prix_moyen,32.4635,23.258,-0.0006,-0.001,0.0013,0.0
+ridge,17.9701,12.1174,0.6934,0.7,0.0274,0.7123
+foret_aleatoire,16.6299,10.5947,0.7374,0.7549,0.0326,0.954
+gradient_boosting,16.3234,10.5232,0.747,0.7678,0.026,0.884

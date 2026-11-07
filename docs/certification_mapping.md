@@ -14,7 +14,7 @@ It does not claim certification completion unless officially validated. It does 
 | Bloc 2 - EDA/statistics | `bloc_2_eda_statistics/` | EDA, distributions, statistical analysis, reports |
 | Bloc 3 - Machine learning | `bloc_3_machine_learning/` | training, evaluation, explainability, metrics |
 | Bloc 4 - NLP/deep learning | `bloc_4_nlp_deep_learning/` | NLP, text classification, RAG foundations |
-| Bloc 5 - Industrialization/MLOps | `bloc_5_mlops_deployment/` | API, Docker, CI, monitoring, MLflow |
+| Bloc 5 - Industrialization/MLOps | `bloc_5_mlops_deployment/` | API, Docker, MLflow, dashboard |
 | Bloc 6 - Project governance | `bloc_6_project_governance/` | project charter, risk register, data/model cards |
 
 ## Four-block map: RNCP38777 (AI Architect)

@@ -1,0 +1,34 @@
+{
+  "input": [
+    [
+      "Renault",
+      109839.0,
+      135.0,
+      "diesel",
+      "black",
+      "sedan",
+      true,
+      true,
+      false,
+      false,
+      true,
+      false,
+      true
+    ],
+    [
+      "Mercedes",
+      180032.0,
+      105.0,
+      "diesel",
+      "grey",
+      "hatchback",
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true
+    ]
+  ]
+}

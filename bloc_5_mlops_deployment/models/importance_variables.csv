@@ -1,0 +1,14 @@
+,hausse_rmse_eur
+engine_power,12.999
+mileage,8.336
+model_key,2.493
+car_type,1.745
+has_gps,1.088
+has_getaround_connect,0.968
+fuel,0.815
+automatic_car,0.505
+has_speed_regulator,0.479
+paint_color,0.353
+winter_tires,0.237
+has_air_conditioning,0.205
+private_parking_available,0.201

@@ -8,7 +8,7 @@ This index should be updated whenever a new public artifact is added.
 | B2-E001 | Bloc 2 | Speed dating (pandas) and Steam (PySpark) studies | Published | Required |
 | B3-E001 | Bloc 3 | Walmart, Conversion and Uber projects | Published | Required |
 | B4-E001 | Bloc 4 | SMS spam detector with deep learning | Published | Required |
-| B5-E001 | Bloc 5 | MLOps deployment evidence | Not published in this version | Required |
+| B5-E001 | Bloc 5 | Getaround: API, Docker, MLflow, dashboard | Published | Required |
 | B6-E001 | Bloc 6 | banking-dataops-monitoring: quality control of synthetic banking data, run as a project | Published | Required |
 | A1-E001 | AIA Bloc 1 | Governance plan for a music-streaming platform | Published (summary) | Required |
 | A2-E001 | AIA Bloc 2 | Data architecture of a payment platform | Published | Required |
@@ -20,7 +20,7 @@ This index should be updated whenever a new public artifact is added.
 | Repo | Related blocks |
 |---|---|
 | banking-dataops-monitoring | Bloc 1, Bloc 6 |
-| fraud-mlops-control-tower | Bloc 3, Bloc 5, Bloc 6 |
+| fraud-mlops-control-tower | Bloc 3, Bloc 6 |
 | database-migration-quality-lab | Bloc 1, Bloc 6 |
 | secure-wealth-rag-assistant | Bloc 4, Bloc 6 |
 | reviewpulse-pipeline (currently private) | AIA Bloc 4 |
